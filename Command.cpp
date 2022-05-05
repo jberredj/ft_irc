@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.cpp                                        :+:      :+:    :+:   */
+/*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/04/30 15:33:11 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/05 21:33:51 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.hpp"
+#include "Command.hpp"
 
 Command::Command(std::string command_line) : 
     _prefix(""), _command(""), _trailer(""), _command_line(command_line)

@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/05 18:24:18 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/05 21:22:30 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <deque>
 #include <map>
-#include "command.hpp"
+#include <algorithm>
+#include "Command.hpp"
 
 class Command;
 
@@ -32,11 +34,7 @@ enum UStatus
 class User
 {
     public:
-        User(void) : command_buf(""), command_queue(), response_queue(), cmd(), _status(),
-		_username(""), _nickname(""), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
-		_prevnick(""), _channel("")
-		{std::cout << "user constructor called" << std::endl;}
-		User (std::string username, std::string nickname, std::string mode) : _username(username), _nickname(nickname), _mode(mode) {}
+        User(void);
         User(User const & src)
 		{
 			*this = src;
@@ -87,15 +85,15 @@ class User
 		// void	setAwaymsg(std::string awaymsg) {this->_awaymsg = awaymsg;}
 		// void	setDeletemsg(std::string deletemsg) {this->_deletmsg = deletemsg;}
 
-		void applyCmd(); // fn pour le traitement des commandes dans la queue;
+		void apply(); // fn pour le traitement des commandes dans la queue;
         //fonction pour recevoir le msg de server;
         void addResponse(std::string response); // fn pour remplir le tableau des responses;
-    
+	
     private:
         std::string command_buf;
         std::queue<Command *> command_queue;
         std::queue<std::string>response_queue;
-		std::map<std::string, void (*)(Command *)> cmd;
+		std::map<std::string, void (*)(Command*)> cmd;
 		// time_t last_ping;
 		
         //les infos sur USER:
