@@ -6,17 +6,18 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/01 18:26:26 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/05 15:07:19 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_HPP
-#define COMMAND_HPP
-
+# define COMMAND_HPP
 #include <iostream>
 #include <string>
 #include <vector>
+#include "User.hpp"
 
+class User;
 
 class Command
 {
@@ -29,9 +30,9 @@ class Command
 
 	public:
 		Command() {}
-		Command( std::string command_line );
-		Command( Command const & src): _command_line(src._command_line) {}
-		Command &operator= (Command  const & rhs )
+		Command(std::string command_line);
+		Command(Command const & src): _command_line(src._command_line) {}
+		Command & operator = (Command const & rhs)
 		{
 			_command_line = rhs._command_line;
 			return (*this);
