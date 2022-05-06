@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/05 21:22:30 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/06 21:24:19 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ class User
 	
     private:
         std::string command_buf;
-        std::queue<Command *> command_queue;
+        std::queue<Command> command_queue;
         std::queue<std::string>response_queue;
-		std::map<std::string, void (*)(Command*)> cmd;
+		std::map<std::string, void (*)(Command*)> cmd_map;
 		// time_t last_ping;
 		
         //les infos sur USER:

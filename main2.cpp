@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:39:44 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/05 20:32:51 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/06 21:35:46 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int     main(int ac, char **av)
 	User		user;
 	std::cout << user << std::endl;
 	std::cout << cmd << std::endl;
+
+	user.apply();
 
 	return 0;
 }

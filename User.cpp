@@ -20,29 +20,29 @@ void JOIN(Command *command){(void)command;}
 void INVITE(Command *command){(void)command;}
 void BAN(Command *command){(void)command;}
 
-User::User(void) : command_buf(""), command_queue(), response_queue(), cmd(), _status(REGISTER),
+User::User(void) : command_buf(""), command_queue(), response_queue(), cmd_map(), _status(REGISTER),
 		_username("daria"), _nickname("kukuruzka"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
 		_prevnick(""), _channel("")
 {
-	cmd["WHOIS"] = WHOIS;
-	cmd["USERS"] = USERS;
-	cmd["USER"] = USER;
-	cmd["TOPIC"] = TOPIC;
-	cmd["PRIVMSG"] = PRIVMSG;
-	cmd["PONG"] = PONG;
-	cmd["PPING"] = PING;
-	cmd["PASS"] = PASS;
-	cmd["PART"] = PART;
-	cmd["OPER"] = OPER;
-	cmd["NICK"] = NICK;
-	cmd["NAMES"] = NAMES;
-	cmd["MODE"] = MODE;
-	cmd["LIST"] = LIST;
-	cmd["KILL"] = KILL;
-	cmd["KICK"] = KICK;
-	cmd["JOIN"] = JOIN;
-	cmd["INVITE"] = INVITE;
-	cmd["PBAN"] = BAN;
+	cmd_map["WHOIS"] = WHOIS;
+	cmd_map["USERS"] = USERS;
+	cmd_map["USER"] = USER;
+	cmd_map["TOPIC"] = TOPIC;
+	cmd_map["PRIVMSG"] = PRIVMSG;
+	cmd_map["PONG"] = PONG;
+	cmd_map["PPING"] = PING;
+	cmd_map["PASS"] = PASS;
+	cmd_map["PART"] = PART;
+	cmd_map["OPER"] = OPER;
+	cmd_map["NICK"] = NICK;
+	cmd_map["NAMES"] = NAMES;
+	cmd_map["MODE"] = MODE;
+	cmd_map["LIST"] = LIST;
+	cmd_map["KILL"] = KILL;
+	cmd_map["KICK"] = KICK;
+	cmd_map["JOIN"] = JOIN;
+	cmd_map["INVITE"] = INVITE;
+	cmd_map["PBAN"] = BAN;
 	std::cout << "user constructor called" << std::endl;
 }
 
@@ -57,7 +57,16 @@ void    User::apply()
 
 	// if (status == DELETE)
 	// 	return ;
-	// std::queue<Command *> trash = std::queue<Command *>();
+	while (1)
+	{	
+		Command cmd = command_queue.front();
+		command_queue.pop();
+		if (cmd_map.count(cmd.getCommand()))
+			cmd_map[cmd.getCommand()];
+		else
+			std::cout << "Uknown command: " << cmd.getCommand() << std::endl;
+		apply();
+	}	
 	// std::queue<Command *>::iterator it = command_queue.begin();
 	// for ()
 
