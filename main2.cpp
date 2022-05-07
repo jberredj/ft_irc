@@ -6,24 +6,31 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:39:44 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/06 21:35:46 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:51:01 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
 #include "User.hpp"
 
 int     main(int ac, char **av)
 {
-	std::string line;
-	line = std::string(av[1]);
-	(void)ac;
+	std::string line1;
+	std::string line2;
 
-	Command     cmd(line);
+	if (ac < 3)
+		return 1;
+	line1 = std::string(av[1]);
+	line2 = std::string(av[2]);
+	
 	User		user;
+	Command     cmd(&user, line1);
+	Command     cmd1(&user, line2);
+	
 	std::cout << user << std::endl;
 	std::cout << cmd << std::endl;
-
+	std::cout << cmd1 << std::endl;
+	user.addToqueue(cmd);
+	user.addToqueue(cmd1);
 	user.apply();
 
 	return 0;

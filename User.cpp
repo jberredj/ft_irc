@@ -51,33 +51,28 @@ void    User::addResponse(std::string response)
     response_queue.push(response);
 }
 
+void 	User::addToqueue(Command command)
+{
+	command_queue.push(command);
+}
+
 void    User::apply()
 {
-	// UStatus status = _status;
+	Command cmd;
 
-	// if (status == DELETE)
-	// 	return ;
-	while (1)
+	while (!command_queue.empty())
 	{	
-		Command cmd = command_queue.front();
+		cmd = command_queue.front();
+		std::cout << cmd.getCommand() << std::endl;
 		command_queue.pop();
 		if (cmd_map.count(cmd.getCommand()))
-			cmd_map[cmd.getCommand()];
+		{
+			std::cout << cmd.getCommand() << std::endl;
+			cmd_map[cmd.getCommand()];		
+		}
 		else
 			std::cout << "Uknown command: " << cmd.getCommand() << std::endl;
-		apply();
 	}	
-	// std::queue<Command *>::iterator it = command_queue.begin();
-	// for ()
-
-	// std::string	cmd = trash.front();
-	// trash.pop();
-
-	//gestion d'erreur
-	//if (success)
-		//exec cmd
-	//else
-		//trash.push(cmd);
 }
 
 std::ostream & operator<<(std::ostream & o, User const & rhs)

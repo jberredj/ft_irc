@@ -6,14 +6,14 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/05 21:33:51 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:18:22 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
 
-Command::Command(std::string command_line) : 
-    _prefix(""), _command(""), _trailer(""), _command_line(command_line)
+Command::Command(User *user, std::string command_line) : 
+	_prefix(""), _command(""), _trailer(""), _command_line(command_line), _user(user)
 {
 	std::string delimiter(" ");
 	size_t  	position = 0;
@@ -52,6 +52,7 @@ Command::Command(std::string command_line) :
 
 	// 3. get parameters if any
 	_parameters.erase(_parameters.begin());
+	
 }
 
 std::ostream &	operator << (std::ostream & o, Command const & rhs)

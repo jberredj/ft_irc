@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.hpp                                        :+:      :+:    :+:   */
+/*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/05 15:07:19 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:14:03 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "User.hpp"
+// #include "User.hpp"
 
 class User;
 
@@ -28,9 +28,11 @@ class Command
 		std::string 				_trailer;
 		std::string 				_command_line;
 
+		User *_user;
+
 	public:
 		Command() {}
-		Command(std::string command_line);
+		Command(User *user, std::string command_line);
 		Command(Command const & src): _command_line(src._command_line) {}
 		Command & operator = (Command const & rhs)
 		{
@@ -43,6 +45,8 @@ class Command
 		std::string 				getCommand() const { return _command; }
 		std::vector<std::string> 	getParameters() const { return _parameters; }
 		std::string 				getTrailer() const{ return _trailer; }
+		User 						&getUser() const {return *_user;}
+		
 		void						print_prm(std::vector<std::string> _parameters );
 
 };

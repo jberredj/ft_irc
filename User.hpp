@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/06 21:24:19 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:46:02 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 #include <map>
 #include <algorithm>
 #include "Command.hpp"
-
-class Command;
 
 enum UStatus
 	{
@@ -85,6 +83,7 @@ class User
 		// void	setAwaymsg(std::string awaymsg) {this->_awaymsg = awaymsg;}
 		// void	setDeletemsg(std::string deletemsg) {this->_deletmsg = deletemsg;}
 
+		void addToqueue(Command command);
 		void apply(); // fn pour le traitement des commandes dans la queue;
         //fonction pour recevoir le msg de server;
         void addResponse(std::string response); // fn pour remplir le tableau des responses;
