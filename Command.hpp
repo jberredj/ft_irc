@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/07 17:14:03 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/09 21:34:29 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class User;
 
 class Command
 {
-	private:
+	public:
 		std::string 				_prefix;
 		std::string 				_command;
 		std::vector<std::string> 	_parameters;
@@ -33,10 +33,22 @@ class Command
 	public:
 		Command() {}
 		Command(User *user, std::string command_line);
-		Command(Command const & src): _command_line(src._command_line) {}
+		Command(Command const & src)
+		: 	_prefix(src._prefix),
+			_command(src._command),
+			_parameters(src._parameters),
+			_trailer(src._trailer),
+			_command_line(src._command_line) {
+				std::cout << "Copy constructor called " << std::endl;
+			}
 		Command & operator = (Command const & rhs)
 		{
+			std::cout << "Command copy constructor called " << std::endl;
 			_command_line = rhs._command_line;
+			_prefix = rhs._prefix;
+			_command = rhs._command;
+			_parameters = rhs._parameters;
+			_trailer = rhs._trailer;
 			return (*this);
 		}
 		~Command() {}

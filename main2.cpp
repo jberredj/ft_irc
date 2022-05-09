@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:39:44 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/07 17:51:01 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/09 21:57:04 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int     main(int ac, char **av)
 {
 	std::string line1;
 	std::string line2;
-
-	if (ac < 3)
-		return 1;
+	(void)ac;
 	line1 = std::string(av[1]);
 	line2 = std::string(av[2]);
 	
@@ -31,6 +29,8 @@ int     main(int ac, char **av)
 	std::cout << cmd1 << std::endl;
 	user.addToqueue(cmd);
 	user.addToqueue(cmd1);
+	// std::cout << cmd.getCommand() << std::endl;
+	// std::cout << cmd1.getCommand() << std::endl;
 	user.apply();
 
 	return 0;

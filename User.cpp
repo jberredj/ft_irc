@@ -1,24 +1,24 @@
 #include "User.hpp"
 
-void WHOIS(Command *command){(void)command;}
-void USERS(Command *command){(void)command;}
-void USER(Command *command){(void)command;}
-void TOPIC(Command *command){(void)command;}
-void PRIVMSG(Command *command){(void)command;}
-void PONG(Command *command){(void)command;}
-void PING(Command *command){(void)command;}
-void PASS(Command *command){(void)command;}
-void PART(Command *command){(void)command;}
-void OPER(Command *command){(void)command;}
-void NICK(Command *command){(void)command;}
-void NAMES(Command *command){(void)command;}
-void MODE(Command *command){(void)command;}
-void LIST(Command *command){(void)command;}
-void KILL(Command *command){(void)command;}
-void KICK(Command *command){(void)command;}
-void JOIN(Command *command){(void)command;}
-void INVITE(Command *command){(void)command;}
-void BAN(Command *command){(void)command;}
+void WHOIS(Command &command){(void)command;}
+void USERS(Command &command){(void)command;}
+void USER(Command &command){(void)command;}
+void TOPIC(Command &command){(void)command;}
+void PRIVMSG(Command &command){(void)command;}
+void PONG(Command &command){(void)command;}
+void PING(Command &command){(void)command;}
+void PASS(Command &command){(void)command;}
+void PART(Command &command){(void)command;}
+void OPER(Command &command){(void)command;}
+void NICK(Command &command){(void)command;}
+void NAMES(Command &command){(void)command;}
+void MODE(Command &command){(void)command;}
+void LIST(Command &command){(void)command;}
+void KILL(Command &command){(void)command;}
+void KICK(Command &command){(void)command;}
+void JOIN(Command &command){(void)command;}
+void INVITE(Command &command){(void)command;}
+void BAN(Command &command){(void)command;}
 
 User::User(void) : command_buf(""), command_queue(), response_queue(), cmd_map(), _status(REGISTER),
 		_username("daria"), _nickname("kukuruzka"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
@@ -51,25 +51,19 @@ void    User::addResponse(std::string response)
     response_queue.push(response);
 }
 
-void 	User::addToqueue(Command command)
+void 	User::addToqueue(Command const & command)
 {
 	command_queue.push(command);
 }
 
 void    User::apply()
 {
-	Command cmd;
-
 	while (!command_queue.empty())
 	{	
-		cmd = command_queue.front();
-		std::cout << cmd.getCommand() << std::endl;
+		Command &cmd = command_queue.front();
 		command_queue.pop();
-		if (cmd_map.count(cmd.getCommand()))
-		{
-			std::cout << cmd.getCommand() << std::endl;
-			cmd_map[cmd.getCommand()];		
-		}
+		if (cmd_map.count(cmd.getCommand()) > 0)
+			cmd_map[cmd.getCommand()](cmd);
 		else
 			std::cout << "Uknown command: " << cmd.getCommand() << std::endl;
 	}	
