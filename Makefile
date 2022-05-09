@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/03 23:03:14 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/09 18:32:48 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ TYPES				=   Nullptr_t.cpp
 TYPES_SRCS			=   $(addprefix srcs/types/, $(TYPES))
 TYPES_OBJS			=   $(addprefix objs/types., $(subst /,., $(TYPES:.cpp=.o)))
 
-MAIN				=   main.cpp IrcServ.cpp
+MAIN				=   main.cpp IrcServ.cpp User.cpp Logger.cpp
 MAIN_SRCS			=   $(addprefix srcs/, $(MAIN))
 MAIN_OBJS			=   $(addprefix objs/, $(subst /,., $(MAIN:.cpp=.o)))
 
@@ -47,7 +47,7 @@ BLUE			=\033[0;34m
 NC				=\033[0m
 LIGHT_PURPLE	=\033[1;35m
 GREEN			=\033[0;32m
-RED				=\033[0;31)m
+RED				=\033[0;31m
 
 ###############################################################################
 ## 							Mandatory recipes								 ##

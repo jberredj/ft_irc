@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/03 23:49:29 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/09 19:56:49 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@
 #include <exception>
 #include <vector>
 #include <algorithm>
+#include <sys/fcntl.h>
+#include <sstream>
+#include "Logger.hpp"
 
 bool IrcServ::_SigInt = false;
 
-IrcServ::IrcServ(void) {} // Default constructor is private and unused
+IrcServ::IrcServ(void)
+{
+    _prepare_pollfds();
+}
 
 void	IrcServ::_SigIntHandler(int signum)
 {
@@ -39,32 +45,36 @@ int IrcServ::_CreateServerSocket(char *port)
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(atoi(port));
-	std::cout << addr.sin_port << " " << atoi(port) << " " << port << std::endl;
+    Logger::info("Requested port: " + std::string(port));
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     int bindResult = bind(server_socket, (struct sockaddr *)&addr, sizeof(addr));
     if (bindResult == -1)
-    {
-		// throw something
-        // perror("bindResult");
-		throw(std::runtime_error("bind failed"));
-    }
+		throw(std::runtime_error("bind() failed"));
 
     int listenResult = listen(server_socket, 5);
     if (listenResult == -1)
-    {
-		throw(std::runtime_error("listen failed"));
-		// throw something
-        // perror("listenResult");
-    }
-    std::cout << "Server started" << std::endl;
+		throw(std::runtime_error("listen() failed"));
+
+    Logger::info("Server started successfully on port: " + std::string(port));
     return server_socket;
 }
 
-IrcServ::IrcServ(int ac, char **av) 
+void IrcServ::_prepare_pollfds(void)
+{
+    struct pollfd new_socket;
+    new_socket.fd = 0;
+    new_socket.events = POLLIN | POLLPRI;
+    new_socket.revents = 0;
+    pollfds.push_back(new_socket);
+}
+
+IrcServ::IrcServ(int ac, char **av)
 {
 	signal(SIGINT, IrcServ::_SigIntHandler);
-	server_socket = _CreateServerSocket((char *)av[1]);
+    _prepare_pollfds();
+	_server_socket = _CreateServerSocket((char *)av[1]);
+    pollfds[0].fd = _server_socket;
 	(void)ac;
 	(void)av;
 	_running = true;
@@ -85,30 +95,51 @@ IrcServ	&IrcServ::operator=(const IrcServ &rhs)
 	return *this;
 }
 
-#define MAX_CLIENTS 10
+int			IrcServ::accept_connection(int socketfd)
+{
+    struct sockaddr_in cliaddr;
+    socklen_t addrlen = sizeof(cliaddr);
+    int client_socket = accept(socketfd, (struct sockaddr *)&cliaddr, &addrlen);
+
+    if (client_socket == -1)
+    {
+        Logger::error("Fail accepting connection");
+        return -1;
+    }
+    int flags = fcntl(client_socket, F_GETFL);
+    if (flags == -1)
+    {
+        Logger::error("Could not get socket flags");
+        return -1;
+    }
+    if (fcntl(client_socket, F_SETFL, flags | O_NONBLOCK) == -1)
+    {
+        Logger::error("Could not set socket flags");
+        return -1;
+    }
+    std::ostringstream socket_nbr;
+    socket_nbr << client_socket;
+    Logger::debug("New connection from " + std::string(inet_ntoa(cliaddr.sin_addr)) + " on socket : " + socket_nbr.str());
+    User new_user(inet_ntoa(cliaddr.sin_addr));
+    _users.insert(std::make_pair(client_socket, new_user));
+    return client_socket;
+}
+
+
+
 
 void	IrcServ::run(void)
 {
-    std::vector<struct pollfd> pollfds;
-    struct pollfd new_socket;
-    new_socket.fd = server_socket;
-    new_socket.events = POLLIN | POLLPRI;;
-    pollfds.push_back(new_socket);
-    int useClient = 0;
-	
+	struct pollfd new_socket;
 	while (_running)
 	{
 		// printf("useClient => %d\n", useClient);
-        int pollResult = poll(static_cast<struct pollfd*>(&(*pollfds.begin())), pollfds.size() + 1, 5000);
+        int pollResult = poll(static_cast<struct pollfd*>(&(*pollfds.begin())), pollfds.size(), 5000);
         if (pollResult > 0)
         {
             if (pollfds[0].revents & POLLIN)
             {
-                struct sockaddr_in cliaddr;
-                socklen_t addrlen = sizeof(cliaddr);
-                
-                int client_socket = accept(server_socket, (struct sockaddr *)&cliaddr, &addrlen);
-                std::cout << "accept success " << inet_ntoa(cliaddr.sin_addr) << " fd: " << client_socket << std::endl;
+                int client_socket = accept_connection(_server_socket);
                 new_socket.fd = client_socket;
                 new_socket.events = POLLIN | POLLPRI;
                 pollfds.push_back(new_socket);
@@ -122,14 +153,17 @@ void	IrcServ::run(void)
 					int bufSize = read((*it).fd, buf, 512 - 1);
                     if (bufSize <= 0)
                     {
+                        std::ostringstream socket_nbr;
+
+                        socket_nbr << (*it).fd;
                         close((*it).fd);
                         to_close.push_back(it);
-                        std::cout << "close connection" << std::endl;
+                        Logger::debug("Close connection on socket : " + socket_nbr.str());
                     }
                     else
                     {
                         buf[bufSize] = '\0';
-                        std::cout << "From client: " << buf << std::endl;
+                        Logger::info("From client: " + std::string(buf));
                     }
                 }
             }
@@ -142,8 +176,9 @@ void	IrcServ::run(void)
 		if (IrcServ::_SigInt)
 		{
 			_running = false;
-			std::cout << "End by SIGINT" << std::endl;
+            std::cout << "\b\b";
+			Logger::warn("Server terminated by Ctrl+C");
 		}
 	}
-	close(server_socket);
+	close(_server_socket);
 }

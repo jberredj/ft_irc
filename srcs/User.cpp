@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   User.hpp                                           :+:      :+:    :+:   */
+/*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/27 12:19:45 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/09 14:51:12 by jberredj         ###   ########.fr       */
+/*   Created: 2022/05/09 11:03:05 by jberredj          #+#    #+#             */
+/*   Updated: 2022/05/09 19:59:12 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef USER_HPP
-# define USER_HPP
-# include <string>
+#include "User.hpp"
 
-class User
+User::User(void):
+_address("Unknown")
 {
-private:
-	std::string	_address;
-public:
-				User(void);
-				User(std::string address);
-				User(const User &src);
-				~User(void);
+}
 
-	User		&operator=(const User &rhs);
-};
+User::User(std::string address):
+_address(address)
+{
+}
 
-#endif
+User::User(const User &src)
+{
+	(void)src;
+}
+
+User::~User(void)
+{
+}
+
+User	&User::operator=(const User &rhs)
+{
+
+	(void)rhs;
+	return *this;
+}
