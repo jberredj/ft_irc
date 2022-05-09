@@ -7,7 +7,7 @@ void TOPIC(Command &command){(void)command;}
 void PRIVMSG(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
 void PING(Command &command){(void)command;}
-void PASS(Command &command){(void)command;}
+void PASS(Command &command){}
 void PART(Command &command){(void)command;}
 void OPER(Command &command){(void)command;}
 void NICK(Command &command){(void)command;}
@@ -42,7 +42,7 @@ User::User(void) : command_buf(""), command_queue(), response_queue(), cmd_map()
 	cmd_map["KICK"] = KICK;
 	cmd_map["JOIN"] = JOIN;
 	cmd_map["INVITE"] = INVITE;
-	cmd_map["PBAN"] = BAN;
+	cmd_map["BAN"] = BAN;
 	std::cout << "user constructor called" << std::endl;
 }
 
