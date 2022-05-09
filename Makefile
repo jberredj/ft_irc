@@ -6,13 +6,13 @@
 #    By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/30 15:10:09 by ddiakova          #+#    #+#              #
-#    Updated: 2022/05/07 15:51:16 by ddiakova         ###   ########.fr        #
+#    Updated: 2022/05/09 22:07:13 by ddiakova         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= parsing
 
-SRCS			= main2.cpp \
+SRCS			= main1.cpp \
 					Command.cpp	\
 					User.cpp
 
