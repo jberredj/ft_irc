@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:27:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/09 19:59:58 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:02:40 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,28 @@
 #include "types/Nullptr_t.hpp"
 #include <fstream>
 
-// Because this class contain only static function, all of these are private
-Logger::Logger(void)
-{
-}
-
-Logger::Logger(const Logger &src)
-{
-	(void)src;
-}
-
-Logger::~Logger(void)
-{
-	destroy();
-}
-
-Logger	&Logger::operator=(const Logger &rhs)
-{
-
-	(void)rhs;
-	return *this;
-}
+/* Because this class contain only static function, all of these are private*/
+/**/Logger::Logger(void)
+/**/{
+/**/}
+/**/
+/**/Logger::Logger(const Logger &src)
+/**/{
+/**/	(void)src;
+/**/}
+/**/
+/**/Logger::~Logger(void)
+/**/{
+/**/	destroy();
+/**/}
+/**/
+/**/Logger	&Logger::operator=(const Logger &rhs)
+/**/{
+/**/
+/**/	(void)rhs;
+/**/	return *this;
+/**/}
+/***************************************************************************/
 
 void	Logger::_log(short level, std::string message)
 {
