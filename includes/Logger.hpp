@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 11:24:14 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/09 19:11:55 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/10 09:25:18 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ private:
 										~Logger(void);
 	Logger								&operator=(const Logger &rhs);
 public:
-	enum level{
+	enum level {
 		DEBUG,
 		INFO,
 		WARN,
