@@ -3,6 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
+<<<<<<< HEAD
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
@@ -147,3 +148,46 @@ norm:
 	norminette $(SRCS) $(addprefix $(INC_DIR)/, $(filter-out mlx.h, $(HEADERS))) \
 	; if [ "$$?" -ne "0" ]; then printf "$(RED)NORM ERROR$(NC)\n"; \
 	else printf "$(GREEN)NORM OK$(NC)\n";fi
+=======
+#    By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/04/30 15:10:09 by ddiakova          #+#    #+#              #
+#    Updated: 2022/05/09 23:38:54 by ddiakova         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME 			= parsing
+
+SRCS			= main2.cpp \
+					Command.cpp	\
+					User.cpp \
+					Pass.cpp
+
+HEADERS			= User.hpp		
+				
+CC 				= c++
+
+CFLAGS 			= -g -Wall -Werror -Wextra -std=c++98
+
+RM 				= rm -rf
+
+OBJS            = $(SRCS:%.cpp=%.o)
+
+all : $(NAME)
+
+$(NAME):    $(OBJS) 
+			$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+clean:				
+				$(RM) $(OBJS)
+                                
+fclean:         clean 
+				$(RM) $(NAME)
+
+re:             fclean all
+
+%.o: %.cpp
+		$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY: 		all clean fclean re
+>>>>>>> user
