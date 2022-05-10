@@ -5,8 +5,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Mon May  9 18:33:31 2022
+# Make data base, printed on Tue May 10 10:45:11 2022
 
 # Variables
 
@@ -47,7 +48,6 @@ MAKEFILE_LIST :=  Makefile
 # 'override' directive
 GNUMAKEFLAGS := 
 # makefile (from 'Makefile', line 22)
- 
 OBJ_DIR = objs/
 # makefile (from 'Makefile', line 17)
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98 $(OPTI)
@@ -152,6 +152,7 @@ NC = \033[0m
 .VARIABLES := 
 # automatic
 *F = $(notdir $*)
+ 
 # makefile (from 'Makefile', line 50)
 RED = \033[0;31m
 # makefile
@@ -227,7 +228,7 @@ MOTD_SHOWN = update-motd
 
 objs/main.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-09 18:32:51.1186732
+#  Last modified 2022-05-10 10:45:00.8785413
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 109):
@@ -245,13 +246,13 @@ all: ircserv
 
 srcs/Logger.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-09 18:32:28.7786732
+#  Last modified 2022-05-10 10:39:56.3385413
 #  File has been updated.
 #  Successfully updated.
 
 srcs/types/Nullptr_t.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-07 16:08:58.1177472
+#  Last modified 2022-05-10 10:39:56.3385413
 #  File has been updated.
 #  Successfully updated.
 
@@ -264,7 +265,7 @@ srcs/types/Nullptr_t.cpp:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-09 18:32:48.2286732
+#  Last modified 2022-05-10 10:44:58.4085413
 #  File has been updated.
 #  Successfully updated.
 
@@ -282,7 +283,7 @@ ircserv: objs/ objs/types.Nullptr_t.o objs/main.o objs/IrcServ.o objs/User.o obj
 
 objs/:
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-09 18:32:51.7086732
+#  Last modified 2022-05-10 10:45:00.8785413
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 130):
@@ -298,7 +299,7 @@ libft.a:
 
 srcs/IrcServ.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-09 13:00:19.7886732
+#  Last modified 2022-05-10 10:39:56.3385413
 #  File has been updated.
 #  Successfully updated.
 
@@ -324,17 +325,15 @@ fclean: clean
 
 objs/User.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
 #  Implicit rule search has not been done.
- 
-#  Last modified 2022-05-09 18:32:51.7086732
-#  File has been updated.
-#  Successfully updated.
+#  Modification time never checked.
+#  File has not been updated.
 #  recipe to execute (from 'Makefile', line 109):
 	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
 	$(COMPILE)
 
 srcs/main.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-09 18:22:30.4486732
+#  Last modified 2022-05-10 10:39:56.3385413
 #  File has been updated.
 #  Successfully updated.
 
@@ -370,6 +369,7 @@ libmlx.a:
 	make -C libs/minilibx-linux
 	cp libs/minilibx-linux/libmlx.a .
 
+ 
 # makefile (from 'Makefile', line 126)
 debug: CXXFLAGS = -std=c++98 -g
 debug: all
@@ -395,35 +395,15 @@ clean:
 
 objs/Logger.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := objs/Logger.o
-# automatic
-# % := 
-# automatic
-# * := 
-# automatic
-# + := srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
-# automatic
-# | := 
-# automatic
-# < := srcs/main.cpp
-# automatic
-# ^ := srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
-# automatic
-# ? := srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=22/85=26%
+#  Modification time never checked.
+#  File has not been updated.
 #  recipe to execute (from 'Makefile', line 109):
 	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
 	$(COMPILE)
 
 objs/types.Nullptr_t.o: srcs/types/Nullptr_t.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-09 18:32:50.9186732
+#  Last modified 2022-05-10 10:45:00.5785413
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 104):
@@ -445,15 +425,34 @@ ffclean: fclean
 
 srcs/User.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-09 14:51:05.7786732
+#  Last modified 2022-05-10 10:40:11.2485413
 #  File has been updated.
 #  Successfully updated.
 
 objs/IrcServ.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-09 18:32:51.5586732
+#  Implicit/static pattern stem: ''
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := objs/IrcServ.o
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
+# automatic
+# | := 
+# automatic
+# < := srcs/main.cpp
+# automatic
+# ^ := srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
+# automatic
+# ? := srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger.cpp
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=22/85=26%
 #  recipe to execute (from 'Makefile', line 109):
 	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
 	$(COMPILE)
@@ -473,12 +472,12 @@ valgrind:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 39 / storage = 383 B / avg = 9 B
-# current buf: size = 8162 B / used = 383 B / count = 39 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 39 / storage = 380 B / avg = 9 B
+# current buf: size = 8162 B / used = 380 B / count = 39 / avg = 9 B
 
 # strcache performance: lookups = 98 / hit rate = 60%
 # hash-table stats:
 # Load=39/8192=0%, Rehash=0, Collisions=1/98=1%
-# Finished Make data base on Mon May  9 18:33:31 2022
+# Finished Make data base on Tue May 10 10:45:11 2022
 
  

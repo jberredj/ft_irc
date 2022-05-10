@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:27:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/10 09:10:12 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/10 11:31:58 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ void	Logger::_log(short level, std::string message)
 			*_output[i] << " - " << message << std::endl;
 		}
 	}
+}
+
+void	Logger::trace(std::string message)
+{
+	if (_init)
+		Logger::_log(TRACE, message);
 }
 
 void	Logger::debug(std::string message)
@@ -133,5 +139,5 @@ std::vector<std::ostream *>	Logger::_output;
 std::map<int, short> Logger::_output_level;
 short Logger::_level = Logger::INFO;
 bool Logger::_init = false;
-const std::string Logger::_print_level[5] = {"[DEBUG]", "[INFO]", "[WARNING]", "[ERROR]", "[FATAL]"};
-const std::string Logger::_color_level[5] = {"\033[0;94m", "", "\033[0;33m", "\033[0;31m", "\033[1;101m"};
+const std::string Logger::_print_level[6] = {"[TRACE]", "[DEBUG]", "[INFO]", "[WARNING]", "[ERROR]", "[FATAL]"};
+const std::string Logger::_color_level[6] = {"\033[0;35m", "\033[0;94m", "", "\033[0;33m", "\033[0;31m", "\033[1;101m"};

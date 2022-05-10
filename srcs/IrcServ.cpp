@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/09 19:56:49 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:46:48 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ int			IrcServ::accept_connection(int socketfd)
     std::ostringstream socket_nbr;
     socket_nbr << client_socket;
     Logger::debug("New connection from " + std::string(inet_ntoa(cliaddr.sin_addr)) + " on socket : " + socket_nbr.str());
-    User new_user(inet_ntoa(cliaddr.sin_addr));
+    // User new_user(inet_ntoa(cliaddr.sin_addr));
+    User new_user;
     _users.insert(std::make_pair(client_socket, new_user));
     return client_socket;
 }

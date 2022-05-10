@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 11:24:14 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/10 09:25:18 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/10 11:31:02 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ private:
 	static short						_level;
 	static std::vector<std::ostream*>	_output;
 	static std::map<int, short>			_output_level;
-	static const std::string			_print_level[5];
-	static const std::string			_color_level[5];
+	static const std::string			_print_level[6];
+	static const std::string			_color_level[6];
 	static bool							_init;
 
 	static void							_log(short level, std::string message);
@@ -40,12 +40,14 @@ private:
 	Logger								&operator=(const Logger &rhs);
 public:
 	enum level {
+		TRACE,
 		DEBUG,
 		INFO,
 		WARN,
 		ERROR,
 		FATAL
 	};
+	static void							trace(std::string message);
 	static void							debug(std::string message);
 	static void							info(std::string message);
 	static void							warn(std::string message);
