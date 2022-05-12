@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/10 10:44:58 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/13 00:17:40 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ TYPES				=   Nullptr_t.cpp
 TYPES_SRCS			=   $(addprefix srcs/types/, $(TYPES))
 TYPES_OBJS			=   $(addprefix objs/types., $(subst /,., $(TYPES:.cpp=.o)))
 
-MAIN				=   main.cpp IrcServ.cpp User.cpp Logger.cpp
+MAIN				=   main.cpp IrcServ.cpp User.cpp Logger/Logger.cpp Logger/Output.cpp
 MAIN_SRCS			=   $(addprefix srcs/, $(MAIN))
 MAIN_OBJS			=   $(addprefix objs/, $(subst /,., $(MAIN:.cpp=.o)))
 

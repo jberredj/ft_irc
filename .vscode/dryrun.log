@@ -1,0 +1,7 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/kojiki/42/local/ft_irc'
+printf "\033[0;34mLinking \033[1;35mircserv \033[0;34mexecutable\033[0m\n"
+c++ -I includes objs/types.Nullptr_t.o objs/main.o objs/IrcServ.o objs/User.o objs/Logger.Logger.o objs/Logger.Output.o    -Wall -Werror -Wextra -std=c++98 -O3 -o ircserv
+printf "\033[0;32mCompleted\033[0m\n"
+make: Leaving directory '/home/kojiki/42/local/ft_irc'
+ 

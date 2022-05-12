@@ -6,11 +6,12 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:38:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/12 12:44:43 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:27:54 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Logger.hpp"
+#include "types/Nullptr_t.hpp"
+#include "Logger/_Logger.hpp"
 #include "_Output.hpp"
 #include <fstream>
 #include <sstream>
@@ -22,6 +23,7 @@
 
 Logger::Logger(void): _canLog(false)
 {
+	_current_level = Output::INTERNAL;
 	std::time_t t = std::time(0);
    	_logCreateTime = *std::localtime(&t);
 	_logTime();
@@ -64,17 +66,20 @@ void	Logger::_logLevel(Output::level level)
 {
 	if (_canLog)
 	{
-		for (std::vector<Output>::iterator	it = _outputs.begin();
+		for (std::vector<Output *>::iterator	it = _outputs.begin();
 			it != _outputs.end(); it++
 		)
 		{
-			_Output	*IOutput = reinterpret_cast<_Output *>(&(*it));
-			if (&(*IOutput).getDest() == &std::cout)
-				*it << _color_level[level];
-			*it << _print_level[level];
-			if (&(*IOutput).getDest() == &std::cout)
-				*it << "\033[0m";
-			*it << " - ";
+			if (_current_level >= (*it)->getMinLevel() && _current_level <= (*it)->getMaxLevel())
+			{
+				_Output	*IOutput = reinterpret_cast<_Output *>((*it));
+				if (&(*IOutput).getDest() == &std::cout)
+					*(*it) << _color_level[level];
+				*(*it) << _print_level[level];
+				if (&(*IOutput).getDest() == &std::cout)
+					*(*it) << "\033[0m";
+				*(*it) << " - ";
+			}
 		}
 	}
 	else
@@ -86,6 +91,7 @@ void	Logger::_logLevel(Output::level level)
 
 Logger::Logger(Output::level level): _canLog(true)
 {
+	_current_level = level;
 	if (!_validLevel(level))
 		return ;
 	std::time_t t = std::time(0);
@@ -96,94 +102,98 @@ Logger::Logger(Output::level level): _canLog(true)
 Logger::~Logger(void)
 {
 	if(_canLog)
-		for (std::vector<Output>::iterator	it = _outputs.begin();
+	{
+		for (std::vector<Output *>::iterator	it = _outputs.begin();
 			it != _outputs.end(); it++
 		)
-			*it << std::endl;
+			if (_current_level >= (*it)->getMinLevel() && _current_level <= (*it)->getMaxLevel())
+				*(*it) << std::endl;
+	}
 	else
 		std::cerr << std::endl;
 }
 
-bool	Logger::_nameFinder(Output output)
+bool	Logger::_nameFinder(Output *output)
 {
-	if (output.getName() == _nameToFind)
+	if (output->getName() == _nameToFind)
 		return true;
 	return false;
 }
 
-Output	&Logger::_nameAllreadyInUse(std::string name)
+Output	*Logger::_nameAllreadyInUse(std::string name)
 {
 	_nameToFind = name;
-	std::vector<Output>::iterator it = std::find_if(_outputs.begin(),
+	std::vector<Output *>::iterator it = std::find_if(_outputs.begin(),
 		_outputs.end(), _nameFinder
 	);
 	if (it != _outputs.end())
 		return *it;
-	return _defaultOutput;
+	return ft::null_ptr;
 }
 
-bool	Logger::_streamFinder(Output output)
+bool	Logger::_streamFinder(Output *output)
 {
-	_Output	*IOutput = reinterpret_cast<_Output *>(&output);
+	_Output	*IOutput = reinterpret_cast<_Output *>(output);
 	if (&(IOutput->getDest()) == _streamToFind)
 		return true;
 	return false;
 }
 
-Output	&Logger::_streamAllreadyInUse(std::ostream *stream)
+Output	*Logger::_streamAllreadyInUse(std::ostream *stream)
 {
 	_streamToFind = stream;
-	std::vector<Output>::iterator it = std::find_if(_outputs.begin(),
+	std::vector<Output *>::iterator it = std::find_if(_outputs.begin(),
 		_outputs.end(), _streamFinder
 	);
+	_streamToFind = ft::null_ptr;
 	if (it != _outputs.end())
 		return *it;
-	return _defaultOutput;
+	return ft::null_ptr;
 }
 
-Output	&Logger::addOutput(std::ostream *dest, std::string name,
+Output	*Logger::addOutput(std::ostream *dest, std::string name,
 	Output::level minLevel, Output::level maxLevel
 )
 {
-	Output find = _streamAllreadyInUse(dest);
-	if (find != _defaultOutput)
+	Output *find = _streamAllreadyInUse(dest);
+	if (find)
 	{
 		Logger() << "Requested stream is allready in use";
-		return _defaultOutput;
+		return find;
 	}
 	find = _nameAllreadyInUse(name);
-	if (find != _defaultOutput)
+	if (find)
 	{
 		Logger() << "Name \"" << name << "\" is allready in use";
-		return _defaultOutput;
+		return find;
 	}
-	Output	newOutput(dest, name, minLevel, maxLevel);
+	Output	*newOutput = new Output(dest, name, minLevel, maxLevel);
 	_outputs.push_back(newOutput);
-	return _outputs.back();
+	return newOutput;
 }
 
-Output	&Logger::addOutput(std::string filename, Output::level minLevel,
+Output	*Logger::addOutput(std::string filename, Output::level minLevel,
 	Output::level maxLevel
 )
 {
-	Output find = _nameAllreadyInUse(filename);
-	if (find != _defaultOutput)
+	Output *find = _nameAllreadyInUse(filename);
+	if (find)
 	{
 		Logger() << "Name \"" << filename << "\" is allready in use";
-		return _defaultOutput;
+		return find;
 	}
 	try
 	{
-		Output	newOutput(filename, minLevel, maxLevel);
+		Output	*newOutput = new Output(filename, minLevel, maxLevel);
 		_outputs.push_back(newOutput);
-		return _outputs.back();
+		return newOutput;
 	}
 	catch(const std::exception& e)
 		{Logger() << e.what();}
-	return _defaultOutput;
+	return ft::null_ptr;
 }
 
-Output &Logger::currentTimeAddOutput(std::string filename,
+Output *Logger::currentTimeAddOutput(std::string filename,
 	Output::level minLevel, Output::level maxLevel
 )
 {
@@ -204,20 +214,70 @@ Output &Logger::currentTimeAddOutput(std::string filename,
 
 Logger const& Logger::operator<<(std::ostream& (*F)(std::ostream&)) const
 { 
-	for (std::vector<Output>::iterator it = _outputs.begin();
+	for (std::vector<Output *>::iterator it = _outputs.begin();
 		it != _outputs.end(); it++)
 	{
-		_Output	*IOutput = reinterpret_cast<_Output *>(&(*it));
-		if (IOutput)
+		_Output	*IOutput = reinterpret_cast<_Output *>((*it));
+		if (IOutput && (_current_level >= (*it)->getMinLevel() && _current_level <= (*it)->getMaxLevel()))
 			F(IOutput->getDest());
 	}
 	return *this;
 }
 
-std::vector<Output>	Logger::_outputs;
+bool						Logger::removeOutput(Output *toClose)
+{
+	std::vector<Output *>::iterator	it = std::find(_outputs.begin(), _outputs.end(), toClose);
+	if (it == _outputs.end())
+	{
+		Logger() << "Cannot remove output because it's not tracked in Logger";
+		return false;
+	}
+	_outputs.erase(it);
+	delete toClose;
+	return true;
+}
+
+bool						Logger::removeOutput(std::string toCloseName)
+{
+	Output *toClose = _nameAllreadyInUse(toCloseName);
+	if (!toClose)
+	{
+		Logger() << "Cannot remove output \"" << toCloseName << "\" because it's not tracked in Logger";
+		return false;
+	}
+	_outputs.erase(std::find(_outputs.begin(), _outputs.end(), toClose));
+	delete toClose;
+	return true;
+}
+
+bool						Logger::removeOutput(std::ostream *toCloseOstream)
+{
+	Output *toClose = _streamAllreadyInUse(toCloseOstream);
+	if (!toClose)
+	{
+		Logger() << "Cannot remove output by this ostream because it's not tracked in Logger";
+		return false;
+	}
+	_outputs.erase(std::find(_outputs.begin(), _outputs.end(), toClose));
+	delete toClose;
+	return true;
+}
+
+void						Logger::clearOutputs(void)
+{
+	for (std::vector<Output *>::iterator	it = _outputs.begin();
+		it != _outputs.end(); it++
+	)
+		delete (*it);
+	_outputs.clear();
+}
+
+
+
+std::vector<Output *>	Logger::_outputs;
 Output	Logger::_defaultOutput;
 std::string	Logger::_nameToFind;
-std::ostream	*Logger::_streamToFind; // init to ft::null_ptr later
+std::ostream	*Logger::_streamToFind = ft::null_ptr; 
 const std::string 						Logger::_print_level[7] = {
 	"[INTERNAL]",
 	"[TRACE]",

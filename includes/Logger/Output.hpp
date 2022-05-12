@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ostream>
-#include <string>
-#include <map>
-
 #ifndef OUTPUT_HPP
 # define OUTPUT_HPP
+# include <ostream>
+# include <string>
+# include <map>
+
+
 class Output
 {
 public:

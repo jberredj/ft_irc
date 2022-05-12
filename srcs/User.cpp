@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/10 15:19:17 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:19:06 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,25 @@ void	User::initUserClass(void)
 	cmdMap["JOIN"] = JOIN;
 	cmdMap["INVITE"] = INVITE;
 	cmdMap["BAN"] = BAN;
-	Logger::trace("User command map initiated");
+	Logger(Output::TRACE) << "User command map initiated";
 }
 
 User::User(void) : commandBuf(""), commandQueue(), responseQueue(), _status(REGISTER),
 		_username(""), _nickname(""), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
 		_prevnick(""), _channel("")
 {
-	Logger::trace("User constructor called");
+	Logger(Output::TRACE) << "User constructor called";
 }
 
 User::User(User const & src)
 {
-	Logger::trace("User copy contructor called");
+	Logger(Output::TRACE) << "User copy contructor called";
 	*this = src;
 }
 
 User &User::operator=(User const & rhs)
 {
-	Logger::trace("User assignement operator called");
+	Logger(Output::TRACE) << "User assignement operator called";
 	if (this != &rhs)
 	{
 		this->_status = rhs._status;
@@ -87,7 +87,7 @@ User &User::operator=(User const & rhs)
 	}
 	return *this;
 }
-User::~User() {Logger::trace("User destructor called");}
+User::~User() {Logger(Output::TRACE) << "User destructor called";}
 
 //Getters
 UStatus 	User::getUstatus(void) const {return this->_status;}

@@ -14,10 +14,11 @@
 #include <fstream>
 #include <string>
 #include <iostream>
-#include "Output.hpp"
+#include "Logger/Output.hpp"
 #include "_Output.hpp"
+#include "types/Nullptr_t.hpp"
 
-std::map<std::string, int>*	Output::_nbrCopy = NULL;
+std::map<std::string, int>*	Output::_nbrCopy = ft::null_ptr;
 
 					Output::Output(void): 
 					_dest(&std::cerr), _minLevel(Output::NOUTPUT), _maxLevel(Output::NOUTPUT),
@@ -50,8 +51,9 @@ std::map<std::string, int>*	Output::_nbrCopy = NULL;
 }
 
 					Output::Output(const Output &src): 
-						_minLevel(src._minLevel), _maxLevel(src._maxLevel),
-						_name(src._name), _dest(src._dest), 
+						_dest(src._dest), _minLevel(src._minLevel),
+						_maxLevel(src._maxLevel),
+						_name(src._name), 
 						_openedInternally(src._openedInternally)
 {
 	if (_name == "DEFAULT")
@@ -79,7 +81,7 @@ std::map<std::string, int>*	Output::_nbrCopy = NULL;
 	if(!Output::_nbrCopy->size())
 	{
 		delete Output::_nbrCopy;
-		Output::_nbrCopy = NULL;
+		Output::_nbrCopy = ft::null_ptr;
 	}
 }
 
@@ -112,7 +114,7 @@ std::string			Output::getName(void) const {return _name;}
 
 bool				_Output::setMinLevel(Output::level minLevel)
 {
-	if ((minLevel >= TRACE || minLevel <= FATAL) && minLevel >= _maxLevel);
+	if ((minLevel >= TRACE || minLevel <= FATAL) && minLevel >= _maxLevel)
 	{
 		_minLevel = minLevel;
 		return true;
@@ -122,7 +124,7 @@ bool				_Output::setMinLevel(Output::level minLevel)
 
 bool				_Output::setMaxLevel(Output::level maxLevel)
 {
-	if ((maxLevel >= TRACE || maxLevel <= FATAL) && maxLevel <= _minLevel);
+	if ((maxLevel >= TRACE || maxLevel <= FATAL) && maxLevel <= _minLevel)
 	{
 		_maxLevel = maxLevel;
 		return true;

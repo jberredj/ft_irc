@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/10 15:10:11 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:29:08 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int IrcServ::_CreateServerSocket(char *port)
 	if (listenResult == -1)
 		throw(std::runtime_error("listen() failed"));
 
-	Logger::info("Server started successfully on port: " + std::string(port));
+	Logger(Output::INFO) << "Server started successfully on port: " << std::string(port);
 	return server_socket;
 }
 
@@ -89,7 +89,7 @@ IrcServ::IrcServ(int ac, char **av)
 	{
 		throw(std::runtime_error("usage: " + std::string(av[0]) + " <port> <password>"));
 	}
-	Logger::info("Requested port: " + std::string((char *)av[1]));
+	Logger(Output::INFO) << "Requested port: " << av[1];
 	_uniqueInstanceOnPort((char *)av[1]);
 	signal(SIGINT, IrcServ::_SigIntHandler);
 	_preparePollfds();
@@ -124,23 +124,21 @@ int			IrcServ::acceptConnection(int socketfd)
 
 	if (client_socket == -1)
 	{
-		Logger::error("Fail accepting connection");
+		Logger(Output::ERROR) << "Fail accepting connection";
 		return -1;
 	}
 	int flags = fcntl(client_socket, F_GETFL);
 	if (flags == -1)
 	{
-		Logger::error("Could not get socket flags");
+		Logger(Output::ERROR) << "Could not get socket flags";
 		return -1;
 	}
 	if (fcntl(client_socket, F_SETFL, flags | O_NONBLOCK) == -1)
 	{
-		Logger::error("Could not set socket flags");
+		Logger(Output::ERROR) <<  "Could not set socket flags";
 		return -1;
 	}
-	std::ostringstream socket_nbr;
-	socket_nbr << client_socket;
-	Logger::debug("New connection from " + std::string(inet_ntoa(cliaddr.sin_addr)) + " on socket : " + socket_nbr.str());
+	Logger(Output::DEBUG) << "New connection from " << inet_ntoa(cliaddr.sin_addr) << " on socket : " << client_socket;
 	// User new_user(inet_ntoa(cliaddr.sin_addr));
 	User new_user;
 	new_user.setServaddr(inet_ntoa(cliaddr.sin_addr));
@@ -155,7 +153,7 @@ void	IrcServ::_logRawMessage(char *buf, User &user)
 	std::string 			rawMessage(buf);
 	std::string::iterator	lineReturnLoc = rawMessage.begin() + rawMessage.find('\n', 0);
 	rawMessage = rawMessage.replace(lineReturnLoc, rawMessage.end(), "");
-	Logger::info("From " + user.getUsername() + ": " + rawMessage);
+	Logger(Output::INFO) << "From " << user.getUsername() << ": " << rawMessage;
 }
 
 void	IrcServ::run(void)
@@ -183,12 +181,9 @@ void	IrcServ::run(void)
 					int bufSize = read((*it).fd, buf, 512 - 1);
 					if (bufSize <= 0)
 					{
-						std::ostringstream socket_nbr;
-
-						socket_nbr << (*it).fd;
 						close((*it).fd);
 						to_close.push_back(it);
-						Logger::debug("Close connection on socket : " + socket_nbr.str());
+						Logger(Output::DEBUG) << "Close connection on socket : "<< (*it).fd;
 					}
 					else
 					{
@@ -210,7 +205,7 @@ void	IrcServ::run(void)
 		{
 			_running = false;
 			std::cout << "\b\b";
-			Logger::warn("Server terminated by Ctrl+C");
+			Logger(Output::WARN) << "Server terminated by Ctrl+C";
 		}
 	}
 	close(_serverSocket);
