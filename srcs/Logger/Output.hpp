@@ -12,23 +12,12 @@
 
 #include <ostream>
 #include <string>
+#include <map>
 
 #ifndef OUTPUT_HPP
 # define OUTPUT_HPP
 class Output
 {
-protected:
-	std::ostream		*_dest;
-	short				_minLevel;
-	short				_maxLevel;
-	std::string			_name;
-	static const std::string						_print_level[7];
-	static const std::string						_color_level[7];
-
-	Output(void);
-
-	Output	&operator=(const Output &rhs);
-
 public:
 	enum level {
 		INTERNAL,
@@ -37,18 +26,48 @@ public:
 		INFO,
 		WARN,
 		ERROR,
-		FATAL
-	};
-	Output(std::ostream *dest, short minLevel, short maxLevel, std::string name);
-	Output(const Output &src);
-	virtual ~Output(void);
+		FATAL,
+		NOUTPUT
+	};	
+protected:
+	static std::map<std::string, int>* _nbrCopy;
+	std::ostream				*_dest;
+	Output::level				_minLevel;
+	Output::level				_maxLevel;
+	std::string					_name;
+	bool						_openedInternally;
 
+public:
+								Output(void);
+								Output(std::ostream *dest, std::string name, 
+									Output::level minLevel = DEBUG, 
+									Output::level maxLevel = FATAL
+								);
+								Output(std::string name,
+									Output::level minLevel = DEBUG,
+									Output::level maxLevel = FATAL
+								);
+								Output(const Output &src);
+	virtual						~Output(void);
 
-	short		getMinLevel(void) const;
-	short		getMaxLevel(void) const;
-	std::string	getName(void) const;
+	Output::level				getMinLevel(void) const;
+	Output::level				getMaxLevel(void) const;
+	std::string					getName(void) const;
 	template<typename T>
-	const Output& operator<<(const T& v) const {*_dest << v;return *this;}
-	Output const& operator<<(std::ostream& (*F)(std::ostream&)) const;
+	const Output& 				operator<<(const T& v) const 
+	{
+		*_dest << v;
+		return *this;
+	}
+	Output const& 				operator<<(
+									std::ostream& (*F)(std::ostream&)
+								) const;
+	Output						&operator=(const Output &rhs);
 };
+
+std::ostream					&operator<<(std::ostream &o, const Output& src);
+
+bool 							operator==(const Output& lhs, const Output& rhs);
+bool							operator!=(const Output& lhs, const Output& rhs);
+
 #endif

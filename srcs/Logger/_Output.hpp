@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:30:00 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/11 00:17:14 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/11 11:25:05 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ class _Output : Output
 public:
 	virtual short	getName(void) const = 0;
 	std::ostream	&getDest(void) const;
-	bool			setMinLevel(short minLevel);
-	bool			setMaxLevel(short maxLevel);
+	bool			setMinLevel(Output::level minLevel);
+	bool			setMaxLevel(Output::level maxLevel);
 	void			setName(std::string name);
+	void			setOpenedInternally(bool opened);
 };
 
 #endif
