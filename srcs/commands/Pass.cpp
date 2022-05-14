@@ -6,25 +6,25 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:59:32 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/09 23:20:50 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/14 16:39:52 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
-#include "User.cpp"
+#include "User.hpp"
 
 void    PASS(Command &command)
 {
-    if (!command.getParameters().size())
+    if (command.getParameters().size() < 1)
     {
-        std::cout << "ERR_NEEDMOREPARAMS" << std::endl;
+        Logger(Output::WARN) << "ERR_NEEDMOREPARAMS" << std::endl;
         return ;
     }
-    if (command.getUser().getUstatus() != PASSWORD)
+    if (command.getUser().getStatus() != User::PASSWORD)
     {
-        std::cout << "ERR_ALREADYREGISTRED" << std::endl;
+        Logger(Output::WARN) << "ERR_ALREADYREGISTRED" << std::endl;
         return ;
     }
-    if (command.getParameters()[0] == "password")
-        command.getUser().setUstatus(REGISTER);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+    if (command.getParameters()[0] == command.getUser().getPassword())
+        command.getUser().setStatus(User::REGISTER);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 }

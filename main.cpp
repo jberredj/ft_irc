@@ -6,3 +6,4 @@ class Logger : Logger {
 };
 
 int main(int,char**) {Logger(std::cout) << "Hi 'im Daisy" << 2 << std::endl;}
+

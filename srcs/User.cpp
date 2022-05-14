@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/13 00:19:06 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/14 15:44:04 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "User.hpp"
+#include "types/Nullptr_t.hpp"
 
 void WHOIS(Command &command){(void)command;}
 void USERS(Command &command){(void)command;}
@@ -57,7 +58,7 @@ void	User::initUserClass(void)
 	Logger(Output::TRACE) << "User command map initiated";
 }
 
-User::User(void) : commandBuf(""), commandQueue(), responseQueue(), _status(REGISTER),
+User::User(void) : commandBuf(""), commandQueue(), responseQueue(), _status(PASSWORD), _password(ft::null_ptr),
 		_username(""), _nickname(""), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
 		_prevnick(""), _channel("")
 {
@@ -76,6 +77,7 @@ User &User::operator=(User const & rhs)
 	if (this != &rhs)
 	{
 		this->_status = rhs._status;
+		this->_password = rhs._password;
 		this->_username = rhs._username;
 		this->_nickname = rhs._nickname;
 		this->_hostname = rhs._hostname;
@@ -90,18 +92,19 @@ User &User::operator=(User const & rhs)
 User::~User() {Logger(Output::TRACE) << "User destructor called";}
 
 //Getters
-UStatus 	User::getUstatus(void) const {return this->_status;}
-std::string	User::getUsername(void) const {return this->_username;}
-std::string User::getNickname(void) const {return this->_nickname;}
-std::string	User::getHostname(void) const {return this->_hostname;}
-std::string User::getServaddr(void) const {return this->_servaddr;}
-std::string User::getTruename(void) const {return this->_truename;}
-std::string User::getMode(void) const {return this->_mode;}
-std::string User::getPrevnick(void) const {return this->_prevnick;}
-std::string User::getChannel(void) const {return this->_channel;}
+User::Status 	User::getStatus(void) const {return this->_status;}
+std::string	   &User::getPassword(void) const {return *_password;}
+std::string		User::getUsername(void) const {return this->_username;}
+std::string 	User::getNickname(void) const {return this->_nickname;}
+std::string		User::getHostname(void) const {return this->_hostname;}
+std::string 	User::getServaddr(void) const {return this->_servaddr;}
+std::string 	User::getTruename(void) const {return this->_truename;}
+std::string 	User::getMode(void) const {return this->_mode;}
+std::string 	User::getPrevnick(void) const {return this->_prevnick;}
+std::string 	User::getChannel(void) const {return this->_channel;}
 
 //Setters
-void		User::setUstatus(UStatus status) {this->_status = status;}
+void		User::setStatus(Status status) {this->_status = status;}
 void		User::setUsername(std::string username) {this->_username = username;}
 void		User::setNickname(std::string nickname) {this->_nickname = nickname;}
 void		User::setHostname(std::string hostname) {this->_hostname = hostname;}
@@ -140,5 +143,6 @@ std::ostream & operator<<(std::ostream & o, User const & rhs)
     o << "Username: " << rhs.getUsername() << std::endl;
 	o << "Nickname: " << rhs.getNickname() << std::endl;
 	o << "Mode: " << rhs.getMode() << std::endl;
+	o << "Ustatus: " << rhs.getStatus() << std::endl;
     return o;
 }

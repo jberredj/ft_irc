@@ -1,0 +1,14 @@
+[2022/05/14 12:49:32] - [TRACE] - User command map initiated
+[2022/05/14 12:50:30] - [TRACE] - User constructor called
+[2022/05/14 12:50:30] - [TRACE] - User copy contructor called
+[2022/05/14 12:50:30] - [TRACE] - User assignement operator called
+[2022/05/14 12:50:30] - [TRACE] - User copy contructor called
+[2022/05/14 12:50:30] - [TRACE] - User assignement operator called
+[2022/05/14 12:50:30] - [TRACE] - User copy contructor called
+[2022/05/14 12:50:30] - [TRACE] - User assignement operator called
+[2022/05/14 12:50:30] - [TRACE] - User copy contructor called
+[2022/05/14 12:50:30] - [TRACE] - User assignement operator called
+[2022/05/14 12:50:30] - [TRACE] - User destructor called
+[2022/05/14 12:50:30] - [TRACE] - User destructor called
+[2022/05/14 12:50:30] - [TRACE] - User destructor called
+[2022/05/14 12:50:30] - [TRACE] - User destructor called

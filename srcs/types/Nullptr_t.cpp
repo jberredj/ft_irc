@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nullptr_t.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:24:11 by jberredj          #+#    #+#             */
-/*   Updated: 2022/04/27 15:56:12 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/14 12:45:44 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ namespace ft
 
 	Nullptr::~Nullptr(void) {}
 
-	Nullptr	Nullptr::operator=(const Nullptr &rhs)
+	Nullptr	Nullptr::operator=(const Nullptr &rhs) 
 	{
-		*this = rhs;
+		(void)rhs; 
 		return *this;
 	}
 }

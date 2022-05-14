@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/09 21:34:29 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/14 16:43:14 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 // #include "User.hpp"
 
 class User;

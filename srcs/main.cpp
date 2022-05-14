@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:12:10 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/13 00:12:41 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/14 16:45:39 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exception>
 #include "IrcServ.hpp"
 #include "User.hpp"
+#include "Command.hpp"
 #include "typedefs.hpp"
 #include "Logger.hpp"
 #include <string>

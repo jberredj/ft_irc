@@ -114,7 +114,7 @@ std::string			Output::getName(void) const {return _name;}
 
 bool				_Output::setMinLevel(Output::level minLevel)
 {
-	if ((minLevel >= TRACE || minLevel <= FATAL) && minLevel >= _maxLevel)
+	if ((minLevel >= TRACE && minLevel <= FATAL) && minLevel >= _maxLevel)
 	{
 		_minLevel = minLevel;
 		return true;
@@ -124,7 +124,7 @@ bool				_Output::setMinLevel(Output::level minLevel)
 
 bool				_Output::setMaxLevel(Output::level maxLevel)
 {
-	if ((maxLevel >= TRACE || maxLevel <= FATAL) && maxLevel <= _minLevel)
+	if ((maxLevel >= TRACE && maxLevel <= FATAL) && maxLevel <= _minLevel)
 	{
 		_maxLevel = maxLevel;
 		return true;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServ.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/13 00:29:08 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/14 13:40:55 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ IrcServ::~IrcServ(void)
 
 IrcServ	&IrcServ::operator=(const IrcServ &rhs)
 {
-	*this = rhs;
+	// *this = rhs;
+	(void)rhs;
 	return *this;
 }
 
@@ -142,7 +143,7 @@ int			IrcServ::acceptConnection(int socketfd)
 	// User new_user(inet_ntoa(cliaddr.sin_addr));
 	User new_user;
 	new_user.setServaddr(inet_ntoa(cliaddr.sin_addr));
-	new_user.setUstatus(PASSWORD);
+	new_user.setStatus(User::PASSWORD);
 	_users.insert(std::make_pair(client_socket, new_user));
 	return client_socket;
 }
