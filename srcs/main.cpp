@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:12:10 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/14 16:45:39 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/14 21:59:28 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ const ft::Nullptr ft::null_ptr;
 int main(int ac, char **av)
 {
 	Logger::addOutput(&std::cout, "stdout", Output::DEBUG);
-	Logger::currentTimeAddOutput("trace.log", Output::TRACE, Output::TRACE);
+	Logger::addOutput("trace.log", Output::TRACE, Output::TRACE);
 	IrcServ *ServerInstance = ft::null_ptr;
 	try
 	{

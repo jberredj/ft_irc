@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcServ.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/14 13:40:55 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/14 23:57:58 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,7 @@ IrcServ::IrcServ(int ac, char **av)
 	_preparePollfds();
 	_serverSocket = _CreateServerSocket((char *)av[1]);
 	_pollfds[0].fd = _serverSocket;
-	(void)ac;
-	(void)av;
+	_password = av[2];
 	_running = true;
 }
 
@@ -141,9 +140,10 @@ int			IrcServ::acceptConnection(int socketfd)
 	}
 	Logger(Output::DEBUG) << "New connection from " << inet_ntoa(cliaddr.sin_addr) << " on socket : " << client_socket;
 	// User new_user(inet_ntoa(cliaddr.sin_addr));
-	User new_user;
+	User new_user(&_password, &_nicksInUse);
 	new_user.setServaddr(inet_ntoa(cliaddr.sin_addr));
 	new_user.setStatus(User::PASSWORD);
+	_nicksInUse.push_back("-");
 	_users.insert(std::make_pair(client_socket, new_user));
 	return client_socket;
 }
@@ -170,7 +170,7 @@ void	IrcServ::run(void)
 			{
 				int client_socket = acceptConnection(_serverSocket);
 				new_socket.fd = client_socket;
-				new_socket.events = POLLIN | POLLPRI;
+				new_socket.events = POLLIN | POLLPRI | POLLOUT;
 				_pollfds.push_back(new_socket);
 			}
 			std::vector<std::vector<struct pollfd>::iterator> to_close;
@@ -188,15 +188,52 @@ void	IrcServ::run(void)
 					}
 					else
 					{
+						User &ctx = _users[(*it).fd];
 						buf[bufSize] = '\0';
 						_logRawMessage(buf, _users[(*it).fd]);
+						std::string	rawMessage(ctx.getCommandBuf());
+						rawMessage += buf;
+						 
+						while (!rawMessage.empty())
+						{
+							std::size_t endMessageLocation = rawMessage.find("\n", 0);
+							std::size_t endOffset = 1;
+							if (endMessageLocation && endMessageLocation != rawMessage.npos && rawMessage.at(endMessageLocation - 1) != '\r')
+							{
+								endOffset = 0;
+								Logger(Output::WARN) << "Incorrect EOL char";
+							}
+							if (endMessageLocation == rawMessage.npos)
+							{
+								ctx.setCommandBuf(rawMessage);
+								break;
+							}
+							Logger(Output::DEBUG) << "Add command: " << rawMessage.substr(0, endMessageLocation);
+							Command	newCommand(&(ctx), rawMessage.substr(0, endMessageLocation - endOffset));
+							ctx.addToqueue(newCommand);
+							rawMessage.erase(rawMessage.begin(), rawMessage.begin() + endMessageLocation + 1);
+						}
 					}
 				}
+				else if ((*it).fd > 0 && (*it).revents & POLLOUT)
+				{
+					// Logger(Output::TRACE) << "IMPLEMENT REPLIES TO CLIENT";
+				}
+			}
+			for(std::map<int, User>::iterator ctx_it = _users.begin(); ctx_it != _users.end(); ctx_it++)
+			{
+				// Logger(Output::DEBUG) << "HERE";
+				(*ctx_it).second.apply();
 			}
 			for (std::vector<std::vector<struct pollfd>::iterator>::iterator it = to_close.begin(); it != to_close.end(); it++)
 			{
 				struct pollfd userdel;
 				userdel = *(*it);
+				std::vector<std::string>::iterator it2 = std::find(_nicksInUse.begin(), _nicksInUse.end(), _users[userdel.fd].getNickname());
+				if (it2 == _nicksInUse.end())
+					Logger(Output::WARN) << "Nick \"" <<  _users[userdel.fd].getNickname() << "\" not found";
+				else
+					_nicksInUse.erase(it2);
 				_users.erase(userdel.fd);
 				_pollfds.erase(*it);
 			}

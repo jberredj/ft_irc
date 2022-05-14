@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/15 00:03:13 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/15 00:06:34 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ Command::Command(User *user, std::string command_line) :
 
 	while ((position = tmp.find(delimiter)) != std::string::npos)
 	{
-		std::cout << tmp.substr(0, position) << std::endl;
+		Logger(Output::TRACE) << tmp.substr(0, position);
 		_parameters.push_back(tmp.substr(0, position));
 		tmp.erase(0, position + delimiter.length());
 	}

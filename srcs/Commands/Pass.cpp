@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   Pass.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:59:32 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/14 16:39:52 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/15 00:06:19 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "Logger.hpp"
 #include "User.hpp"
+#include "Command.hpp"
 
 void    PASS(Command &command)
 {
+    Logger(Output::DEBUG) << "ENTERED IN PASS";
     if (command.getParameters().size() < 1)
     {
         Logger(Output::WARN) << "ERR_NEEDMOREPARAMS" << std::endl;
@@ -25,6 +27,6 @@ void    PASS(Command &command)
         Logger(Output::WARN) << "ERR_ALREADYREGISTRED" << std::endl;
         return ;
     }
-    if (command.getParameters()[0] == command.getUser().getPassword())
-        command.getUser().setStatus(User::REGISTER);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+    command.getUser().setPassword(command.getParameters()[0]);
+    Logger(Output::DEBUG) << "New password " << command.getUser().getPassword();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 }

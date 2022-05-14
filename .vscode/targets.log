@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri May 13 00:17:46 2022
+# Make data base, printed on Sat May 14 22:57:39 2022
 
 # Variables
 
@@ -41,6 +41,7 @@ _ = /home/kojiki/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/nod
 # makefile (from 'Makefile', line 34)
 TYPES_OBJS = $(addprefix objs/types., $(subst /,., $(TYPES:.cpp=.o)))
 # makefile (from 'Makefile', line 46)
+ 
 BLUE = \033[0;34m
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
@@ -69,7 +70,7 @@ PATH = /home/kojiki/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-d984b165-2eeb-4a9d-b639-90d0b32276db.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-6d6fef5a-c517-4703-8c70-4af6ae98701d.sock
 # makefile (from 'Makefile', line 18)
 LDFLAGS = 
 # default
@@ -79,7 +80,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # automatic
 %F = $(notdir $%)
 # environment
-DISPLAY = 172.26.208.1:0.0
+DISPLAY = 172.20.128.1:0.0
 # makefile (from 'Makefile', line 16)
 OPTI = -O3
 # environment
@@ -158,7 +159,7 @@ MFLAGS = -pqrRs
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from 'Makefile', line 36)
-MAIN = main.cpp IrcServ.cpp User.cpp Logger/Logger.cpp Logger/Output.cpp
+MAIN = main.cpp IrcServ.cpp User.cpp Logger/Logger.cpp Logger/Output.cpp Commands/Command.cpp Commands/Pass.cpp
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -202,7 +203,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu-20.04
 # variable set hash-table stats:
-# Load=94/1024=9%, Rehash=0, Collisions=10/174=6%
+# Load=94/1024=9%, Rehash=0, Collisions=9/177=5%
 
 # Pattern-specific Variable Values
 
@@ -210,10 +211,9 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 
 # Directories
 
-# . (device 2064, inode 47864): 11 files, no impossibilities.
+# . (device 2064, inode 47864): 12 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
- 
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -221,20 +221,38 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 
 # Files
 
-objs/main.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp
+objs/main.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp srcs/Commands/Command.cpp srcs/Commands/Pass.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 00:17:30.783112
+#  Implicit/static pattern stem: ''
+#  Last modified 2022-05-14 22:55:34.3131842
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := objs/main.o
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp srcs/Commands/Command.cpp srcs/Commands/Pass.cpp
+# automatic
+# | := 
+# automatic
+# < := srcs/main.cpp
+# automatic
+# ^ := srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp srcs/Commands/Command.cpp srcs/Commands/Pass.cpp
+# automatic
+# ? := srcs/IrcServ.cpp
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=10/34=29%
 #  recipe to execute (from 'Makefile', line 109):
 	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
 	$(COMPILE)
 
-objs/Logger.Logger.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp
+objs/Logger.Logger.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp srcs/Commands/Command.cpp srcs/Commands/Pass.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 00:17:32.633112
-#  File has been updated.
-#  Successfully updated.
+#  Modification time never checked.
+#  File has not been updated.
 #  recipe to execute (from 'Makefile', line 109):
 	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
 	$(COMPILE)
@@ -246,11 +264,17 @@ all: ircserv
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/22=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/25=0%
 
 srcs/types/Nullptr_t.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-10 11:43:07.2585413
+#  Last modified 2022-05-14 16:48:58.9997174
+#  File has been updated.
+#  Successfully updated.
+
+srcs/Commands/Command.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-14 17:51:49.3797174
 #  File has been updated.
 #  Successfully updated.
 
@@ -263,34 +287,17 @@ srcs/types/Nullptr_t.cpp:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 00:17:40.793112
+#  Last modified 2022-05-14 22:55:30.4031842
 #  File has been updated.
 #  Successfully updated.
 
-ircserv: objs/ objs/types.Nullptr_t.o objs/main.o objs/IrcServ.o objs/User.o objs/Logger.Logger.o objs/Logger.Output.o
+ircserv: objs/ objs/types.Nullptr_t.o objs/main.o objs/IrcServ.o objs/User.o objs/Logger.Logger.o objs/Logger.Output.o objs/Commands.Command.o objs/Commands.Pass.o
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
-#  File does not exist.
+#  Last modified 2022-05-14 22:55:36.7331842
 #  File has been updated.
 #  Needs to be updated (-q is set).
-# automatic
-# @ := ircserv
-# automatic
-# % := 
-# automatic
-# * := 
-# automatic
-# + := objs/ objs/types.Nullptr_t.o objs/main.o objs/IrcServ.o objs/User.o objs/Logger.Logger.o objs/Logger.Output.o
-# automatic
-# | := 
-# automatic
-# < := objs/
-# automatic
-# ^ := objs/ objs/types.Nullptr_t.o objs/main.o objs/IrcServ.o objs/User.o objs/Logger.Logger.o objs/Logger.Output.o
-# automatic
-# ? := objs/ objs/types.Nullptr_t.o objs/main.o objs/IrcServ.o objs/User.o objs/Logger.Logger.o objs/Logger.Output.o
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=12/30=40%
+# Load=0/32=0%, Rehash=0, Collisions=0/25=0%
 #  recipe to execute (from 'Makefile', line 59):
 	printf "$(BLUE)Linking $(LIGHT_PURPLE)$(NAME) $(BLUE)executable$(NC)\n"
 	$(CXX) -I $(INC_DIR) $(OBJS) $(LIBS) $(LDFLAGS) $(CXXFLAGS) -o $(NAME)
@@ -298,7 +305,7 @@ ircserv: objs/ objs/types.Nullptr_t.o objs/main.o objs/IrcServ.o objs/User.o obj
 
 objs/:
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 00:17:33.263112
+#  Last modified 2022-05-14 22:55:36.4931842
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 130):
@@ -310,11 +317,12 @@ libft.a:
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 119):
 	make -C libs/libft ft_io ft_string ft_to ft_ctype get_next_line lib
+ 
 	cp libs/libft/libft.a .
 
 srcs/IrcServ.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 00:17:29.043112
+#  Last modified 2022-05-14 22:57:38.1831842
 #  File has been updated.
 #  Successfully updated.
 
@@ -328,11 +336,10 @@ norm:
 	; if [ "$$?" -ne "0" ]; then printf "$(RED)NORM ERROR$(NC)\n"; \
 	else printf "$(GREEN)NORM OK$(NC)\n";fi
 
-objs/Logger.Output.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp
+objs/Logger.Output.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp srcs/Commands/Command.cpp srcs/Commands/Pass.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 00:17:33.273112
-#  File has been updated.
-#  Successfully updated.
+#  Modification time never checked.
+#  File has not been updated.
 #  recipe to execute (from 'Makefile', line 109):
 	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
 	$(COMPILE)
@@ -347,24 +354,23 @@ fclean: clean
 	rm -rf $(NAME)
 	rm -rf $(LIBS)
 
-objs/User.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp
+objs/User.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp srcs/Commands/Command.cpp srcs/Commands/Pass.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 00:17:30.343112
-#  File has been updated.
-#  Successfully updated.
+#  Modification time never checked.
+#  File has not been updated.
 #  recipe to execute (from 'Makefile', line 109):
 	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
 	$(COMPILE)
 
 srcs/main.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 00:12:41.913112
+#  Last modified 2022-05-14 21:59:28.8731842
 #  File has been updated.
 #  Successfully updated.
 
 srcs/Logger/Logger.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 00:10:27.603112
+#  Last modified 2022-05-13 00:30:16.363112
 #  File has been updated.
 #  Successfully updated.
 
@@ -423,16 +429,38 @@ clean:
 	rm -rf objs
 	rm -rf *.o;
 
+srcs/Commands/Pass.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-14 17:52:14.2597174
+#  File has been updated.
+#  Successfully updated.
+
+objs/Commands.Command.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp srcs/Commands/Command.cpp srcs/Commands/Pass.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 109):
+	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
+	$(COMPILE)
+
 objs/types.Nullptr_t.o: srcs/types/Nullptr_t.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 00:17:30.343112
+#  Last modified 2022-05-14 22:55:34.0831842
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 104):
 	printf "$(BLUE)Compiling $(LIGHT_PURPLE)types $(BLUE)functions$(NC)\n"
 	$(COMPILE)
 
-main: objs/ objs/main.o objs/IrcServ.o objs/User.o objs/Logger.Logger.o objs/Logger.Output.o
+objs/Commands.Pass.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp srcs/Commands/Command.cpp srcs/Commands/Pass.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 109):
+	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
+	$(COMPILE)
+
+main: objs/ objs/main.o objs/IrcServ.o objs/User.o objs/Logger.Logger.o objs/Logger.Output.o objs/Commands.Command.o objs/Commands.Pass.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -443,25 +471,25 @@ ffclean: fclean
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 113):
 	make -C libs/libft fclean
+ 
 	make -C libs/minilibx-linux clean
 
 srcs/Logger/Output.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 00:10:33.553112
+#  Last modified 2022-05-14 16:48:58.9997174
 #  File has been updated.
 #  Successfully updated.
 
 srcs/User.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-10 15:19:17.9495393
+#  Last modified 2022-05-14 22:54:53.0231842
 #  File has been updated.
 #  Successfully updated.
 
-objs/IrcServ.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp
+objs/IrcServ.o: srcs/main.cpp srcs/IrcServ.cpp srcs/User.cpp srcs/Logger/Logger.cpp srcs/Logger/Output.cpp srcs/Commands/Command.cpp srcs/Commands/Pass.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 00:17:31.853112
-#  File has been updated.
-#  Successfully updated.
+#  Modification time never checked.
+#  File has not been updated.
 #  recipe to execute (from 'Makefile', line 109):
 	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
 	$(COMPILE)
@@ -474,19 +502,19 @@ valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 
 # files hash-table stats:
-# Load=31/1024=3%, Rehash=0, Collisions=4/87=5%
+# Load=35/1024=3%, Rehash=0, Collisions=8/101=8%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 43 / storage = 453 B / avg = 10 B
-# current buf: size = 8162 B / used = 453 B / count = 43 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 47 / storage = 551 B / avg = 11 B
+# current buf: size = 8162 B / used = 551 B / count = 47 / avg = 11 B
 
-# strcache performance: lookups = 107 / hit rate = 59%
+# strcache performance: lookups = 122 / hit rate = 61%
 # hash-table stats:
-# Load=43/8192=1%, Rehash=0, Collisions=1/107=1%
-# Finished Make data base on Fri May 13 00:17:46 2022
+# Load=47/8192=1%, Rehash=0, Collisions=1/122=1%
+# Finished Make data base on Sat May 14 22:57:39 2022
 
  

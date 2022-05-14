@@ -51,5 +51,9 @@ std::map<int, std::string (getReply*)(std::string*)> replies;
 replies[205]->getReply(array)
 
 PASS
-NICK 
+NICK :
+	Checker si un autre User a le même pseudo: ajouter un accès à la map d'user dans la commande ?
+	Si collision return ERR_NICKCOLLISION
+	Check charset autorisé
+	
 USER
