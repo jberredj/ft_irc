@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/14 15:45:35 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/14 23:47:06 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,23 @@ class User
 			ONLINE,
 			DELETE
 		};
-		User(void);														
+		User(void);
 		User(User const & src);
+		User(std::string *serverPassWd, std::vector<std::string> *nicksInUse) ;
 		~User(void);
 		//operators
 		User 												&operator=(User const & rhs);
 
 		//getters
 		Status 												getStatus(void) const;
-		std::string											&getPassword(void) const;
+		std::string											&getServerPassword(void) const;
+		std::string											getPassword(void) const;
 		std::string											getUsername(void) const;
 		std::string 										getNickname(void) const;
 		std::string											getHostname(void) const;
 		std::string 										getServaddr(void) const;
 		std::string 										getTruename(void) const;
+		std::string 										getCommandBuf(void) const;
 
 		std::string											getMode(void) const;
 		std::string											getPrevnick(void) const;
@@ -56,12 +59,14 @@ class User
 		
 		//setters
 		void												setStatus(Status status);
-		void                        						setPassword(std::string passeword);
+		void												setPassword(std::string password);
 		void												setUsername(std::string username);
 		void												setNickname(std::string nickname);
 		void												setHostname(std::string hostname);
 		void												setServaddr(std::string servaddr);
 		void												setTruename(std::string truename);
+		void												setCommandBuf(std::string commandBuf);
+		void												appendCommandBuf(std::string commandBuf);
 		
 		void												setMode(std::string mode);
 		void												setPrevnick(std::string prevnick);
@@ -78,7 +83,7 @@ class User
 	
 	private:
 		
-		std::string 										commandBuf;
+		std::string 										_commandBuf;
 		std::queue<Command> 								commandQueue;
 		std::queue<std::string>								responseQueue;
 		static std::map<std::string, void (*)(Command &)>	cmdMap;
@@ -86,7 +91,9 @@ class User
 		
 		//les infos sur USER:
 		Status 												_status;
-		std::string 										*_password;
+		std::string 										*_ServerPassword;
+		std::vector<std::string>							*_nicksInUse;
+		std::string											_password;
 		std::string 										_username;
 		std::string 										_nickname;
 		std::string 										_truename;
@@ -97,7 +104,7 @@ class User
 		std::string 										_prevnick;
 		std::string 										_channel;
 		// std::string _awaymsg;
-		// std::string _deletemsg; 
+		// std::string _deletemsg; 														
 };
 
 std::ostream &  operator<<(std::ostream & o, User const & rhs);

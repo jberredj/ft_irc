@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:15:14 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/10 15:10:40 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/14 23:41:10 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@
 class IrcServ
 {
 private:
-	const std::string			_password;
+	std::string					_password;
 	bool						_running;
 	static bool					_sigInt;
 	int							_serverSocket;
 	std::vector<struct pollfd>	_pollfds;
 	std::map<int, User>			_users;
 	int							_portInstanceLock;
+	std::vector<std::string>	_nicksInUse;
 
 								IrcServ(void);
 	void						_preparePollfds(void);

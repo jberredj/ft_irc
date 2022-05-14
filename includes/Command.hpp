@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/14 16:43:14 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/14 23:37:49 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_HPP
 # define COMMAND_HPP
-#include <iostream>
-#include <string>
-#include <vector>
-#include <map>
+# include "Logger.hpp"
+# include <iostream>
+# include <string>
+# include <vector>
+# include <map>
 // #include "User.hpp"
 
 class User;
@@ -39,16 +40,18 @@ class Command
 			_command(src._command),
 			_parameters(src._parameters),
 			_trailer(src._trailer),
-			_command_line(src._command_line) {
-				std::cout << "Copy constructor called " << std::endl;
+			_command_line(src._command_line),
+			_user(src._user) {
+				Logger(Output::TRACE) << "Command copy constructor called ";
 			}
 		Command & operator = (Command const & rhs)
 		{
-			std::cout << "Command copy constructor called " << std::endl;
+			Logger(Output::TRACE) << "Command assignement operator called ";
 			_command_line = rhs._command_line;
 			_prefix = rhs._prefix;
 			_command = rhs._command;
 			_parameters = rhs._parameters;
+			_user = rhs._user;
 			_trailer = rhs._trailer;
 			return (*this);
 		}
@@ -65,5 +68,6 @@ class Command
 };
 
 std::ostream &  operator<<(std::ostream & o, Command const & rhs);
+void    PASS(Command &command);
 
 #endif

@@ -1,0 +1,4 @@
+*.log
+ircserv
+*o
+objs/
