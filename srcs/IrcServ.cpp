@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/14 23:57:58 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/15 16:14:23 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ void	IrcServ::_logRawMessage(char *buf, User &user)
 	rawMessage = rawMessage.replace(lineReturnLoc, rawMessage.end(), "");
 	Logger(Output::INFO) << "From " << user.getUsername() << ": " << rawMessage;
 }
+
+
 
 void	IrcServ::run(void)
 {
