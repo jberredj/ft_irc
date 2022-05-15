@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/14 23:37:49 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/15 15:28:17 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ class Command
 
 std::ostream &  operator<<(std::ostream & o, Command const & rhs);
 void    PASS(Command &command);
+void    NICK(Command &command);
 
 #endif

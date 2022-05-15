@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/14 23:47:06 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/15 19:08:45 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ class User
 		Status 												getStatus(void) const;
 		std::string											&getServerPassword(void) const;
 		std::string											getPassword(void) const;
+		std::string											&getNickInUse(void) const;
 		std::string											getUsername(void) const;
 		std::string 										getNickname(void) const;
 		std::string											getHostname(void) const;

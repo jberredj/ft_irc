@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/14 23:48:17 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/15 19:12:59 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void PING(Command &command){(void)command;}
 // void PASS(Command &command){(void)command;}
 void PART(Command &command){(void)command;}
 void OPER(Command &command){(void)command;}
-void NICK(Command &command){(void)command;}
+//void NICK(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
 void MODE(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}
@@ -104,6 +104,7 @@ User::~User() {Logger(Output::TRACE) << "User destructor called";}
 User::Status 	User::getStatus(void) const {return this->_status;}
 std::string	   &User::getServerPassword(void) const {return *_ServerPassword;}
 std::string	  	User::getPassword(void) const {return _password;}
+std::string		User::getNickInUse(void) const {return *_nicksInUse;}
 std::string		User::getUsername(void) const {return this->_username;}
 std::string 	User::getNickname(void) const {return this->_nickname;}
 std::string		User::getHostname(void) const {return this->_hostname;}

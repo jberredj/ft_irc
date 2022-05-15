@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pass.cpp                                           :+:      :+:    :+:   */
+/*   PASS.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:59:32 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/15 00:06:19 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/15 19:19:03 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void    PASS(Command &command)
     Logger(Output::DEBUG) << "ENTERED IN PASS";
     if (command.getParameters().size() < 1)
     {
-        Logger(Output::WARN) << "ERR_NEEDMOREPARAMS" << std::endl;
+        Logger(Output::WARN) << "(461) ERR_NEEDMOREPARAMS" << std::endl;
         return ;
     }
     if (command.getUser().getStatus() != User::PASSWORD)
     {
-        Logger(Output::WARN) << "ERR_ALREADYREGISTRED" << std::endl;
+        Logger(Output::WARN) << "(462) ERR_ALREADYREGISTRED" << std::endl;
         return ;
     }
     command.getUser().setPassword(command.getParameters()[0]);
