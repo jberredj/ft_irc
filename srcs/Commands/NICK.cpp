@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 15:27:14 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/15 20:25:56 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/15 21:45:09 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int isspchar(char c)
 {
-	if (c >= '[' && c <= '`') || (c >= '{' && c <= '}')
+	if ((c >= '[' && c <= '`') || (c >= '{' && c <= '}'))
 		return 1;
 	return 0;
 } 
@@ -33,7 +33,7 @@ void    NICK(Command &command)
         return ;
 	}
 	if(command.getParameters().size() == 1 || command.getParameters().size() == 2)
-		nick = command->getParameters()[0];
+		nick = command.getParameters()[0];
 	else
 		return;
 	
@@ -43,7 +43,7 @@ void    NICK(Command &command)
         return ;
 		// nick = substr.nick(0, 9);
 	}
-	if (isdigit(nick[0]) || nick[0] == "-")
+	if (isdigit(nick[0]) || nick[0] == '-')
 	{
 		Logger(Output::WARN) << "(432) ERR_ERRONEUSNICKNAME" << std::endl;
         return ;
@@ -57,8 +57,8 @@ void    NICK(Command &command)
 		}
 	}
 	
-	std::vector<std::string> nicks = command->getNickInUse();
-	for (std::vector<std::string>::iterator it = nicks.begin(); it != nicks.end(); i++)
+	std::vector<std::string> nicks = command.getUser().getNickInUse();
+	for (std::vector<std::string>::iterator it = nicks.begin(); it != nicks.end(); it++)
 	{
 		if (nick == (*it)->getNickname())
 		{
@@ -66,7 +66,7 @@ void    NICK(Command &command)
         	return ;
 		}	
 	}
-	if (nick == commande.getNickname())
+	if (nick == command.getUser().getNickname())
 	{
 		Logger(Output::WARN) << "(436) ERR_NICKCOLLISION" << std::endl;
         	return ;
