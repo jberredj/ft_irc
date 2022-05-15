@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/16 01:47:03 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/16 01:51:50 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,7 +133,7 @@ $(DEPS_DIR)/dependencies.d: $(SRCS)
 	$(foreach source,$(SRCS),\
 	echo "$(subst $(SRC_DIR).,$(OBJ_DIR)/,$(subst /,.,$(dir $(source))))`\
 $(CXX) -I $(INC_DIR) $(source) -MM`\n\t \$$(COMPILE)"\
-	> $(DEPS_DIR)/$(notdir $(source:.cpp=.d));)
+	> $(DEPS_DIR)/$(subst /,.,$(subst srcs/,,$(source:.cpp=.d)));)
 	cd $(DEPS_DIR)&& cat `ls | grep -v dependencies.d` > dependencies.d
 
 $(OBJ_DIR):
