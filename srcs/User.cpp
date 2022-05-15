@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esommier <esommier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/14 23:48:17 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/15 14:38:52 by esommier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void    User::apply()
 			cmdMap[cmd.getCommand()](cmd);
 		}
 		else
-			Logger(Output::INFO) << "Uknown command: " << cmd.getCommand(); 
+			Logger(Output::INFO) << "Unknown command: " << cmd.getCommand(); 
 		commandQueue.pop();
 	}	
 }
@@ -160,6 +160,6 @@ std::ostream & operator<<(std::ostream & o, User const & rhs)
     o << "Username: " << rhs.getUsername() << std::endl;
 	o << "Nickname: " << rhs.getNickname() << std::endl;
 	o << "Mode: " << rhs.getMode() << std::endl;
-	o << "Ustatus: " << rhs.getStatus() << std::endl;
+	o << "User status: " << rhs.getStatus() << std::endl;
     return o;
 }
