@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/14 22:55:30 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/16 01:47:03 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,26 +19,33 @@ LDFLAGS			=
 
 SRC_DIR			= 	srcs
 INC_DIR			=	includes
-OBJ_DIR			=	objs/
+OBJ_DIR			=	objs
+DEPS_DIR		=	deps
 
 LIBS			=	
-
-
 
 ###############################################################################
 ##								Source files								 ##
 ###############################################################################
 
-TYPES				=   Nullptr_t.cpp 
+TYPES				=	Nullptr_t.cpp 
 TYPES_SRCS			=   $(addprefix srcs/types/, $(TYPES))
 TYPES_OBJS			=   $(addprefix objs/types., $(subst /,., $(TYPES:.cpp=.o)))
 
-MAIN				=   main.cpp IrcServ.cpp User.cpp Logger/Logger.cpp Logger/Output.cpp Commands/Command.cpp Commands/Pass.cpp
+MAIN				=	main.cpp IrcServ.cpp User.cpp
 MAIN_SRCS			=   $(addprefix srcs/, $(MAIN))
 MAIN_OBJS			=   $(addprefix objs/, $(subst /,., $(MAIN:.cpp=.o)))
 
-SRCS				= 	$(TYPES_SRCS) $(MAIN_SRCS)
-OBJS				=	$(TYPES_OBJS) $(MAIN_OBJS) 
+COMMANDS			=	Command.cpp Pass.cpp
+COMMANDS_SRCS		=	$(addprefix srcs/Commands/, $(COMMANDS))
+COMMANDS_OBJS		=	$(addprefix objs/Commands., $(subst /,., $(COMMANDS:.cpp=.o)))
+
+LOGGER				=	Logger.cpp Output.cpp
+LOGGER_SRCS			=	$(addprefix srcs/Logger/, $(LOGGER))
+LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,., $(LOGGER:.cpp=.o)))
+
+SRCS				= 	$(TYPES_SRCS) $(MAIN_SRCS) $(LOGGER_SRCS) $(COMMANDS_SRCS)
+OBJS				=	$(TYPES_OBJS) $(MAIN_OBJS) $(LOGGER_OBJS) $(COMMANDS_OBJS)
 
 ###############################################################################
 ##							Color output char								 ##
@@ -79,11 +86,11 @@ re: fclean all
 
 define COMPILE
 	find ./objs/ -type f -exec touch {} +
-	$(foreach source,$?, \
+	$(foreach source,$(filter-out %.hpp,$?), \
 	printf "$(YELLOW)[..]   $(NC) $(LIGHT_PURPLE)$(subst srcs/,,$(source))\
 $(NC)\n"; \
 	$(CXX) -I $(INC_DIR) $(CXXFLAGS) -c $(source) -o \
-$(addprefix $(OBJ_DIR), $(subst /,.,$(subst srcs/,,$(source:.cpp=.o)))) ; \
+$(addprefix $(OBJ_DIR)/, $(subst /,.,$(subst srcs/,,$(source:.cpp=.o)))) ; \
 	if [ $$? -ne "0" ];\
 	then \
 		exit 1;\
@@ -99,19 +106,11 @@ $(subst srcs/,,$(source))$(NC)\n";\
 	fi;)
 endef
 
-types: $(OBJ_DIR) $(TYPES_OBJS)
-$(TYPES_OBJS): $(TYPES_SRCS)
-	printf "$(BLUE)Compiling $(LIGHT_PURPLE)types $(BLUE)functions$(NC)\n"
-	$(COMPILE)
-
-main: $(OBJ_DIR) $(MAIN_OBJS)
-$(MAIN_OBJS): $(MAIN_SRCS)
-	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
-	$(COMPILE)
+include $(DEPS_DIR)/dependencies.d
 
 ffclean: fclean
-	make -C libs/libft fclean
-	make -C libs/minilibx-linux clean
+	printf "$(RED)Removing $(LIGHT_PURPLE)dependencies$(NC)\n"
+	rm -rf deps
 
 $(SRCS): $(addprefix $(INC_DIR)/, $(HEADERS))
  
@@ -123,8 +122,19 @@ libmlx.a:
 	make -C libs/minilibx-linux
 	cp libs/minilibx-linux/libmlx.a .
 
+dependencies: $(DEPS_DIR)/dependencies.d
+
 debug: CXXFLAGS = -std=c++98 -g
 debug: all
+
+$(DEPS_DIR)/dependencies.d: $(SRCS)
+	printf "$(GREEN)Generating $(LIGHT_PURPLE)dependencies$(GREEN) file$(NC)\n"
+	mkdir -p $(DEPS_DIR)
+	$(foreach source,$(SRCS),\
+	echo "$(subst $(SRC_DIR).,$(OBJ_DIR)/,$(subst /,.,$(dir $(source))))`\
+$(CXX) -I $(INC_DIR) $(source) -MM`\n\t \$$(COMPILE)"\
+	> $(DEPS_DIR)/$(notdir $(source:.cpp=.d));)
+	cd $(DEPS_DIR)&& cat `ls | grep -v dependencies.d` > dependencies.d
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -137,13 +147,3 @@ valgrind:
 commit_all_files: ffclean
 	git add .
 	git commit
-
-###############################################################################
-## 								Norm recipe									 ##
-###############################################################################
-
-norm:
-	printf "$(BLUE)Checking norm$(NC)\n"
-	norminette $(SRCS) $(addprefix $(INC_DIR)/, $(filter-out mlx.h, $(HEADERS))) \
-	; if [ "$$?" -ne "0" ]; then printf "$(RED)NORM ERROR$(NC)\n"; \
-	else printf "$(GREEN)NORM OK$(NC)\n";fi
