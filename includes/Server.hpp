@@ -32,11 +32,15 @@ public:
 	// Operators
 	Server&	operator=(const Server& rhs);
 
+	// Getters
+	short	getExitCode(void) const;
+
 	// General methods and functions
 	void	run(void);
 
 private:
 	static bool					_sigInt;
+	short						_exitCode;
 	std::string					_password;
 	bool						_running;
 	int							_serverSocket;

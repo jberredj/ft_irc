@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:06 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 18:33:52 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/16 22:03:17 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	Server::run(void)
 			Logger(Output::WARN) << "Server terminated by Ctrl+C";
 		}
 	}
-	close(_serverSocket);
 }
 
 /* ************************************************************************** */
@@ -55,6 +54,15 @@ void	Server::_treatUserMessages(void)
 	for(std::map<int, User>::iterator ctx_it = _users.begin();
 		ctx_it != _users.end(); ctx_it++)
 	{
-		(*ctx_it).second.execCommandQueue();
+		try 
+		{
+			(*ctx_it).second.execCommandQueue();
+		}
+		catch (const std::exception& e)
+		{
+			Logger(Output::FATAL) << e.what();
+			_running = false;
+			_exitCode = 1;
+		}
 	}	
 }

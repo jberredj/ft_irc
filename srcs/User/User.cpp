@@ -6,10 +6,11 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/16 18:59:59 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/16 21:48:11 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <exception>
 #include "User.hpp"
 #include "types/Nullptr_t.hpp"
 
@@ -115,6 +116,8 @@ void 	User::addCommand(Command const & command)
 
 void    User::execCommandQueue()
 {
+	if (!_cmdMap.size())
+		throw (std::logic_error("Try to use User Object without initializing it")); 
 	while (!_commandQueue.empty())
 	{	
 		Command &cmd = _commandQueue.front();

@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:38:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 21:01:20 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/16 22:01:39 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ Logger const& Logger::operator<<(std::ostream& (*F)(std::ostream&)) const
 	for (std::vector<Output *>::iterator it = _outputs.begin();
 		it != _outputs.end(); it++)
 	{
-		_Output	*IOutput = reinterpret_cast<_Output *>((*it));
+		_Output	*IOutput = static_cast<_Output *>((*it));
 		if (IOutput && (_current_level >= (*it)->getMinLevel() 
 			&& _current_level <= (*it)->getMaxLevel()))
 			F(reinterpret_cast<std::ostream &>(*IOutput->getDest()));
@@ -239,7 +239,7 @@ void	Logger::_logLevel(Output::level level)
 			if (_current_level >= (*it)->getMinLevel() 
 				&& _current_level <= (*it)->getMaxLevel())
 			{
-				_Output* IOutput = reinterpret_cast<_Output *>((*it));
+				_Output* IOutput = static_cast<_Output *>((*it));
 				if ((*IOutput).getDest() == &std::cout)
 					*(*it) << _color_level[level];
 				*(*it) << _print_level[level];
@@ -290,7 +290,7 @@ Output*	 Logger::_nameAllreadyInUse(std::string name)
 
 bool	Logger::_streamFinder(Output* output)
 {
-	_Output*	IOutput = reinterpret_cast<_Output*>(output);
+	_Output*	IOutput = static_cast<_Output*>(output);
 	if ((IOutput->getDest()) == _streamToFind)
 		return true;
 	return false;

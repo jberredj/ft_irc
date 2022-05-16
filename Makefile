@@ -6,13 +6,13 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/16 21:23:17 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/16 21:59:10 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	ircserv
 
-CXX				=	c++
+CXX				=	clang++
 OPTI			=	-O3
 CXXFLAGS		=	-Wall -Werror -Wextra -std=c++98 $(OPTI)
 LDFLAGS			=	

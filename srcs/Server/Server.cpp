@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 18:07:45 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/16 22:07:04 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@
 /* ************************************************************************** */
 
 // Constructors and destructor
-Server::Server(int ac, char** av)
+Server::Server(int ac, char** av):
+	_exitCode(0)
 {
 	if (ac != 3)
 	{
@@ -50,17 +51,26 @@ Server::Server(int ac, char** av)
 
 Server::Server(const Server &src)
 {
+	Logger(Output::WARN) << "Incomplete copy constructor for Server";
 	*this = src;
 }
 
 Server::~Server(void)
 {
+	for(std::vector<struct pollfd>::iterator it = _pollfds.begin();
+		it != _pollfds.end(); it++)
+			close((*it).fd);	
+	close(_serverSocket);
 	close(_portInstanceLock);
 }
+
+// Getters
+short	Server::getExitCode(void) const {return _exitCode;}
 
 // Operators
 Server&	Server::operator=(const Server& rhs)
 {
+	Logger(Output::WARN) << "Incomplete assignement operator for Server";
 	// *this = rhs;
 	(void)rhs;
 	return *this;
