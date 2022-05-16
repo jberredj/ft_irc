@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 01:01:19 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:22:38 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ std::string	RPL_WHOISCHANNELS(std::vector<std::string> args)
 
 std::string	RPL_LISTSTART(std::vector<std::string> args)
 {
+	(void)args;
 	return "Channel :Users  Name";
 }
 
@@ -77,6 +78,7 @@ std::string	RPL_LIST(std::vector<std::string> args)
 
 std::string	RPL_LISTEND(std::vector<std::string> args)
 {
+	(void)args;
 	return ":End of /LIST";
 }
 
@@ -111,11 +113,13 @@ std::string	RPL_ENDOFNAMES(std::vector<std::string> args)
 
 std::string	RPL_YOUREOPER(std::vector<std::string> args)
 {
+	(void)args;
 	return ":You are now an IRC operator";
 }
 
 std::string	RPL_USERSSTART(std::vector<std::string> args)
 {
+	(void)args;
 	return ":UserID   Terminal  Host";
 }
 
@@ -126,10 +130,12 @@ std::string	RPL_USERS(std::vector<std::string> args)
 
 std::string	RPL_ENDOFUSERS(std::vector<std::string> args)
 {
+	(void)args;
 	return ":End of users";
 }
 
 std::string	RPL_NOUSERS(std::vector<std::string> args)
 {
+	(void)args;
 	return ":Nobody logged in";
 }

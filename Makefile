@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/16 21:59:10 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/17 01:24:55 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
 IRC					=	$(addprefix Messages/, $(MESSAGES))\
 							$(addprefix Replies/, $(REPLIES))
 MESSAGES			=	Pass.cpp
-REPLIES				=	ERR.cpp RPL.cpp
+REPLIES				=	Reply.cpp ERR.cpp RPL.cpp
 IRC_SRCS			=	$(addprefix srcs/Irc/, $(IRC))
 IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))
 
@@ -134,14 +134,6 @@ ffclean: fclean
 	rm -rf deps
 
 $(SRCS): $(addprefix $(INC_DIR)/, $(HEADERS))
- 
-libft.a:
-	make -C libs/libft ft_io ft_string ft_to ft_ctype get_next_line lib
-	cp libs/libft/libft.a .
-
-libmlx.a:
-	make -C libs/minilibx-linux
-	cp libs/minilibx-linux/libmlx.a .
 
 dependencies: $(DEPS_DIR)/dependencies.d
 

@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 01:07:44 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:21:53 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ Reply::Reply(void)
 
 Reply::Reply(const Reply &src)
 {
+	(void)src;
 	_initRepliesMap();
 }
 
@@ -35,6 +36,8 @@ Reply::~Reply(void)
 // Operators
 Reply	&Reply::operator=(const Reply &rhs)
 {
+	(void)rhs;
+	return *this;
 }
 
 /* ************************************************************************** */
