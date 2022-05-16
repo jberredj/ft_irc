@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/16 01:51:50 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/16 02:20:16 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,8 @@ RED				=\033[0;31m
 
 all: $(NAME)
 
+include $(DEPS_DIR)/dependencies.d
+
 $(NAME): $(OBJ_DIR) $(LIBS) $(OBJS)
 	printf "$(BLUE)Linking $(LIGHT_PURPLE)$(NAME) $(BLUE)executable$(NC)\n"
 	$(CXX) -I $(INC_DIR) $(OBJS) $(LIBS) $(LDFLAGS) $(CXXFLAGS) -o $(NAME)
@@ -85,8 +87,7 @@ re: fclean all
 ###############################################################################
 
 define COMPILE
-	find ./objs/ -type f -exec touch {} +
-	$(foreach source,$(filter-out %.hpp,$?), \
+	$(foreach source,$(filter-out %.hpp,$^), \
 	printf "$(YELLOW)[..]   $(NC) $(LIGHT_PURPLE)$(subst srcs/,,$(source))\
 $(NC)\n"; \
 	$(CXX) -I $(INC_DIR) $(CXXFLAGS) -c $(source) -o \
@@ -105,8 +106,6 @@ $(subst srcs/,,$(source))$(NC)\n";\
 $(subst srcs/,,$(source))$(NC)\n";\
 	fi;)
 endef
-
-include $(DEPS_DIR)/dependencies.d
 
 ffclean: fclean
 	printf "$(RED)Removing $(LIGHT_PURPLE)dependencies$(NC)\n"
@@ -142,6 +141,7 @@ $(OBJ_DIR):
 valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 
+.PHONY:
 .SILENT:
 
 commit_all_files: ffclean

@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:22:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/03 22:59:30 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/16 01:59:26 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ namespace ft
 		operator T*() const { return 0; }
 
 		template<class C, class T>
-		operator T C::*() const { return 0; }   
+		operator T C::*() const { return 0; } 
 
 	private:
 	   void operator&() const;
