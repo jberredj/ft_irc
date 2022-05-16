@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 15:27:14 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/16 01:10:04 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:24:26 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,9 @@ void    NICK(Command &command)
 		Logger(Output::WARN) << "(436) ERR_NICKCOLLISION" << std::endl;
         	return ;
 	}
-	command.getUser().searchNick(nick);
-	
-	command.getUser().setNickname(nick);
-    Logger(Output::DEBUG) << "Nickname set " << command.getUser().getNickname(); 
+	if(command.getUser().searchNick(nick))
+		return ;
+	command.getUser().reName(nick);
 }
 
 
