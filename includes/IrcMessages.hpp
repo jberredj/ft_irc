@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _Output.hpp                                        :+:      :+:    :+:   */
+/*   IrcMessages.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 23:30:00 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 21:31:41 by jberredj         ###   ########.fr       */
+/*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
+/*   Updated: 2022/05/16 17:15:42 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _OUTPUT_HPP
-# define _OUTPUT_HPP
-# include "Logger/Output.hpp"
-# include <ostream>
-
-class _Output : Output
-{
-public:
-	// Getters
-	virtual short	getName(void) const = 0;
-	std::ostream*	getDest(void) const;
-	
-	// Setters
-	bool			setMinLevel(Output::level minLevel);
-	bool			setMaxLevel(Output::level maxLevel);
-	void			setName(std::string name);
-	void			setOpenedInternally(bool opened);
-};
+#ifndef IRCMESSAGES_HPP
+# define IRCMESSAGES_HPP
+# include "Command.hpp"
+void	PASS(Command& command);
 
 #endif

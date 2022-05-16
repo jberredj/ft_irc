@@ -3,82 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esommier <esommier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/15 14:38:52 by esommier         ###   ########.fr       */
+/*   Updated: 2022/05/16 18:59:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "User.hpp"
 #include "types/Nullptr_t.hpp"
-#include "Command.hpp"
 
-void WHOIS(Command &command){(void)command;}
-void USERS(Command &command){(void)command;}
-void USER(Command &command){(void)command;}
-void TOPIC(Command &command){(void)command;}
-void PRIVMSG(Command &command){(void)command;}
-void PONG(Command &command){(void)command;}
-void PING(Command &command){(void)command;}
-// void PASS(Command &command){(void)command;}
-void PART(Command &command){(void)command;}
-void OPER(Command &command){(void)command;}
-void NICK(Command &command){(void)command;}
-void NAMES(Command &command){(void)command;}
-void MODE(Command &command){(void)command;}
-void LIST(Command &command){(void)command;}
-void KILL(Command &command){(void)command;}
-void KICK(Command &command){(void)command;}
-void JOIN(Command &command){(void)command;}
-void INVITE(Command &command){(void)command;}
-void BAN(Command &command){(void)command;}
+/* ************************************************************************** */
+/*                                  Public                                    */
+/* ************************************************************************** */
 
-std::map<std::string, void (*)(Command &)> User::cmdMap;
-void	User::initUserClass(void)
-{
-	cmdMap["WHOIS"] = WHOIS;
-	cmdMap["USERS"] = USERS;
-	cmdMap["USER"] = USER;
-	cmdMap["TOPIC"] = TOPIC;
-	cmdMap["PRIVMSG"] = PRIVMSG;
-	cmdMap["PONG"] = PONG;
-	cmdMap["PPING"] = PING;
-	cmdMap["PASS"] = PASS;
-	cmdMap["PART"] = PART;
-	cmdMap["OPER"] = OPER;
-	cmdMap["NICK"] = NICK;
-	cmdMap["NAMES"] = NAMES;
-	cmdMap["MODE"] = MODE;
-	cmdMap["LIST"] = LIST;
-	cmdMap["KILL"] = KILL;
-	cmdMap["KICK"] = KICK;
-	cmdMap["JOIN"] = JOIN;
-	cmdMap["INVITE"] = INVITE;
-	cmdMap["BAN"] = BAN;
-	Logger(Output::TRACE) << "User command map initiated";
-}
-
-User::User(void) : _commandBuf(""), commandQueue(), responseQueue(), _status(PASSWORD), _ServerPassword(ft::null_ptr), _nicksInUse(ft::null_ptr),
-		_username(""), _nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
-		_prevnick(""), _channel("")
+// Constructors and destructor
+User::User(void):
+	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
+	_ServerPassword(ft::null_ptr), _nicksInUse(ft::null_ptr), _username(""),
+	_nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
+	_prevnick(""), _channel("")
 {
 	Logger(Output::TRACE) << "User constructor called";
 }
 
-User::User(std::string *serverPassWd, std::vector<std::string> *nicksInUse) : _commandBuf(""), commandQueue(), responseQueue(), _status(PASSWORD), _ServerPassword(serverPassWd), _nicksInUse(nicksInUse),
-		_username(""), _nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
-		_prevnick(""), _channel("")
-{
-	Logger(Output::TRACE) << "User constructor called";
-}
-
-User::User(User const & src)
+User::User(const User& src)
 {
 	Logger(Output::TRACE) << "User copy contructor called";
 	*this = src;
 }
 
+User::User(std::string* serverPassWd, std::vector<std::string>* nicksInUse):
+	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
+	_ServerPassword(serverPassWd), _nicksInUse(nicksInUse), _username(""),
+	_nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
+	_prevnick(""), _channel("")
+{
+	Logger(Output::TRACE) << "User constructor called";
+}
+
+User::~User() {Logger(Output::TRACE) << "User destructor called";}
+
+//operators
 User &User::operator=(User const & rhs)
 {
 	Logger(Output::TRACE) << "User assignement operator called";
@@ -98,7 +64,6 @@ User &User::operator=(User const & rhs)
 	}
 	return *this;
 }
-User::~User() {Logger(Output::TRACE) << "User destructor called";}
 
 //Getters
 User::Status 	User::getStatus(void) const {return this->_status;}
@@ -122,39 +87,58 @@ void		User::setNickname(std::string nickname) {this->_nickname = nickname;}
 void		User::setHostname(std::string hostname) {this->_hostname = hostname;}
 void		User::setServaddr(std::string servaddr) {this->_servaddr = servaddr;}
 void		User::setTruename(std::string truename) {this->_truename = truename;}
-void		User::setCommandBuf(std::string commandBuf) {this->_commandBuf = commandBuf;}
-void		User::appendCommandBuf(std::string commandBuf) {this->_commandBuf += commandBuf;}
+
+void		User::setCommandBuf(std::string commandBuf)
+{
+	this->_commandBuf = commandBuf;
+}
+
+void		User::appendCommandBuf(std::string commandBuf)
+{
+	this->_commandBuf += commandBuf;
+}
+
 void		User::setMode(std::string mode) {this->_mode = mode;}
-void		User::setPrevnick(std::string prevnick) {this->_prevnick = prevnick;}
+
+void		User::setPrevnick(std::string prevnick)
+{
+	this->_prevnick = prevnick;
+}
+
 void		User::setChannel(std::string channel) {this->_channel = channel;}
 
-
-void    User::addResponse(std::string response)
+// IO User methods
+void 	User::addCommand(Command const & command)
 {
-    responseQueue.push(response);
+	_commandQueue.push(command);
 }
 
-void 	User::addToqueue(Command const & command)
+void    User::execCommandQueue()
 {
-	commandQueue.push(command);
-}
-
-void    User::apply()
-{
-	while (!commandQueue.empty())
+	while (!_commandQueue.empty())
 	{	
-		Command &cmd = commandQueue.front();
-		if (cmdMap.count(cmd.getCommand()) > 0)
+		Command &cmd = _commandQueue.front();
+		if (_cmdMap.count(cmd.getCommand()) > 0)
 		{
 			Logger(Output::DEBUG) << cmd;
-			cmdMap[cmd.getCommand()](cmd);
+			_cmdMap[cmd.getCommand()](cmd);
 		}
 		else
 			Logger(Output::INFO) << "Unknown command: " << cmd.getCommand(); 
-		commandQueue.pop();
+		_commandQueue.pop();
 	}	
 }
 
+void    User::addReply(std::string response)
+{
+    _responseQueue.push(response);
+}
+
+/* ************************************************************************** */
+/*                                Non-member                                  */
+/* ************************************************************************** */
+
+// Operators
 std::ostream & operator<<(std::ostream & o, User const & rhs)
 {
     o << "Username: " << rhs.getUsername() << std::endl;

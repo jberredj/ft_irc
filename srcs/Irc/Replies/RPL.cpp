@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _Output.hpp                                        :+:      :+:    :+:   */
+/*   RPL.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 23:30:00 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 21:31:41 by jberredj         ###   ########.fr       */
+/*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
+/*   Updated: 2022/05/16 17:15:21 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _OUTPUT_HPP
-# define _OUTPUT_HPP
-# include "Logger/Output.hpp"
-# include <ostream>
+#include "Command.hpp"
 
-class _Output : Output
+std::string RPL_WELCOME(std::string str)
 {
-public:
-	// Getters
-	virtual short	getName(void) const = 0;
-	std::ostream*	getDest(void) const;
-	
-	// Setters
-	bool			setMinLevel(Output::level minLevel);
-	bool			setMaxLevel(Output::level maxLevel);
-	void			setName(std::string name);
-	void			setOpenedInternally(bool opened);
-};
-
-#endif
+	return "Welcome to the Internet Relay Network " + str;
+}

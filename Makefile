@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/16 02:20:16 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/16 21:23:17 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,24 +28,46 @@ LIBS			=
 ##								Source files								 ##
 ###############################################################################
 
+COMMANDS			=	Command.cpp
+COMMANDS_SRCS		=	$(addprefix srcs/Command/, $(COMMANDS))
+COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
+							$(COMMANDS:.cpp=.o)))
+
+IRC					=	$(addprefix Messages/, $(MESSAGES))\
+							$(addprefix Replies/, $(REPLIES))
+MESSAGES			=	Pass.cpp
+REPLIES				=	ERR.cpp RPL.cpp
+IRC_SRCS			=	$(addprefix srcs/Irc/, $(IRC))
+IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))
+
+LOGGER				=	Logger.cpp Output.cpp
+LOGGER_SRCS			=	$(addprefix srcs/Logger/, $(LOGGER))
+LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,.,\
+							$(LOGGER:.cpp=.o)))
+
+SERVER				=	run.cpp Server.cpp socketIO.cpp UserInteractions.cpp
+SERVER_SRCS			=	$(addprefix srcs/Server/, $(SERVER))
+SERVER_OBJS			=	$(addprefix objs/Server., $(subst /,.,\
+							$(SERVER:.cpp=.o)))
+
 TYPES				=	Nullptr_t.cpp 
 TYPES_SRCS			=   $(addprefix srcs/types/, $(TYPES))
 TYPES_OBJS			=   $(addprefix objs/types., $(subst /,., $(TYPES:.cpp=.o)))
 
-MAIN				=	main.cpp IrcServ.cpp User.cpp
+USER				=	init.cpp User.cpp
+USER_SRCS			=	$(addprefix srcs/User/, $(USER))
+USER_OBJS			=	$(addprefix objs/User., $(subst /,., $(USER:.cpp=.o)))
+
+MAIN				=	main.cpp
 MAIN_SRCS			=   $(addprefix srcs/, $(MAIN))
 MAIN_OBJS			=   $(addprefix objs/, $(subst /,., $(MAIN:.cpp=.o)))
 
-COMMANDS			=	Command.cpp Pass.cpp
-COMMANDS_SRCS		=	$(addprefix srcs/Commands/, $(COMMANDS))
-COMMANDS_OBJS		=	$(addprefix objs/Commands., $(subst /,., $(COMMANDS:.cpp=.o)))
-
-LOGGER				=	Logger.cpp Output.cpp
-LOGGER_SRCS			=	$(addprefix srcs/Logger/, $(LOGGER))
-LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,., $(LOGGER:.cpp=.o)))
-
-SRCS				= 	$(TYPES_SRCS) $(MAIN_SRCS) $(LOGGER_SRCS) $(COMMANDS_SRCS)
-OBJS				=	$(TYPES_OBJS) $(MAIN_OBJS) $(LOGGER_OBJS) $(COMMANDS_OBJS)
+SRCS				= 	$(COMMANDS_SRCS) $(IRC_SRCS) $(LOGGER_SRCS)\
+							$(SERVER_SRCS) $(TYPES_SRCS) $(USER_SRCS)\
+							$(MAIN_SRCS)
+OBJS				= 	$(COMMANDS_OBJS) $(IRC_OBJS) $(LOGGER_OBJS)\
+							$(SERVER_OBJS) $(TYPES_OBJS) $(USER_OBJS)\
+							$(MAIN_OBJS)
 
 ###############################################################################
 ##							Color output char								 ##
@@ -123,7 +145,7 @@ libmlx.a:
 
 dependencies: $(DEPS_DIR)/dependencies.d
 
-debug: CXXFLAGS = -std=c++98 -g
+debug: CXXFLAGS = -std=c++98 -g 
 debug: all
 
 $(DEPS_DIR)/dependencies.d: $(SRCS)

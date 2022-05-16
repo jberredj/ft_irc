@@ -18,28 +18,30 @@
 #include "_Output.hpp"
 #include "types/Nullptr_t.hpp"
 
-std::map<std::string, int>*	Output::_nbrCopy = ft::null_ptr;
+/* ************************************************************************** */
+/*                                 Public                                     */
+/* ************************************************************************** */
 
-					Output::Output(void): 
-					_dest(&std::cerr), _minLevel(Output::NOUTPUT), _maxLevel(Output::NOUTPUT),
-					_name("DEFAULT"), _openedInternally(false) {}
+// Constructors and destructor
+Output::Output(void): 
+	_dest(&std::cerr), _minLevel(Output::NOUTPUT), _maxLevel(Output::NOUTPUT),
+	_name("DEFAULT"), _openedInternally(false) {}
 
-					Output::Output(std::ostream *dest, std::string name,
-						Output::level minLevel, Output::level maxLevel
-					) : _dest(dest), _minLevel(minLevel), _maxLevel(maxLevel),
-						_name(name), _openedInternally(false)
+Output::Output(std::ostream* dest, std::string name, Output::level minLevel,
+			Output::level maxLevel): 
+	_dest(dest), _minLevel(minLevel), _maxLevel(maxLevel), _name(name),
+	_openedInternally(false)
 {
 	if (!Output::_nbrCopy)
 		Output::_nbrCopy = new std::map<std::string, int>;
 	Output::_nbrCopy->insert(std::make_pair(name, 1));
 }
 
-					Output::Output(std::string name, Output::level minLevel,
-						Output::level maxLevel
-					) : _minLevel(minLevel), _maxLevel(maxLevel), _name(name),
-						_openedInternally(false)
+Output::Output(std::string name, Output::level minLevel, Output::level maxLevel)
+:	_dest(ft::null_ptr), _minLevel(minLevel), _maxLevel(maxLevel), _name(name),
+	_openedInternally(false)
 {
-	std::ofstream *dest = new std::ofstream;
+	std::ofstream* dest = new std::ofstream;
 	dest->open(name.c_str(), std::fstream::app | std::fstream::out);
 	if (!dest->is_open())
 		throw(std::runtime_error("Unable to open file: " + name));
@@ -47,21 +49,19 @@ std::map<std::string, int>*	Output::_nbrCopy = ft::null_ptr;
 		Output::_nbrCopy = new std::map<std::string, int>;
 	Output::_nbrCopy->insert(std::make_pair(name, 1));
 	_openedInternally = true;
-	_dest = dest;
+	_dest = reinterpret_cast<std::ostream *>(dest);
 }
 
-					Output::Output(const Output &src): 
-						_dest(src._dest), _minLevel(src._minLevel),
-						_maxLevel(src._maxLevel),
-						_name(src._name), 
-						_openedInternally(src._openedInternally)
+Output::Output(const Output& src): 
+	_dest(src._dest), _minLevel(src._minLevel), _maxLevel(src._maxLevel),
+	_name(src._name), _openedInternally(src._openedInternally)
 {
 	if (_name == "DEFAULT")
 		return ;
 	(*Output::_nbrCopy)[_name]++;
 }
 
-					Output::~Output(void)
+Output::~Output(void)
 {
 	if (_name == "DEFAULT")
 		{return ;}
@@ -70,7 +70,7 @@ std::map<std::string, int>*	Output::_nbrCopy = ft::null_ptr;
 	{
 		if ((*Output::_nbrCopy)[_name] == 0)
 		{
-			reinterpret_cast<std::ofstream *>(this->_dest)->close();
+			reinterpret_cast<std::ofstream*>(this->_dest)->close();
 			delete this->_dest;
 		}
 	}
@@ -85,6 +85,12 @@ std::map<std::string, int>*	Output::_nbrCopy = ft::null_ptr;
 	}
 }
 
+// Getters
+Output::level		Output::getMinLevel(void) const {return _minLevel;}
+Output::level		Output::getMaxLevel(void) const {return _maxLevel;}
+std::string			Output::getName(void) const {return _name;}
+
+// Operators
 Output				&Output::operator=(const Output &rhs)
 {
 	if (this != &rhs)
@@ -92,10 +98,10 @@ Output				&Output::operator=(const Output &rhs)
 		if (_name != "DEFAULT")
 			(*Output::_nbrCopy)[_name]++;
 		this->_dest = rhs._dest;
-		this->_openedInternally = rhs._openedInternally;
 		this->_minLevel = rhs._maxLevel;
 		this->_maxLevel = rhs._maxLevel;
 		this->_name = rhs._name;
+		this->_openedInternally = rhs._openedInternally;
 	}
 	return *this;
 }
@@ -107,38 +113,18 @@ const Output 		&Output::operator<<(
 	F(dynamic_cast<std::ostream &>(*_dest));
 	return *this;
 }
+/* ************************************************************************** */
+/*                                Protected                                   */
+/* ************************************************************************** */
 
-Output::level		Output::getMinLevel(void) const {return _minLevel;}
-Output::level		Output::getMaxLevel(void) const {return _maxLevel;}
-std::string			Output::getName(void) const {return _name;}
+// Static variable initialisation
+std::map<std::string, int>*	Output::_nbrCopy = ft::null_ptr;
 
-bool				_Output::setMinLevel(Output::level minLevel)
-{
-	if ((minLevel >= TRACE && minLevel <= FATAL) && minLevel >= _maxLevel)
-	{
-		_minLevel = minLevel;
-		return true;
-	}
-	return false;
-}
+/* ************************************************************************** */
+/*                                Non-member                                  */
+/* ************************************************************************** */
 
-bool				_Output::setMaxLevel(Output::level maxLevel)
-{
-	if ((maxLevel >= TRACE && maxLevel <= FATAL) && maxLevel <= _minLevel)
-	{
-		_maxLevel = maxLevel;
-		return true;
-	}
-	return false;
-}
-
-void				_Output::setName(std::string name)
-{
-	Output::_nbrCopy->insert(std::make_pair(name, (*Output::_nbrCopy)[_name]));
-	Output::_nbrCopy->erase(_name);
-	_name = name;
-}
-
+// Operators
 bool				operator==(const Output& lhs, const Output& rhs)
 {
 	if (lhs.getName() != rhs.getName() ||
@@ -160,11 +146,48 @@ bool 				operator!=(const Output& lhs, const Output& rhs)
 	return !(lhs == rhs);
 }
 
-void				_Output::setOpenedInternally(bool opened)
+//
+// private _Output Interface
+//
+/* ************************************************************************** */
+/*                                 Public                                     */
+/* ************************************************************************** */
+
+// Getters
+std::ostream*	_Output::getDest(void) const 
+{
+	return (_dest);	
+}
+
+// Setters
+bool	_Output::setMinLevel(Output::level minLevel)
+{
+	if ((minLevel >= TRACE && minLevel <= FATAL) && minLevel >= _maxLevel)
+	{
+		_minLevel = minLevel;
+		return true;
+	}
+	return false;
+}
+
+bool	_Output::setMaxLevel(Output::level maxLevel)
+{
+	if ((maxLevel >= TRACE && maxLevel <= FATAL) && maxLevel <= _minLevel)
+	{
+		_maxLevel = maxLevel;
+		return true;
+	}
+	return false;
+}
+
+void	_Output::setName(std::string name)
+{
+	Output::_nbrCopy->insert(std::make_pair(name, (*Output::_nbrCopy)[_name]));
+	Output::_nbrCopy->erase(_name);
+	_name = name;
+}
+
+void	_Output::setOpenedInternally(bool opened)
 {
 	_openedInternally = opened;
-}
-std::ostream		&_Output::getDest(void) const 
-{
-	return reinterpret_cast<std::ostream &>(*_dest);
 }
