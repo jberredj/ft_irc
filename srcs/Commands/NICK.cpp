@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 15:27:14 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/15 21:45:09 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/16 01:10:04 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void    NICK(Command &command)
 		nick = command.getParameters()[0];
 	else
 		return;
-	
 	if (nick.size() > 9)
 	{
 		Logger(Output::WARN) << "(432) ERR_ERRONEUSNICKNAME" << std::endl;
@@ -56,22 +55,16 @@ void    NICK(Command &command)
         	return ;
 		}
 	}
-	
-	std::vector<std::string> nicks = command.getUser().getNickInUse();
-	for (std::vector<std::string>::iterator it = nicks.begin(); it != nicks.end(); it++)
-	{
-		if (nick == (*it)->getNickname())
-		{
-			Logger(Output::WARN) << "(433) ERR_NICKNAMEINUSE" << std::endl;
-        	return ;
-		}	
-	}
 	if (nick == command.getUser().getNickname())
 	{
 		Logger(Output::WARN) << "(436) ERR_NICKCOLLISION" << std::endl;
         	return ;
 	}
+	command.getUser().searchNick(nick);
+	
 	command.getUser().setNickname(nick);
-	// command.getUser().setPrevnick(nick);
     Logger(Output::DEBUG) << "Nickname set " << command.getUser().getNickname(); 
 }
+
+
+dans user fonction rename => set nick et cherche dans vector loccurence actuelle pour la changer

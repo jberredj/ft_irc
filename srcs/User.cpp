@@ -6,13 +6,14 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/15 19:12:59 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/16 00:58:47 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "User.hpp"
 #include "types/Nullptr_t.hpp"
 #include "Command.hpp"
+#include <algorithm>
 
 void WHOIS(Command &command){(void)command;}
 void USERS(Command &command){(void)command;}
@@ -102,9 +103,8 @@ User::~User() {Logger(Output::TRACE) << "User destructor called";}
 
 //Getters
 User::Status 	User::getStatus(void) const {return this->_status;}
-std::string	   &User::getServerPassword(void) const {return *_ServerPassword;}
+std::string	   	&User::getServerPassword(void) const {return *_ServerPassword;}
 std::string	  	User::getPassword(void) const {return _password;}
-std::string		User::getNickInUse(void) const {return *_nicksInUse;}
 std::string		User::getUsername(void) const {return this->_username;}
 std::string 	User::getNickname(void) const {return this->_nickname;}
 std::string		User::getHostname(void) const {return this->_hostname;}
@@ -154,6 +154,23 @@ void    User::apply()
 			Logger(Output::INFO) << "Uknown command: " << cmd.getCommand(); 
 		commandQueue.pop();
 	}	
+}
+
+void	User::searchNick(std::string nick)
+{
+	std::vector<std::string>::iterator it;
+
+	it = find(_nicksInUse.begin(), _nicksInUse.end(), nick);
+	if (it != _nicksInUse.end())
+	{
+		Logger(Output::WARN) << "(433) ERR_NICKNAMEINUSE" << std::endl;
+        return ;
+	}		
+}
+
+void	User::reName(std::string nick)
+{
+	
 }
 
 std::ostream & operator<<(std::ostream & o, User const & rhs)

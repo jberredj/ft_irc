@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/15 19:08:45 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/16 01:08:45 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ class User
 		Status 												getStatus(void) const;
 		std::string											&getServerPassword(void) const;
 		std::string											getPassword(void) const;
-		std::string											&getNickInUse(void) const;
 		std::string											getUsername(void) const;
 		std::string 										getNickname(void) const;
 		std::string											getHostname(void) const;
@@ -57,7 +56,9 @@ class User
 		std::string											getChannel(void) const;
 		// std::string getAwaymsg(void) {return this->_awaymsg;}
 		// std::string getDeletemsg(void) {return this->_deletemsg;}
-		
+
+		void												searchNick(std::string nick);
+		void 												reName(std::string nick);
 		//setters
 		void												setStatus(Status status);
 		void												setPassword(std::string password);
@@ -93,7 +94,7 @@ class User
 		//les infos sur USER:
 		Status 												_status;
 		std::string 										*_ServerPassword;
-		std::vector<std::string>							*_nicksInUse;
+		std::vector<std::string>							_nicksInUse;
 		std::string											_password;
 		std::string 										_username;
 		std::string 										_nickname;
