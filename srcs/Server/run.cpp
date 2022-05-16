@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:06 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 22:03:17 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/16 23:29:21 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	Server::run(void)
 {
 	while (_running)
 	{
-		// printf("useClient => %d\n", useClient);
 		int	pollResult = poll(static_cast<struct pollfd*>(&(*_pollfds.begin())),
 							_pollfds.size(), 5000);
 		if (pollResult > 0)
