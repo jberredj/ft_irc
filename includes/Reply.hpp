@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:57 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 01:23:28 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 09:19:55 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@ public:
 
 	// Operators
 	Reply	&operator=(const Reply &rhs);
+
+	// getReply functions
+	std::string getReply(int code, std::vector<std::string> args);
+	std::string getReply(std::string (*func)(std::vector<std::string>),
+					std::vector<std::string> args);
 private:
-	std::map<int, std::string (*)(std::vector<std::string>)>	_repliesMap;
+	std::map<int, std::string (*)(std::vector<std::string>)>	_replies;
 
 	// Init function
 	void	_initRepliesMap(void);
