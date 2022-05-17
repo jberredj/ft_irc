@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esommier <esommier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 09:50:01 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:37:57 by esommier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void WHOIS(Command &command){(void)command;}
 void USERS(Command &command){(void)command;}
-void USER(Command &command){(void)command;}
+// void USER(Command &command){(void)command;}
 void TOPIC(Command &command){(void)command;}
 void PRIVMSG(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
@@ -47,7 +47,7 @@ void	User::_initUserClass(void)
 		_cmdMap["USERS"] = USERS;
 		Logger(Output::WARN) << "USERS message is not implemented yet";
 		_cmdMap["USER"] = USER;
-		Logger(Output::WARN) << "USER message is not implemented yet";
+		// Logger(Output::WARN) << "USER message is not implemented yet";
 		_cmdMap["TOPIC"] = TOPIC;
 		Logger(Output::WARN) << "TOPIC message is not implemented yet";
 		_cmdMap["PRIVMSG"] = PRIVMSG;

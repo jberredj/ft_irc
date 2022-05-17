@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pass.cpp                                           :+:      :+:    :+:   */
+/*   USER.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 21:59:32 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 14:13:47 by jberredj         ###   ########.fr       */
+/*   Created: 2022/05/14 12:36:58 by esommier          #+#    #+#             */
+/*   Updated: 2022/05/17 14:16:13 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 #include "Command.hpp"
 #include "IrcMessages.hpp"
 
-void	PASS(Command& command)
+void	USER(Command &command)
 {
 	int	response = 0;
 	std::vector<std::string> args;
 
-	Logger(Output::DEBUG) << "ENTERED IN PASS";
-	if (command.getParameters().size() < 1)
+	Logger(Output::DEBUG) << "SPECIFY NEW USER ";
+	if (command.getParameters().size() < 3)
 	{
 		response = 461;
 		args.push_back(command.getCommand());
@@ -29,8 +29,15 @@ void	PASS(Command& command)
 	}
 	if (command.getUser().getStatus() != User::PASSWORD)
 	{
-		return command.reply(462);
+		response = 462;
+		return command.reply(response, args);
 	}
-	command.getUser().setPassword(command.getParameters()[0]);
-	Logger(Output::DEBUG) << "New password " << command.getUser().getPassword();
+
+	command.getUser().setUsername(command.getParameters()[0]);
+	command.getUser().setHostname(command.getParameters()[1]);
+	command.getUser().setTruename(command.getTrailer());
+	Logger(Output::DEBUG) << "User: " << command.getUser().getUsername()
+	<< " " << command.getUser().getHostname()
+	<< " " << command.getUser().getTruename();
+	
 }

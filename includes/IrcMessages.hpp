@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcMessages.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esommier <esommier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 10:50:55 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:33:51 by esommier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #  define IRC_MESSAGE_LEN 512
 # endif
 void	PASS(Command& command);
+void	USER(Command& command);
 
 // Replies
 std::string	RPL_WELCOME(std::vector<std::string> args);

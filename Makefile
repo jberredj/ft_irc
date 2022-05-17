@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
+#    By: esommier <esommier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/17 01:24:55 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/17 13:44:03 by esommier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
 
 IRC					=	$(addprefix Messages/, $(MESSAGES))\
 							$(addprefix Replies/, $(REPLIES))
-MESSAGES			=	Pass.cpp
+MESSAGES			=	Pass.cpp USER.cpp
 REPLIES				=	Reply.cpp ERR.cpp RPL.cpp
 IRC_SRCS			=	$(addprefix srcs/Irc/, $(IRC))
 IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))

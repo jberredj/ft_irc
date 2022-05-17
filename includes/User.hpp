@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 12:13:01 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:32:32 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ private:
 	// std::string _deletemsg;
 
 	// Init user Class
-	static void		_initUserClass(void);
+	static void											_initUserClass(void);
 };
 
 std::ostream&	operator<<(std::ostream& o, const User & rhs);
