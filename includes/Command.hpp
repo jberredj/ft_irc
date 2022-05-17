@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 12:07:33 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 20:58:12 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ public:
 	std::string 				_trailer;
 	std::string 				_command_line;
 	User*						_user;
+	std::vector<User*>* 		_allUsers;
 
 	// Constructors and destructor
 								Command(void);
-								Command(User* user, std::string command_line);
+								Command(User* user, std::string command_line,
+									std::vector<User *>* users);
 								Command(const Command& src);
 								~Command(void);
 
@@ -48,6 +50,8 @@ public:
 	std::vector<std::string> 	getParameters(void) const;
 	std::string 				getTrailer(void) const;
 	User&						getUser(void) const;
+	User*						getUser(std::string nickname);
+	std::vector<User *>*		getUsers(void);
 
 
 	// Replies functions
@@ -59,7 +63,10 @@ public:
 									= std::vector<std::string>());
 	void						reply(int code, std::vector<std::string> args
 									= std::vector<std::string>());
+private:
+	static std::string	_nickToFind;
 
+	static bool			_nickFinder(User *user);
 };
 
 // Operators

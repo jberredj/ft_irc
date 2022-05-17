@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 22:07:04 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:10:26 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ Server::Server(const Server &src)
 
 Server::~Server(void)
 {
+	Logger(Output::WARN) << "HANDLE FREE USER";
 	for(std::vector<struct pollfd>::iterator it = _pollfds.begin();
 		it != _pollfds.end(); it++)
 			close((*it).fd);	

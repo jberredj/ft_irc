@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:06 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 23:29:21 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:27:36 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ void	Server::run(void)
 
 void	Server::_treatUserMessages(void)
 {
-	for(std::map<int, User>::iterator ctx_it = _users.begin();
-		ctx_it != _users.end(); ctx_it++)
+	for(std::map<int, User*>::iterator ctx_it = _usersMap.begin();
+		ctx_it != _usersMap.end(); ctx_it++)
 	{
 		try 
 		{
-			(*ctx_it).second.execCommandQueue();
+			(*ctx_it).second->execCommandQueue();
 		}
 		catch (const std::exception& e)
 		{

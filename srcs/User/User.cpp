@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 12:19:57 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:33:58 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 // Constructors and destructor
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
-	_ServerPassword(ft::null_ptr), _nicksInUse(ft::null_ptr), _username(""),
-	_nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
-	_prevnick(""), _channel("")
+	_ServerPassword(ft::null_ptr), _username(""), _nickname("-"), _truename(""),
+	_hostname(""), _servaddr(""),  _mode("w"), _prevnick(""), _channel("")
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -38,11 +37,10 @@ User::User(const User& src)
 	*this = src;
 }
 
-User::User(std::string* serverPassWd, std::vector<std::string>* nicksInUse):
+User::User(std::string* serverPassWd):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
-	_ServerPassword(serverPassWd), _nicksInUse(nicksInUse), _username(""),
-	_nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
-	_prevnick(""), _channel("")
+	_ServerPassword(serverPassWd), _username(""), _nickname("-"), _truename(""),
+	_hostname(""), _servaddr(""),  _mode("w"), _prevnick(""), _channel("")
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";

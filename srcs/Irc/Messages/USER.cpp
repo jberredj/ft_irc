@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 12:36:58 by esommier          #+#    #+#             */
-/*   Updated: 2022/05/17 14:16:13 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 20:55:29 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	USER(Command &command)
 		response = 462;
 		return command.reply(response, args);
 	}
-
 	command.getUser().setUsername(command.getParameters()[0]);
 	command.getUser().setHostname(command.getParameters()[1]);
 	command.getUser().setTruename(command.getTrailer());

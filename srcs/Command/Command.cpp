@@ -6,13 +6,15 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 12:07:54 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 20:56:56 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
 #include "User.hpp"
 #include "Reply.hpp"
+#include "typedefs.hpp"
+#include <algorithm>
 
 /* ************************************************************************** */
 /*                                 Public                                     */
@@ -21,9 +23,9 @@
 // Constructors and destructor
 Command::Command(void) {}
 
-Command::Command(User* user, std::string command_line): 
+Command::Command(User* user, std::string command_line, std::vector<User *>* users):
 	_prefix(""), _command(""), _trailer(""), _command_line(command_line),
-	_user(user)
+	_user(user), _allUsers(users)
 {
 	std::string delimiter(" ");
 	size_t  	position = 0;
@@ -100,6 +102,20 @@ std::vector<std::string>	Command::getParameters(void) const
 std::string	Command::getTrailer(void) const {return _trailer;}
 User&	Command::getUser(void) const {return *_user;}
 
+User*	Command::getUser(std::string nickname)
+{
+	_nickToFind = nickname;
+	std::vector<User *>::iterator find;
+
+	find = std::find_if(_allUsers->begin(), _allUsers->end(), _nickFinder);
+	_nickToFind.clear();
+	if (find == _allUsers->end())
+		return ft::null_ptr;
+	return (*find);	
+}
+
+std::vector<User *>*	Command::getUsers(void) {return _allUsers;}
+
 // Replies functions
 void	Command::replyTo(User *user, int code, std::vector<std::string> args)
 {
@@ -119,6 +135,22 @@ void	Command::replyAll(int code, std::vector<std::string> args)
 void	Command::reply(int code, std::vector<std::string> args)
 {
 	replyTo(_user, code, args);
+}
+
+/* ************************************************************************** */
+/*                                 Private                                    */
+/* ************************************************************************** */
+
+std::string	Command::_nickToFind;
+
+bool	Command::_nickFinder(User *user)
+{
+	if (user)
+	{
+		if (user->getNickname() == _nickToFind)
+			return true;
+	}
+	return false;
 }
 
 /* ************************************************************************** */

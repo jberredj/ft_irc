@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:37:21 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 12:14:55 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:38:56 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,16 +110,16 @@ void	Server::_socketReadInput(std::vector<struct pollfd>::iterator it)
 	char	buf[IRC_MESSAGE_LEN + 1];
 	int		bufSize = read((*it).fd, buf, IRC_MESSAGE_LEN);
 	if (bufSize <= 0)
-		_users[(*it).fd].setStatus(User::DELETE);
+		_usersMap[(*it).fd]->setStatus(User::DELETE);
 	else
 	{
-		User&		ctx = _users[(*it).fd];
+		User*		ctx = _usersMap[(*it).fd];
 
 		buf[bufSize] = '\0';
-		_logRawMessage(buf, _users[(*it).fd]);
-		std::string	rawMessage(ctx.getCommandBuf());
+		_logRawMessage(buf, *_usersMap[(*it).fd]);
+		std::string	rawMessage(ctx->getCommandBuf());
 
-		ctx.setCommandBuf("");
+		ctx->setCommandBuf("");
 		Logger(Output::WARN) << "Implement a proper commandBuf clear()";
 		rawMessage += buf;
 		while (!rawMessage.empty())
@@ -135,14 +135,14 @@ void	Server::_socketReadInput(std::vector<struct pollfd>::iterator it)
 			}
 			if (endMessageLocation == rawMessage.npos)
 			{
-				ctx.setCommandBuf(rawMessage);
+				ctx->setCommandBuf(rawMessage);
 				break;
 			}
 			Logger(Output::DEBUG) << "Add command: "
 				<< rawMessage.substr(0, endMessageLocation);
-			Command	newCommand(&(ctx), rawMessage.substr(0, 
-				endMessageLocation - endOffset));
-			ctx.addCommand(newCommand);
+			Command	newCommand(ctx, rawMessage.substr(0, 
+				endMessageLocation - endOffset), &_users);
+			ctx->addCommand(newCommand);
 			rawMessage.erase(rawMessage.begin(), rawMessage.begin()
 				+ endMessageLocation + 1);
 		}
@@ -151,9 +151,9 @@ void	Server::_socketReadInput(std::vector<struct pollfd>::iterator it)
 
 void	Server::_socketWrite(std::vector<struct pollfd>::iterator it)
 {
-	if (_users[(*it).fd].repliesAvalaible())
+	if (_usersMap[(*it).fd]->repliesAvalaible())
 	{
-		std::string	payload = _users[(*it).fd].getReplies();
+		std::string	payload = _usersMap[(*it).fd]->getReplies();
 
 		write((*it).fd, payload.c_str(), payload.size());
 	}

@@ -41,9 +41,9 @@ private:
 	bool						_running;
 	int							_serverSocket;
 	std::vector<struct pollfd>	_pollfds;
-	std::map<int, User>			_users;
+	std::map<int, User*>		_usersMap;
 	int							_portInstanceLock;
-	std::vector<std::string>	_nicksInUse;
+	std::vector<User *>			_users;
 
 	// Constructors
 								Server(void);
