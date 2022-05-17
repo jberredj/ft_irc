@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 01:22:35 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/17 20:22:57 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,26 +154,24 @@ void    User::apply()
 			Logger(Output::INFO) << "Uknown command: " << cmd.getCommand(); 
 		commandQueue.pop();
 	}	
-}
-
-bool	User::searchNick(std::string nick)
-{
-	std::vector<std::string>::iterator it;
-
-	it = find(_nicksInUse->begin(), _nicksInUse->end(), nick);
-	if (it != _nicksInUse->end())
-	{
-		Logger(Output::WARN) << "(433) ERR_NICKNAMEINUSE" << std::endl;
-		return true ;
-	}
-	else
-        return false ;		
-}		
+}	
 
 void	User::reName(std::string nick)
 {
-	setNickname(nick);
-    Logger(Output::DEBUG) << "Nickname set " << getNickname(); 
+	std::vector<std::string>::iterator it;
+
+	if (_nickname == "-")
+		setNickname(nick);
+	else
+	{
+		it = find(_nicksInUse->begin(), _nicksInUse->end(), _nickname);
+		if (it != _nicksInUse->end())
+		{
+			setPrevnick(getNickname());
+			*it = nick;
+		}
+    	Logger(Output::DEBUG) << "Nickname set " << getNickname(); 
+	}			
 }
 
 std::ostream & operator<<(std::ostream & o, User const & rhs)

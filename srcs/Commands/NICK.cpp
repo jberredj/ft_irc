@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 15:27:14 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 01:24:26 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/17 20:11:58 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ void    NICK(Command &command)
         	return ;
 		}
 	}
-	if (nick == command.getUser().getNickname())
+	if (nick == "-" && nick == command.getUser().getNickname())
 	{
 		Logger(Output::WARN) << "(436) ERR_NICKCOLLISION" << std::endl;
-        	return ;
+        return ;
 	}
-	if(command.getUser().searchNick(nick))
+	if(nick == command.getUser().getNickname())
+	{
+		Logger(Output::WARN) << "(433) ERR_NICKNAMEINUSE" << std::endl;
 		return ;
+	}
 	command.getUser().reName(nick);
 }
-
-
-dans user fonction rename => set nick et cherche dans vector loccurence actuelle pour la changer

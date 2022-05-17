@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 01:17:11 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:29:31 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ class User
 		// std::string getAwaymsg(void) {return this->_awaymsg;}
 		// std::string getDeletemsg(void) {return this->_deletemsg;}
 
-		bool												searchNick(std::string nick);
 		void 												reName(std::string nick);
 		//setters
 		void												setStatus(Status status);
