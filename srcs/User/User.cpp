@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/16 21:48:11 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 09:48:27 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ User::User(void):
 	_nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
 	_prevnick(""), _channel("")
 {
+	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
 }
 
@@ -40,6 +41,7 @@ User::User(std::string* serverPassWd, std::vector<std::string>* nicksInUse):
 	_nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
 	_prevnick(""), _channel("")
 {
+	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
 }
 

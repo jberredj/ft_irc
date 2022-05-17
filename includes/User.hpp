@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/16 18:59:05 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 09:49:26 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ public:
 	void			execCommandQueue(void);
 	void			addReply(std::string reply);
 
-	// Init user Class
-	static void		initUserClass(void);
-
 private:
 	static bool											_inited;
 	std::string 										_commandBuf;
@@ -97,7 +94,10 @@ private:
 	std::string 										_prevnick;
 	std::string 										_channel;
 	// std::string _awaymsg;
-	// std::string _deletemsg; 														
+	// std::string _deletemsg;
+
+	// Init user Class
+	static void		_initUserClass(void);
 };
 
 std::ostream&	operator<<(std::ostream& o, const User & rhs);

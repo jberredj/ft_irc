@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 09:46:34 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 09:53:36 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ Reply::Reply(void)
 Reply::Reply(const Reply &src)
 {
 	(void)src;
-	_initRepliesMap();
 }
 
 Reply::~Reply(void)
@@ -70,7 +69,9 @@ std::string Reply::getReply(std::string (*replyFunc)(std::vector<std::string>),
 {
 	std::map<int, std::string (*)(std::vector<std::string>)>::iterator it;
 
-	it = std::find(_replies.begin(), _replies.end(), replyFunc);
+	for(it = _replies.begin(); it != _replies.end(); it++)
+		if ((*it).second == replyFunc)
+			break;
 	if (it == _replies.end())
 	{
 		Logger(Output::ERROR) << "Function is not in valid replies";

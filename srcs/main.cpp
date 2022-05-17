@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:12:10 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 20:56:22 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 09:48:46 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int main(int ac, char **av)
 		Logger::clearOutputs();
 		return 1;
 	}
-	User::initUserClass();
 	ServerInstance->run();
 	(void)ac;
 	(void)av;

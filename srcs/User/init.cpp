@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 21:45:23 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 09:50:01 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void INVITE(Command &command){(void)command;}
 void BAN(Command &command){(void)command;}
 
 /* ************************************************************************** */
-/*                                  Public                                    */
+/*                                 Private                                    */
 /* ************************************************************************** */
 
-void	User::initUserClass(void)
+void	User::_initUserClass(void)
 {
-	if (!_cmdMap.size())
+	if (_cmdMap.empty())
 	{
 		_cmdMap["WHOIS"] = WHOIS;
 		Logger(Output::WARN) << "WHOIS message is not implemented yet";
@@ -81,13 +81,7 @@ void	User::initUserClass(void)
 		Logger(Output::WARN) << "BAN message is not implemented yet";
 		Logger(Output::TRACE) << "User command map initiated";
 	}
-	else
-		Logger(Output::WARN) << "User class allready was initiated";
 }
 
-/* ************************************************************************** */
-/*                                 Private                                    */
-/* ************************************************************************** */
-
-
+// Init static var
 std::map<std::string, void (*)(Command&)> User::_cmdMap;
