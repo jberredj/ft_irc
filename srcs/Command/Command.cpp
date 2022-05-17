@@ -6,11 +6,13 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/16 17:59:37 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 10:46:27 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
+#include "User.hpp"
+#include "Reply.hpp"
 
 /* ************************************************************************** */
 /*                                 Public                                     */
@@ -97,6 +99,25 @@ std::vector<std::string>	Command::getParameters(void) const
 
 std::string	Command::getTrailer(void) const {return _trailer;}
 User&	Command::getUser(void) const {return *_user;}
+
+// Replies functions
+void	Command::replyTo(User *user, int code, std::vector<std::string> args)
+{
+	std::string	reply;
+	Logger(Output::WARN) << "Incomplete Replies";
+	reply = Reply().getReply(code, args);
+	user->addReply(reply);
+}
+
+void	Command::replyAll(int code, std::vector<std::string> args)
+{
+	Logger(Output::WARN) << "replyAll() not implemented yet";
+}
+
+void	Command::reply(int code, std::vector<std::string> args)
+{
+	replyTo(_user, code, args);
+}
 
 /* ************************************************************************** */
 /*                                Non-member                                  */
