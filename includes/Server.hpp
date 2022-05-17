@@ -16,10 +16,6 @@
 # include <map>
 # include <vector>
 # include <fstream>
-# ifndef IRC_MESSAGE_LEN
-#  define IRC_MESSAGE_LEN 512
-# endif
-
 
 class Server
 {

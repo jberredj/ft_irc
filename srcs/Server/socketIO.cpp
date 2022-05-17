@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:37:21 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/16 21:36:41 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:14:55 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <arpa/inet.h>
 #include <poll.h>
 #include "Server.hpp"
+#include "IrcMessages.hpp"
 
 /* ************************************************************************** */
 /*                                 Private                                    */
@@ -150,5 +151,10 @@ void	Server::_socketReadInput(std::vector<struct pollfd>::iterator it)
 
 void	Server::_socketWrite(std::vector<struct pollfd>::iterator it)
 {
-	(void)it;
+	if (_users[(*it).fd].repliesAvalaible())
+	{
+		std::string	payload = _users[(*it).fd].getReplies();
+
+		write((*it).fd, payload.c_str(), payload.size());
+	}
 }

@@ -6,21 +6,26 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:59:32 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/16 17:28:35 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:10:22 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Logger.hpp"
 #include "User.hpp"
 #include "Command.hpp"
+#include "IrcMessages.hpp"
 
 void	PASS(Command& command)
 {
+	int	response = 0;
+	std::vector<std::string> args;
+
 	Logger(Output::DEBUG) << "ENTERED IN PASS";
 	if (command.getParameters().size() < 1)
 	{
-		Logger(Output::WARN) << "ERR_NEEDMOREPARAMS" << std::endl;
-		return ;
+		response = 461;
+		args.push_back(command.getCommand());
+		return command.reply(response, args);
 	}
 	if (command.getUser().getStatus() != User::PASSWORD)
 	{

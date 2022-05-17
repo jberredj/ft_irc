@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 08:58:01 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 10:50:55 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 # include "Command.hpp"
 # include <string>
 # include <vector>
+# ifndef IRC_MESSAGE_LEN
+#  define IRC_MESSAGE_LEN 512
+# endif
 void	PASS(Command& command);
 
 // Replies

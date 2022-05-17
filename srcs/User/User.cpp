@@ -6,13 +6,16 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 09:48:27 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:19:57 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exception>
+#include <string>
+#include <map>
 #include "User.hpp"
 #include "types/Nullptr_t.hpp"
+#include "IrcMessages.hpp"
 
 /* ************************************************************************** */
 /*                                  Public                                    */
@@ -81,6 +84,10 @@ std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
 std::string 	User::getMode(void) const {return this->_mode;}
 std::string 	User::getPrevnick(void) const {return this->_prevnick;}
 std::string 	User::getChannel(void) const {return this->_channel;}
+bool			User::repliesAvalaible(void) const 
+{
+	return !_responseQueue.empty();
+}
 
 //Setters
 void		User::setStatus(Status status) {this->_status = status;}
@@ -137,6 +144,28 @@ void    User::execCommandQueue()
 void    User::addReply(std::string response)
 {
     _responseQueue.push(response);
+}
+
+std::string	User::getReplies(void)
+{
+	std::string	payload("");
+	int			payloadSize = 0;
+
+	while (!_responseQueue.empty() && payloadSize + _responseQueue.front().size() + 2 <= IRC_MESSAGE_LEN)
+	{
+		payloadSize += _responseQueue.front().size() + 2;
+		std::string&	reply = _responseQueue.front();
+		payload += reply + "\r\n";
+		_responseQueue.pop();
+	}
+	if (payload.empty())
+	{
+		std::string&	reply = _responseQueue.front();
+
+		payload += reply.substr(0, 509) + "\r\n";
+		reply.erase(0, 509);
+	}
+	return payload;
 }
 
 /* ************************************************************************** */

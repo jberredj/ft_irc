@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 09:49:26 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:13:01 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ public:
 	std::string		getMode(void) const;
 	std::string		getPrevnick(void) const;
 	std::string		getChannel(void) const;
+	bool			repliesAvalaible(void) const;
 	// std::string getAwaymsg(void) {return this->_awaymsg;}
 	// std::string getDeletemsg(void) {return this->_deletemsg;}
 	
@@ -70,6 +71,7 @@ public:
 	void			addCommand(const Command& command);
 	void			execCommandQueue(void);
 	void			addReply(std::string reply);
+	std::string		getReplies(void);
 
 private:
 	static bool											_inited;

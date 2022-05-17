@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 10:46:27 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:07:54 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	Command::replyTo(User *user, int code, std::vector<std::string> args)
 
 void	Command::replyAll(int code, std::vector<std::string> args)
 {
+	(void)code;
+	(void)args;
 	Logger(Output::WARN) << "replyAll() not implemented yet";
 }
 
