@@ -6,12 +6,20 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
+<<<<<<< HEAD:srcs/User.cpp
 /*   Updated: 2022/05/17 20:22:57 by ddiakova         ###   ########.fr       */
+=======
+/*   Updated: 2022/05/17 19:33:58 by jberredj         ###   ########.fr       */
+>>>>>>> master:srcs/User/User.cpp
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <exception>
+#include <string>
+#include <map>
 #include "User.hpp"
 #include "types/Nullptr_t.hpp"
+<<<<<<< HEAD:srcs/User.cpp
 #include "Command.hpp"
 #include <algorithm>
 
@@ -59,27 +67,42 @@ void	User::initUserClass(void)
 	cmdMap["BAN"] = BAN;
 	Logger(Output::TRACE) << "User command map initiated";
 }
+=======
+#include "IrcMessages.hpp"
+>>>>>>> master:srcs/User/User.cpp
 
-User::User(void) : _commandBuf(""), commandQueue(), responseQueue(), _status(PASSWORD), _ServerPassword(ft::null_ptr), _nicksInUse(ft::null_ptr),
-		_username(""), _nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
-		_prevnick(""), _channel("")
+/* ************************************************************************** */
+/*                                  Public                                    */
+/* ************************************************************************** */
+
+// Constructors and destructor
+User::User(void):
+	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
+	_ServerPassword(ft::null_ptr), _username(""), _nickname("-"), _truename(""),
+	_hostname(""), _servaddr(""),  _mode("w"), _prevnick(""), _channel("")
 {
+	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
 }
 
-User::User(std::string *serverPassWd, std::vector<std::string> *nicksInUse) : _commandBuf(""), commandQueue(), responseQueue(), _status(PASSWORD), _ServerPassword(serverPassWd), _nicksInUse(nicksInUse),
-		_username(""), _nickname("-"), _truename(""), _hostname(""), _servaddr(""),  _mode("w"),
-		_prevnick(""), _channel("")
-{
-	Logger(Output::TRACE) << "User constructor called";
-}
-
-User::User(User const & src)
+User::User(const User& src)
 {
 	Logger(Output::TRACE) << "User copy contructor called";
 	*this = src;
 }
 
+User::User(std::string* serverPassWd):
+	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
+	_ServerPassword(serverPassWd), _username(""), _nickname("-"), _truename(""),
+	_hostname(""), _servaddr(""),  _mode("w"), _prevnick(""), _channel("")
+{
+	_initUserClass();
+	Logger(Output::TRACE) << "User constructor called";
+}
+
+User::~User() {Logger(Output::TRACE) << "User destructor called";}
+
+//operators
 User &User::operator=(User const & rhs)
 {
 	Logger(Output::TRACE) << "User assignement operator called";
@@ -99,7 +122,6 @@ User &User::operator=(User const & rhs)
 	}
 	return *this;
 }
-User::~User() {Logger(Output::TRACE) << "User destructor called";}
 
 //Getters
 User::Status 	User::getStatus(void) const {return this->_status;}
@@ -114,6 +136,10 @@ std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
 std::string 	User::getMode(void) const {return this->_mode;}
 std::string 	User::getPrevnick(void) const {return this->_prevnick;}
 std::string 	User::getChannel(void) const {return this->_channel;}
+bool			User::repliesAvalaible(void) const 
+{
+	return !_responseQueue.empty();
+}
 
 //Setters
 void		User::setStatus(Status status) {this->_status = status;}
@@ -123,36 +149,47 @@ void		User::setNickname(std::string nickname) {this->_nickname = nickname;}
 void		User::setHostname(std::string hostname) {this->_hostname = hostname;}
 void		User::setServaddr(std::string servaddr) {this->_servaddr = servaddr;}
 void		User::setTruename(std::string truename) {this->_truename = truename;}
-void		User::setCommandBuf(std::string commandBuf) {this->_commandBuf = commandBuf;}
-void		User::appendCommandBuf(std::string commandBuf) {this->_commandBuf += commandBuf;}
+
+void		User::setCommandBuf(std::string commandBuf)
+{
+	this->_commandBuf = commandBuf;
+}
+
+void		User::appendCommandBuf(std::string commandBuf)
+{
+	this->_commandBuf += commandBuf;
+}
+
 void		User::setMode(std::string mode) {this->_mode = mode;}
-void		User::setPrevnick(std::string prevnick) {this->_prevnick = prevnick;}
+
+void		User::setPrevnick(std::string prevnick)
+{
+	this->_prevnick = prevnick;
+}
+
 void		User::setChannel(std::string channel) {this->_channel = channel;}
 
-
-void    User::addResponse(std::string response)
+// IO User methods
+void 	User::addCommand(Command const & command)
 {
-    responseQueue.push(response);
+	_commandQueue.push(command);
 }
 
-void 	User::addToqueue(Command const & command)
+void    User::execCommandQueue()
 {
-	commandQueue.push(command);
-}
-
-void    User::apply()
-{
-	while (!commandQueue.empty())
+	if (!_cmdMap.size())
+		throw (std::logic_error("Try to use User Object without initializing it")); 
+	while (!_commandQueue.empty())
 	{	
-		Command &cmd = commandQueue.front();
-		if (cmdMap.count(cmd.getCommand()) > 0)
+		Command &cmd = _commandQueue.front();
+		if (_cmdMap.count(cmd.getCommand()) > 0)
 		{
 			Logger(Output::DEBUG) << cmd;
-			cmdMap[cmd.getCommand()](cmd);
+			_cmdMap[cmd.getCommand()](cmd);
 		}
 		else
-			Logger(Output::INFO) << "Uknown command: " << cmd.getCommand(); 
-		commandQueue.pop();
+			Logger(Output::INFO) << "Unknown command: " << cmd.getCommand(); 
+		_commandQueue.pop();
 	}	
 }	
 
@@ -174,11 +211,43 @@ void	User::reName(std::string nick)
 	}			
 }
 
+void    User::addReply(std::string response)
+{
+    _responseQueue.push(response);
+}
+
+std::string	User::getReplies(void)
+{
+	std::string	payload("");
+	int			payloadSize = 0;
+
+	while (!_responseQueue.empty() && payloadSize + _responseQueue.front().size() + 2 <= IRC_MESSAGE_LEN)
+	{
+		payloadSize += _responseQueue.front().size() + 2;
+		std::string&	reply = _responseQueue.front();
+		payload += reply + "\r\n";
+		_responseQueue.pop();
+	}
+	if (payload.empty())
+	{
+		std::string&	reply = _responseQueue.front();
+
+		payload += reply.substr(0, 509) + "\r\n";
+		reply.erase(0, 509);
+	}
+	return payload;
+}
+
+/* ************************************************************************** */
+/*                                Non-member                                  */
+/* ************************************************************************** */
+
+// Operators
 std::ostream & operator<<(std::ostream & o, User const & rhs)
 {
     o << "Username: " << rhs.getUsername() << std::endl;
 	o << "Nickname: " << rhs.getNickname() << std::endl;
 	o << "Mode: " << rhs.getMode() << std::endl;
-	o << "Ustatus: " << rhs.getStatus() << std::endl;
+	o << "User status: " << rhs.getStatus() << std::endl;
     return o;
 }

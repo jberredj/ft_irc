@@ -3,42 +3,71 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
+#    By: esommier <esommier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/14 22:55:30 by jberredj         ###   ########.fr        #
+#    Updated: 2022/05/17 13:44:03 by esommier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	ircserv
 
-CXX				=	c++
+CXX				=	clang++
 OPTI			=	-O3
 CXXFLAGS		=	-Wall -Werror -Wextra -std=c++98 $(OPTI)
 LDFLAGS			=	
 
 SRC_DIR			= 	srcs
 INC_DIR			=	includes
-OBJ_DIR			=	objs/
+OBJ_DIR			=	objs
+DEPS_DIR		=	deps
 
 LIBS			=	
-
-
 
 ###############################################################################
 ##								Source files								 ##
 ###############################################################################
 
-TYPES				=   Nullptr_t.cpp 
+COMMANDS			=	Command.cpp
+COMMANDS_SRCS		=	$(addprefix srcs/Command/, $(COMMANDS))
+COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
+							$(COMMANDS:.cpp=.o)))
+
+IRC					=	$(addprefix Messages/, $(MESSAGES))\
+							$(addprefix Replies/, $(REPLIES))
+MESSAGES			=	Pass.cpp USER.cpp
+REPLIES				=	Reply.cpp ERR.cpp RPL.cpp
+IRC_SRCS			=	$(addprefix srcs/Irc/, $(IRC))
+IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))
+
+LOGGER				=	Logger.cpp Output.cpp
+LOGGER_SRCS			=	$(addprefix srcs/Logger/, $(LOGGER))
+LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,.,\
+							$(LOGGER:.cpp=.o)))
+
+SERVER				=	run.cpp Server.cpp socketIO.cpp UserInteractions.cpp
+SERVER_SRCS			=	$(addprefix srcs/Server/, $(SERVER))
+SERVER_OBJS			=	$(addprefix objs/Server., $(subst /,.,\
+							$(SERVER:.cpp=.o)))
+
+TYPES				=	Nullptr_t.cpp 
 TYPES_SRCS			=   $(addprefix srcs/types/, $(TYPES))
 TYPES_OBJS			=   $(addprefix objs/types., $(subst /,., $(TYPES:.cpp=.o)))
 
-MAIN				=   main.cpp IrcServ.cpp User.cpp Logger/Logger.cpp Logger/Output.cpp Commands/Command.cpp Commands/Pass.cpp
+USER				=	init.cpp User.cpp
+USER_SRCS			=	$(addprefix srcs/User/, $(USER))
+USER_OBJS			=	$(addprefix objs/User., $(subst /,., $(USER:.cpp=.o)))
+
+MAIN				=	main.cpp
 MAIN_SRCS			=   $(addprefix srcs/, $(MAIN))
 MAIN_OBJS			=   $(addprefix objs/, $(subst /,., $(MAIN:.cpp=.o)))
 
-SRCS				= 	$(TYPES_SRCS) $(MAIN_SRCS)
-OBJS				=	$(TYPES_OBJS) $(MAIN_OBJS) 
+SRCS				= 	$(COMMANDS_SRCS) $(IRC_SRCS) $(LOGGER_SRCS)\
+							$(SERVER_SRCS) $(TYPES_SRCS) $(USER_SRCS)\
+							$(MAIN_SRCS)
+OBJS				= 	$(COMMANDS_OBJS) $(IRC_OBJS) $(LOGGER_OBJS)\
+							$(SERVER_OBJS) $(TYPES_OBJS) $(USER_OBJS)\
+							$(MAIN_OBJS)
 
 ###############################################################################
 ##							Color output char								 ##
@@ -54,6 +83,8 @@ RED				=\033[0;31m
 ###############################################################################
 
 all: $(NAME)
+
+include $(DEPS_DIR)/dependencies.d
 
 $(NAME): $(OBJ_DIR) $(LIBS) $(OBJS)
 	printf "$(BLUE)Linking $(LIGHT_PURPLE)$(NAME) $(BLUE)executable$(NC)\n"
@@ -78,12 +109,11 @@ re: fclean all
 ###############################################################################
 
 define COMPILE
-	find ./objs/ -type f -exec touch {} +
-	$(foreach source,$?, \
+	$(foreach source,$(filter-out %.hpp,$^), \
 	printf "$(YELLOW)[..]   $(NC) $(LIGHT_PURPLE)$(subst srcs/,,$(source))\
 $(NC)\n"; \
 	$(CXX) -I $(INC_DIR) $(CXXFLAGS) -c $(source) -o \
-$(addprefix $(OBJ_DIR), $(subst /,.,$(subst srcs/,,$(source:.cpp=.o)))) ; \
+$(addprefix $(OBJ_DIR)/, $(subst /,.,$(subst srcs/,,$(source:.cpp=.o)))) ; \
 	if [ $$? -ne "0" ];\
 	then \
 		exit 1;\
@@ -99,32 +129,25 @@ $(subst srcs/,,$(source))$(NC)\n";\
 	fi;)
 endef
 
-types: $(OBJ_DIR) $(TYPES_OBJS)
-$(TYPES_OBJS): $(TYPES_SRCS)
-	printf "$(BLUE)Compiling $(LIGHT_PURPLE)types $(BLUE)functions$(NC)\n"
-	$(COMPILE)
-
-main: $(OBJ_DIR) $(MAIN_OBJS)
-$(MAIN_OBJS): $(MAIN_SRCS)
-	printf "$(BLUE)Compiling $(LIGHT_PURPLE)main $(BLUE)functions$(NC)\n"
-	$(COMPILE)
-
 ffclean: fclean
-	make -C libs/libft fclean
-	make -C libs/minilibx-linux clean
+	printf "$(RED)Removing $(LIGHT_PURPLE)dependencies$(NC)\n"
+	rm -rf deps
 
 $(SRCS): $(addprefix $(INC_DIR)/, $(HEADERS))
- 
-libft.a:
-	make -C libs/libft ft_io ft_string ft_to ft_ctype get_next_line lib
-	cp libs/libft/libft.a .
 
-libmlx.a:
-	make -C libs/minilibx-linux
-	cp libs/minilibx-linux/libmlx.a .
+dependencies: $(DEPS_DIR)/dependencies.d
 
-debug: CXXFLAGS = -std=c++98 -g
+debug: CXXFLAGS = -std=c++98 -g 
 debug: all
+
+$(DEPS_DIR)/dependencies.d: $(SRCS)
+	printf "$(GREEN)Generating $(LIGHT_PURPLE)dependencies$(GREEN) file$(NC)\n"
+	mkdir -p $(DEPS_DIR)
+	$(foreach source,$(SRCS),\
+	echo "$(subst $(SRC_DIR).,$(OBJ_DIR)/,$(subst /,.,$(dir $(source))))`\
+$(CXX) -I $(INC_DIR) $(source) -MM`\n\t \$$(COMPILE)"\
+	> $(DEPS_DIR)/$(subst /,.,$(subst srcs/,,$(source:.cpp=.d)));)
+	cd $(DEPS_DIR)&& cat `ls | grep -v dependencies.d` > dependencies.d
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -132,18 +155,9 @@ $(OBJ_DIR):
 valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 
+.PHONY:
 .SILENT:
 
 commit_all_files: ffclean
 	git add .
 	git commit
-
-###############################################################################
-## 								Norm recipe									 ##
-###############################################################################
-
-norm:
-	printf "$(BLUE)Checking norm$(NC)\n"
-	norminette $(SRCS) $(addprefix $(INC_DIR)/, $(filter-out mlx.h, $(HEADERS))) \
-	; if [ "$$?" -ne "0" ]; then printf "$(RED)NORM ERROR$(NC)\n"; \
-	else printf "$(GREEN)NORM OK$(NC)\n";fi
