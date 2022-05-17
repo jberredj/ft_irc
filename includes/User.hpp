@@ -6,11 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/05/17 19:29:31 by ddiakova         ###   ########.fr       */
-=======
-/*   Updated: 2022/05/17 19:36:09 by jberredj         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2022/05/17 21:03:48 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +42,6 @@ public:
 	std::string		getTruename(void) const;
 	std::string		getCommandBuf(void) const;
 
-<<<<<<< HEAD
-		std::string											getMode(void) const;
-		std::string											getPrevnick(void) const;
-		std::string											getChannel(void) const;
-		// std::string getAwaymsg(void) {return this->_awaymsg;}
-		// std::string getDeletemsg(void) {return this->_deletemsg;}
-
-		void 												reName(std::string nick);
-		//setters
-		void												setStatus(Status status);
-		void												setPassword(std::string password);
-		void												setUsername(std::string username);
-		void												setNickname(std::string nickname);
-		void												setHostname(std::string hostname);
-		void												setServaddr(std::string servaddr);
-		void												setTruename(std::string truename);
-		void												setCommandBuf(std::string commandBuf);
-		void												appendCommandBuf(std::string commandBuf);
-		
-		void												setMode(std::string mode);
-		void												setPrevnick(std::string prevnick);
-		void												setChannel(std::string channel);
-		// void	setAwaymsg(std::string awaymsg) {this->_awaymsg = awaymsg;}
-		// void	setDeletemsg(std::string deletemsg) {this->_deletmsg = deletemsg;}
-=======
 	std::string		getMode(void) const;
 	std::string		getPrevnick(void) const;
 	std::string		getChannel(void) const;
@@ -94,7 +65,6 @@ public:
 	void			setChannel(std::string channel);
 	// void	setAwaymsg(std::string awaymsg) {this->_awaymsg = awaymsg;}
 	// void	setDeletemsg(std::string deletemsg) {this->_deletmsg = deletemsg;}
->>>>>>> master
 
 	// IO User methods
 	void			addCommand(const Command& command);

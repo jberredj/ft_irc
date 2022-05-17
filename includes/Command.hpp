@@ -6,11 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/05/15 15:28:17 by ddiakova         ###   ########.fr       */
-=======
-/*   Updated: 2022/05/17 20:58:12 by jberredj         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2022/05/17 21:03:25 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +69,7 @@ private:
 	static bool			_nickFinder(User *user);
 };
 
-<<<<<<< HEAD
 std::ostream &  operator<<(std::ostream & o, Command const & rhs);
-void    PASS(Command &command);
-void    NICK(Command &command);
-=======
-// Operators
-std::ostream&	operator<<(std::ostream& o, const Command& rhs);
->>>>>>> master
+
 
 #endif

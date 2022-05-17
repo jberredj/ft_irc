@@ -6,11 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-<<<<<<< HEAD:srcs/User.cpp
-/*   Updated: 2022/05/17 20:22:57 by ddiakova         ###   ########.fr       */
-=======
-/*   Updated: 2022/05/17 19:33:58 by jberredj         ###   ########.fr       */
->>>>>>> master:srcs/User/User.cpp
+/*   Updated: 2022/05/17 21:06:16 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,57 +15,7 @@
 #include <map>
 #include "User.hpp"
 #include "types/Nullptr_t.hpp"
-<<<<<<< HEAD:srcs/User.cpp
-#include "Command.hpp"
-#include <algorithm>
-
-void WHOIS(Command &command){(void)command;}
-void USERS(Command &command){(void)command;}
-void USER(Command &command){(void)command;}
-void TOPIC(Command &command){(void)command;}
-void PRIVMSG(Command &command){(void)command;}
-void PONG(Command &command){(void)command;}
-void PING(Command &command){(void)command;}
-// void PASS(Command &command){(void)command;}
-void PART(Command &command){(void)command;}
-void OPER(Command &command){(void)command;}
-//void NICK(Command &command){(void)command;}
-void NAMES(Command &command){(void)command;}
-void MODE(Command &command){(void)command;}
-void LIST(Command &command){(void)command;}
-void KILL(Command &command){(void)command;}
-void KICK(Command &command){(void)command;}
-void JOIN(Command &command){(void)command;}
-void INVITE(Command &command){(void)command;}
-void BAN(Command &command){(void)command;}
-
-std::map<std::string, void (*)(Command &)> User::cmdMap;
-void	User::initUserClass(void)
-{
-	cmdMap["WHOIS"] = WHOIS;
-	cmdMap["USERS"] = USERS;
-	cmdMap["USER"] = USER;
-	cmdMap["TOPIC"] = TOPIC;
-	cmdMap["PRIVMSG"] = PRIVMSG;
-	cmdMap["PONG"] = PONG;
-	cmdMap["PPING"] = PING;
-	cmdMap["PASS"] = PASS;
-	cmdMap["PART"] = PART;
-	cmdMap["OPER"] = OPER;
-	cmdMap["NICK"] = NICK;
-	cmdMap["NAMES"] = NAMES;
-	cmdMap["MODE"] = MODE;
-	cmdMap["LIST"] = LIST;
-	cmdMap["KILL"] = KILL;
-	cmdMap["KICK"] = KICK;
-	cmdMap["JOIN"] = JOIN;
-	cmdMap["INVITE"] = INVITE;
-	cmdMap["BAN"] = BAN;
-	Logger(Output::TRACE) << "User command map initiated";
-}
-=======
 #include "IrcMessages.hpp"
->>>>>>> master:srcs/User/User.cpp
 
 /* ************************************************************************** */
 /*                                  Public                                    */
@@ -193,23 +139,23 @@ void    User::execCommandQueue()
 	}	
 }	
 
-void	User::reName(std::string nick)
-{
-	std::vector<std::string>::iterator it;
+// void	User::rename(std::string nick)
+// {
+// 	std::vector<std::string>::iterator it;
 
-	if (_nickname == "-")
-		setNickname(nick);
-	else
-	{
-		it = find(_nicksInUse->begin(), _nicksInUse->end(), _nickname);
-		if (it != _nicksInUse->end())
-		{
-			setPrevnick(getNickname());
-			*it = nick;
-		}
-    	Logger(Output::DEBUG) << "Nickname set " << getNickname(); 
-	}			
-}
+// 	if (_nickname == "-")
+// 		setNickname(nick);
+// 	else
+// 	{
+// 		it = find(_nicksInUse->begin(), _nicksInUse->end(), _nickname);
+// 		if (it != _nicksInUse->end())
+// 		{
+// 			setPrevnick(getNickname());
+// 			*it = nick;
+// 		}
+//     	Logger(Output::DEBUG) << "Nickname set " << getNickname(); 
+// 	}			
+// }
 
 void    User::addReply(std::string response)
 {
