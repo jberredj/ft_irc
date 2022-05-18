@@ -37,11 +37,10 @@ void    NICK(Command &command)
 	}
 	if(command.getParameters().size() == 1 || command.getParameters().size() == 2)
 		nick = command.getParameters()[0];
-		std>>
 	if (User *toNick = command.getUser(nick))
 	{
 		response = 433;
-		args.push_back(command.getUser().getNickname());
+		args.push_back(nick);
 		return command.reply(response, args);
 	}
 	// if(toNick)
