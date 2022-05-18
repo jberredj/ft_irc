@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 15:27:14 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/18 18:13:45 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:20:13 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void    NICK(Command &command)
 	}
 	if(command.getParameters().size() == 1 || command.getParameters().size() == 2)
 		nick = command.getParameters()[0];
-		std>>
 	if (User *toNick = command.getUser(nick))
 	{
 		response = 433;

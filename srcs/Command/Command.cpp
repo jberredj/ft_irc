@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 20:56:56 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:23:38 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ Command::Command(User* user, std::string command_line, std::vector<User *>* user
 
 Command::Command(const Command& src): 
 	_prefix(src._prefix), _command(src._command), _parameters(src._parameters),
-	_trailer(src._trailer), _command_line(src._command_line), _user(src._user)
+	_trailer(src._trailer), _command_line(src._command_line), _user(src._user),
+	_allUsers(src._allUsers)
 {
 	Logger(Output::TRACE) << "Command copy constructor called ";
 }
@@ -86,6 +87,7 @@ Command&	Command::operator=(const Command& rhs)
 	_parameters = rhs._parameters;
 	_user = rhs._user;
 	_trailer = rhs._trailer;
+	_allUsers = rhs._allUsers;
 	return (*this);
 }
 
