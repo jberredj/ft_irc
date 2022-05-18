@@ -17,14 +17,12 @@
 
 void WHOIS(Command &command){(void)command;}
 void USERS(Command &command){(void)command;}
-// void USER(Command &command){(void)command;}
 void TOPIC(Command &command){(void)command;}
 void PRIVMSG(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
 void PING(Command &command){(void)command;}
 void PART(Command &command){(void)command;}
 void OPER(Command &command){(void)command;}
-void NICK(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
 void MODE(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}

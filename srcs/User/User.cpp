@@ -56,7 +56,6 @@ User &User::operator=(User const & rhs)
 	{
 		this->_status = rhs._status;
 		this->_ServerPassword = rhs._ServerPassword;
-		this->_nicksInUse = rhs._nicksInUse;
 		this->_username = rhs._username;
 		this->_nickname = rhs._nickname;
 		this->_hostname = rhs._hostname;

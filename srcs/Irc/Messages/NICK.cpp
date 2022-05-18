@@ -13,6 +13,7 @@
 #include "Logger.hpp"
 #include "User.hpp"
 #include "Command.hpp"
+#include "IrcMessages.hpp"
 #include <cctype> 
 
 int isspchar(char c)
@@ -36,12 +37,12 @@ void    NICK(Command &command)
 	}
 	if(command.getParameters().size() == 1 || command.getParameters().size() == 2)
 		nick = command.getParameters()[0];
+		std>>
 	if (User *toNick = command.getUser(nick))
 	{
 		response = 433;
 		args.push_back(command.getUser().getNickname());
 		return command.reply(response, args);
-		
 	}
 	// if(toNick)
 	// 	toNick->getNickname();
@@ -57,7 +58,7 @@ void    NICK(Command &command)
 		args.push_back(nick);
 		return command.reply(response, args);
 	}
-	for (int i = 1; i < nick.size(); i++)
+	for (size_t i = 1; i < nick.size(); i++)
 	{
 		if (!isdigit(nick[i]) && !isalpha(nick[i]) && !isspchar(nick[i]))
 		{
