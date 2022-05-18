@@ -29,7 +29,7 @@ void    NICK(Command &command)
 	std::vector<std::string> args;
 	std::string nick;
 	
-	Logger(Output::DEBUG) << "SPECIFY NICK NICK";
+	Logger(Output::DEBUG) << "SPECIFY NICK";
 	if(command.getParameters().size() == 0)
 	{
 		response = 431;
@@ -43,8 +43,6 @@ void    NICK(Command &command)
 		args.push_back(nick);
 		return command.reply(response, args);
 	}
-	// if(toNick)
-	// 	toNick->getNickname();
 	if (nick.size() > 9)
 	{
 		response = 432;
