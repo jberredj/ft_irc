@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 19:10:26 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/19 12:43:41 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,17 @@ void	Server::_uniqueInstanceOnPort(char *port)
 	if (fcntl(_portInstanceLock, F_SETLK, &fl) < 0)
 		throw(std::runtime_error("Another instance of ircserv "
 			"is running on port " +  std::string(port)));
+}
+
+
+std::string	Server::_nickToFind;
+
+bool	Server::_nickFinder(User *user)
+{
+	if (user)
+	{
+		if (user->getNickname() == _nickToFind)
+			return true;
+	}
+	return false;
 }

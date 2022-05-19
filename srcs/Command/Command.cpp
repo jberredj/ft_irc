@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 20:56:56 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:55:39 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "Reply.hpp"
 #include "typedefs.hpp"
 #include <algorithm>
+#include "typedefs.hpp"
+#include "Server.hpp"
 
 /* ************************************************************************** */
 /*                                 Public                                     */
@@ -23,9 +25,9 @@
 // Constructors and destructor
 Command::Command(void) {}
 
-Command::Command(User* user, std::string command_line, std::vector<User *>* users):
+Command::Command(User* user, std::string command_line, Server* server):
 	_prefix(""), _command(""), _trailer(""), _command_line(command_line),
-	_user(user), _allUsers(users)
+	_user(user), _server(server)
 {
 	std::string delimiter(" ");
 	size_t  	position = 0;
@@ -69,7 +71,8 @@ Command::Command(User* user, std::string command_line, std::vector<User *>* user
 
 Command::Command(const Command& src): 
 	_prefix(src._prefix), _command(src._command), _parameters(src._parameters),
-	_trailer(src._trailer), _command_line(src._command_line), _user(src._user)
+	_trailer(src._trailer), _command_line(src._command_line), _user(src._user),
+	_server(src._server)
 {
 	Logger(Output::TRACE) << "Command copy constructor called ";
 }
@@ -86,6 +89,7 @@ Command&	Command::operator=(const Command& rhs)
 	_parameters = rhs._parameters;
 	_user = rhs._user;
 	_trailer = rhs._trailer;
+	_server = rhs._server;
 	return (*this);
 }
 
@@ -101,20 +105,12 @@ std::vector<std::string>	Command::getParameters(void) const
 
 std::string	Command::getTrailer(void) const {return _trailer;}
 User&	Command::getUser(void) const {return *_user;}
-
 User*	Command::getUser(std::string nickname)
 {
-	_nickToFind = nickname;
-	std::vector<User *>::iterator find;
-
-	find = std::find_if(_allUsers->begin(), _allUsers->end(), _nickFinder);
-	_nickToFind.clear();
-	if (find == _allUsers->end())
-		return ft::null_ptr;
-	return (*find);	
+	return _server->getUser(nickname);
 }
 
-std::vector<User *>*	Command::getUsers(void) {return _allUsers;}
+std::vector<User *>*	Command::getUsers(void) {return _server->getUsers();}
 
 // Replies functions
 void	Command::replyTo(User *user, int code, std::vector<std::string> args)
@@ -141,17 +137,6 @@ void	Command::reply(int code, std::vector<std::string> args)
 /*                                 Private                                    */
 /* ************************************************************************** */
 
-std::string	Command::_nickToFind;
-
-bool	Command::_nickFinder(User *user)
-{
-	if (user)
-	{
-		if (user->getNickname() == _nickToFind)
-			return true;
-	}
-	return false;
-}
 
 /* ************************************************************************** */
 /*                                Non-member                                  */

@@ -6,15 +6,17 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:06 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 19:27:36 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:56:26 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unistd.h"
+#include <iostream>
 #include <vector>
 #include <poll.h>
 #include <sys/fcntl.h>
 #include "Server.hpp"
+#include "Logger.hpp"
 
 /* ************************************************************************** */
 /*                                 Public                                     */

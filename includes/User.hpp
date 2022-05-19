@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 19:36:09 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:17:53 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 # include <string>
 # include <queue>
 # include <map>
-# include "Command.hpp"
- 
+
+class Command;
+
 class User
 {
 public:

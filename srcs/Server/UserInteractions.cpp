@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:56:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 19:40:02 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:55:00 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,32 @@
 #include <poll.h>
 #include <vector>
 #include <algorithm>
+#include "types/Nullptr_t.hpp"
 #include "User.hpp"
+#include "Logger.hpp"
 #include "Server.hpp"
+
+/* ************************************************************************** */
+/*                                 Public                                     */
+/* ************************************************************************** */
+
+User*	Server::getUser(std::string nickname)
+{
+	_nickToFind = nickname;
+	std::vector<User *>::iterator find;
+
+	find = std::find_if(_users.begin(), _users.end(), _nickFinder);
+	_nickToFind.clear();
+	if (find == _users.end())
+		return ft::null_ptr;
+	return (*find);	
+}
+
+std::vector<User*>*	Server::getUsers(void) {return &_users;}
+
+/* ************************************************************************** */
+/*                                 Private                                    */
+/* ************************************************************************** */
 
 void	Server::_addNewUser(int socketToBind, struct sockaddr_in cliAddr)
 {

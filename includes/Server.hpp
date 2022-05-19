@@ -21,21 +21,26 @@ class Server
 {
 public:
 	// Constructors and destructor
-			Server(int ac, char** av);
-			Server(const Server& src);
-			~Server(void);
+						Server(int ac, char** av);
+						Server(const Server& src);
+						~Server(void);
 
 	// Operators
-	Server&	operator=(const Server& rhs);
+	Server&				operator=(const Server& rhs);
 
 	// Getters
-	short	getExitCode(void) const;
+	short				getExitCode(void) const;
 
 	// General methods and functions
-	void	run(void);
+	void				run(void);
+
+	// User interactions methods and function
+	User*				getUser(std::string nickname);
+	std::vector<User*>*	getUsers(void);
 
 private:
 	static bool					_sigInt;
+	static std::string			_nickToFind;
 	short						_exitCode;
 	std::string					_password;
 	bool						_running;
@@ -71,6 +76,7 @@ private:
 	void 						_addNewUser(int socketToBind, 
 									struct sockaddr_in cliAddr);
 	void						_pruneUser(void);
+	static bool					_nickFinder(User *user);
 };
 
 #endif

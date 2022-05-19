@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:37:21 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 19:38:56 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:56:50 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	Server::_socketReadInput(std::vector<struct pollfd>::iterator it)
 			Logger(Output::DEBUG) << "Add command: "
 				<< rawMessage.substr(0, endMessageLocation);
 			Command	newCommand(ctx, rawMessage.substr(0, 
-				endMessageLocation - endOffset), &_users);
+				endMessageLocation - endOffset), this);
 			ctx->addCommand(newCommand);
 			rawMessage.erase(rawMessage.begin(), rawMessage.begin()
 				+ endMessageLocation + 1);
