@@ -40,7 +40,7 @@ fonction reply avec user
 void reply(User &user, unsigned short code, std::string*);
 
 std::vector<std::string> array = {arg1, arg2, arg3, arg4, arg5, arg6, arg7};
-return command->reply(432, {nickname});
+/return command->reply(432, {nickname});
 ***************************************************************
 
 liste des replies 
@@ -49,6 +49,26 @@ std::map<int, std::string (getReply*)(std::string*)> replies;
 
 
 replies[205]->getReply(array)
+
+void irc::Command::reply(User &user, unsigned short code, std::string arg1, std::string arg2, std::string arg3, std::string arg4, std::string arg5, std::string arg6, std::string arg7)
+{
+	std::stringstream sscode;
+	sscode << code;
+	std::string scode = sscode.str();
+	while (scode.length() < 3)
+		scode = "0" + scode;
+	// std::vector<std::string> array;
+	// array.push_back(arg1);
+	// array.push_back(arg2);
+	// array.push_back(arg3);
+	// array.push_back(arg4);
+	// array.push_back(arg5);
+	// array.push_back(arg6);
+	// array.push_back(arg7);
+	user.sendTo(user, scode + " " + getReplies(code, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
+}
+void irc::Command::reply(unsigned short code, std::string arg1, std::string arg2, std::string arg3, std::string arg4, std::string arg5, std::string arg6, std::string arg7) { reply(*user, code, arg1, arg2, arg3, arg4, arg5, arg6, arg7); }
+
 
 PASS
 NICK :

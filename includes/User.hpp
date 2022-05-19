@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/19 14:17:53 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:00:18 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ public:
 	void			setCommandBuf(std::string commandBuf);
 	void			appendCommandBuf(std::string commandBuf);
 	
+	void 			rename(std::string nick);
 	void			setMode(std::string mode);
 	void			setPrevnick(std::string prevnick);
 	void			setChannel(std::string channel);
@@ -84,7 +85,6 @@ private:
 	// User infos
 	Status 												_status;
 	std::string*										_ServerPassword;
-	std::vector<std::string>*							_nicksInUse;
 	std::string											_password;
 	std::string 										_username;
 	std::string 										_nickname;

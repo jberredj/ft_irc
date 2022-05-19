@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Channel.cpp                                        :+:      :+:    :+:   */
+/*   modeHelper.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/19 15:00:08 by jberredj         ###   ########.fr       */
+/*   Created: 2022/05/18 13:50:55 by jberredj          #+#    #+#             */
+/*   Updated: 2022/05/18 19:18:45 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Channel.hpp"
-#include "User.hpp"
+#ifndef MODEHELPER_HPP
+# define MODEHELPER_HPP
+# include <string>
 
-Channel::Channel(void)
-{
-}
 
-Channel::Channel(const Channel &src)
-{
-}
 
-Channel::~Channel(void)
-{
-}
-
-Channel	&Channel::operator=(const Channel &rhs)
-{
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/19 14:29:15 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:00:24 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ private:
 	Server*						_server;
 };
 
-// Operators
-std::ostream&	operator<<(std::ostream& o, const Command& rhs);
+std::ostream &  operator<<(std::ostream & o, Command const & rhs);
+
 
 #endif
