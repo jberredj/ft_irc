@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/21 13:04:33 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:33:50 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ public:
 	void			execCommandQueue(void);
 	void			addReply(std::string reply);
 	std::string		getReplies(void);
-	void			tryAuthentificate(void) const;
+	void			tryAuthentificate(Command &cmd);
 
 private:
 	static bool											_inited;

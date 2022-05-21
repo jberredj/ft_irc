@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/21 14:00:27 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:51:41 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,27 @@ bool			User::getPassUsed(void) const {return this->_passUsed;}
 bool			User::getUserUsed(void) const {return this->_userUsed;}
 bool			User::getNickUsed(void) const {return this->_nickUsed;}
 
-void			User::tryAuthentificate(void) const
+void			User::tryAuthentificate(Command &cmd)
 {
 	int response = 0;
 	std::vector<std::string> args;
-	Command cmd;
 	
 	if (_passUsed && _userUsed && _nickUsed)
 	{
-		response = 1;
-		args.push_back(getNickname());
-		args.push_back(getUsername());
-		args.push_back(getHostname());
-		return cmd.reply(response, args);
+		if (_password == *_ServerPassword)
+		{
+			response = 1;
+			args.push_back(_nickname);
+			args.push_back(_username);
+			args.push_back(_hostname);
+			return cmd.reply(response, args);
+		}	
+		else
+		{
+			Logger(Output::INFO) << "Authentification failed";
+			setStatus(DELETE);
+		}
 	}	
-	else
-		std::cout << "Authentification failed" << std::endl;	
 }
 
 

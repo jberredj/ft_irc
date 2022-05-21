@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:59:32 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/21 12:42:55 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:34:24 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void	PASS(Command& command)
 	command.getUser().setPassword(command.getParameters()[0]);
 	Logger(Output::DEBUG) << "New password " << command.getUser().getPassword();
 	command.getUser()._passUsed = true;
+	command.getUser().tryAuthentificate(command);
 }
