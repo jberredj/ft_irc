@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 21:14:22 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:00:27 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ User::User(const User& src)
 User::User(std::string* serverPassWd):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_ServerPassword(serverPassWd), _username(""), _nickname("-"), _truename(""),
-	_hostname(""), _servaddr(""),  _mode("w"), _prevnick(""), _channel("")
+	_hostname("127.0.0.1"), _servaddr(""),  _mode("w"), _prevnick(""), _channel("")
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -85,6 +85,28 @@ bool			User::repliesAvalaible(void) const
 {
 	return !_responseQueue.empty();
 }
+bool			User::getPassUsed(void) const {return this->_passUsed;}
+bool			User::getUserUsed(void) const {return this->_userUsed;}
+bool			User::getNickUsed(void) const {return this->_nickUsed;}
+
+void			User::tryAuthentificate(void) const
+{
+	int response = 0;
+	std::vector<std::string> args;
+	Command cmd;
+	
+	if (_passUsed && _userUsed && _nickUsed)
+	{
+		response = 1;
+		args.push_back(getNickname());
+		args.push_back(getUsername());
+		args.push_back(getHostname());
+		return cmd.reply(response, args);
+	}	
+	else
+		std::cout << "Authentification failed" << std::endl;	
+}
+
 
 //Setters
 void		User::setStatus(Status status) {this->_status = status;}
@@ -113,6 +135,12 @@ void		User::setPrevnick(std::string prevnick)
 }
 
 void		User::setChannel(std::string channel) {this->_channel = channel;}
+
+bool			User::setPassUsed(void) {return this->_passUsed = false;}
+bool			User::setUserUsed(void) {return this->_userUsed = false;}
+bool			User::setNickUsed(void) {return this->_nickUsed = false;}
+
+
 
 // IO User methods
 void 	User::addCommand(Command const & command)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   USER.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 12:36:58 by esommier          #+#    #+#             */
-/*   Updated: 2022/05/17 20:55:29 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:44:00 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	USER(Command &command)
 	Logger(Output::DEBUG) << "User: " << command.getUser().getUsername()
 	<< " " << command.getUser().getHostname()
 	<< " " << command.getUser().getTruename();
+	command.getUser()._userUsed = true;
 	
 }

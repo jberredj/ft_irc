@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 21:14:42 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/21 13:04:33 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ public:
 	//operators
 	User&			operator=(const User& rhs);
 
+	// authentification
+	bool							_passUsed;
+	bool 							_userUsed;
+	bool							_nickUsed;
+	
 	//getters
 	Status			getStatus(void) const;
 	std::string&	getServerPassword(void) const;
@@ -46,6 +51,10 @@ public:
 	std::string		getPrevnick(void) const;
 	std::string		getChannel(void) const;
 	bool			repliesAvalaible(void) const;
+	bool 			getPassUsed(void) const;
+	bool			getUserUsed(void) const;
+	bool			getNickUsed(void) const;
+	
 	// std::string getAwaymsg(void) {return this->_awaymsg;}
 	// std::string getDeletemsg(void) {return this->_deletemsg;}
 	
@@ -64,6 +73,11 @@ public:
 	void			setMode(std::string mode);
 	void			setPrevnick(std::string prevnick);
 	void			setChannel(std::string channel);
+
+	bool 			setPassUsed(void);
+	bool			setUserUsed(void);
+	bool			setNickUsed(void);
+
 	// void	setAwaymsg(std::string awaymsg) {this->_awaymsg = awaymsg;}
 	// void	setDeletemsg(std::string deletemsg) {this->_deletmsg = deletemsg;}
 
@@ -72,6 +86,7 @@ public:
 	void			execCommandQueue(void);
 	void			addReply(std::string reply);
 	std::string		getReplies(void);
+	void			tryAuthentificate(void) const;
 
 private:
 	static bool											_inited;

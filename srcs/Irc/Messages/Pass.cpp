@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pass.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:59:32 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/17 14:13:47 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:42:55 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	PASS(Command& command)
 	}
 	command.getUser().setPassword(command.getParameters()[0]);
 	Logger(Output::DEBUG) << "New password " << command.getUser().getPassword();
+	command.getUser()._passUsed = true;
 }
