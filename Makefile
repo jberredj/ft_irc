@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: esommier <esommier@student.42.fr>          +#+  +:+       +#+         #
+#    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/17 13:44:03 by esommier         ###   ########.fr        #
+#    Updated: 2022/05/19 15:49:55 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,11 @@ LIBS			=
 ##								Source files								 ##
 ###############################################################################
 
+CHANNEL				=	Channel.cpp
+CHANNEL_SRCS		=	$(addprefix srcs/Channel/, $(CHANNEL))
+CHANNEL_OBJS		=	$(addprefix objs/Channel., $(subst /,.,\
+							$(CHANNEL:.cpp=.o)))
+
 COMMANDS			=	Command.cpp
 COMMANDS_SRCS		=	$(addprefix srcs/Command/, $(COMMANDS))
 COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
@@ -35,7 +40,7 @@ COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
 
 IRC					=	$(addprefix Messages/, $(MESSAGES))\
 							$(addprefix Replies/, $(REPLIES))
-MESSAGES			=	Pass.cpp USER.cpp NICK.cpp
+MESSAGES			=	PASS.cpp USER.cpp NICK.cpp
 REPLIES				=	Reply.cpp ERR.cpp RPL.cpp
 IRC_SRCS			=	$(addprefix srcs/Irc/, $(IRC))
 IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))
@@ -62,12 +67,12 @@ MAIN				=	main.cpp
 MAIN_SRCS			=   $(addprefix srcs/, $(MAIN))
 MAIN_OBJS			=   $(addprefix objs/, $(subst /,., $(MAIN:.cpp=.o)))
 
-SRCS				= 	$(COMMANDS_SRCS) $(IRC_SRCS) $(LOGGER_SRCS)\
-							$(SERVER_SRCS) $(TYPES_SRCS) $(USER_SRCS)\
-							$(MAIN_SRCS)
-OBJS				= 	$(COMMANDS_OBJS) $(IRC_OBJS) $(LOGGER_OBJS)\
-							$(SERVER_OBJS) $(TYPES_OBJS) $(USER_OBJS)\
-							$(MAIN_OBJS)
+SRCS				= 	$(CHANNEL_SRCS) $(COMMANDS_SRCS) $(IRC_SRCS) \
+							$(LOGGER_SRCS) $(SERVER_SRCS) $(TYPES_SRCS) \
+							$(USER_SRCS) $(MAIN_SRCS)
+OBJS				= 	$(CHANNEL_OBJS) $(COMMANDS_OBJS) $(IRC_OBJS) \
+							$(LOGGER_OBJS) $(SERVER_OBJS) $(TYPES_OBJS) \
+							$(USER_OBJS) $(MAIN_OBJS)
 
 ###############################################################################
 ##							Color output char								 ##

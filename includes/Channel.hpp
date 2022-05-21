@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+*/-/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:19:33 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/19 12:36:14 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:37:02 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,18 @@ public:
 	Channel	&operator=(const Channel &rhs);
 
 
-	void	addUser(User *newUser);
-	void	addUser(std::string nickname);
-private:
-	std::vector<User *>	_users;
+	bool	addUser(User *newUser);
+	bool	addUser(std::string nickname);
+	bool	removeUser(User *user);
+	bool	removeUser(std::string nickname);
+//	bool	mode(User *user, std::string mode)
 
+private:
+	std::string			_name;
+	std::string			_topic;
+	std::vector<User *>	_users; 
+//	std::map<User*, std::string> _mode; ??? map each user pointer to mode string
+//	Add a deletion mechanism
 };
 
 
