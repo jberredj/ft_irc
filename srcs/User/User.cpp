@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/21 14:51:41 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/21 15:22:25 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void			User::tryAuthentificate(Command &cmd)
 			args.push_back(_nickname);
 			args.push_back(_username);
 			args.push_back(_hostname);
+			setStatus(ONLINE);
 			return cmd.reply(response, args);
 		}	
 		else
