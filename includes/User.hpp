@@ -87,6 +87,7 @@ public:
 	void			addReply(std::string reply);
 	std::string		getReplies(void);
 	void			tryAuthentificate(Command &cmd);
+	void			UMode(Command &command);
 
 private:
 	static bool											_inited;

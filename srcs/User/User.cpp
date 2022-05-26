@@ -242,7 +242,7 @@ void	User::UMode(Command &command)
 		{
 			if (minus_flag && _mode.find(requested_mode[i]) != std::string::npos)
 			{
-				std::string found = requested_mode[i];
+				char found = requested_mode[i];
 				_mode.erase(found, 1);
 			}
 			else if(!minus_flag && _mode.find(requested_mode[i]) == std::string::npos)
@@ -251,7 +251,7 @@ void	User::UMode(Command &command)
 	}
 	setMode(_mode);
 	response = 221;
-	args = push_back(_mode);
+	args.push_back(_mode);
 	return command.reply(response, args);	
 }
 
