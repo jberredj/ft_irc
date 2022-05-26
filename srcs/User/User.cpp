@@ -205,6 +205,71 @@ std::string	User::getReplies(void)
 	return payload;
 }
 
+void	User::UMode(Command &command)
+{
+	int response = 0;
+	std::vector<std::string> args;
+	bool minus_flag = false;
+	std::string requested_mode;
+	std::string u_flags = "-+iwso";
+
+	if (command.getParameters().size() < 2)
+	{
+		response = 461;
+		args.push_back(command.getCommand());
+		return command.reply(response, args);
+	}
+	if (command.getParameters()[0] != _nickname && _mode.find("o") == std::string::npos)
+	{
+		response = 502;
+		return command.reply(response, args);
+	}
+	requested_mode = command.getParameters()[1];
+	for (size_t i = 0; i < requested_mode.size(); i++)
+	{
+		if (requested_mode[i] == '-')
+			minus_flag = true;
+		else if (requested_mode[i] == '+')
+			minus_flag = false;
+		else if (u_flags.find(requested_mode[i]) == std::string::npos)
+		{
+			response = 501;
+			return command.reply(response, args);
+		}
+		else if (requested_mode[i] == 'o' && !minus_flag && _mode.find("o") == std::string::npos)
+			continue;
+		else
+		{
+			if (minus_flag && _mode.find(requested_mode[i]) != std::string::npos)
+			{
+				std::string found = requested_mode[i];
+				_mode.erase(found, 1);
+			}
+			else if(!minus_flag && _mode.find(requested_mode[i]) == std::string::npos)
+				_mode = _mode + requested_mode[i];
+		}
+	}
+	setMode(_mode);
+	response = 221;
+	args = push_back(_mode);
+	return command.reply(response, args);	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ************************************************************************** */
 /*                                Non-member                                  */
 /* ************************************************************************** */
