@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esommier <esommier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 13:37:57 by esommier         ###   ########.fr       */
+/*   Updated: 2022/05/27 15:40:30 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void PING(Command &command){(void)command;}
 void PART(Command &command){(void)command;}
 void OPER(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
-void MODE(Command &command){(void)command;}
+//void MODE(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}
 void KILL(Command &command){(void)command;}
 void KICK(Command &command){(void)command;}

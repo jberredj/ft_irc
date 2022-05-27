@@ -34,5 +34,5 @@ void	PASS(Command& command)
 	command.getUser().setPassword(command.getParameters()[0]);
 	Logger(Output::DEBUG) << "New password " << command.getUser().getPassword();
 	command.getUser()._passUsed = true;
-	command.getUser().tryAuthentificate(command);
+	//command.getUser().tryAuthentificate(command);
 }

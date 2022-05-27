@@ -39,6 +39,6 @@ void	USER(Command &command)
 	<< " " << command.getUser().getHostname()
 	<< " " << command.getUser().getTruename();
 	command.getUser()._userUsed = true;
-	command.getUser().tryAuthentificate(command);
+	//command.getUser().tryAuthentificate(command);
 	
 }

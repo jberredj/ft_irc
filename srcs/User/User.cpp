@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/21 15:22:25 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/05/27 15:45:34 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,10 +241,7 @@ void	User::UMode(Command &command)
 		else
 		{
 			if (minus_flag && _mode.find(requested_mode[i]) != std::string::npos)
-			{
-				char found = requested_mode[i];
-				_mode.erase(found, 1);
-			}
+				_mode.erase(_mode.find(requested_mode[i], 1));
 			else if(!minus_flag && _mode.find(requested_mode[i]) == std::string::npos)
 				_mode = _mode + requested_mode[i];
 		}
@@ -252,23 +249,9 @@ void	User::UMode(Command &command)
 	setMode(_mode);
 	response = 221;
 	args.push_back(_mode);
+	Logger(Output::DEBUG) << "SPECIFY MODE";
 	return command.reply(response, args);	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ************************************************************************** */
 /*                                Non-member                                  */
