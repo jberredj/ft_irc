@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Reply.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 09:53:36 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/01 21:25:11 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <map>
 #include <string>
 #include <sstream>
+#include <iomanip>
 #include <algorithm>
 #include "Logger.hpp"
 #include "Reply.hpp"
@@ -50,7 +51,7 @@ std::string Reply::getReply(int code, std::vector<std::string> args)
 	std::stringstream	codeString;
 	std::string reply;
 
-	codeString << code;
+	codeString << std::setw(3) << std::setfill('0') << code;
 	reply = codeString.str();
 	try
 	{
@@ -79,7 +80,7 @@ std::string Reply::getReply(std::string (*replyFunc)(std::vector<std::string>),
 	}
 	std::stringstream	codeString;
 
-	codeString << (*it).first;
+	codeString << std::setw(3) << std::setfill('0') << (*it).first;
 	return codeString.str() + " " + replyFunc(args);
 }
 
@@ -93,7 +94,7 @@ void	Reply::_initRepliesMap(void)
 	if (_replies.empty())
 	{
 		// Replies
-		_replies.insert(std::make_pair(1, RPL_WELCOME));
+		_replies.insert(std::make_pair(001, RPL_WELCOME));
 		_replies.insert(std::make_pair(221, RPL_UMODEIS));
 		_replies.insert(std::make_pair(301, RPL_AWAY));
 		_replies.insert(std::make_pair(311, RPL_WHOISUSER));

@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 12:36:58 by esommier          #+#    #+#             */
-/*   Updated: 2022/05/21 14:34:33 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/01 21:07:40 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	USER(Command &command)
 	std::vector<std::string> args;
 
 	Logger(Output::DEBUG) << "SPECIFY NEW USER ";
-	if (command.getParameters().size() < 3)
+	if (command.getParameters().size() < 4)
 	{
 		response = 461;
 		args.push_back(command.getCommand());
@@ -34,11 +34,12 @@ void	USER(Command &command)
 	}
 	command.getUser().setUsername(command.getParameters()[0]);
 	command.getUser().setHostname(command.getParameters()[1]);
+	command.getUser().setServername(command.getParameters()[2]);
 	command.getUser().setTruename(command.getTrailer());
 	Logger(Output::DEBUG) << "User: " << command.getUser().getUsername()
 	<< " " << command.getUser().getHostname()
+	<< " " << command.getUser().getServername()
 	<< " " << command.getUser().getTruename();
-	command.getUser()._userUsed = true;
-	//command.getUser().tryAuthentificate(command);
-	
+	command.getUser().setUserUsed(true);
+	command.getUser().tryAuthentificate(command);	
 }

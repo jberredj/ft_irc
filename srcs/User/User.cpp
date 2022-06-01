@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/27 15:45:34 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/01 21:46:06 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_ServerPassword(ft::null_ptr), _username(""), _nickname("-"), _truename(""),
-	_hostname(""), _servaddr(""),  _mode("w"), _prevnick(""), _channel("")
+	_hostname(""), _servername(""), _servaddr(""),  _mode(""), _prevnick(""), _channel(""), _passUsed(false), _userUsed(false), _nickUsed(false)
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -40,7 +40,7 @@ User::User(const User& src)
 User::User(std::string* serverPassWd):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_ServerPassword(serverPassWd), _username(""), _nickname("-"), _truename(""),
-	_hostname("127.0.0.1"), _servaddr(""),  _mode("w"), _prevnick(""), _channel("")
+	_hostname("127.0.0.1"), _servername("IP address"), _servaddr(""),  _mode(""), _prevnick(""), _channel(""), _passUsed(false), _userUsed(false), _nickUsed(false)
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -64,6 +64,9 @@ User &User::operator=(User const & rhs)
 		this->_mode = rhs._mode;
 		this->_prevnick = rhs._prevnick;
 		this->_channel = rhs._channel;
+		this->_passUsed = rhs._passUsed;
+		this->_userUsed = rhs._userUsed;
+		this->_nickUsed = rhs._nickUsed;
 	}
 	return *this;
 }
@@ -75,6 +78,7 @@ std::string	  	User::getPassword(void) const {return _password;}
 std::string		User::getUsername(void) const {return this->_username;}
 std::string 	User::getNickname(void) const {return this->_nickname;}
 std::string		User::getHostname(void) const {return this->_hostname;}
+std::string 	User::getServername(void) const {return this->_servername;}
 std::string 	User::getServaddr(void) const {return this->_servaddr;}
 std::string 	User::getTruename(void) const {return this->_truename;}
 std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
@@ -120,6 +124,7 @@ void		User::setPassword(std::string password) {this->_password = password;}
 void		User::setUsername(std::string username) {this->_username = username;}
 void		User::setNickname(std::string nickname) {this->_nickname = nickname;}
 void		User::setHostname(std::string hostname) {this->_hostname = hostname;}
+void		User::setServername(std::string servername) {this->_servername = servername;}
 void		User::setServaddr(std::string servaddr) {this->_servaddr = servaddr;}
 void		User::setTruename(std::string truename) {this->_truename = truename;}
 
@@ -142,9 +147,9 @@ void		User::setPrevnick(std::string prevnick)
 
 void		User::setChannel(std::string channel) {this->_channel = channel;}
 
-bool			User::setPassUsed(void) {return this->_passUsed = false;}
-bool			User::setUserUsed(void) {return this->_userUsed = false;}
-bool			User::setNickUsed(void) {return this->_nickUsed = false;}
+bool			User::setPassUsed(bool value) {return this->_passUsed = value;}
+bool			User::setUserUsed(bool value) {return this->_userUsed = value;}
+bool			User::setNickUsed(bool value) {return this->_nickUsed = value;}
 
 
 
@@ -203,54 +208,6 @@ std::string	User::getReplies(void)
 		reply.erase(0, 509);
 	}
 	return payload;
-}
-
-void	User::UMode(Command &command)
-{
-	int response = 0;
-	std::vector<std::string> args;
-	bool minus_flag = false;
-	std::string requested_mode;
-	std::string u_flags = "-+iwso";
-
-	if (command.getParameters().size() < 2)
-	{
-		response = 461;
-		args.push_back(command.getCommand());
-		return command.reply(response, args);
-	}
-	if (command.getParameters()[0] != _nickname && _mode.find("o") == std::string::npos)
-	{
-		response = 502;
-		return command.reply(response, args);
-	}
-	requested_mode = command.getParameters()[1];
-	for (size_t i = 0; i < requested_mode.size(); i++)
-	{
-		if (requested_mode[i] == '-')
-			minus_flag = true;
-		else if (requested_mode[i] == '+')
-			minus_flag = false;
-		else if (u_flags.find(requested_mode[i]) == std::string::npos)
-		{
-			response = 501;
-			return command.reply(response, args);
-		}
-		else if (requested_mode[i] == 'o' && !minus_flag && _mode.find("o") == std::string::npos)
-			continue;
-		else
-		{
-			if (minus_flag && _mode.find(requested_mode[i]) != std::string::npos)
-				_mode.erase(_mode.find(requested_mode[i], 1));
-			else if(!minus_flag && _mode.find(requested_mode[i]) == std::string::npos)
-				_mode = _mode + requested_mode[i];
-		}
-	}
-	setMode(_mode);
-	response = 221;
-	args.push_back(_mode);
-	Logger(Output::DEBUG) << "SPECIFY MODE";
-	return command.reply(response, args);	
 }
 
 /* ************************************************************************** */

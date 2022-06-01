@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/27 15:33:11 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/01 21:47:19 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ public:
 
 	//operators
 	User&			operator=(const User& rhs);
-
-	// authentification
-	bool							_passUsed;
-	bool 							_userUsed;
-	bool							_nickUsed;
 	
 	//getters
 	Status			getStatus(void) const;
@@ -43,6 +38,7 @@ public:
 	std::string		getUsername(void) const;
 	std::string		getNickname(void) const;
 	std::string		getHostname(void) const;
+	std::string		getServername(void) const;
 	std::string		getServaddr(void) const;
 	std::string		getTruename(void) const;
 	std::string		getCommandBuf(void) const;
@@ -64,6 +60,7 @@ public:
 	void			setUsername(std::string username);
 	void			setNickname(std::string nickname);
 	void			setHostname(std::string hostname);
+	void			setServername(std::string servername);
 	void			setServaddr(std::string servaddr);
 	void			setTruename(std::string truename);
 	void			setCommandBuf(std::string commandBuf);
@@ -74,9 +71,9 @@ public:
 	void			setPrevnick(std::string prevnick);
 	void			setChannel(std::string channel);
 
-	bool 			setPassUsed(void);
-	bool			setUserUsed(void);
-	bool			setNickUsed(void);
+	bool 			setPassUsed(bool);
+	bool			setUserUsed(bool);
+	bool			setNickUsed(bool);
 
 	// void	setAwaymsg(std::string awaymsg) {this->_awaymsg = awaymsg;}
 	// void	setDeletemsg(std::string deletemsg) {this->_deletmsg = deletemsg;}
@@ -87,7 +84,6 @@ public:
 	void			addReply(std::string reply);
 	std::string		getReplies(void);
 	void			tryAuthentificate(Command &cmd);
-	void			UMode(Command &command);
 
 private:
 	static bool											_inited;
@@ -105,6 +101,7 @@ private:
 	std::string 										_nickname;
 	std::string 										_truename;
 	std::string 										_hostname;
+	std::string											_servername;
 	std::string 										_servaddr;
 
 	std::string 										_mode;
@@ -113,6 +110,10 @@ private:
 	// std::string _awaymsg;
 	// std::string _deletemsg;
 
+	// authentification
+	bool												_passUsed;
+	bool 												_userUsed;
+	bool												_nickUsed;
 	// Init user Class
 	static void											_initUserClass(void);
 };
