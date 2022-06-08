@@ -33,6 +33,8 @@ public:
 
 	// General methods and functions
 	void				run(void);
+	std::string			getServerName(void) const;
+	void				setServerName(std::string serverName);
 
 	// User interactions methods and function
 	User*				getUser(std::string nickname);
@@ -49,6 +51,7 @@ private:
 	std::map<int, User*>		_usersMap;
 	int							_portInstanceLock;
 	std::vector<User *>			_users;
+	std::string					_serverName;
 
 	// Constructors
 								Server(void);
@@ -58,7 +61,8 @@ private:
 
 	// General methods and functions
 	static void					_SigIntHandler(int signum);
-	void						_logRawMessage(char* buf, User& user);
+	void						_logRawMessage(char* buf, User& user,
+									std::string prefix);
 	void						_uniqueInstanceOnPort(char* port);
 
 	// SocketIO methods and functions

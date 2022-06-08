@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/01 21:46:06 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:56:55 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // Constructors and destructor
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
-	_ServerPassword(ft::null_ptr), _username(""), _nickname("-"), _truename(""),
+	_ServerPassword(ft::null_ptr), _username(""), _nickname("*"), _truename(""),
 	_hostname(""), _servername(""), _servaddr(""),  _mode(""), _prevnick(""), _channel(""), _passUsed(false), _userUsed(false), _nickUsed(false)
 {
 	_initUserClass();
@@ -39,7 +39,7 @@ User::User(const User& src)
 
 User::User(std::string* serverPassWd):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
-	_ServerPassword(serverPassWd), _username(""), _nickname("-"), _truename(""),
+	_ServerPassword(serverPassWd), _username(""), _nickname("*"), _truename(""),
 	_hostname("127.0.0.1"), _servername("IP address"), _servaddr(""),  _mode(""), _prevnick(""), _channel(""), _passUsed(false), _userUsed(false), _nickUsed(false)
 {
 	_initUserClass();
@@ -92,6 +92,19 @@ bool			User::repliesAvalaible(void) const
 bool			User::getPassUsed(void) const {return this->_passUsed;}
 bool			User::getUserUsed(void) const {return this->_userUsed;}
 bool			User::getNickUsed(void) const {return this->_nickUsed;}
+std::string		User::getPrefix(void) const
+{
+	if (_status == PASSWORD || _status == REGISTER)
+		return "";
+	std::string	prefix(_nickname);
+	if (_hostname.length())
+	{
+		if (_username.length())
+			prefix += "!" + _username;
+		prefix += "@" + _hostname;
+	}
+	return prefix;
+}
 
 void			User::tryAuthentificate(Command &cmd)
 {
@@ -107,7 +120,7 @@ void			User::tryAuthentificate(Command &cmd)
 			args.push_back(_username);
 			args.push_back(_hostname);
 			setStatus(ONLINE);
-			return cmd.reply(response, args);
+			return cmd.replyToInvoker(response, args);
 		}	
 		else
 		{
@@ -132,7 +145,7 @@ void		User::setCommandBuf(std::string commandBuf)
 {
 	this->_commandBuf = commandBuf;
 }
-
+void		User::clearCommandBuff(void) {this->_commandBuf.clear();}
 void		User::appendCommandBuf(std::string commandBuf)
 {
 	this->_commandBuf += commandBuf;
@@ -168,7 +181,7 @@ void    User::execCommandQueue()
 		Command &cmd = _commandQueue.front();
 		if (_cmdMap.count(cmd.getCommand()) > 0)
 		{
-			Logger(Output::DEBUG) << cmd;
+			Logger(Output::TRACE) << cmd;
 			_cmdMap[cmd.getCommand()](cmd);
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcMessages.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/27 15:39:36 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:53:11 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	PASS(Command &command);
 void	USER(Command &command);
 void    NICK(Command &command);
 void    MODE(Command &command);
+void    PING(Command &command);
+
+// Replies not in RFC
+std::string	RPL_PONG(std::vector<std::string> args);
 
 // Replies
 std::string	RPL_WELCOME(std::vector<std::string> args);

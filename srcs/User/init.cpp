@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/27 15:40:30 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:52:43 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void USERS(Command &command){(void)command;}
 void TOPIC(Command &command){(void)command;}
 void PRIVMSG(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
-void PING(Command &command){(void)command;}
 void PART(Command &command){(void)command;}
 void OPER(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
@@ -52,7 +51,7 @@ void	User::_initUserClass(void)
 		Logger(Output::WARN) << "PRIVMSG message is not implemented yet";
 		_cmdMap["PONG"] = PONG;
 		Logger(Output::WARN) << "PONG message is not implemented yet";
-		_cmdMap["PPING"] = PING;
+		_cmdMap["PING"] = PING;
 		Logger(Output::WARN) << "PING message is not implemented yet";
 		_cmdMap["PASS"] = PASS;
 		_cmdMap["PART"] = PART;

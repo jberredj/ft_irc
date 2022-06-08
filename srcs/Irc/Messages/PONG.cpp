@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PONG.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esommier <esommier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:56:10 by esommier          #+#    #+#             */
-/*   Updated: 2022/05/17 13:11:13 by esommier         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:12:44 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	PONG(Command &command)
 	{
 		response = 409;
 		args.push_back(command.getCommand());
-		return command.reply(response, args);
+		return command.replyToInvoker(response, args);
 	}
 
 	

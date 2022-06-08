@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/19 12:43:41 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:13:31 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 // Constructors and destructor
 Server::Server(int ac, char** av):
-	_exitCode(0)
+	_exitCode(0), _serverName("irc.CTPT.fr")
 {
 	if (ac != 3)
 	{
@@ -66,7 +66,15 @@ Server::~Server(void)
 }
 
 // Getters
+std::string	Server::getServerName(void) const {return this->_serverName;}
+
 short	Server::getExitCode(void) const {return _exitCode;}
+
+// Setters
+void	Server::setServerName(std::string serverName)
+{
+	this->_serverName = serverName;
+}
 
 // Operators
 Server&	Server::operator=(const Server& rhs)
@@ -85,7 +93,8 @@ Server&	Server::operator=(const Server& rhs)
 bool Server::_sigInt = false;
 
 // Constructors
-Server::Server(void)
+Server::Server(void):
+	_exitCode(0), _serverName("irc.CTPT.fr")
 {
 	_preparePollfds();
 }
@@ -97,14 +106,22 @@ void	Server::_SigIntHandler(int signum)
 	Server::_sigInt = true;
 }
 
-void	Server::_logRawMessage(char *buf, User &user)
+void	Server::_logRawMessage(char *buf, User &user, std::string prefix)
 {
 	std::string				rawMessage(buf);
-	std::string::iterator	lineReturnLoc = rawMessage.begin() + 
-												rawMessage.find('\n', 0);
-
-	rawMessage = rawMessage.replace(lineReturnLoc, rawMessage.end(), "");
-	Logger(Output::INFO) << "From " << user.getUsername() << ": " << rawMessage;
+	std::size_t				lineReturnLoc;
+	std::string				messageToPrint;
+	while (rawMessage.length())
+	{
+		lineReturnLoc = rawMessage.find("\r\n", 0);
+		if (lineReturnLoc == rawMessage.npos)
+			lineReturnLoc = rawMessage.length();
+		messageToPrint = rawMessage.substr(0, lineReturnLoc);
+		if (lineReturnLoc != rawMessage.length())
+			lineReturnLoc += 2;
+		rawMessage = rawMessage.replace(0, lineReturnLoc, "");
+		Logger(Output::DEBUG) << prefix << user.getNickname() << ": " << messageToPrint;
+	}
 }
 
 void	Server::_uniqueInstanceOnPort(char *port)

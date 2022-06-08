@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:56:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/19 14:55:00 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:11:44 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ std::vector<User*>*	Server::getUsers(void) {return &_users;}
 
 void	Server::_addNewUser(int socketToBind, struct sockaddr_in cliAddr)
 {
+	
 	User*	new_user = new User(&_password);
-	new_user->setServaddr(inet_ntoa(cliAddr.sin_addr));
+	new_user->setHostname(inet_ntoa(cliAddr.sin_addr));	
 	new_user->setStatus(User::PASSWORD);
 	_usersMap.insert(std::make_pair(socketToBind, new_user));
 	_users.push_back(new_user);

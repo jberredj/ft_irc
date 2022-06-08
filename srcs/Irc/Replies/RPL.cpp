@@ -6,11 +6,16 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 01:22:38 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:51:38 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
+
+std::string	RPL_PONG(std::vector<std::string> args)
+{
+	return args[0] + ":" + args[1];
+}
 
 std::string	RPL_WELCOME(std::vector<std::string> args)
 {

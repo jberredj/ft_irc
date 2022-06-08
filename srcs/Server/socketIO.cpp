@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:37:21 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/19 14:56:50 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:39:18 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,9 @@ void	Server::_socketReadInput(std::vector<struct pollfd>::iterator it)
 		User*		ctx = _usersMap[(*it).fd];
 
 		buf[bufSize] = '\0';
-		_logRawMessage(buf, *_usersMap[(*it).fd]);
+		_logRawMessage(buf, *_usersMap[(*it).fd], "From ");
 		std::string	rawMessage(ctx->getCommandBuf());
-
-		ctx->setCommandBuf("");
-		Logger(Output::WARN) << "Implement a proper commandBuf clear()";
+		ctx->clearCommandBuff();
 		rawMessage += buf;
 		while (!rawMessage.empty())
 		{
@@ -138,8 +136,6 @@ void	Server::_socketReadInput(std::vector<struct pollfd>::iterator it)
 				ctx->setCommandBuf(rawMessage);
 				break;
 			}
-			Logger(Output::DEBUG) << "Add command: "
-				<< rawMessage.substr(0, endMessageLocation);
 			Command	newCommand(ctx, rawMessage.substr(0, 
 				endMessageLocation - endOffset), this);
 			ctx->addCommand(newCommand);
@@ -154,7 +150,8 @@ void	Server::_socketWrite(std::vector<struct pollfd>::iterator it)
 	if (_usersMap[(*it).fd]->repliesAvalaible())
 	{
 		std::string	payload = _usersMap[(*it).fd]->getReplies();
-
+		const char	*rawBuf = payload.c_str();
+		_logRawMessage((char *)rawBuf, *_usersMap[(*it).fd], "Sending to ");
 		write((*it).fd, payload.c_str(), payload.size());
 	}
 }

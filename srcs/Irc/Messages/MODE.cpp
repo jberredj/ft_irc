@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MODE.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:30:20 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/01 21:55:04 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:12:44 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	MODE(Command &command)
 	{
 		response = 461;
 		args.push_back(command.getCommand());
-		return command.reply(response, args);
+		return command.replyToInvoker(response, args);
 	}
 	if (command.getParameters()[0] != user.getNickname() && user.getMode().find("o") == std::string::npos)
 	{
 		response = 502;
-		return command.reply(response, args);
+		return command.replyToInvoker(response, args);
 	}
 	requested_mode = command.getParameters()[1];
     new_mode = user.getMode();
@@ -47,7 +47,7 @@ void	MODE(Command &command)
 		else if (u_flags.find(requested_mode[i]) == std::string::npos)
 		{
 			response = 501;
-			return command.reply(response, args);
+			return command.replyToInvoker(response, args);
 		}
 		else if (requested_mode[i] == 'o' && !minus_flag && new_mode.find("o") == std::string::npos)
 			continue;
@@ -63,5 +63,5 @@ void	MODE(Command &command)
 	user.setMode(new_mode);
 	response = 221;
 	args.push_back(new_mode);
-	return command.reply(response, args);	
+	return command.replyToInvoker(response, args);	
 }

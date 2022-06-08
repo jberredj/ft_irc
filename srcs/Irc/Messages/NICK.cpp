@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 15:27:14 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/01 20:30:41 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:16:41 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ void    NICK(Command &command)
 	std::vector<std::string> args;
 	std::string nick;
 	
-	Logger(Output::DEBUG) << "SPECIFY NICK";
 	if(command.getParameters().size() == 0)
 	{
 		response = 431;
-        return command.reply(response, args);
+        return command.replyToInvoker(response, args);
 	}
 	if(command.getParameters().size() == 1 || command.getParameters().size() == 2)
 		nick = command.getParameters()[0];
@@ -41,19 +40,19 @@ void    NICK(Command &command)
 	{
 		response = 433;
 		args.push_back(nick);
-		return command.reply(response, args);
+		return command.replyToInvoker(response, args);
 	}
 	if (nick.size() > 9)
 	{
 		response = 432;
 		args.push_back(nick.substr(0,9));
-		return command.reply(response, args);
+		return command.replyToInvoker(response, args);
 	}
-	if (isdigit(nick[0]) || nick[0] == '-')
+	if (isdigit(nick[0]) || nick[0] == '*')
 	{
 		response = 432;
 		args.push_back(nick);
-		return command.reply(response, args);
+		return command.replyToInvoker(response, args);
 	}
 	for (size_t i = 1; i < nick.size(); i++)
 	{
@@ -61,7 +60,7 @@ void    NICK(Command &command)
 		{
 			response = 432;
 			args.push_back(nick);
-			return command.reply(response, args);
+			return command.replyToInvoker(response, args);
 		}
 	}
 	command.getUser().rename(nick);

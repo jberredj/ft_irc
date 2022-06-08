@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/19 15:00:04 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:37:00 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "Reply.hpp"
 #include "typedefs.hpp"
 #include <algorithm>
+#include <sstream>
+#include <iomanip>
 #include "typedefs.hpp"
 #include "Server.hpp"
 
@@ -112,15 +114,12 @@ User*	Command::getUser(std::string nickname)
 
 std::vector<User *>*	Command::getUsers(void) {return _server->getUsers();}
 
-// Replies functions
-void	Command::replyTo(User *user, int code, std::vector<std::string> args)
+std::string	Command::getServerName(void) const
 {
-	std::string	reply;
-	Logger(Output::WARN) << "Incomplete Replies";
-	reply = Reply().getReply(code, args);
-	user->addReply(reply);
+	return _server->getServerName();
 }
 
+// Replies functions
 void	Command::replyAll(int code, std::vector<std::string> args)
 {
 	(void)code;
@@ -128,15 +127,41 @@ void	Command::replyAll(int code, std::vector<std::string> args)
 	Logger(Output::WARN) << "replyAll() not implemented yet";
 }
 
-void	Command::reply(int code, std::vector<std::string> args)
+void	Command::replyToInvoker(int code, std::vector<std::string> args)
 {
-	replyTo(_user, code, args);
+	_reply(ft::null_ptr, _user, code, args);
+}
+
+void	Command::invokerSendTo(User* receiver, int code, std::vector<std::string> args)
+{
+	_reply(_user, receiver, code, args);
 }
 
 /* ************************************************************************** */
 /*                                 Private                                    */
 /* ************************************************************************** */
 
+// Replies functions
+void	Command::_reply(User* sender, User* receiver, int code,
+					std::vector<std::string> args)
+{
+	std::string	reply;
+	std::stringstream	codeString;
+
+	reply = ":";
+	if (!sender)
+		reply += _server->getServerName() + " ";
+	else
+		reply += sender->getPrefix() + " ";
+	if (code > 0)
+	{
+		codeString << std::setw(3) << std::setfill('0') << code;
+		reply += codeString.str() + " ";
+	}
+	reply += receiver->getNickname() + " ";
+	reply += Reply().getReply(code, args);
+	receiver->addReply(reply);
+}
 
 /* ************************************************************************** */
 /*                                Non-member                                  */

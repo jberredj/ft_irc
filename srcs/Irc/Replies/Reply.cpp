@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Reply.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/01 21:25:11 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:51:51 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,11 @@ Reply	&Reply::operator=(const Reply &rhs)
 // getReply functions
 std::string Reply::getReply(int code, std::vector<std::string> args)
 {
-	std::stringstream	codeString;
 	std::string reply;
 
-	codeString << std::setw(3) << std::setfill('0') << code;
-	reply = codeString.str();
 	try
 	{
-		reply += " " + _replies[code](args);
-		return reply;
+		return _replies[code](args);
 	}
 	catch(const std::exception& e)
 	{
@@ -78,10 +74,15 @@ std::string Reply::getReply(std::string (*replyFunc)(std::vector<std::string>),
 		Logger(Output::ERROR) << "Function is not in valid replies";
 		return "";
 	}
-	std::stringstream	codeString;
-
-	codeString << std::setw(3) << std::setfill('0') << (*it).first;
-	return codeString.str() + " " + replyFunc(args);
+	try
+	{
+		return replyFunc(args);
+	}
+	catch(const std::exception& e)
+	{
+		Logger(Output::ERROR) << e.what();
+	}
+	return "";
 }
 
 /* ************************************************************************** */
@@ -93,6 +94,9 @@ void	Reply::_initRepliesMap(void)
 {
 	if (_replies.empty())
 	{
+		// Replies not in RFC
+		_replies.insert(std::make_pair(-1, RPL_PONG));
+
 		// Replies
 		_replies.insert(std::make_pair(001, RPL_WELCOME));
 		_replies.insert(std::make_pair(221, RPL_UMODEIS));

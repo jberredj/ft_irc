@@ -6,11 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/05/19 15:00:18 by jberredj         ###   ########.fr       */
-=======
-/*   Updated: 2022/06/01 21:47:19 by ddiakova         ###   ########.fr       */
->>>>>>> usermode
+/*   Updated: 2022/06/08 16:06:07 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +43,7 @@ public:
 	std::string		getServaddr(void) const;
 	std::string		getTruename(void) const;
 	std::string		getCommandBuf(void) const;
+	std::string		getPrefix(void) const;
 
 	std::string		getMode(void) const;
 	std::string		getPrevnick(void) const;
@@ -69,6 +66,7 @@ public:
 	void			setServaddr(std::string servaddr);
 	void			setTruename(std::string truename);
 	void			setCommandBuf(std::string commandBuf);
+	void			clearCommandBuff(void);
 	void			appendCommandBuf(std::string commandBuf);
 	
 	void 			rename(std::string nick);

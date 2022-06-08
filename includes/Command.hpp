@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/05/19 15:00:24 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:36:11 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,18 @@ public:
 	User&						getUser(void) const;
 	User*						getUser(std::string nickname);
 	std::vector<User *>*		getUsers(void);
+	std::string					getServerName(void) const;
 
 
 	// Replies functions
-	void						replyTo(User *user, int code,
-									std::vector<std::string> args
-									= std::vector<std::string>());
 	void						replyAll(int code,
 									std::vector<std::string> args
 									= std::vector<std::string>());
-	void						reply(int code, std::vector<std::string> args
+	void						replyToInvoker(int code,
+									std::vector<std::string> args
+									= std::vector<std::string>());
+	void						invokerSendTo(User* receiver, int code,
+									std::vector<std::string> args
 									= std::vector<std::string>());
 private:
 	std::string 				_prefix;
@@ -63,6 +65,11 @@ private:
 	std::string 				_command_line;
 	User*						_user;
 	Server*						_server;
+
+	// Replies functions
+	void						_reply(User* sender, User* receiver, int code,
+									std::vector<std::string> args
+									= std::vector<std::string>());
 };
 
 std::ostream &  operator<<(std::ostream & o, Command const & rhs);
