@@ -70,10 +70,17 @@ void irc::Command::reply(User &user, unsigned short code, std::string arg1, std:
 void irc::Command::reply(unsigned short code, std::string arg1, std::string arg2, std::string arg3, std::string arg4, std::string arg5, std::string arg6, std::string arg7) { reply(*user, code, arg1, arg2, arg3, arg4, arg5, arg6, arg7); }
 
 
-PASS
+PASS - ok
 NICK :
 	Checker si un autre User a le même pseudo: ajouter un accès à la map d'user dans la commande ?
 	Si collision return ERR_NICKCOLLISION
-	Check charset autorisé
+	Check charset autorisé - not completely ok
 	
-USER
+USER - ok
+
+1. est-ce que user registered - dans Pass et User si user est registered or deja online
+is oui - warning "deja registered"
+
+2. checker si on peut faire plusieurs cmds pass et pour user
+
+3. MODES user

@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/05/19 15:49:55 by jberredj         ###   ########.fr        #
+#    Updated: 2022/06/08 11:20:03 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
 
 IRC					=	$(addprefix Messages/, $(MESSAGES))\
 							$(addprefix Replies/, $(REPLIES))
-MESSAGES			=	PASS.cpp USER.cpp NICK.cpp
+MESSAGES			=	Pass.cpp USER.cpp NICK.cpp MODE.cpp
 REPLIES				=	Reply.cpp ERR.cpp RPL.cpp
 IRC_SRCS			=	$(addprefix srcs/Irc/, $(IRC))
 IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))
