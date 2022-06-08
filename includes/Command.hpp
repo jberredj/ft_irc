@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/08 15:36:11 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/08 21:12:35 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ public:
 	std::string					getLine(void) const;
 	std::string 				getPrefix(void) const;
 	std::string 				getCommand(void) const;
-	std::vector<std::string>	getParameters(void) const;
+	const std::vector<std::string>	&getParameters(void) const;
 	std::string 				getTrailer(void) const;
 	User&						getUser(void) const;
 	User*						getUser(std::string nickname);

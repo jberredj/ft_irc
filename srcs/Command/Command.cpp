@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/08 15:37:00 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/08 21:12:22 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ std::string	Command::getLine(void) const {return _command_line;}
 std::string	Command::getPrefix(void) const {return _prefix;}
 std::string	Command::getCommand(void) const {return _command;}
 
-std::vector<std::string>	Command::getParameters(void) const 
+const std::vector<std::string>	&Command::getParameters(void) const 
 {
 	return _parameters;
 }
