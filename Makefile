@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
+#    By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/06/08 15:49:05 by jberredj         ###   ########.fr        #
+#    Updated: 2022/06/11 16:20:15 by ddiakova         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	ircserv
 
-CXX				=	clang++
+CXX				=	gcc
 OPTI			=	-O3
 CXXFLAGS		=	-Wall -Werror -Wextra -std=c++98 $(OPTI)
 LDFLAGS			=	
@@ -40,7 +40,7 @@ COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
 
 IRC					=	$(addprefix Messages/, $(MESSAGES))\
 							$(addprefix Replies/, $(REPLIES))
-MESSAGES			=	PASS.cpp USER.cpp NICK.cpp MODE.cpp PING.cpp
+MESSAGES			=	PASS.cpp USER.cpp NICK.cpp MODE.cpp PING.cpp PRIVMSG.cpp
 REPLIES				=	Reply.cpp ERR.cpp RPL.cpp
 IRC_SRCS			=	$(addprefix srcs/Irc/, $(IRC))
 IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))

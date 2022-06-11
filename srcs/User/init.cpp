@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/08 15:52:43 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/11 16:03:59 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@
 void WHOIS(Command &command){(void)command;}
 void USERS(Command &command){(void)command;}
 void TOPIC(Command &command){(void)command;}
-void PRIVMSG(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
 void PART(Command &command){(void)command;}
 void OPER(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
-//void MODE(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}
 void KILL(Command &command){(void)command;}
 void KICK(Command &command){(void)command;}

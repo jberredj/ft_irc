@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:35:49 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/08 23:06:49 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/11 16:06:25 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	PRIVMSG(Command& command)
 	int	response = 0;
 	std::vector<std::string> args;
 	User *user = ft::null_ptr;
-	// const std::vector<std::string>& recepients = command.getParameters();
  
 	Logger(Output::DEBUG) << "ENTERED IN PRIVMSG";
 	if (command.getParameters().size() < 1)
@@ -38,8 +37,6 @@ void	PRIVMSG(Command& command)
 	}
 
 	std::string recepients = command.getParameters()[0];
-	std::vector<std::string>::iterator it;
-	
 	std::string receiver;
 
 	while (recepients.length())
@@ -48,8 +45,16 @@ void	PRIVMSG(Command& command)
 		if (comma == recepients.npos)
 			comma = recepients.length();
 		receiver = recepients.substr(0, comma);
-		// check user ou channel 
-		//* User = getChannel(std::string = channel name = receiver) or getUser(nick = receiver) check if NULL
+		// if (receiver[0] == '#')
+		// 	user = command.getChannel(receiver);
+		// else
+			user = command.getUser(receiver);
+		if (user == ft::null_ptr)
+		{
+			response = 401;
+			args.push_back(receiver);
+			return command.replyToInvoker(response, args);
+		}
 		args.push_back(command.getParameters()[1]);
 		command.invokerSendTo(user, -2, args);
 		args.clear();		
