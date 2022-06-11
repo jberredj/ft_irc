@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/08 21:12:22 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:54:58 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,8 @@ void	Command::_reply(User* sender, User* receiver, int code,
 	{
 		codeString << std::setw(3) << std::setfill('0') << code;
 		reply += codeString.str() + " ";
+		reply += receiver->getNickname() + " ";
 	}
-	reply += receiver->getNickname() + " ";
 	reply += Reply().getReply(code, args);
 	receiver->addReply(reply);
 }

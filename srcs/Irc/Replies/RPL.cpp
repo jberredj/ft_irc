@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPL.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/08 15:51:38 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:47:41 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 std::string	RPL_PONG(std::vector<std::string> args)
 {
 	return args[0] + ":" + args[1];
+}
+
+std::string RPL_PRIVMSG(std::vector<std::string> args)
+{
+	return "PRIVMSG " + args[0] + " :" + args[1];
 }
 
 std::string	RPL_WELCOME(std::vector<std::string> args)

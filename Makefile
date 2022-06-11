@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+         #
+#    By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/06/11 16:20:15 by ddiakova         ###   ########.fr        #
+#    Updated: 2022/06/11 18:07:43 by ddiakova         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	ircserv
 
-CXX				=	gcc
+CXX				=	clang++
 OPTI			=	-O3
 CXXFLAGS		=	-Wall -Werror -Wextra -std=c++98 $(OPTI)
 LDFLAGS			=	

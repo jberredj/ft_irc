@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PRIVMSG.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:35:49 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/11 16:06:25 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/11 20:11:07 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	PRIVMSG(Command& command)
 			args.push_back(receiver);
 			return command.replyToInvoker(response, args);
 		}
-		args.push_back(command.getParameters()[1]);
+		args.push_back(receiver);
+		args.push_back(command.getTrailer());
 		command.invokerSendTo(user, -2, args);
 		args.clear();		
 		if (comma != recepients.length())

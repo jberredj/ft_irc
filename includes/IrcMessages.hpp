@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcMessages.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/11 16:04:31 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:42:22 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	PRIVMSG(Command& command);
 
 // Replies not in RFC
 std::string	RPL_PONG(std::vector<std::string> args);
+std::string RPL_PRIVMSG(std::vector<std::string> args);
 
 // Replies
 std::string	RPL_WELCOME(std::vector<std::string> args);
