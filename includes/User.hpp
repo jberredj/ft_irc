@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/11 16:09:11 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/12 20:05:52 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ public:
 	bool			getUserUsed(void) const;
 	bool			getNickUsed(void) const;
 	
-	// std::string getAwaymsg(void) {return this->_awaymsg;}
-	// std::string getDeletemsg(void) {return this->_deletemsg;}
-	
 	//setters
 	void			setStatus(Status status);
 	void			setPassword(std::string password);
@@ -77,9 +74,6 @@ public:
 	bool 			setPassUsed(bool);
 	bool			setUserUsed(bool);
 	bool			setNickUsed(bool);
-
-	// void	setAwaymsg(std::string awaymsg) {this->_awaymsg = awaymsg;}
-	// void	setDeletemsg(std::string deletemsg) {this->_deletmsg = deletemsg;}
 
 	// IO User methods
 	void			addCommand(const Command& command);
@@ -110,8 +104,6 @@ private:
 	std::string 										_mode;
 	std::string 										_prevnick;
 	std::string 										_channel;
-	// std::string _awaymsg;
-	// std::string _deletemsg;
 
 	// authentification
 	bool												_passUsed;
