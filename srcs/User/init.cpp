@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 15:30:06 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/12 17:28:17 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	User::_initUserClass(void)
 		// Logger(Output::WARN) << "PRIVMSG message is not implemented yet";
 		_cmdMap["NOTICE"] = NOTICE;
 		// Logger(Output::WARN) << "NOTICE message is not implemented yet";
+		_cmdMap["QUIT"] = QUIT;
+		// Logger(Output::WARN) << "QUIT message is not implemented yet";
 		_cmdMap["PONG"] = PONG;
 		Logger(Output::WARN) << "PONG message is not implemented yet";
 		_cmdMap["PING"] = PING;
@@ -59,7 +61,7 @@ void	User::_initUserClass(void)
 		_cmdMap["OPER"] = OPER;
 		Logger(Output::WARN) << "OPER message is not implemented yet";
 		_cmdMap["NICK"] = NICK;
-		Logger(Output::WARN) << "NICK message is not implemented yet";
+		// Logger(Output::WARN) << "NICK message is not implemented yet";
 		_cmdMap["NAMES"] = NAMES;
 		Logger(Output::WARN) << "NAMES message is not implemented yet";
 		_cmdMap["MODE"] = MODE;

@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 15:24:24 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/12 17:22:49 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ void    MODE(Command &command);
 void    PING(Command &command);
 void	PRIVMSG(Command& command);
 void    NOTICE(Command& command);
+void    QUIT(Command& command);
 
 // Replies not in RFC
 std::string	RPL_PONG(std::vector<std::string> args);
 std::string RPL_PRIVMSG(std::vector<std::string> args);
+std::string RPL_QUIT(std::vector<std::string> args);
 
 // Replies
 std::string	RPL_WELCOME(std::vector<std::string> args);

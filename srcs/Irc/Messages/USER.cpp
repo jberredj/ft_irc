@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   USER.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 12:36:58 by esommier          #+#    #+#             */
-/*   Updated: 2022/06/08 17:14:06 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/12 18:31:55 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	USER(Command &command)
 		return command.replyToInvoker(response, args);
 	}
 	command.getUser().setUsername(command.getParameters()[0]);
-	command.getUser().setHostname(command.getParameters()[1]);
+	// command.getUser().setHostname(command.getParameters()[1]);
 	command.getUser().setServername(command.getParameters()[2]);
 	command.getUser().setTruename(command.getTrailer());
 	command.getUser().setUserUsed(true);

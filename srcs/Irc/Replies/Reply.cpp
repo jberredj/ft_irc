@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/11 18:44:53 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/12 17:21:25 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	Reply::_initRepliesMap(void)
 		// Replies not in RFC
 		_replies.insert(std::make_pair(-1, RPL_PONG));
 		_replies.insert(std::make_pair(-2, RPL_PRIVMSG));
+		_replies.insert(std::make_pair(-3, RPL_QUIT));
 
 		// Replies
 		_replies.insert(std::make_pair(001, RPL_WELCOME));
