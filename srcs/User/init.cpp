@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/11 16:03:59 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/12 15:30:06 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	User::_initUserClass(void)
 		_cmdMap["TOPIC"] = TOPIC;
 		Logger(Output::WARN) << "TOPIC message is not implemented yet";
 		_cmdMap["PRIVMSG"] = PRIVMSG;
-		Logger(Output::WARN) << "PRIVMSG message is not implemented yet";
+		// Logger(Output::WARN) << "PRIVMSG message is not implemented yet";
+		_cmdMap["NOTICE"] = NOTICE;
+		// Logger(Output::WARN) << "NOTICE message is not implemented yet";
 		_cmdMap["PONG"] = PONG;
 		Logger(Output::WARN) << "PONG message is not implemented yet";
 		_cmdMap["PING"] = PING;
@@ -61,7 +63,7 @@ void	User::_initUserClass(void)
 		_cmdMap["NAMES"] = NAMES;
 		Logger(Output::WARN) << "NAMES message is not implemented yet";
 		_cmdMap["MODE"] = MODE;
-		Logger(Output::WARN) << "MODE message is not implemented yet";
+		// Logger(Output::WARN) << "MODE message is not implemented yet";
 		_cmdMap["LIST"] = LIST;
 		Logger(Output::WARN) << "LIST message is not implemented yet";
 		_cmdMap["KILL"] = KILL;
