@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 19:33:02 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/12 20:55:45 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void PONG(Command &command){(void)command;}
 void PART(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}
-void KILL(Command &command){(void)command;}
 void KICK(Command &command){(void)command;}
 void JOIN(Command &command){(void)command;}
 void INVITE(Command &command){(void)command;}
@@ -68,7 +67,7 @@ void	User::_initUserClass(void)
 		_cmdMap["LIST"] = LIST;
 		Logger(Output::WARN) << "LIST message is not implemented yet";
 		_cmdMap["KILL"] = KILL;
-		Logger(Output::WARN) << "KILL message is not implemented yet";
+		// Logger(Output::WARN) << "KILL message is not implemented yet";
 		_cmdMap["KICK"] = KICK;
 		Logger(Output::WARN) << "KICK message is not implemented yet";
 		_cmdMap["JOIN"] = JOIN;

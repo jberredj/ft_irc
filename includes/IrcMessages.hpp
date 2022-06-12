@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 19:32:22 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/12 20:59:22 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ std::string	ERR_RESTRICTED(std::vector<std::string> args);
 std::string	ERR_NOOPERHOST(std::vector<std::string> args);
 std::string	ERR_UMODEUNKNOWNFLAG(std::vector<std::string> args);
 std::string	ERR_USERSDONTMATCH(std::vector<std::string> args);
+std::string	ERR_NOPRIVILEGES(std::vector<std::string> args);
+std::string	ERR_CANTKILLSERVER(std::vector<std::string> args);
 
 #endif

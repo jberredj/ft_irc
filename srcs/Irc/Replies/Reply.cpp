@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 17:21:25 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/12 20:58:29 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,9 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(475, ERR_BADCHANNELKEY));
 		_replies.insert(std::make_pair(476, ERR_BADCHANMASK));
 		_replies.insert(std::make_pair(477, ERR_NOCHANMODES));
+		_replies.insert(std::make_pair(481, ERR_NOPRIVILEGES));
 		_replies.insert(std::make_pair(482, ERR_CHANOPRIVSNEEDED));
+		_replies.insert(std::make_pair(483, ERR_CANTKILLSERVER));
 		_replies.insert(std::make_pair(484, ERR_RESTRICTED));
 		_replies.insert(std::make_pair(491, ERR_NOOPERHOST));
 		_replies.insert(std::make_pair(501, ERR_UMODEUNKNOWNFLAG));

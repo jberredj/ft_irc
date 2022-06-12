@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:58:31 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/12 20:23:48 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/12 20:36:17 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void    OPER(Command& command)
 	std::vector<std::string> args;
     std::string operPwd = "operPwd";
 
+    Logger(Output::DEBUG) << "ENTERED IN OPER";
     if (command.getParameters().size() < 2)
 	{
 		response = 461;
@@ -34,7 +35,6 @@ void    OPER(Command& command)
         response = 464;
 		return command.replyToInvoker(response, args);
     }
-    
     std::string modeO = user.getMode();
     modeO = modeO + "o";
     user.setMode(modeO);
