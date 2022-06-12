@@ -45,27 +45,64 @@ std::string	RPL_AWAY(std::vector<std::string> args)
 
 std::string	RPL_WHOISUSER(std::vector<std::string> args)
 {
-	return args[0] + " " + args[1] + " " + args[2] + " * :" + args[3];
+	std::string &nick = args[0];
+	std::string &user = args[1];
+	std::string &host = args[2];
+	std::string &real = args[3];
+
+	return nick + " " + user + " " + host + " * :" + real;
 }
 
 std::string	RPL_WHOISSERVER(std::vector<std::string> args)
 {
-	return args[0] + " " + args[1] + " :" + args[2];
+	std::string &nick = args[0];
+	std::string &server = args[1];
+	std::string &server_info = args[2];
+
+	return nick + " " + server + " :" + server_info;
 }
 
 std::string	RPL_WHOISOPERATOR(std::vector<std::string> args)
 {
-	return args[0] + " :is an IRC operator";
+	std::string &nick = args[0];
+
+	return nick + " :is an IRC operator";
 }
 
 std::string	RPL_WHOISIDLE(std::vector<std::string> args)
 {
-	return  args[0] + " " + args[1] +" :seconds idle";
+	std::string &nick = args[0];
+	std::string &integer = args[1];
+
+	return  nick + " " + integer + " :seconds idle";
+}
+
+std::string	RPL_WHOISHOST(std::vector<std::string> args)
+{
+	std::string &nick = args[0];
+	std::string &user = args[1];
+	std::string &host = args[2];
+	std::string &ipstring = args[3];
+
+	return  nick + " :is connecting from " + user + "@" + host + " " + ipstring; 
+}
+
+std::string	RPL_WHOISMODES(std::vector<std::string> args)
+{
+	std::string &nick = args[0];
+	std::string &mode = args[1];
+
+	// TODO ? seems to be another parameter called snomaskmode->GetUserParameter(dest) 
+	// if mode is set to `snomaskmode` ? https://github.com/inspircd/inspircd/blob/insp3/src/coremods/core_whois.cpp l.244
+
+	return  nick + " :is using mode +" + mode;
 }
 
 std::string	RPL_ENDOFWHOIS(std::vector<std::string> args)
 {
-	return args[0] + " :End of WHOIS list";
+	std::string &nick = args[0];
+
+	return nick + " :End of /WHOIS list";
 }
 
 std::string	RPL_WHOISCHANNELS(std::vector<std::string> args)

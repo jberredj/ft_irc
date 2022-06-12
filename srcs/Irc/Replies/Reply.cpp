@@ -117,6 +117,8 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(341, RPL_INVITING));
 		_replies.insert(std::make_pair(353, RPL_NAMREPLY));
 		_replies.insert(std::make_pair(366, RPL_ENDOFNAMES));
+		_replies.insert(std::make_pair(378, RPL_WHOISHOST));
+		_replies.insert(std::make_pair(379, RPL_WHOISMODES));
 		_replies.insert(std::make_pair(381, RPL_YOUREOPER));
 		_replies.insert(std::make_pair(392, RPL_USERSSTART));
 		_replies.insert(std::make_pair(393, RPL_USERS));

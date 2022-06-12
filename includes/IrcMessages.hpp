@@ -26,6 +26,7 @@ void    PING(Command &command);
 void	PRIVMSG(Command& command);
 void    NOTICE(Command& command);
 void    QUIT(Command& command);
+void    WHOIS(Command &command);
 
 // Replies not in RFC
 std::string	RPL_PONG(std::vector<std::string> args);
@@ -50,6 +51,8 @@ std::string	RPL_TOPIC(std::vector<std::string> args);
 std::string	RPL_INVITING(std::vector<std::string> args);
 std::string	RPL_NAMREPLY(std::vector<std::string> args);
 std::string	RPL_ENDOFNAMES(std::vector<std::string> args);
+std::string RPL_WHOISHOST(std::vector<std::string> args);
+std::string RPL_WHOISMODES(std::vector<std::string> args);
 std::string	RPL_YOUREOPER(std::vector<std::string> args);
 std::string	RPL_USERSSTART(std::vector<std::string> args);
 std::string	RPL_USERS(std::vector<std::string> args);

@@ -15,7 +15,6 @@
 #include "Command.hpp"
 #include "IrcMessages.hpp"
 
-void WHOIS(Command &command){(void)command;}
 void USERS(Command &command){(void)command;}
 void TOPIC(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
@@ -38,11 +37,9 @@ void	User::_initUserClass(void)
 	if (_cmdMap.empty())
 	{
 		_cmdMap["WHOIS"] = WHOIS;
-		Logger(Output::WARN) << "WHOIS message is not implemented yet";
 		_cmdMap["USERS"] = USERS;
 		Logger(Output::WARN) << "USERS message is not implemented yet";
 		_cmdMap["USER"] = USER;
-		// Logger(Output::WARN) << "USER message is not implemented yet";
 		_cmdMap["TOPIC"] = TOPIC;
 		Logger(Output::WARN) << "TOPIC message is not implemented yet";
 		_cmdMap["PRIVMSG"] = PRIVMSG;
@@ -54,14 +51,12 @@ void	User::_initUserClass(void)
 		_cmdMap["PONG"] = PONG;
 		Logger(Output::WARN) << "PONG message is not implemented yet";
 		_cmdMap["PING"] = PING;
-		Logger(Output::WARN) << "PING message is not implemented yet";
 		_cmdMap["PASS"] = PASS;
 		_cmdMap["PART"] = PART;
 		Logger(Output::WARN) << "PART message is not implemented yet";
 		_cmdMap["OPER"] = OPER;
 		Logger(Output::WARN) << "OPER message is not implemented yet";
 		_cmdMap["NICK"] = NICK;
-		// Logger(Output::WARN) << "NICK message is not implemented yet";
 		_cmdMap["NAMES"] = NAMES;
 		Logger(Output::WARN) << "NAMES message is not implemented yet";
 		_cmdMap["MODE"] = MODE;
