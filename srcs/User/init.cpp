@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 20:55:45 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:40:34 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	User::_initUserClass(void)
 		// Logger(Output::WARN) << "MODE message is not implemented yet";
 		_cmdMap["LIST"] = LIST;
 		Logger(Output::WARN) << "LIST message is not implemented yet";
-		_cmdMap["KILL"] = KILL;
+		// _cmdMap["KILL"] = KILL;
 		// Logger(Output::WARN) << "KILL message is not implemented yet";
 		_cmdMap["KICK"] = KICK;
 		Logger(Output::WARN) << "KICK message is not implemented yet";

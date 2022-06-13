@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   OPER.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:58:31 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/12 20:36:17 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:39:03 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ void    OPER(Command& command)
         response = 464;
 		return command.replyToInvoker(response, args);
     }
+    response = 381;
+    command.replyToInvoker(response, args); 
     std::string modeO = user.getMode();
+    if (modeO.find('o') == std::string::npos)
     modeO = modeO + "o";
     user.setMode(modeO);
-    response = 381;
+    response = 221;
+	args.push_back(modeO);
     return command.replyToInvoker(response, args);      
 }
