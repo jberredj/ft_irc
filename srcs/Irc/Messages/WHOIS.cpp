@@ -2,6 +2,7 @@
 #include "IrcMessages.hpp"
 #include "Logger.hpp"
 #include "User.hpp"
+#include <sstream>
 
 void _rpl_whoisuser(Command &command, User *user) {
 	std::vector<std::string> args;
@@ -50,10 +51,10 @@ void _rpl_whoisidle(Command &command, User *user) {
 	command.replyToInvoker(317, args);
 }
 
-void _rpl_endofwhois(Command &command, User *user) {
+void _rpl_endofwhois(Command &command, std::string &nick) {
 	std::vector<std::string> args;
 
-	args.push_back(user->getNickname());
+	args.push_back(nick);
 	command.replyToInvoker(318, args);
 }
 
@@ -63,23 +64,46 @@ void _err_nonicknamegiven(Command &command) {
 	command.replyToInvoker(431, args);
 }
 
-void WHOIS(Command &command) // TODO : Add 319 WHOISCHANNELS and 313 RPL_WHOISOPERATOR
-{
-	std::vector<User *> *users = command.getUsers();
+void _err_nosuchnick(Command &command, std::string &nick) {
+	std::vector<std::string> args;
 
+	args.push_back(nick);
+	command.replyToInvoker(401, args);
+}
+
+std::vector<std::string>	_get_target_list(Command &command) {
+	std::string param = command.getParameters()[0];
+	std::istringstream iss(param);
+	std::vector<std::string> target_list;
+
+	std::string target_name;
+	while (std::getline(iss, target_name, ','))
+		target_list.push_back(target_name);
+	return target_list;
+}
+
+void WHOIS(Command &command) // TODO : Channel update, add 319 WHOISCHANNELS and 313 RPL_WHOISOPERATOR
+{
 	if (command.getParameters().size() == 0)
 		_err_nonicknamegiven(command);
 
-	for(std::vector<User *>::iterator user = users->begin(); user != users->end(); user++) {
-		_rpl_whoisuser(command, *user);
-		if ((*user)->getNickname() == command.getUser().getNickname())
-			_rpl_whoishost(command, *user);
-
-		_rpl_whoisserver(command, *user);
-		if ((*user)->getNickname() == command.getUser().getNickname())
-			_rpl_whoismodes(command, *user);
+	std::vector<std::string> list = _get_target_list(command);
+	for(std::vector<std::string>::iterator it = list.begin(); it != list.end(); it++) {
+		User *user = command.getUser(*it);
 		
-		_rpl_whoisidle(command, *user);
-		_rpl_endofwhois(command, *user);
+		if (user == NULL) {
+			_err_nosuchnick(command, *it);
+		} else {
+			_rpl_whoisuser(command, user);
+			if (user->getNickname() == command.getUser().getNickname())
+				_rpl_whoishost(command, user);
+
+			_rpl_whoisserver(command, user);
+			if (user->getNickname() == command.getUser().getNickname())
+				_rpl_whoismodes(command, user);
+			
+			_rpl_whoisidle(command, user);
+		}
+		_rpl_endofwhois(command, *it);
 	}
 }

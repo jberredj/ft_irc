@@ -102,7 +102,7 @@ std::string	RPL_ENDOFWHOIS(std::vector<std::string> args)
 {
 	std::string &nick = args[0];
 
-	return nick + " :End of /WHOIS list";
+	return nick + " :End of /WHOIS list.";
 }
 
 std::string	RPL_WHOISCHANNELS(std::vector<std::string> args)

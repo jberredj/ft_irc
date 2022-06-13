@@ -17,7 +17,7 @@ std::string	ERR_NOSUCHNICK(std::vector<std::string> args)
 {
 	std::string&	nickname = args[0];
 
-	return nickname + " :No such nick/channel";
+	return nickname + " :No such nick";
 }
 
 std::string	ERR_NOSUCHSERVER(std::vector<std::string> args)
