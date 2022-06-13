@@ -14,7 +14,7 @@
 
 std::string	RPL_PONG(std::vector<std::string> args)
 {
-	return args[0] + ":" + args[1];
+	return args[0] + " :" + args[1];
 }
 
 std::string RPL_PRIVMSG(std::vector<std::string> args)
