@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 15:38:44 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/13 21:27:11 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/13 21:28:34 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	QUIT(Command& command)
     else
         args.push_back("leaving");
     command.replyToInvoker(-3, args);
-       
+    // command.getUser().setStatus(User::DELETE);    
 }
