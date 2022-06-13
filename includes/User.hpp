@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/11 16:09:11 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:54:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class Command;
 class User
 {
 public:
-	enum			Status {PASSWORD, REGISTER, ONLINE, DELETE};
+	enum			Status {PASSWORD, REGISTER, ONLINE, OFFLINE, DELETE};
 
 	// Constructors and destructor
 					User(void);

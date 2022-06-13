@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   QUIT.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 15:38:44 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/12 18:55:57 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:54:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	QUIT(Command& command)
     else
         args.push_back("leaving");
     command.replyToInvoker(-3, args);
-    // command.getUser().setStatus(User::DELETE);       
+    // command.getUser().setStatus(User::OFFLINE);       
 }

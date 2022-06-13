@@ -39,10 +39,13 @@ public:
 	// User interactions methods and function
 	User*				getUser(std::string nickname);
 	std::vector<User*>*	getUsers(void);
+	User*				getOldUser(std::string nickname);
+	std::vector<User*>*	getOldUsers(void);
 
 private:
 	static bool					_sigInt;
 	static std::string			_nickToFind;
+	static User*				_userToFind;
 	short						_exitCode;
 	std::string					_password;
 	bool						_running;
@@ -51,12 +54,14 @@ private:
 	std::map<int, User*>		_usersMap;
 	int							_portInstanceLock;
 	std::vector<User *>			_users;
+	std::vector<User *>			_oldUsers;
 	std::string					_serverName;
 
 	// Constructors
 								Server(void);
 
 	// Run loop methods and functions
+	void						_tryRecoverOldUser(std::map<int, User*>::iterator ctx_it);
 	void						_treatUserMessages(void);
 
 	// General methods and functions
@@ -81,6 +86,7 @@ private:
 									struct sockaddr_in cliAddr);
 	void						_pruneUser(void);
 	static bool					_nickFinder(User *user);
+	static bool					_oldUserFinder(User* user);
 };
 
 #endif

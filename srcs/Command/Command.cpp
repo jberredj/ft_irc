@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/12 17:20:14 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:19:27 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,13 @@ User*	Command::getUser(std::string nickname)
 }
 
 std::vector<User *>*	Command::getUsers(void) {return _server->getUsers();}
+
+User*	Command::getOldUser(std::string nickname)
+{
+	return _server->getOldUser(nickname);
+}
+
+std::vector<User *>*	Command::getOldUsers(void) {return _server->getOldUsers();}
 
 std::string	Command::getServerName(void) const
 {

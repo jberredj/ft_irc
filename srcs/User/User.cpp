@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/08 15:56:55 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:54:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void			User::tryAuthentificate(Command &cmd)
 		else
 		{
 			Logger(Output::INFO) << "Authentification failed";
-			setStatus(DELETE);
+			setStatus(OFFLINE);
 		}
 	}	
 }

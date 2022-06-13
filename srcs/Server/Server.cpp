@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/08 17:13:31 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:45:57 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,11 @@ Server::Server(const Server &src)
 
 Server::~Server(void)
 {
-	Logger(Output::WARN) << "HANDLE FREE USER";
+	Logger(Output::WARN) << "IMPLEMENT CHANNEL AND HANDLE FREE CHANNEL";
+	for(std::vector<User *>::iterator it = _users.begin(); it < _users.end(); it++)
+		delete (*it);
+	for(std::vector<User *>::iterator it = _oldUsers.begin(); it < _oldUsers.end(); it++)
+		delete (*it);
 	for(std::vector<struct pollfd>::iterator it = _pollfds.begin();
 		it != _pollfds.end(); it++)
 			close((*it).fd);	
@@ -149,6 +153,21 @@ bool	Server::_nickFinder(User *user)
 	{
 		if (user->getNickname() == _nickToFind)
 			return true;
+	}
+	return false;
+}
+
+
+User*	Server::_userToFind;
+
+bool	Server::_oldUserFinder(User *user)
+{
+	if (user)
+	{
+		if (user->getUsername() == _userToFind->getUsername()
+		&& user->getHostname() == _userToFind->getHostname()
+		&& user->getTruename() == _userToFind->getTruename())
+					return true;
 	}
 	return false;
 }

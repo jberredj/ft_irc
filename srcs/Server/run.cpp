@@ -6,16 +6,18 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:06 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/08 11:20:10 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/13 20:00:07 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unistd.h"
+#include <unistd.h>
 #include <iostream>
+#include <algorithm>
 #include <vector>
 #include <poll.h>
 #include <sys/fcntl.h>
 #include "Server.hpp"
+#include "User.hpp"
 #include "Logger.hpp"
 
 /* ************************************************************************** */
@@ -50,11 +52,23 @@ void	Server::run(void)
 /*                                 Private                                    */
 /* ************************************************************************** */
 
+void	Server::_tryRecoverOldUser(std::map<int, User*>::iterator ctx_it)
+{
+	_userToFind = (*ctx_it).second;
+	std::vector<User*>::iterator it = std::find_if(_oldUsers.begin(),_oldUsers.end(), _oldUserFinder);
+	if (it == _oldUsers.end())
+		return;
+	delete *it;
+	_oldUsers.erase(it);
+	Logger(Output::DEBUG) << "AN OLD USER WAS RESTORED";
+}
+
 void	Server::_treatUserMessages(void)
 {
 	for(std::map<int, User*>::iterator ctx_it = _usersMap.begin();
 		ctx_it != _usersMap.end(); ctx_it++)
 	{
+		User::Status	state = (*ctx_it).second->getStatus();
 		try 
 		{
 			(*ctx_it).second->execCommandQueue();
@@ -65,5 +79,7 @@ void	Server::_treatUserMessages(void)
 			_running = false;
 			_exitCode = 1;
 		}
+		if (state < User::ONLINE && (*ctx_it).second->getStatus() == User::ONLINE)
+			_tryRecoverOldUser(ctx_it);
 	}	
 }

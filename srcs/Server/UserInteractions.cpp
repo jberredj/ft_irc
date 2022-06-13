@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:56:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/08 16:11:44 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:54:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ User*	Server::getUser(std::string nickname)
 
 std::vector<User*>*	Server::getUsers(void) {return &_users;}
 
+User*	Server::getOldUser(std::string nickname)
+{
+	_nickToFind = nickname;
+	std::vector<User *>::iterator find;
+
+	find = std::find_if(_oldUsers.begin(), _oldUsers.end(), _nickFinder);
+	_nickToFind.clear();
+	if (find == _oldUsers.end())
+		return ft::null_ptr;
+	return (*find);	
+}
+
+std::vector<User*>*	Server::getOldUsers(void) {return &_oldUsers;}
+
 /* ************************************************************************** */
 /*                                 Private                                    */
 /* ************************************************************************** */
@@ -60,14 +74,19 @@ void	Server::_pruneUser(void)
 		it != _pollfds.end(); it++)
 	{
 		User*	ctx = _usersMap[(*it).fd];
-		if (ctx->getStatus() == User::DELETE)
+		switch (ctx->getStatus())
 		{
-			_usersMap.erase(_usersMap.find((*it).fd));
+		case User::DELETE:
 			close((*it).fd);
 			Logger(Output::DEBUG) << "Close connection on socket: " << (*it).fd;
-			delete ctx;
+		case User::OFFLINE:
+			_usersMap.erase(_usersMap.find((*it).fd));
 			_users.erase(std::find(_users.begin(), _users.end(), ctx));
 			toErase.push_back(it);
+			_oldUsers.push_back(ctx);
+			break;
+		default:
+			break;
 		}
 	}
 	for (std::vector<std::vector<struct pollfd>::iterator>::iterator 

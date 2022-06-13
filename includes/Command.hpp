@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/11 16:03:35 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:18:46 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ public:
 	User&						getUser(void) const;
 	User*						getUser(std::string nickname);
 	std::vector<User *>*		getUsers(void);
+	User*						getOldUser(std::string nickname);
+	std::vector<User *>*		getOldUsers(void);
 	std::string					getServerName(void) const;
 
 
