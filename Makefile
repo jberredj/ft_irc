@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+         #
+#    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/06/12 17:23:43 by ddiakova         ###   ########.fr        #
+#    Updated: 2022/06/16 01:25:45 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ LOGGER_SRCS			=	$(addprefix srcs/Logger/, $(LOGGER))
 LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,.,\
 							$(LOGGER:.cpp=.o)))
 
-SERVER				=	run.cpp Server.cpp socketIO.cpp UserInteractions.cpp
+SERVER				=	ChannelInteraction.cpp run.cpp Server.cpp socketIO.cpp UserInteractions.cpp
 SERVER_SRCS			=	$(addprefix srcs/Server/, $(SERVER))
 SERVER_OBJS			=	$(addprefix objs/Server., $(subst /,.,\
 							$(SERVER:.cpp=.o)))

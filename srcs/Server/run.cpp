@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:06 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/13 20:00:07 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 01:27:09 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	Server::run(void)
 			_pollIO();
 			_treatUserMessages();
 			_pruneUser();
+			_pruneChannel();
 		}
 		if (Server::_sigInt)
 		{

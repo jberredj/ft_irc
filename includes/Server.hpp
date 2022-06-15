@@ -13,6 +13,8 @@
 #ifndef IRCSERV_HPP
 # define IRCSERV_HPP
 # include "User.hpp"
+# include "Channel.hpp"
+# include <string>
 # include <map>
 # include <vector>
 # include <fstream>
@@ -30,6 +32,12 @@ public:
 
 	// Getters
 	short				getExitCode(void) const;
+
+	// Channel Interaction methods and functions
+
+	void		addChannel(Channel *channel);
+	Channel*	getChannel(std::string name);
+	std::map<std::string, Channel*>*	getChannels(void);
 
 	// General methods and functions
 	void				run(void);
@@ -57,8 +65,14 @@ private:
 	std::vector<User *>			_oldUsers;
 	std::string					_serverName;
 
+	std::map<std::string, Channel*>	_channels;
+
 	// Constructors
 								Server(void);
+
+	// Channel Interaction methods and functions
+
+	void	_pruneChannel(void);
 
 	// Run loop methods and functions
 	void						_tryRecoverOldUser(std::map<int, User*>::iterator ctx_it);

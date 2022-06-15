@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 00:53:27 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 01:25:58 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,21 @@
 #include <algorithm>
 
 Channel::Channel(void):
-_name("DEFAULT"), _userLimit(-1), _nbrMember(0), _mode(""), _member(), _inviteOnly(false), _inviteList(), _banList(),
-_userModes()
+_isAlive(true), _name("DEFAULT"), _userLimit(-1), _nbrMember(0), _mode(""), _member(), _inviteOnly(false),
+_inviteList(), _banList(), _userModes()
 {
 }
 
 Channel::Channel(const Channel &src):
-_name(src._name), _userLimit(src._userLimit), _nbrMember(src._nbrMember), _mode(src._mode), _member(src._member),
-_inviteOnly(src._inviteOnly), _inviteList(src._inviteList), _banList(src._banList), _userModes(src._userModes)
+_isAlive(src._isAlive), _name(src._name), _userLimit(src._userLimit), _nbrMember(src._nbrMember), _mode(src._mode),
+_member(src._member), _inviteOnly(src._inviteOnly), _inviteList(src._inviteList), _banList(src._banList),
+_userModes(src._userModes)
 {
 }
 
 Channel::Channel(std::string name):
-_name(name), _userLimit(-1), _nbrMember(0), _mode(""), _member(), _inviteOnly(false), _inviteList(), _banList(),
-_userModes()
+_isAlive(true), _name(name), _userLimit(-1), _nbrMember(0), _mode(""), _member(), _inviteOnly(false), _inviteList(),
+_banList(), _userModes()
 {
 }
 
@@ -40,6 +41,7 @@ Channel	&Channel::operator=(const Channel &rhs)
 {
 	if (this != &rhs)
 	{
+		_isAlive = rhs._isAlive;
 		_name = rhs._name;
 		_userLimit = rhs._userLimit;
 		_nbrMember = rhs._nbrMember;
@@ -71,6 +73,7 @@ bool	Channel::setUserMode(std::string mode, User* user)
 	if (it == _userModes.end())
 		return false;
 	(*it).second = mode;
+	//Need to check the mode that is added to ban/unban invite/uninvite user
 	return true;
 
 }
@@ -102,6 +105,9 @@ bool	Channel::removeUser(User *user)
 		return false;
 	_member.erase(it);
 	_userModes.erase(user);
+	_nbrMember--;
+	if (!_nbrMember)
+		_isAlive = false;
 	return true;
 }
 void	Channel::broadcastMessage(std::string message)
@@ -109,6 +115,8 @@ void	Channel::broadcastMessage(std::string message)
 	for (std::vector<User*>::iterator it = _member.begin(); it != _member.end(); it++)
 		(*it)->addReply(message);
 }
+
+bool	Channel::isAlive(void) const {return _isAlive;}
 
 std::string	Channel::getName(void) const {return _name;}
 int			Channel::getUserLimit(void) const {return _userLimit;}
