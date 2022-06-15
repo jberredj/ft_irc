@@ -106,6 +106,7 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(311, RPL_WHOISUSER));
 		_replies.insert(std::make_pair(312, RPL_WHOISSERVER));
 		_replies.insert(std::make_pair(313, RPL_WHOISOPERATOR));
+		_replies.insert(std::make_pair(314, RPL_WHOWASUSER));
 		_replies.insert(std::make_pair(317, RPL_WHOISIDLE));
 		_replies.insert(std::make_pair(318, RPL_ENDOFWHOIS));
 		_replies.insert(std::make_pair(319, RPL_WHOISCHANNELS));
@@ -117,6 +118,7 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(341, RPL_INVITING));
 		_replies.insert(std::make_pair(353, RPL_NAMREPLY));
 		_replies.insert(std::make_pair(366, RPL_ENDOFNAMES));
+		_replies.insert(std::make_pair(369, RPL_ENDOFWHOWAS));
 		_replies.insert(std::make_pair(378, RPL_WHOISHOST));
 		_replies.insert(std::make_pair(379, RPL_WHOISMODES));
 		_replies.insert(std::make_pair(381, RPL_YOUREOPER));
@@ -131,6 +133,7 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(403, ERR_NOSUCHCHANNEL));
 		_replies.insert(std::make_pair(404, ERR_CANNOTSENDTOCHAN));
 		_replies.insert(std::make_pair(405, ERR_TOOMANYCHANNELS));
+		_replies.insert(std::make_pair(406, ERR_WASNOSUCHNICK));
 		_replies.insert(std::make_pair(407, ERR_TOOMANYTARGETS));
 		_replies.insert(std::make_pair(409, ERR_NOORIGIN));
 		_replies.insert(std::make_pair(411, ERR_NORECIPIENT));
