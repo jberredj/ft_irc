@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 20:35:26 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/13 21:27:14 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:43:54 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,30 @@ void    KILL(Command& command)
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(response, args);
 	}
-    user = command.getUser();
+    user = &command.getUser();
     if (user == ft::null_ptr)
 	{
 		response = 401;
 		args.push_back(command.getParameters()[1]);
 		return command.replyToInvoker(response, args);
 	}
-    if (user.getMode().find("o") == std::string::npos)
+    if (user->getMode().find("o") == std::string::npos)
     {
         response = 481;
         return command.replyToInvoker(response, args);
     }
-    
+	args.push_back(command.getParameters()[0]);
+	args.push_back(command.getTrailer());
+	command.replyToInvoker(-4, args);
     // command.getUser().setStatus(User::DELETE);    
 }
+
+
+
+
+// 18:25 -!- End of /MOTD command
+// 18:25 -!- Your user mode is [+wi]
+// 18:25 -!- You were killed by dada [] [Path: ]
+// 18:25 -!- didi [] has quit [bye bye]
+// 18:25 -!- Irssi: Connection lost to localhost
+

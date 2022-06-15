@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Reply.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 20:58:29 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:39:23 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(-1, RPL_PONG));
 		_replies.insert(std::make_pair(-2, RPL_PRIVMSG));
 		_replies.insert(std::make_pair(-3, RPL_QUIT));
+		_replies.insert(std::make_pair(-4, RPL_KILL));
 
 		// Replies
 		_replies.insert(std::make_pair(001, RPL_WELCOME));

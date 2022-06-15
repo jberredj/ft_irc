@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPL.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 18:44:53 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:45:56 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ std::string RPL_PRIVMSG(std::vector<std::string> args)
 std::string RPL_QUIT(std::vector<std::string> args)
 {
 	return "ERROR :Closing link: (" + args[0] + "@" + args[1] + ") [Quit: " + args[2] + "]";
+}
+
+std::string RPL_KILL(std::vector<std::string> args)
+{
+	return args[0] + " has quit [" + args[1] + " ]";
 }
 
 std::string	RPL_WELCOME(std::vector<std::string> args)
