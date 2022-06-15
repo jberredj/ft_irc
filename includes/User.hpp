@@ -44,7 +44,8 @@ public:
 	std::string		getTruename(void) const;
 	std::string		getCommandBuf(void) const;
 	std::string		getPrefix(void) const;
-
+	std::string		getConnectedAt(void) const;
+	time_t			getRawConnectedAt(void) const;
 	std::string		getMode(void) const;
 	std::string		getPrevnick(void) const;
 	std::string		getChannel(void) const;
@@ -89,11 +90,9 @@ public:
 	void			tryAuthentificate(Command &cmd);
 
 private:
-	static bool											_inited;
 	std::string 										_commandBuf;
 	std::queue<Command> 								_commandQueue;
 	std::queue<std::string>								_responseQueue;
-	static std::map<std::string, void (*)(Command&)>	_cmdMap;
 	// time_t last_ping;
 	
 	// User infos
@@ -106,10 +105,10 @@ private:
 	std::string 										_hostname;
 	std::string											_servername;
 	std::string 										_servaddr;
-
 	std::string 										_mode;
 	std::string 										_prevnick;
 	std::string 										_channel;
+	time_t												_connectedAt;
 	// std::string _awaymsg;
 	// std::string _deletemsg;
 
@@ -119,6 +118,8 @@ private:
 	bool												_nickUsed;
 	// Init user Class
 	static void											_initUserClass(void);
+	static std::map<std::string, void (*)(Command&)>	_cmdMap;
+	static bool											_inited;
 };
 
 std::ostream&	operator<<(std::ostream& o, const User & rhs);

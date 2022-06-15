@@ -155,6 +155,7 @@ bool	Server::_nickFinder(User *user)
 			return true;
 	}
 	return false;
+	// return (user && user->getNickname() == _nickToFind);
 }
 
 
