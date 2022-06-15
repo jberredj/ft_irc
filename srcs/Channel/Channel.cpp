@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 00:50:30 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 00:53:27 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ _userModes()
 Channel::Channel(const Channel &src):
 _name(src._name), _userLimit(src._userLimit), _nbrMember(src._nbrMember), _mode(src._mode), _member(src._member),
 _inviteOnly(src._inviteOnly), _inviteList(src._inviteList), _banList(src._banList), _userModes(src._userModes)
+{
+}
+
+Channel::Channel(std::string name):
+_name(name), _userLimit(-1), _nbrMember(0), _mode(""), _member(), _inviteOnly(false), _inviteList(), _banList(),
+_userModes()
 {
 }
 
