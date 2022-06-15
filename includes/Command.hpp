@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/13 19:18:46 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 01:29:57 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ public:
 	User*						getOldUser(std::string nickname);
 	std::vector<User *>*		getOldUsers(void);
 	std::string					getServerName(void) const;
+	Channel*					getChannel(std::string name);
+	std::map<std::string, Channel*>*	getChannels(void);
+	void						addChannel(Channel *channel);
 
 
 	// Replies functions
