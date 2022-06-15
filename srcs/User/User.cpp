@@ -96,7 +96,11 @@ bool			User::getUserUsed(void) const {return this->_userUsed;}
 bool			User::getNickUsed(void) const {return this->_nickUsed;}
 time_t		 	User::getRawConnectedAt(void) const {return _connectedAt;}
 std::string		User::getConnectedAt(void) const {
-	return asctime(localtime(&_connectedAt));
+	struct tm *timeinfo = localtime(&_connectedAt);
+	char buffer[512];
+	if (!strftime(buffer, sizeof(buffer), "%a %b %d %Y %H:%M:%S", timeinfo))
+		buffer[0] = '\0';
+	return std::string(buffer);
 }
 
 std::string		User::getPrefix(void) const
