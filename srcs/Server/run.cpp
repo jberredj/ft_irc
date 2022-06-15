@@ -68,7 +68,7 @@ void	Server::_treatUserMessages(void)
 	for(std::map<int, User*>::iterator ctx_it = _usersMap.begin();
 		ctx_it != _usersMap.end(); ctx_it++)
 	{
-		User::Status	state = (*ctx_it).second->getStatus();
+		// User::Status	state = (*ctx_it).second->getStatus();
 		try 
 		{
 			(*ctx_it).second->execCommandQueue();
@@ -79,7 +79,7 @@ void	Server::_treatUserMessages(void)
 			_running = false;
 			_exitCode = 1;
 		}
-		if (state < User::ONLINE && (*ctx_it).second->getStatus() == User::ONLINE)
-			_tryRecoverOldUser(ctx_it);
+		// if (state < User::ONLINE && (*ctx_it).second->getStatus() == User::ONLINE)
+		// 	_tryRecoverOldUser(ctx_it);
 	}	
 }

@@ -69,6 +69,16 @@ std::string	RPL_WHOISOPERATOR(std::vector<std::string> args)
 	return nick + " :is an IRC operator";
 }
 
+std::string	RPL_WHOWASUSER(std::vector<std::string> args)
+{
+	std::string &nick = args[0];
+	std::string &user = args[1];
+	std::string &host = args[2];
+	std::string &real = args[3];
+
+	return nick + " " + user + " " + host + " * :" + real;
+}
+
 std::string	RPL_WHOISIDLE(std::vector<std::string> args)
 {
 	std::string &nick = args[0];
@@ -160,6 +170,13 @@ std::string	RPL_NAMREPLY(std::vector<std::string> args)
 std::string	RPL_ENDOFNAMES(std::vector<std::string> args)
 {
 	return args[0] + " :End of NAMES list";
+}
+
+std::string	RPL_ENDOFWHOWAS(std::vector<std::string> args)
+{
+	std::string &nick = args[0];
+
+	return nick + " :End of WHOWAS";
 }
 
 std::string	RPL_YOUREOPER(std::vector<std::string> args)

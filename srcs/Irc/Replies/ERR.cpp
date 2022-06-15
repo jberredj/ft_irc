@@ -48,6 +48,13 @@ std::string	ERR_TOOMANYCHANNELS(std::vector<std::string> args)
 	return channelName + " :You have joined too many channels";
 }
 
+std::string	ERR_WASNOSUCHNICK(std::vector<std::string> args)
+{
+	std::string&	nick = args[0];
+
+	return nick + " :There was no such nickname";
+}
+
 std::string	ERR_TOOMANYTARGETS(std::vector<std::string> args)
 {
 	std::string&	target = args[0];

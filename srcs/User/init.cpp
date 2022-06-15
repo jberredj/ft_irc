@@ -37,6 +37,7 @@ void	User::_initUserClass(void)
 	if (_cmdMap.empty())
 	{
 		_cmdMap["WHOIS"] = WHOIS;
+		_cmdMap["WHOWAS"] = WHOWAS;
 		_cmdMap["USERS"] = USERS;
 		Logger(Output::WARN) << "USERS message is not implemented yet";
 		_cmdMap["USER"] = USER;
