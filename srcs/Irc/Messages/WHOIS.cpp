@@ -4,7 +4,7 @@
 #include "User.hpp"
 #include <sstream>
 
-void _rpl_whoisuser(Command &command, User *user) {
+static void _rpl_whoisuser(Command &command, User *user) {
 	std::vector<std::string> args;
 
 	args.push_back(user->getNickname());
@@ -14,7 +14,7 @@ void _rpl_whoisuser(Command &command, User *user) {
 	command.replyToInvoker(311, args);
 }
 
-void _rpl_whoishost(Command &command, User *user) {
+static void _rpl_whoishost(Command &command, User *user) {
 	std::vector<std::string> args;
 
 	args.push_back(user->getNickname());
@@ -24,7 +24,7 @@ void _rpl_whoishost(Command &command, User *user) {
 	command.replyToInvoker(378, args);
 }
 
-void _rpl_whoismodes(Command &command, User *user) {
+static void _rpl_whoismodes(Command &command, User *user) {
 	std::vector<std::string> args;
 
 	args.push_back(user->getNickname());
@@ -32,7 +32,7 @@ void _rpl_whoismodes(Command &command, User *user) {
 	command.replyToInvoker(379, args);
 }
 
-void _rpl_whoisserver(Command &command, User *user) {
+static void _rpl_whoisserver(Command &command, User *user) {
 	std::vector<std::string> args;
 
 	args.push_back(user->getNickname());
@@ -42,7 +42,7 @@ void _rpl_whoisserver(Command &command, User *user) {
 	command.replyToInvoker(312, args);
 }
 
-void _rpl_whoisidle(Command &command, User *user) {
+static void _rpl_whoisidle(Command &command, User *user) {
 	std::vector<std::string> args;
 
 	args.push_back(user->getNickname());
@@ -51,27 +51,27 @@ void _rpl_whoisidle(Command &command, User *user) {
 	command.replyToInvoker(317, args);
 }
 
-void _rpl_endofwhois(Command &command, std::string &nick) {
+static void _rpl_endofwhois(Command &command, std::string &nick) {
 	std::vector<std::string> args;
 
 	args.push_back(nick);
 	command.replyToInvoker(318, args);
 }
 
-void _err_nonicknamegiven(Command &command) {
+static void _err_nonicknamegiven(Command &command) {
 	std::vector<std::string> args;
 	
 	command.replyToInvoker(431, args);
 }
 
-void _err_nosuchnick(Command &command, std::string &nick) {
+static void _err_nosuchnick(Command &command, std::string &nick) {
 	std::vector<std::string> args;
 
 	args.push_back(nick);
 	command.replyToInvoker(401, args);
 }
 
-std::vector<std::string>	_get_target_list(Command &command) {
+static std::vector<std::string>	_get_target_list(Command &command) {
 	std::string param = command.getParameters()[0];
 	std::istringstream iss(param);
 	std::vector<std::string> target_list;
@@ -85,7 +85,7 @@ std::vector<std::string>	_get_target_list(Command &command) {
 void WHOIS(Command &command) // TODO : Channel update, add 319 WHOISCHANNELS and 313 RPL_WHOISOPERATOR
 {
 	if (command.getParameters().size() == 0)
-		_err_nonicknamegiven(command);
+		return _err_nonicknamegiven(command);
 
 	std::vector<std::string> list = _get_target_list(command);
 	for(std::vector<std::string>::iterator it = list.begin(); it != list.end(); it++) {
