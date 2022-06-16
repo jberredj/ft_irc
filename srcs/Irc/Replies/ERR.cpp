@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ERR.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:38:25 by jberredj          #+#    #+#             */
-/*   Updated: 2022/05/17 12:25:45 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/12 20:57:12 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,4 +259,16 @@ std::string	ERR_USERSDONTMATCH(std::vector<std::string> args)
 {
 	(void)args;
 	return ":Cannot change mode for other users";
+}
+
+std::string	ERR_NOPRIVILEGES(std::vector<std::string> args)
+{
+	(void)args;
+	return ":Permission Denied- You're not an IRC operator";
+}
+
+std::string	ERR_CANTKILLSERVER(std::vector<std::string> args)
+{
+	(void)args;
+	return ":You cant kill a server!";
 }

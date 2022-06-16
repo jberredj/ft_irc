@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/13 19:54:59 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 22:09:18 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ public:
 	bool			getUserUsed(void) const;
 	bool			getNickUsed(void) const;
 	
-	// std::string getAwaymsg(void) {return this->_awaymsg;}
-	// std::string getDeletemsg(void) {return this->_deletemsg;}
-	
 	//setters
 	void			setStatus(Status status);
 	void			setPassword(std::string password);
@@ -78,9 +75,6 @@ public:
 	bool 			setPassUsed(bool);
 	bool			setUserUsed(bool);
 	bool			setNickUsed(bool);
-
-	// void	setAwaymsg(std::string awaymsg) {this->_awaymsg = awaymsg;}
-	// void	setDeletemsg(std::string deletemsg) {this->_deletmsg = deletemsg;}
 
 	// IO User methods
 	void			addCommand(const Command& command);

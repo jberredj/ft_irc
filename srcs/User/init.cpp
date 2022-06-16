@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 14:31:14 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 22:09:44 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ void USERS(Command &command){(void)command;}
 void TOPIC(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
 void PART(Command &command){(void)command;}
-void OPER(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}
-void KILL(Command &command){(void)command;}
 void KICK(Command &command){(void)command;}
 void INVITE(Command &command){(void)command;}
 void BAN(Command &command){(void)command;}
@@ -54,7 +52,7 @@ void	User::_initUserClass(void)
 		_cmdMap["PART"] = PART;
 		Logger(Output::WARN) << "PART message is not implemented yet";
 		_cmdMap["OPER"] = OPER;
-		Logger(Output::WARN) << "OPER message is not implemented yet";
+		// Logger(Output::WARN) << "OPER message is not implemented yet";
 		_cmdMap["NICK"] = NICK;
 		_cmdMap["NAMES"] = NAMES;
 		Logger(Output::WARN) << "NAMES message is not implemented yet";
@@ -63,7 +61,7 @@ void	User::_initUserClass(void)
 		_cmdMap["LIST"] = LIST;
 		Logger(Output::WARN) << "LIST message is not implemented yet";
 		_cmdMap["KILL"] = KILL;
-		Logger(Output::WARN) << "KILL message is not implemented yet";
+		// Logger(Output::WARN) << "KILL message is not implemented yet";
 		_cmdMap["KICK"] = KICK;
 		Logger(Output::WARN) << "KICK message is not implemented yet";
 		_cmdMap["JOIN"] = JOIN;
