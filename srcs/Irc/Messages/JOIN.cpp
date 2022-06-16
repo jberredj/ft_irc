@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   JOIN.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:21:35 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 22:05:56 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 22:42:06 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,10 @@
 #include "helpers.hpp"
 #include "typedefs.hpp"
 
-bool		_validChannelName(std::string name)
-{
-	if (name[0] != '#'
-		&& name.size() > INSPIRCD_MAX_LEN)
-		return false;
-	if (name.find(' ') != name.npos || name.find(0x7) != name.npos)
-		return false;
-	return true;
-}
-
 Channel*	_getNextChannel(std::string& channelList, Command& command)
 {
 	std::string	channelName = getNameFromList(channelList);
-	while (!_validChannelName(channelName))
+	while (!validChannelName(channelName))
 	{
 		strVec	args;
 		args.push_back(channelName);

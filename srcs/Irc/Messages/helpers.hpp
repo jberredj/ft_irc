@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:48 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 22:05:11 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 22:42:45 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,5 @@
 
 bool		needMoreParams(Command &command, size_t minRequired);
 std::string	getNameFromList(std::string& nameList);
+bool		validChannelName(std::string name);
 #endif

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:07 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 22:04:57 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 22:42:37 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector>
 #include "Command.hpp"
+#include "typedefs.hpp"
 
 bool	needMoreParams(Command &command, size_t minRequired)
 {
@@ -33,4 +34,14 @@ std::string	getNameFromList(std::string& nameList)
 	std::string	channelName = nameList.substr(0, commaLoc);
 	nameList.erase(0, commaLoc);
 	return channelName;
+}
+
+bool		validChannelName(std::string name)
+{
+	if (name[0] != '#'
+		&& name.size() > INSPIRCD_MAX_LEN)
+		return false;
+	if (name.find(' ') != name.npos || name.find(0x7) != name.npos)
+		return false;
+	return true;
 }
