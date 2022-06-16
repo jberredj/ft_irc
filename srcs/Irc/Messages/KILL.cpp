@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   KILL.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 20:35:26 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/15 18:43:54 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/16 20:48:35 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,6 @@ void    KILL(Command& command)
 	args.push_back(command.getParameters()[0]);
 	args.push_back(command.getTrailer());
 	command.replyToInvoker(-4, args);
-    // command.getUser().setStatus(User::DELETE);    
+    command.getUser().setStatus(User::QUIT);    
 }
-
-
-
-
-// 18:25 -!- End of /MOTD command
-// 18:25 -!- Your user mode is [+wi]
-// 18:25 -!- You were killed by dada [] [Path: ]
-// 18:25 -!- didi [] has quit [bye bye]
-// 18:25 -!- Irssi: Connection lost to localhost
 
