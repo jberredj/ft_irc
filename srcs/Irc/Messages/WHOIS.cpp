@@ -46,7 +46,8 @@ static void _rpl_whoisidle(Command &command, User *user) {
 	std::vector<std::string> args;
 
 	args.push_back(user->getNickname());
-	args.push_back("12345"); // TODO: replace by idle
+	args.push_back(user->getIdle());
+	args.push_back(user->getRawSignon());
 
 	command.replyToInvoker(317, args);
 }

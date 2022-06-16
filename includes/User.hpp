@@ -45,8 +45,8 @@ public:
 	std::string		getCommandBuf(void) const;
 	std::string		getPrefix(void) const;
 	std::string		getSignon(void) const;
-	time_t			getRawSignon(void) const;
-	time_t			getIdle(void) const;
+	std::string		getRawSignon(void) const;
+	std::string		getIdle(void) const;
 	std::string		getMode(void) const;
 	std::string		getPrevnick(void) const;
 	std::string		getChannel(void) const;

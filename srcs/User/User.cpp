@@ -13,6 +13,7 @@
 #include <exception>
 #include <string>
 #include <map>
+#include <sstream>
 #include "User.hpp"
 #include "types/Nullptr_t.hpp"
 #include "IrcMessages.hpp"
@@ -94,7 +95,12 @@ bool			User::repliesAvalaible(void) const {return !_responseQueue.empty();}
 bool			User::getPassUsed(void) const {return this->_passUsed;}
 bool			User::getUserUsed(void) const {return this->_userUsed;}
 bool			User::getNickUsed(void) const {return this->_nickUsed;}
-time_t		 	User::getRawSignon(void) const {return _signon;}
+
+std::string	 	User::getRawSignon(void) const {
+	std::stringstream ss;
+	ss << static_cast<long>(_signon);
+	return ss.str();
+}
 
 std::string		User::getSignon(void) const {
 	struct tm *timeinfo = localtime(&_signon);
@@ -104,8 +110,11 @@ std::string		User::getSignon(void) const {
 	return std::string(buffer);
 }
 
-time_t			User::getIdle(void) const {
-	return (std::time(ft::null_ptr) - this->_signon);
+std::string		User::getIdle(void) const {
+	time_t rawIdle = std::time(ft::null_ptr) - this->_signon;
+	std::stringstream ss;
+	ss << static_cast<long>(rawIdle);
+	return ss.str();
 }
 
 std::string		User::getPrefix(void) const
