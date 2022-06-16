@@ -13,6 +13,7 @@
 #include <exception>
 #include <string>
 #include <map>
+#include <sstream>
 #include "User.hpp"
 #include "types/Nullptr_t.hpp"
 #include "IrcMessages.hpp"
@@ -26,7 +27,7 @@ User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_ServerPassword(ft::null_ptr), _username(""), _nickname("*"), _truename(""),
 	_hostname(""), _servername(""), _servaddr(""),  _mode(""), _prevnick(""), 
-	_channel(""), _connectedAt(std::time(ft::null_ptr)), _passUsed(false), 
+	_channel(""), _signon(std::time(ft::null_ptr)), _passUsed(false), 
 	_userUsed(false), _nickUsed(false)
 {
 	_initUserClass();
@@ -43,7 +44,7 @@ User::User(std::string* serverPassWd):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_ServerPassword(serverPassWd), _username(""), _nickname("*"), _truename(""),
 	_hostname("127.0.0.1"), _servername("IP address"), _servaddr(""),  _mode(""),
-	_prevnick(""), _channel(""), _connectedAt(std::time(ft::null_ptr)), 
+	_prevnick(""), _channel(""), _signon(std::time(ft::null_ptr)), 
 	_passUsed(false), _userUsed(false), _nickUsed(false)
 {
 	_initUserClass();
@@ -71,7 +72,7 @@ User &User::operator=(User const & rhs)
 		this->_passUsed = rhs._passUsed;
 		this->_userUsed = rhs._userUsed;
 		this->_nickUsed = rhs._nickUsed;
-		this->_connectedAt = rhs._connectedAt;
+		this->_signon = rhs._signon;
 	}
 	return *this;
 }
@@ -94,13 +95,26 @@ bool			User::repliesAvalaible(void) const {return !_responseQueue.empty();}
 bool			User::getPassUsed(void) const {return this->_passUsed;}
 bool			User::getUserUsed(void) const {return this->_userUsed;}
 bool			User::getNickUsed(void) const {return this->_nickUsed;}
-time_t		 	User::getRawConnectedAt(void) const {return _connectedAt;}
-std::string		User::getConnectedAt(void) const {
-	struct tm *timeinfo = localtime(&_connectedAt);
+
+std::string	 	User::getRawSignon(void) const {
+	std::stringstream ss;
+	ss << static_cast<long>(_signon);
+	return ss.str();
+}
+
+std::string		User::getSignon(void) const {
+	struct tm *timeinfo = localtime(&_signon);
 	char buffer[512];
 	if (!strftime(buffer, sizeof(buffer), "%a %b %d %Y %H:%M:%S", timeinfo))
 		buffer[0] = '\0';
 	return std::string(buffer);
+}
+
+std::string		User::getIdle(void) const {
+	time_t rawIdle = std::time(ft::null_ptr) - this->_signon;
+	std::stringstream ss;
+	ss << static_cast<long>(rawIdle);
+	return ss.str();
 }
 
 std::string		User::getPrefix(void) const
@@ -245,6 +259,6 @@ std::ostream & operator<<(std::ostream & o, User const & rhs)
 	o << "Nickname: " << rhs.getNickname() << std::endl;
 	o << "Mode: " << rhs.getMode() << std::endl;
 	o << "User status: " << rhs.getStatus() << std::endl;
-	o << "Connected since: " << rhs.getConnectedAt() << std::endl;
+	o << "Connected since: " << rhs.getSignon() << std::endl;
     return o;
 }

@@ -44,8 +44,9 @@ public:
 	std::string		getTruename(void) const;
 	std::string		getCommandBuf(void) const;
 	std::string		getPrefix(void) const;
-	std::string		getConnectedAt(void) const;
-	time_t			getRawConnectedAt(void) const;
+	std::string		getSignon(void) const;
+	std::string		getRawSignon(void) const;
+	std::string		getIdle(void) const;
 	std::string		getMode(void) const;
 	std::string		getPrevnick(void) const;
 	std::string		getChannel(void) const;
@@ -102,7 +103,7 @@ private:
 	std::string 										_mode;
 	std::string 										_prevnick;
 	std::string 										_channel;
-	time_t												_connectedAt;
+	time_t												_signon;
 	// std::string _awaymsg;
 	// std::string _deletemsg;
 

@@ -40,7 +40,7 @@ static void _rpl_whoisserver(Command &command, User *user) {
 
 	args.push_back(user->getNickname());
 	args.push_back(command.getServerName());
-	args.push_back(user->getConnectedAt());
+	args.push_back(user->getSignon());
 
 	command.replyToInvoker(312, args);
 }

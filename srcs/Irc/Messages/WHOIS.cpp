@@ -46,7 +46,8 @@ static void _rpl_whoisidle(Command &command, User *user) {
 	std::vector<std::string> args;
 
 	args.push_back(user->getNickname());
-	args.push_back("12345"); // TODO: replace by idle
+	args.push_back(user->getIdle());
+	args.push_back(user->getRawSignon());
 
 	command.replyToInvoker(317, args);
 }
@@ -85,25 +86,25 @@ static std::vector<std::string>	_get_target_list(Command &command) {
 void WHOIS(Command &command) // TODO : Channel update, add 319 WHOISCHANNELS and 313 RPL_WHOISOPERATOR
 {
 	if (command.getParameters().size() == 0)
-		return _err_nonicknamegiven(command);
+		return _err_nonicknamegiven(command); // 431
 
 	std::vector<std::string> list = _get_target_list(command);
 	for(std::vector<std::string>::iterator it = list.begin(); it != list.end(); it++) {
 		User *user = command.getUser(*it);
 		
 		if (user == NULL) {
-			_err_nosuchnick(command, *it);
+			_err_nosuchnick(command, *it); // 401
 		} else {
-			_rpl_whoisuser(command, user);
+			_rpl_whoisuser(command, user); // 311
 			if (user->getNickname() == command.getUser().getNickname())
-				_rpl_whoishost(command, user);
+				_rpl_whoishost(command, user); // 378
 
-			_rpl_whoisserver(command, user);
+			_rpl_whoisserver(command, user); // 312
 			if (user->getNickname() == command.getUser().getNickname())
-				_rpl_whoismodes(command, user);
+				_rpl_whoismodes(command, user); // 379
 			
-			_rpl_whoisidle(command, user);
+			_rpl_whoisidle(command, user); // 317
 		}
-		_rpl_endofwhois(command, *it);
+		_rpl_endofwhois(command, *it); // 318
 	}
 }

@@ -87,9 +87,10 @@ std::string	RPL_WHOWASUSER(std::vector<std::string> args)
 std::string	RPL_WHOISIDLE(std::vector<std::string> args)
 {
 	std::string &nick = args[0];
-	std::string &integer = args[1];
+	std::string &idle = args[1];
+	std::string &signon = args[2];
 
-	return  nick + " " + integer + " :seconds idle";
+	return  nick + " " + idle + " " + signon + " :seconds idle, signon time";
 }
 
 std::string	RPL_WHOISHOST(std::vector<std::string> args)
@@ -110,7 +111,7 @@ std::string	RPL_WHOISMODES(std::vector<std::string> args)
 	// TODO ? seems to be another parameter called snomaskmode->GetUserParameter(dest) 
 	// if mode is set to `snomaskmode` ? https://github.com/inspircd/inspircd/blob/insp3/src/coremods/core_whois.cpp l.244
 
-	return  nick + " :is using mode +" + mode;
+	return  nick + " :is using modes +" + mode;
 }
 
 std::string	RPL_ENDOFWHOIS(std::vector<std::string> args)
