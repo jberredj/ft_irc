@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcMessages.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 17:22:49 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:27:23 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void    NOTICE(Command& command);
 void    QUIT(Command& command);
 void    WHOIS(Command &command);
 void    WHOWAS(Command &command);
+void	JOIN(Command &command);
 
 // Replies not in RFC
 std::string	RPL_PONG(std::vector<std::string> args);

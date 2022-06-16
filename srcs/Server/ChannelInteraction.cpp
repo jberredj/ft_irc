@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 01:09:10 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 01:26:21 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 21:27:28 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,24 @@ void	Server::addChannel(Channel *channel)
 	_channels.insert(std::make_pair(channel->getName(), channel));
 }
 
+std::string	toLower(std::string str)
+{
+	std::string	lowerStr;
+	for(size_t i = 0; i < str.length(); i++)
+		lowerStr += tolower(str[i]);
+	return lowerStr;
+}
+
 Channel*	Server::getChannel(std::string name)
 {
+	name = toLower(name);
 	std::map<std::string, Channel*>::iterator it;
 	for (it = _channels.begin(); it != _channels.end(); it++)
-		if ((*it).first == name)
+	{
+		std::string	srvChanName = toLower((*it).first);
+		if (srvChanName == name)
 			return (*it).second;
+	}
 	return ft::null_ptr;
 }
 

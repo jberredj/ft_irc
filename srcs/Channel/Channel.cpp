@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 01:25:58 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:44:49 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ bool	Channel::addUser(User *user)
 		return false;
 	_member.push_back(user);
 	_userModes.insert(std::make_pair(user, ""));
+	if (!_nbrMember)
+		setUserMode("o", user);
 	_nbrMember++;
 	return true;
 }
