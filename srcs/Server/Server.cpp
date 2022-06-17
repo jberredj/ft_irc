@@ -160,18 +160,3 @@ bool	Server::_nickFinder(User *user)
 	return false;
 	// return (user && user->getNickname() == _nickToFind);
 }
-
-
-User*	Server::_userToFind;
-
-bool	Server::_oldUserFinder(User *user)
-{
-	if (user)
-	{
-		if (user->getUsername() == _userToFind->getUsername()
-		&& user->getHostname() == _userToFind->getHostname()
-		&& user->getTruename() == _userToFind->getTruename())
-					return true;
-	}
-	return false;
-}
