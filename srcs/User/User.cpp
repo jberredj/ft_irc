@@ -24,12 +24,6 @@
 
 // Constructors and destructor
 
-User::User(const User& src)
-{
-	Logger(Output::TRACE) << "User copy contructor called";
-	*this = src;
-}
-
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_password(""), _username(""), _nickname("*"), _truename(""),
@@ -37,6 +31,12 @@ User::User(void):
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
+}
+
+User::User(const User& src)
+{
+	Logger(Output::TRACE) << "User copy contructor called";
+	*this = src;
 }
 
 User::~User() {Logger(Output::TRACE) << "User destructor called";}
@@ -48,7 +48,6 @@ User &User::operator=(User const & rhs)
 	if (this != &rhs)
 	{
 		this->_status = rhs._status;
-		// this->_ServerPassword = rhs._ServerPassword;
 		this->_username = rhs._username;
 		this->_nickname = rhs._nickname;
 		this->_hostname = rhs._hostname;
@@ -129,30 +128,28 @@ void			User::tryAuthentificate(Command &cmd)
 	}
 }
 
-
 //Setters
-void		User::setStatus(Status status) {this->_status = status;}
-void		User::setPassword(std::string password) {this->_password = password;}
-void		User::setUsername(std::string username) {this->_username = username;}
-void		User::setNickname(std::string nickname) {this->_nickname = nickname;}
-void		User::setHostname(std::string hostname) {this->_hostname = hostname;}
-void		User::setTruename(std::string truename) {this->_truename = truename;}
+void	User::setStatus(Status status) {this->_status = status;}
+void	User::setPassword(std::string password) {this->_password = password;}
+void	User::setUsername(std::string username) {this->_username = username;}
+void	User::setNickname(std::string nickname) {this->_nickname = nickname;}
+void	User::setHostname(std::string hostname) {this->_hostname = hostname;}
+void	User::setTruename(std::string truename) {this->_truename = truename;}
+void	User::setMode(std::string mode) {this->_mode = mode;}
 
-void		User::setCommandBuf(std::string commandBuf)
-{
+void	User::setCommandBuf(std::string commandBuf) {
 	this->_commandBuf = commandBuf;
 }
-void		User::clearCommandBuff(void) {this->_commandBuf.clear();}
-void		User::appendCommandBuf(std::string commandBuf)
-{
+void	User::clearCommandBuff(void) {
+	this->_commandBuf.clear();
+}
+void	User::appendCommandBuf(std::string commandBuf) {
 	this->_commandBuf += commandBuf;
 }
 
-void		User::setMode(std::string mode) {this->_mode = mode;}
 
 // IO User methods
-void 	User::addCommand(Command const & command)
-{
+void 	User::addCommand(Command const & command) {
 	_commandQueue.push(command);
 }
 

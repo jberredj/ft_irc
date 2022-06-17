@@ -23,20 +23,20 @@ class Server
 {
 public:
 	// Constructors and destructor
-						Server(int ac, char** av);
-						Server(const Server& src);
-						~Server(void);
+					Server(int ac, char** av);
+					Server(const Server& src);
+					~Server(void);
 
 	// Operators
-	Server&				operator=(const Server& rhs);
+	Server&			operator=(const Server& rhs);
 
 	// Getters
-	short				getExitCode(void) const;
+	short			getExitCode(void) const;
 
 	// Channel Interaction methods and functions
 
-	void		addChannel(Channel *channel);
-	Channel*	getChannel(std::string name);
+	void			addChannel(Channel *channel);
+	Channel*		getChannel(std::string name);
 	std::map<std::string, Channel*>*	getChannels(void);
 
 	// General methods and functions
@@ -67,37 +67,31 @@ private:
 	std::map<std::string, Channel*>	_channels;
 
 	// Constructors
-								Server(void);
+				Server(void);
 
 	// Channel Interaction methods and functions
-
-	void	_pruneChannel(void);
+	void		_pruneChannel(void);
 
 	// Run loop methods and functions
-	void						_treatUserMessages(void);
+	void		_treatUserMessages(void);
 
 	// General methods and functions
-	static void					_SigIntHandler(int signum);
-	void						_logRawMessage(char* buf, User& user,
-									std::string prefix);
-	void						_uniqueInstanceOnPort(char* port);
+	static void	_SigIntHandler(int signum);
+	void		_logRawMessage(char* buf, User& user, std::string prefix);
+	void		_uniqueInstanceOnPort(char* port);
 
 	// SocketIO methods and functions
-	int							_createServerSocket(char* port);
-	void						_preparePollfds(void);
-	int							_acceptConnection(int socketfd);
-	void						_newIncommingSocket(void);
-	void						_pollIO(void);
-	void						_socketReadInput(
-									std::vector<struct pollfd>::iterator it);
-	void						_socketWrite(
-									std::vector<struct pollfd>::iterator it);
+	int			_createServerSocket(char* port);
+	void		_preparePollfds(void);
+	int			_acceptConnection(int socketfd);
+	void		_newIncommingSocket(void);
+	void		_pollIO(void);
+	void		_socketReadInput(std::vector<struct pollfd>::iterator it);
+	void		_socketWrite(std::vector<struct pollfd>::iterator it);
 
 	// User interactions methods and functions
-	void 						_addNewUser(int socketToBind, 
-									struct sockaddr_in cliAddr);
-	void						_pruneUser(void);
-	static bool					_nickFinder(User *user);
+	void 		_addNewUser(int socketToBind, struct sockaddr_in cliAddr);
+	void		_pruneUser(void);
 };
 
 #endif
