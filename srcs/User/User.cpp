@@ -34,7 +34,7 @@ User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_username(""), _nickname("*"), _truename(""),
 	_hostname("127.0.0.1"), _mode(""),
-	_prevnick(""), _channel(""), _signon(std::time(ft::null_ptr)), 
+	_channel(""), _signon(std::time(ft::null_ptr)), 
 	_passUsed(false), _userUsed(false), _nickUsed(false)
 {
 	_initUserClass();
@@ -56,7 +56,6 @@ User &User::operator=(User const & rhs)
 		this->_hostname = rhs._hostname;
 		this->_truename = rhs._truename;
 		this->_mode = rhs._mode;
-		this->_prevnick = rhs._prevnick;
 		this->_channel = rhs._channel;
 		this->_passUsed = rhs._passUsed;
 		this->_userUsed = rhs._userUsed;
@@ -74,7 +73,6 @@ std::string		User::getHostname(void) const {return this->_hostname;}
 std::string 	User::getTruename(void) const {return this->_truename;}
 std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
 std::string 	User::getMode(void) const {return this->_mode;}
-std::string 	User::getPrevnick(void) const {return this->_prevnick;}
 std::string 	User::getChannel(void) const {return this->_channel;}
 bool			User::repliesAvalaible(void) const {return !_responseQueue.empty();}
 bool			User::getPassUsed(void) const {return this->_passUsed;}
@@ -161,11 +159,6 @@ void		User::appendCommandBuf(std::string commandBuf)
 
 void		User::setMode(std::string mode) {this->_mode = mode;}
 
-void		User::setPrevnick(std::string prevnick)
-{
-	this->_prevnick = prevnick;
-}
-
 void		User::setChannel(std::string channel) {this->_channel = channel;}
 
 bool			User::setPassUsed(bool value) {return this->_passUsed = value;}
@@ -197,12 +190,6 @@ void    User::execCommandQueue()
 		_commandQueue.pop();
 	}	
 }	
-
-void	User::rename(std::string nick)
-{
-	setPrevnick(getNickname());
-	setNickname(nick);
-}
 
 void    User::addReply(std::string response)
 {
