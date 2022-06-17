@@ -69,11 +69,9 @@ private:
 	std::string 										_commandBuf;
 	std::queue<Command> 								_commandQueue;
 	std::queue<std::string>								_responseQueue;
-	// time_t last_ping;
 	
 	// User infos
 	Status 												_status;
-	// std::string*										_ServerPassword;
 	std::string											_password;
 	std::string 										_username;
 	std::string 										_nickname;
@@ -81,8 +79,6 @@ private:
 	std::string 										_hostname;
 	std::string 										_mode;
 	time_t												_signon;
-	// std::string _awaymsg;
-	// std::string _deletemsg;
 
 	// Init user Class
 	static void											_initUserClass(void);
