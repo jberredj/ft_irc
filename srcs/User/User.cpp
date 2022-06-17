@@ -33,7 +33,7 @@ User::User(const User& src)
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_username(""), _nickname("*"), _truename(""),
-	_hostname("127.0.0.1"), _servername("IP address"),  _mode(""),
+	_hostname("127.0.0.1"), _mode(""),
 	_prevnick(""), _channel(""), _signon(std::time(ft::null_ptr)), 
 	_passUsed(false), _userUsed(false), _nickUsed(false)
 {
@@ -71,7 +71,6 @@ User::Status 	User::getStatus(void) const {return this->_status;}
 std::string		User::getUsername(void) const {return this->_username;}
 std::string 	User::getNickname(void) const {return this->_nickname;}
 std::string		User::getHostname(void) const {return this->_hostname;}
-std::string 	User::getServername(void) const {return this->_servername;}
 std::string 	User::getTruename(void) const {return this->_truename;}
 std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
 std::string 	User::getMode(void) const {return this->_mode;}
@@ -148,7 +147,6 @@ void		User::setPassword(std::string password) {this->_password = password;}
 void		User::setUsername(std::string username) {this->_username = username;}
 void		User::setNickname(std::string nickname) {this->_nickname = nickname;}
 void		User::setHostname(std::string hostname) {this->_hostname = hostname;}
-void		User::setServername(std::string servername) {this->_servername = servername;}
 void		User::setTruename(std::string truename) {this->_truename = truename;}
 
 void		User::setCommandBuf(std::string commandBuf)

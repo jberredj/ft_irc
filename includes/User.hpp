@@ -37,7 +37,6 @@ public:
 	std::string		getUsername(void) const;
 	std::string		getNickname(void) const;
 	std::string		getHostname(void) const;
-	std::string		getServername(void) const;
 	std::string		getTruename(void) const;
 	std::string		getCommandBuf(void) const;
 	std::string		getPrefix(void) const;
@@ -58,7 +57,6 @@ public:
 	void			setUsername(std::string username);
 	void			setNickname(std::string nickname);
 	void			setHostname(std::string hostname);
-	void			setServername(std::string servername);
 	void			setTruename(std::string truename);
 	void			setCommandBuf(std::string commandBuf);
 	void			clearCommandBuff(void);
@@ -94,7 +92,6 @@ private:
 	std::string 										_nickname;
 	std::string 										_truename;
 	std::string 										_hostname;
-	std::string											_servername;
 	std::string 										_mode;
 	std::string 										_prevnick;
 	std::string 										_channel;
