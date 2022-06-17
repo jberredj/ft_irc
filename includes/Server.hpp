@@ -53,7 +53,6 @@ public:
 
 private:
 	static bool					_sigInt;
-	static std::string			_nickToFind;
 	short						_exitCode;
 	std::string					_password;
 	bool						_running;

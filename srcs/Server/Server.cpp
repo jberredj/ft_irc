@@ -148,15 +148,3 @@ void	Server::_uniqueInstanceOnPort(char *port)
 }
 
 
-std::string	Server::_nickToFind;
-
-bool	Server::_nickFinder(User *user)
-{
-	if (user)
-	{
-		if (user->getNickname() == _nickToFind)
-			return true;
-	}
-	return false;
-	// return (user && user->getNickname() == _nickToFind);
-}

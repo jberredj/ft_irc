@@ -26,28 +26,28 @@
 
 User*	Server::getUser(std::string nickname)
 {
-	_nickToFind = nickname;
-	std::vector<User *>::iterator find;
+	std::vector<User *>::iterator user = _users.begin();
 
-	find = std::find_if(_users.begin(), _users.end(), _nickFinder);
-	_nickToFind.clear();
-	if (find == _users.end())
-		return ft::null_ptr;
-	return (*find);	
+	while (user != _users.end()) {
+		if ((*user)->getNickname() == nickname)
+			return *user;
+		user++;
+	}
+	return ft::null_ptr;
 }
 
 std::vector<User*>*	Server::getUsers(void) {return &_users;}
 
 User*	Server::getOldUser(std::string nickname)
 {
-	_nickToFind = nickname;
-	std::vector<User *>::iterator find;
+	std::vector<User *>::iterator user = _oldUsers.begin();
 
-	find = std::find_if(_oldUsers.begin(), _oldUsers.end(), _nickFinder);
-	_nickToFind.clear();
-	if (find == _oldUsers.end())
-		return ft::null_ptr;
-	return (*find);	
+	while (user != _oldUsers.end()) {
+		if ((*user)->getNickname() == nickname)
+			return *user;
+		user++;
+	}
+	return ft::null_ptr;
 }
 
 std::vector<User*>*	Server::getOldUsers(void) {return &_oldUsers;}
