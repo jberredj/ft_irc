@@ -33,6 +33,5 @@ void	USER(Command &command)
 	}
 	command.getUser().setUsername(command.getParameters()[0]);
 	command.getUser().setTruename(command.getTrailer());
-	command.getUser().setUserUsed(true);
 	command.getUser().tryAuthentificate(command);	
 }

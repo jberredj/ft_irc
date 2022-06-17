@@ -32,9 +32,8 @@ User::User(const User& src)
 
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
-	_username(""), _nickname("*"), _truename(""), _hostname("127.0.0.1"),
-	_mode(""), _signon(std::time(ft::null_ptr)), _passUsed(false),
-	_userUsed(false), _nickUsed(false)
+	_password(""), _username(""), _nickname("*"), _truename(""),
+	_hostname("127.0.0.1"), _mode(""), _signon(std::time(ft::null_ptr))
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -55,9 +54,6 @@ User &User::operator=(User const & rhs)
 		this->_hostname = rhs._hostname;
 		this->_truename = rhs._truename;
 		this->_mode = rhs._mode;
-		this->_passUsed = rhs._passUsed;
-		this->_userUsed = rhs._userUsed;
-		this->_nickUsed = rhs._nickUsed;
 		this->_signon = rhs._signon;
 	}
 	return *this;
@@ -72,9 +68,6 @@ std::string 	User::getTruename(void) const {return this->_truename;}
 std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
 std::string 	User::getMode(void) const {return this->_mode;}
 bool			User::repliesAvalaible(void) const {return !_responseQueue.empty();}
-bool			User::getPassUsed(void) const {return this->_passUsed;}
-bool			User::getUserUsed(void) const {return this->_userUsed;}
-bool			User::getNickUsed(void) const {return this->_nickUsed;}
 
 std::string	 	User::getRawSignon(void) const {
 	std::stringstream ss;
@@ -116,23 +109,24 @@ void			User::tryAuthentificate(Command &cmd)
 	int response = 0;
 	std::vector<std::string> args;
 	
-	if (_passUsed && _userUsed && _nickUsed)
+	if (!_password.length()) return;
+	if (!_username.length()) return;
+	if (_nickname == "*") return;
+
+	if (_password == cmd.getServerPassword())
 	{
-		if (_password == cmd.getServerPassword())
-		{
-			response = 1;
-			args.push_back(_nickname);
-			args.push_back(_username);
-			args.push_back(_hostname);
-			setStatus(ONLINE);
-			return cmd.replyToInvoker(response, args);
-		}	
-		else
-		{
-			Logger(Output::INFO) << "Authentification failed";
-			setStatus(OFFLINE);
-		}
+		response = 1;
+		args.push_back(_nickname);
+		args.push_back(_username);
+		args.push_back(_hostname);
+		setStatus(ONLINE);
+		return cmd.replyToInvoker(response, args);
 	}	
+	else
+	{
+		Logger(Output::INFO) << "Authentification failed";
+		setStatus(OFFLINE);
+	}
 }
 
 
@@ -155,12 +149,6 @@ void		User::appendCommandBuf(std::string commandBuf)
 }
 
 void		User::setMode(std::string mode) {this->_mode = mode;}
-
-bool			User::setPassUsed(bool value) {return this->_passUsed = value;}
-bool			User::setUserUsed(bool value) {return this->_userUsed = value;}
-bool			User::setNickUsed(bool value) {return this->_nickUsed = value;}
-
-
 
 // IO User methods
 void 	User::addCommand(Command const & command)

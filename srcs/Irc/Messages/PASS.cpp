@@ -31,6 +31,5 @@ void	PASS(Command& command)
 		return command.replyToInvoker(462);
 	}
 	command.getUser().setPassword(command.getParameters()[0]);
-	command.getUser().setPassUsed(true);
 	command.getUser().tryAuthentificate(command);
 }

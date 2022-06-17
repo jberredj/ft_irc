@@ -45,9 +45,6 @@ public:
 	std::string		getIdle(void) const;
 	std::string		getMode(void) const;
 	bool			repliesAvalaible(void) const;
-	bool 			getPassUsed(void) const;
-	bool			getUserUsed(void) const;
-	bool			getNickUsed(void) const;
 	
 	//setters
 	void			setStatus(Status status);
@@ -60,9 +57,6 @@ public:
 	void			clearCommandBuff(void);
 	void			appendCommandBuf(std::string commandBuf);
 	void			setMode(std::string mode);
-	bool 			setPassUsed(bool);
-	bool			setUserUsed(bool);
-	bool			setNickUsed(bool);
 
 	// IO User methods
 	void			addCommand(const Command& command);
@@ -90,10 +84,6 @@ private:
 	// std::string _awaymsg;
 	// std::string _deletemsg;
 
-	// authentification
-	bool												_passUsed;
-	bool 												_userUsed;
-	bool												_nickUsed;
 	// Init user Class
 	static void											_initUserClass(void);
 	static std::map<std::string, void (*)(Command&)>	_cmdMap;
