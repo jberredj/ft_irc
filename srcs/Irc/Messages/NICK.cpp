@@ -63,7 +63,7 @@ void    NICK(Command &command)
 			return command.replyToInvoker(response, args);
 		}
 	}
-	command.getUser().rename(nick);
+	command.getUser().setNickname(nick);
 	command.getUser().setNickUsed(true);
 	command.getUser().tryAuthentificate(command);
 }
