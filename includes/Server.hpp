@@ -40,9 +40,10 @@ public:
 	std::map<std::string, Channel*>*	getChannels(void);
 
 	// General methods and functions
-	void				run(void);
-	std::string			getServerName(void) const;
-	void				setServerName(std::string serverName);
+	void			run(void);
+	std::string		getServerName(void) const;
+	void			setServerName(std::string serverName);
+	std::string		getPassword(void) const;
 
 	// User interactions methods and function
 	User*				getUser(std::string nickname);

@@ -34,7 +34,7 @@ public:
 	
 	//getters
 	Status			getStatus(void) const;
-	std::string&	getServerPassword(void) const;
+	// std::string&	getServerPassword(void) const;
 	std::string		getPassword(void) const;
 	std::string		getUsername(void) const;
 	std::string		getNickname(void) const;
@@ -92,7 +92,7 @@ private:
 	
 	// User infos
 	Status 												_status;
-	std::string*										_ServerPassword;
+	// std::string*										_ServerPassword;
 	std::string											_password;
 	std::string 										_username;
 	std::string 										_nickname;

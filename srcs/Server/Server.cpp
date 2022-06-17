@@ -80,6 +80,9 @@ void	Server::setServerName(std::string serverName)
 	this->_serverName = serverName;
 }
 
+std::string	Server::getPassword(void) const {return _password;}
+
+
 // Operators
 Server&	Server::operator=(const Server& rhs)
 {

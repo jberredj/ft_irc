@@ -23,16 +23,16 @@
 /* ************************************************************************** */
 
 // Constructors and destructor
-User::User(void):
-	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
-	_ServerPassword(ft::null_ptr), _username(""), _nickname("*"), _truename(""),
-	_hostname(""), _servername(""), _servaddr(""),  _mode(""), _prevnick(""), 
-	_channel(""), _signon(std::time(ft::null_ptr)), _passUsed(false), 
-	_userUsed(false), _nickUsed(false)
-{
-	_initUserClass();
-	Logger(Output::TRACE) << "User constructor called";
-}
+// User::User(void):
+// 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
+// 	_ServerPassword(ft::null_ptr), _username(""), _nickname("*"), _truename(""),
+// 	_hostname(""), _servername(""), _servaddr(""),  _mode(""), _prevnick(""), 
+// 	_channel(""), _signon(std::time(ft::null_ptr)), _passUsed(false), 
+// 	_userUsed(false), _nickUsed(false)
+// {
+// 	_initUserClass();
+// 	Logger(Output::TRACE) << "User constructor called";
+// }
 
 User::User(const User& src)
 {
@@ -40,9 +40,9 @@ User::User(const User& src)
 	*this = src;
 }
 
-User::User(std::string* serverPassWd):
+User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
-	_ServerPassword(serverPassWd), _username(""), _nickname("*"), _truename(""),
+	_username(""), _nickname("*"), _truename(""),
 	_hostname("127.0.0.1"), _servername("IP address"), _servaddr(""),  _mode(""),
 	_prevnick(""), _channel(""), _signon(std::time(ft::null_ptr)), 
 	_passUsed(false), _userUsed(false), _nickUsed(false)
@@ -60,7 +60,7 @@ User &User::operator=(User const & rhs)
 	if (this != &rhs)
 	{
 		this->_status = rhs._status;
-		this->_ServerPassword = rhs._ServerPassword;
+		// this->_ServerPassword = rhs._ServerPassword;
 		this->_username = rhs._username;
 		this->_nickname = rhs._nickname;
 		this->_hostname = rhs._hostname;
@@ -79,7 +79,7 @@ User &User::operator=(User const & rhs)
 
 //Getters
 User::Status 	User::getStatus(void) const {return this->_status;}
-std::string	   	&User::getServerPassword(void) const {return *_ServerPassword;}
+// std::string	   	&User::getServerPassword(void) const {return *_ServerPassword;}
 std::string	  	User::getPassword(void) const {return _password;}
 std::string		User::getUsername(void) const {return this->_username;}
 std::string 	User::getNickname(void) const {return this->_nickname;}
@@ -138,7 +138,7 @@ void			User::tryAuthentificate(Command &cmd)
 	
 	if (_passUsed && _userUsed && _nickUsed)
 	{
-		if (_password == *_ServerPassword)
+		if (_password == cmd.getServerPassword())
 		{
 			response = 1;
 			args.push_back(_nickname);

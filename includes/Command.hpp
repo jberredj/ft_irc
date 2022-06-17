@@ -45,6 +45,8 @@ public:
 	User&						getUser(void) const;
 	User*						getUser(std::string nickname);
 	std::vector<User *>*		getUsers(void);
+	// Server*						getServer(void) const;
+	std::string					getServerPassword(void) const;
 	User*						getOldUser(std::string nickname);
 	std::vector<User *>*		getOldUsers(void);
 	std::string					getServerName(void) const;
