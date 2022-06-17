@@ -32,8 +32,6 @@ void	USER(Command &command)
 		return command.replyToInvoker(response, args);
 	}
 	command.getUser().setUsername(command.getParameters()[0]);
-	// command.getUser().setHostname(command.getParameters()[1]);
-	command.getUser().setServername(command.getParameters()[2]);
 	command.getUser().setTruename(command.getTrailer());
 	command.getUser().setUserUsed(true);
 	command.getUser().tryAuthentificate(command);	
