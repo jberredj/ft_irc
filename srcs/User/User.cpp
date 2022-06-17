@@ -79,8 +79,6 @@ User &User::operator=(User const & rhs)
 
 //Getters
 User::Status 	User::getStatus(void) const {return this->_status;}
-// std::string	   	&User::getServerPassword(void) const {return *_ServerPassword;}
-std::string	  	User::getPassword(void) const {return _password;}
 std::string		User::getUsername(void) const {return this->_username;}
 std::string 	User::getNickname(void) const {return this->_nickname;}
 std::string		User::getHostname(void) const {return this->_hostname;}
