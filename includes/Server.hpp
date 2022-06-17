@@ -54,7 +54,6 @@ public:
 private:
 	static bool					_sigInt;
 	static std::string			_nickToFind;
-	static User*				_userToFind;
 	short						_exitCode;
 	std::string					_password;
 	bool						_running;
@@ -100,7 +99,6 @@ private:
 									struct sockaddr_in cliAddr);
 	void						_pruneUser(void);
 	static bool					_nickFinder(User *user);
-	static bool					_oldUserFinder(User* user);
 };
 
 #endif
