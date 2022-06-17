@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 15:38:44 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/16 22:09:37 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:06:04 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	QUIT(Command& command)
     else
         args.push_back("leaving");
     command.replyToInvoker(-3, args);
-    // command.getUser().setStatus(User::DELETE); 
+    command.getUser().setStatus(User::OFFLINE);
 }

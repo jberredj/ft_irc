@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:37:21 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/13 19:06:56 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:08:37 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,7 @@ void	Server::_socketWrite(std::vector<struct pollfd>::iterator it)
 		const char	*rawBuf = payload.c_str();
 		_logRawMessage((char *)rawBuf, *_usersMap[(*it).fd], "Sending to ");
 		write((*it).fd, payload.c_str(), payload.size());
+		if (_usersMap[(*it).fd]->getStatus() == User::OFFLINE && !_usersMap[(*it).fd]->repliesAvalaible())
+			_usersMap[(*it).fd]->setStatus(User::DELETE);
 	}
 }
