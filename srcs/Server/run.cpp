@@ -53,17 +53,6 @@ void	Server::run(void)
 /*                                 Private                                    */
 /* ************************************************************************** */
 
-void	Server::_tryRecoverOldUser(std::map<int, User*>::iterator ctx_it)
-{
-	_userToFind = (*ctx_it).second;
-	std::vector<User*>::iterator it = std::find_if(_oldUsers.begin(),_oldUsers.end(), _oldUserFinder);
-	if (it == _oldUsers.end())
-		return;
-	delete *it;
-	_oldUsers.erase(it);
-	Logger(Output::DEBUG) << "AN OLD USER WAS RESTORED";
-}
-
 void	Server::_treatUserMessages(void)
 {
 	for(std::map<int, User*>::iterator ctx_it = _usersMap.begin();
@@ -80,7 +69,5 @@ void	Server::_treatUserMessages(void)
 			_running = false;
 			_exitCode = 1;
 		}
-		// if (state < User::ONLINE && (*ctx_it).second->getStatus() == User::ONLINE)
-		// 	_tryRecoverOldUser(ctx_it);
 	}	
 }
