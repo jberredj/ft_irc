@@ -76,7 +76,6 @@ private:
 	void	_pruneChannel(void);
 
 	// Run loop methods and functions
-	void						_tryRecoverOldUser(std::map<int, User*>::iterator ctx_it);
 	void						_treatUserMessages(void);
 
 	// General methods and functions
