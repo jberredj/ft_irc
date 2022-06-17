@@ -99,20 +99,22 @@ Command&	Command::operator=(const Command& rhs)
 std::string	Command::getLine(void) const {return _command_line;}
 std::string	Command::getPrefix(void) const {return _prefix;}
 std::string	Command::getCommand(void) const {return _command;}
-
-const std::vector<std::string>	&Command::getParameters(void) const 
-{
-	return _parameters;
-}
-
+const std::vector<std::string>	&Command::getParameters(void) const {return _parameters;}
 std::string	Command::getTrailer(void) const {return _trailer;}
 User&	Command::getUser(void) const {return *_user;}
-User*	Command::getUser(std::string nickname)
-{
+User*	Command::getUser(std::string nickname) {
 	return _server->getUser(nickname);
 }
 
 std::vector<User *>*	Command::getUsers(void) {return _server->getUsers();}
+
+// Server*	Command::getServer(void) const {
+// 	return _server;
+// }
+
+std::string	Command::getServerPassword(void) const {
+	return _server->getPassword();
+}
 
 User*	Command::getOldUser(std::string nickname)
 {

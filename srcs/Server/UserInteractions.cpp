@@ -59,7 +59,7 @@ std::vector<User*>*	Server::getOldUsers(void) {return &_oldUsers;}
 void	Server::_addNewUser(int socketToBind, struct sockaddr_in cliAddr)
 {
 	
-	User*	new_user = new User(&_password);
+	User*	new_user = new User();
 	new_user->setHostname(inet_ntoa(cliAddr.sin_addr));	
 	new_user->setStatus(User::PASSWORD);
 	_usersMap.insert(std::make_pair(socketToBind, new_user));
