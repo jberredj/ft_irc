@@ -23,16 +23,6 @@
 /* ************************************************************************** */
 
 // Constructors and destructor
-// User::User(void):
-// 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
-// 	_ServerPassword(ft::null_ptr), _username(""), _nickname("*"), _truename(""),
-// 	_hostname(""), _servername(""), _servaddr(""),  _mode(""), _prevnick(""), 
-// 	_channel(""), _signon(std::time(ft::null_ptr)), _passUsed(false), 
-// 	_userUsed(false), _nickUsed(false)
-// {
-// 	_initUserClass();
-// 	Logger(Output::TRACE) << "User constructor called";
-// }
 
 User::User(const User& src)
 {
@@ -43,7 +33,7 @@ User::User(const User& src)
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_username(""), _nickname("*"), _truename(""),
-	_hostname("127.0.0.1"), _servername("IP address"), _servaddr(""),  _mode(""),
+	_hostname("127.0.0.1"), _servername("IP address"),  _mode(""),
 	_prevnick(""), _channel(""), _signon(std::time(ft::null_ptr)), 
 	_passUsed(false), _userUsed(false), _nickUsed(false)
 {
@@ -64,7 +54,6 @@ User &User::operator=(User const & rhs)
 		this->_username = rhs._username;
 		this->_nickname = rhs._nickname;
 		this->_hostname = rhs._hostname;
-		this->_servaddr = rhs._servaddr;
 		this->_truename = rhs._truename;
 		this->_mode = rhs._mode;
 		this->_prevnick = rhs._prevnick;
@@ -83,7 +72,6 @@ std::string		User::getUsername(void) const {return this->_username;}
 std::string 	User::getNickname(void) const {return this->_nickname;}
 std::string		User::getHostname(void) const {return this->_hostname;}
 std::string 	User::getServername(void) const {return this->_servername;}
-std::string 	User::getServaddr(void) const {return this->_servaddr;}
 std::string 	User::getTruename(void) const {return this->_truename;}
 std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
 std::string 	User::getMode(void) const {return this->_mode;}
@@ -161,7 +149,6 @@ void		User::setUsername(std::string username) {this->_username = username;}
 void		User::setNickname(std::string nickname) {this->_nickname = nickname;}
 void		User::setHostname(std::string hostname) {this->_hostname = hostname;}
 void		User::setServername(std::string servername) {this->_servername = servername;}
-void		User::setServaddr(std::string servaddr) {this->_servaddr = servaddr;}
 void		User::setTruename(std::string truename) {this->_truename = truename;}
 
 void		User::setCommandBuf(std::string commandBuf)
