@@ -125,8 +125,7 @@ std::string	RPL_WHOISCHANNELS(std::vector<std::string> args)
 {
 	// "<nick> :{[@|+]<channel><space>}" @ + Indicate user mod or allow to speak on mod chan, Handle that in getReplies/generateReply Wrapper
 	std::string	reply = args[0] + " :";
-	for(std::vector<std::string>::iterator it = args.begin() + 1;
-		it != args.end(); it++)
+	for(std::vector<std::string>::iterator it = args.begin() + 1; it != args.end(); it++)
 		reply += *it + " ";
 	return reply;
 }
