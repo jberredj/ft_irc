@@ -32,10 +32,9 @@ User::User(const User& src)
 
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
-	_username(""), _nickname("*"), _truename(""),
-	_hostname("127.0.0.1"), _mode(""),
-	_channel(""), _signon(std::time(ft::null_ptr)), 
-	_passUsed(false), _userUsed(false), _nickUsed(false)
+	_username(""), _nickname("*"), _truename(""), _hostname("127.0.0.1"),
+	_mode(""), _signon(std::time(ft::null_ptr)), _passUsed(false),
+	_userUsed(false), _nickUsed(false)
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -56,7 +55,6 @@ User &User::operator=(User const & rhs)
 		this->_hostname = rhs._hostname;
 		this->_truename = rhs._truename;
 		this->_mode = rhs._mode;
-		this->_channel = rhs._channel;
 		this->_passUsed = rhs._passUsed;
 		this->_userUsed = rhs._userUsed;
 		this->_nickUsed = rhs._nickUsed;
@@ -73,7 +71,6 @@ std::string		User::getHostname(void) const {return this->_hostname;}
 std::string 	User::getTruename(void) const {return this->_truename;}
 std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
 std::string 	User::getMode(void) const {return this->_mode;}
-std::string 	User::getChannel(void) const {return this->_channel;}
 bool			User::repliesAvalaible(void) const {return !_responseQueue.empty();}
 bool			User::getPassUsed(void) const {return this->_passUsed;}
 bool			User::getUserUsed(void) const {return this->_userUsed;}
@@ -158,8 +155,6 @@ void		User::appendCommandBuf(std::string commandBuf)
 }
 
 void		User::setMode(std::string mode) {this->_mode = mode;}
-
-void		User::setChannel(std::string channel) {this->_channel = channel;}
 
 bool			User::setPassUsed(bool value) {return this->_passUsed = value;}
 bool			User::setUserUsed(bool value) {return this->_userUsed = value;}

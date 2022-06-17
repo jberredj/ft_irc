@@ -44,7 +44,6 @@ public:
 	std::string		getRawSignon(void) const;
 	std::string		getIdle(void) const;
 	std::string		getMode(void) const;
-	std::string		getChannel(void) const;
 	bool			repliesAvalaible(void) const;
 	bool 			getPassUsed(void) const;
 	bool			getUserUsed(void) const;
@@ -60,10 +59,7 @@ public:
 	void			setCommandBuf(std::string commandBuf);
 	void			clearCommandBuff(void);
 	void			appendCommandBuf(std::string commandBuf);
-	
 	void			setMode(std::string mode);
-	void			setChannel(std::string channel);
-
 	bool 			setPassUsed(bool);
 	bool			setUserUsed(bool);
 	bool			setNickUsed(bool);
@@ -90,7 +86,6 @@ private:
 	std::string 										_truename;
 	std::string 										_hostname;
 	std::string 										_mode;
-	std::string 										_channel;
 	time_t												_signon;
 	// std::string _awaymsg;
 	// std::string _deletemsg;
