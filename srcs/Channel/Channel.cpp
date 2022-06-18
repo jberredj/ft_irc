@@ -15,20 +15,20 @@
 #include <algorithm>
 
 Channel::Channel(void):
-_isAlive(true), _name("DEFAULT"), _userLimit(-1), _nbrMember(0), _mode(""), _member(), _inviteOnly(false),
+_isAlive(true), _name("DEFAULT"), _userLimit(-1), _nbrMember(0), _mode(""), _members(), _inviteOnly(false),
 _inviteList(), _banList(), _userModes()
 {
 }
 
 Channel::Channel(const Channel &src):
 _isAlive(src._isAlive), _name(src._name), _userLimit(src._userLimit), _nbrMember(src._nbrMember), _mode(src._mode),
-_member(src._member), _inviteOnly(src._inviteOnly), _inviteList(src._inviteList), _banList(src._banList),
+_members(src._members), _inviteOnly(src._inviteOnly), _inviteList(src._inviteList), _banList(src._banList),
 _userModes(src._userModes)
 {
 }
 
 Channel::Channel(std::string name):
-_isAlive(true), _name(name), _userLimit(-1), _nbrMember(0), _mode(""), _member(), _inviteOnly(false), _inviteList(),
+_isAlive(true), _name(name), _userLimit(-1), _nbrMember(0), _mode(""), _members(), _inviteOnly(false), _inviteList(),
 _banList(), _userModes()
 {
 }
@@ -46,7 +46,7 @@ Channel	&Channel::operator=(const Channel &rhs)
 		_userLimit = rhs._userLimit;
 		_nbrMember = rhs._nbrMember;
 		_mode = rhs._mode;
-		_member = rhs._member;
+		_members = rhs._members;
 		_inviteOnly = rhs._inviteOnly;
 		_inviteList = rhs._inviteList;
 		_banList = rhs._banList;
@@ -90,7 +90,7 @@ bool	Channel::addUser(User *user)
 		return false;
 	if (_inviteOnly && !isInvited(user))
 		return false;
-	_member.push_back(user);
+	_members.push_back(user);
 	_userModes.insert(std::make_pair(user, ""));
 	if (!_nbrMember)
 		setUserMode("o", user);
@@ -102,10 +102,10 @@ bool	Channel::removeUser(User *user)
 {
 	if (!user)
 		return false;
-	std::vector<User*>::iterator it = std::find(_member.begin(), _member.end(), user);
-	if (it == _member.end())
+	std::vector<User*>::iterator it = std::find(_members.begin(), _members.end(), user);
+	if (it == _members.end())
 		return false;
-	_member.erase(it);
+	_members.erase(it);
 	_userModes.erase(user);
 	_nbrMember--;
 	if (!_nbrMember)
@@ -114,7 +114,7 @@ bool	Channel::removeUser(User *user)
 }
 void	Channel::broadcastMessage(std::string message)
 {
-	for (std::vector<User*>::iterator it = _member.begin(); it != _member.end(); it++)
+	for (std::vector<User*>::iterator it = _members.begin(); it != _members.end(); it++)
 		(*it)->addReply(message);
 }
 

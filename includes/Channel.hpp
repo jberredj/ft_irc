@@ -51,7 +51,7 @@ private:
 	int								_userLimit;
 	int								_nbrMember;
 	std::string						_mode;
-	std::vector<User*>				_member;
+	std::vector<User*>				_members;
 	bool							_inviteOnly;
 	std::vector<User*>				_inviteList;
 	std::vector<User*>				_banList;
@@ -62,7 +62,5 @@ private:
 	bool	_inviteUser(User* user);
 	bool	_revokeInviteUser(User* user);
 };
-
-
 
 #endif
