@@ -29,7 +29,7 @@ void    KILL(Command& command)
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(response, args);
 	}
-    user = &command.getUser();
+    user = &command.getInvoker();
     if (user == ft::null_ptr)
 	{
 		response = 401;
@@ -44,6 +44,6 @@ void    KILL(Command& command)
 	args.push_back(command.getParameters()[0]);
 	args.push_back(command.getTrailer());
 	command.replyToInvoker(-4, args);
-    command.getUser().setStatus(User::OFFLINE);    
+    command.getInvoker().setStatus(User::OFFLINE);    
 }
 

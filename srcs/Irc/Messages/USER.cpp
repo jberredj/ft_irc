@@ -26,12 +26,12 @@ void	USER(Command &command)
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(response, args);
 	}
-	if (command.getUser().getStatus() != User::PASSWORD)
+	if (command.getInvoker().getStatus() != User::PASSWORD)
 	{
 		response = 462;
 		return command.replyToInvoker(response, args);
 	}
-	command.getUser().setUsername(command.getParameters()[0]);
-	command.getUser().setTruename(command.getTrailer());
-	command.getUser().tryAuthentificate(command);	
+	command.getInvoker().setUsername(command.getParameters()[0]);
+	command.getInvoker().setTruename(command.getTrailer());
+	command.getInvoker().tryAuthentificate(command);	
 }

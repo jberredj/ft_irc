@@ -35,5 +35,5 @@ void	PING(Command &command)
 		args.push_back(serverName);
 	args.push_back(command.getParameters()[0]);
 	reply += serverName + " PONG " + RPL_PONG(args);
-	command.getUser().addReply(reply);
+	command.getInvoker().addReply(reply);
 }

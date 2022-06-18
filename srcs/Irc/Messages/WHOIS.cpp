@@ -15,7 +15,7 @@ static void _rpl_whoisuser(Command &command, User *user) {
 }
 
 static void _rpl_whoishost(Command &command, User *user) {
-	if (user->getNickname() != command.getUser().getNickname())
+	if (user->getNickname() != command.getInvoker().getNickname())
 		return ;
 
 	std::vector<std::string> args;
@@ -28,7 +28,7 @@ static void _rpl_whoishost(Command &command, User *user) {
 }
 
 static void _rpl_whoismodes(Command &command, User *user) {
-	if (user->getNickname() != command.getUser().getNickname())
+	if (user->getNickname() != command.getInvoker().getNickname())
 		return ;
 
 	std::vector<std::string> args;

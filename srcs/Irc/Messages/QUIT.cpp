@@ -22,13 +22,13 @@ void	QUIT(Command& command)
  
 	Logger(Output::DEBUG) << "ENTERED IN QUIT";
 	
-    args.push_back(command.getUser().getUsername());
-    args.push_back(command.getUser().getHostname());
+    args.push_back(command.getInvoker().getUsername());
+    args.push_back(command.getInvoker().getHostname());
     
     if (command.getTrailer().size() != 0)
         args.push_back(command.getTrailer());
     else
         args.push_back("leaving");
     command.replyToInvoker(-3, args);
-    command.getUser().setStatus(User::OFFLINE);
+    command.getInvoker().setStatus(User::OFFLINE);
 }

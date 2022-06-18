@@ -49,7 +49,7 @@ void	msgChannel(Command& command, std::string str_receiver)
 		return command.replyToInvoker(response, args);
 	}
 	channel = command.getChannel(str_receiver);
-	channel->broadcastMessage(":" + command.getUser().getPrefix() +" PRIVMSG " + str_receiver + " :" 
+	channel->broadcastMessage(":" + command.getInvoker().getPrefix() +" PRIVMSG " + str_receiver + " :" 
 		+ command.getTrailer());
 }
 

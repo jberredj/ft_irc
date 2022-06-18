@@ -47,8 +47,8 @@ void	JOIN(Command &command)
 	while ((channel = _getNextChannel(channelList, command)))
 	{
 		// Check if User can JOin
-		if (channel->addUser(&command.getUser()))
-			channel->broadcastMessage(":" + command.getUser().getPrefix() + " JOIN :" + channel->getName());
+		if (channel->addUser(&command.getInvoker()))
+			channel->broadcastMessage(":" + command.getInvoker().getPrefix() + " JOIN :" + channel->getName());
 	}
 	
 }

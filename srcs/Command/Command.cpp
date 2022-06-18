@@ -27,9 +27,9 @@
 // Constructors and destructor
 Command::Command(void) {}
 
-Command::Command(User* user, std::string command_line, Server* server):
+Command::Command(User* invoker, std::string command_line, Server* server):
 	_prefix(""), _command(""), _trailer(""), _command_line(command_line),
-	_user(user), _server(server)
+	_invoker(invoker), _server(server)
 {
 	std::string delimiter(" ");
 	size_t  	position = 0;
@@ -73,7 +73,7 @@ Command::Command(User* user, std::string command_line, Server* server):
 
 Command::Command(const Command& src): 
 	_prefix(src._prefix), _command(src._command), _parameters(src._parameters),
-	_trailer(src._trailer), _command_line(src._command_line), _user(src._user),
+	_trailer(src._trailer), _command_line(src._command_line), _invoker(src._invoker),
 	_server(src._server)
 {
 	Logger(Output::TRACE) << "Command copy constructor called ";
@@ -89,7 +89,7 @@ Command&	Command::operator=(const Command& rhs)
 	_prefix = rhs._prefix;
 	_command = rhs._command;
 	_parameters = rhs._parameters;
-	_user = rhs._user;
+	_invoker = rhs._invoker;
 	_trailer = rhs._trailer;
 	_server = rhs._server;
 	return (*this);
@@ -101,7 +101,7 @@ std::string	Command::getPrefix(void) const {return _prefix;}
 std::string	Command::getCommand(void) const {return _command;}
 const std::vector<std::string>	&Command::getParameters(void) const {return _parameters;}
 std::string	Command::getTrailer(void) const {return _trailer;}
-User&	Command::getUser(void) const {return *_user;}
+User&	Command::getInvoker(void) const {return *_invoker;}
 User*	Command::getUser(std::string nickname) {
 	return _server->getUser(nickname);
 }
@@ -143,12 +143,12 @@ void	Command::replyAll(int code, std::vector<std::string> args)
 
 void	Command::replyToInvoker(int code, std::vector<std::string> args)
 {
-	_reply(ft::null_ptr, _user, code, args);
+	_reply(ft::null_ptr, _invoker, code, args);
 }
 
 void	Command::invokerSendTo(User* receiver, int code, std::vector<std::string> args)
 {
-	_reply(_user, receiver, code, args);
+	_reply(_invoker, receiver, code, args);
 }
 
 /* ************************************************************************** */

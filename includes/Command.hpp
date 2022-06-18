@@ -42,7 +42,7 @@ public:
 	std::string 				getCommand(void) const;
 	const std::vector<std::string>	&getParameters(void) const;
 	std::string 				getTrailer(void) const;
-	User&						getUser(void) const;
+	User&						getInvoker(void) const;
 	User*						getUser(std::string nickname);
 	std::vector<User *>*		getUsers(void);
 	// Server*						getServer(void) const;
@@ -53,7 +53,6 @@ public:
 	Channel*					getChannel(std::string name);
 	std::map<std::string, Channel*>*	getChannels(void);
 	void						addChannel(Channel *channel);
-
 
 	// Replies functions
 	void						replyAll(int code,
@@ -71,7 +70,7 @@ private:
 	std::vector<std::string>	_parameters;
 	std::string 				_trailer;
 	std::string 				_command_line;
-	User*						_user;
+	User*						_invoker;
 	Server*						_server;
 
 	// Replies functions

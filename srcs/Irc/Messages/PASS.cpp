@@ -26,10 +26,10 @@ void	PASS(Command& command)
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(response, args);
 	}
-	if (command.getUser().getStatus() != User::PASSWORD)
+	if (command.getInvoker().getStatus() != User::PASSWORD)
 	{
 		return command.replyToInvoker(462);
 	}
-	command.getUser().setPassword(command.getParameters()[0]);
-	command.getUser().tryAuthentificate(command);
+	command.getInvoker().setPassword(command.getParameters()[0]);
+	command.getInvoker().tryAuthentificate(command);
 }

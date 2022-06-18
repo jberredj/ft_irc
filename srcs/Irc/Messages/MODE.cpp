@@ -17,7 +17,7 @@
 
 void	MODE(Command &command)
 {
-    User &user = command.getUser();
+    User &user = command.getInvoker();
 	int response = 0;
 	std::vector<std::string> args;
 	bool minus_flag = false;

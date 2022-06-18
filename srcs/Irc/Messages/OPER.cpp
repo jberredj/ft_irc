@@ -18,7 +18,7 @@
 
 void    OPER(Command& command)
 {
-    User &user = command.getUser();
+    User &user = command.getInvoker();
 	int response = 0;
 	std::vector<std::string> args;
     std::string operPwd = "operPwd";
