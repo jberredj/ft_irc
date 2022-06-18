@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/13 19:54:59 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/18 15:57:49 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_password(""), _username(""), _nickname("*"), _truename(""),
-	_hostname("127.0.0.1"), _mode(""), _signon(std::time(ft::null_ptr))
+	_hostname("127.0.0.1"), _mode(""), _awayMsg(""), _signon(std::time(ft::null_ptr))
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -53,6 +53,7 @@ User &User::operator=(User const & rhs)
 		this->_hostname = rhs._hostname;
 		this->_truename = rhs._truename;
 		this->_mode = rhs._mode;
+		this->_awayMsg = rhs._awayMsg;
 		this->_signon = rhs._signon;
 	}
 	return *this;
@@ -66,6 +67,7 @@ std::string		User::getHostname(void) const {return this->_hostname;}
 std::string 	User::getTruename(void) const {return this->_truename;}
 std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
 std::string 	User::getMode(void) const {return this->_mode;}
+std::string		User::getAwaymsg(void) const {return this->_awayMsg;}
 bool			User::repliesAvalaible(void) const {return !_responseQueue.empty();}
 
 std::string	 	User::getRawSignon(void) const {
@@ -128,6 +130,11 @@ void			User::tryAuthentificate(Command &cmd)
 	}
 }
 
+bool			User::isAway(void)
+{
+	return !_awayMsg.empty();
+}
+
 //Setters
 void	User::setStatus(Status status) {this->_status = status;}
 void	User::setPassword(std::string password) {this->_password = password;}
@@ -136,6 +143,7 @@ void	User::setNickname(std::string nickname) {this->_nickname = nickname;}
 void	User::setHostname(std::string hostname) {this->_hostname = hostname;}
 void	User::setTruename(std::string truename) {this->_truename = truename;}
 void	User::setMode(std::string mode) {this->_mode = mode;}
+void	User::setAwayMsg(std::string msg) {this->_awayMsg = msg;}
 
 void	User::setCommandBuf(std::string commandBuf) {
 	this->_commandBuf = commandBuf;

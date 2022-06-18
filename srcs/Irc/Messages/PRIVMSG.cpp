@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PRIVMSG.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:35:49 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 23:10:26 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/18 15:50:25 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ void	msgUser(Command& command, std::string str_receiver)
 		response = 401;
 		args.push_back(str_receiver);
 		return command.replyToInvoker(response, args);
+	}
+	if (user->isAway())
+	{
+		response = 301;
+		args.push_back(str_receiver);
+		args.push_back(user->getAwaymsg());
+		command.replyToInvoker(response, args);
+		args.clear();
 	}
 	args.push_back(str_receiver);
 	args.push_back(command.getTrailer());
