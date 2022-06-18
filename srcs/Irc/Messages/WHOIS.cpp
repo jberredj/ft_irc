@@ -38,13 +38,20 @@ static void _rpl_whoismodes(Command &command, User *user) {
 	command.replyToInvoker(379, args);
 }
 
-// static void _rpl_whoischannels(Command &command, User *user) {
-// 	std::vector<std::string> args;
+static void _rpl_whoischannels(Command &command, User *user) {
+	std::vector<Channel*> channels = user->getChannels();
 
+	if (channels.empty()) return;
 
+	std::vector<std::string> args;
+	typedef std::vector<Channel*>::iterator channel_it;
+	args.push_back(user->getNickname());
+	for(channel_it channel = channels.begin(); channel != channels.end(); channel++) {
+		args.push_back((*channel)->getName()); //TODO: add to arg @ if user is operator
+	}
 
-// 	command.replyToInvoker(319, args);
-// }
+	command.replyToInvoker(319, args);
+}
 
 static void _rpl_whoisserver(Command &command, User *user) {
 	std::vector<std::string> args;
@@ -111,7 +118,7 @@ void WHOIS(Command &command) // TODO : Channel update, add 319 WHOISCHANNELS and
 		} else {
 			_rpl_whoisuser(command, user); // 311
 			_rpl_whoishost(command, user); // 378
-			// _rpl_whoischannels(command, user); // 319
+			_rpl_whoischannels(command, user); // 319
 			_rpl_whoisserver(command, user); // 312
 			_rpl_whoismodes(command, user); // 379
 			_rpl_whoisidle(command, user); // 317

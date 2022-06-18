@@ -91,6 +91,7 @@ bool	Channel::addUser(User *user)
 	if (_inviteOnly && !isInvited(user))
 		return false;
 	_members.push_back(user);
+	user->addChannelToUser(this);
 	_userModes.insert(std::make_pair(user, ""));
 	if (!_nbrMember)
 		setUserMode("o", user);
@@ -107,6 +108,7 @@ bool	Channel::removeUser(User *user)
 		return false;
 	_members.erase(it);
 	_userModes.erase(user);
+	user->removeChannelFromUser(this);
 	_nbrMember--;
 	if (!_nbrMember)
 		_isAlive = false;

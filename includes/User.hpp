@@ -17,6 +17,7 @@
 # include <map>
 
 class Command;
+class Channel;
 
 class User
 {
@@ -58,6 +59,10 @@ public:
 	void			appendCommandBuf(std::string commandBuf);
 	void			setMode(std::string mode);
 
+	std::vector<Channel*>	getChannels(void);
+	void			addChannelToUser(Channel *channel);
+	void			removeChannelFromUser(Channel *channel);
+
 	// IO User methods
 	void			addCommand(const Command& command);
 	void			execCommandQueue(void);
@@ -79,6 +84,7 @@ private:
 	std::string 										_hostname;
 	std::string 										_mode;
 	time_t												_signon;
+	std::vector<Channel*>								_channels;
 
 	// Init user Class
 	static void											_initUserClass(void);

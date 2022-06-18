@@ -14,6 +14,7 @@
 #include <string>
 #include <map>
 #include <sstream>
+#include <algorithm>
 #include "User.hpp"
 #include "types/Nullptr_t.hpp"
 #include "IrcMessages.hpp"
@@ -67,6 +68,7 @@ std::string 	User::getTruename(void) const {return this->_truename;}
 std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
 std::string 	User::getMode(void) const {return this->_mode;}
 bool			User::repliesAvalaible(void) const {return !_responseQueue.empty();}
+std::vector<Channel*>	User::getChannels(void) {return _channels;}
 
 std::string	 	User::getRawSignon(void) const {
 	std::stringstream ss;
@@ -145,6 +147,17 @@ void	User::clearCommandBuff(void) {
 }
 void	User::appendCommandBuf(std::string commandBuf) {
 	this->_commandBuf += commandBuf;
+}
+
+void	User::addChannelToUser(Channel *channel) {
+	_channels.push_back(channel);
+}
+
+void	User::removeChannelFromUser(Channel *channel) {
+	typedef std::vector<Channel*>::iterator channel_iterator;
+
+	channel_iterator it = std::find(_channels.begin(), _channels.end(), channel);
+	_channels.erase(it);
 }
 
 
