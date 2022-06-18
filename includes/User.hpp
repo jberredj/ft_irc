@@ -31,7 +31,7 @@ public:
 
 	//operators
 	User&			operator=(const User& rhs);
-	
+
 	//getters
 	Status			getStatus(void) const;
 	std::string		getUsername(void) const;
@@ -83,7 +83,6 @@ private:
 	// Init user Class
 	static void											_initUserClass(void);
 	static std::map<std::string, void (*)(Command&)>	_cmdMap;
-	static bool											_inited;
 };
 
 std::ostream&	operator<<(std::ostream& o, const User & rhs);
