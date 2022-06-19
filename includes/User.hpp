@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/18 15:55:40 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/19 17:40:13 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class Command;
 class User
 {
 public:
-	enum			Status {PASSWORD, REGISTER, ONLINE, AWAY, OFFLINE, DELETE};
+	enum			Status {PASSWORD, REGISTER, ONLINE, OFFLINE, DELETE};
 
 	// Constructors and destructor
 					User(void);

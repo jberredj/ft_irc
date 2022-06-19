@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 22:09:44 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/19 17:37:42 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	User::_initUserClass(void)
 		_cmdMap["BAN"] = BAN;
 		Logger(Output::WARN) << "BAN NOT IN RFC 1459. USE MODE <channe> +b <target> INSTEAD. BAN message is not implemented yet";
 		Logger(Output::TRACE) << "User command map initiated";
+		_cmdMap["AWAY"] = AWAY;
+		// Logger(Output::WARN) << "INVITE message is not implemented yet";
 	}
 }
 
