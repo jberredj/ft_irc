@@ -15,26 +15,26 @@
 #include "Command.hpp"
 #include "IrcMessages.hpp"
 
-void	MODE(Command &command)
-{
-    User &user = command.getInvoker();
-	int response = 0;
+static void mode_channel(Command &command) {
+	std::cout << "Mode channel spotted" << std::endl;
+	std::cout << command.getParameters()[0] << std::endl;
+	std::cout << command.getParameters()[1] << std::endl;
+
+	
+	return;
+}
+
+static void mode_user(Command &command) { // TODO : Seems to have some bug (Try to remove one or several flag at once)
 	std::vector<std::string> args;
+	User &user = command.getInvoker();
 	bool minus_flag = false;
 	std::string requested_mode;
     std::string new_mode;
 	std::string u_flags = "-+iwso";
 
-	if (command.getParameters().size() < 2)
-	{
-		response = 461;
-		args.push_back(command.getCommand());
-		return command.replyToInvoker(response, args);
-	}
 	if (command.getParameters()[0] != user.getNickname() && user.getMode().find("o") == std::string::npos)
 	{
-		response = 502;
-		return command.replyToInvoker(response, args);
+		return command.replyToInvoker(502, args);
 	}
 	requested_mode = command.getParameters()[1];
     new_mode = user.getMode();
@@ -46,8 +46,7 @@ void	MODE(Command &command)
 			minus_flag = false;
 		else if (u_flags.find(requested_mode[i]) == std::string::npos)
 		{
-			response = 501;
-			return command.replyToInvoker(response, args);
+			return command.replyToInvoker(501, args);
 		}
 		else if (requested_mode[i] == 'o' && !minus_flag && new_mode.find("o") == std::string::npos)
 			continue;
@@ -61,7 +60,22 @@ void	MODE(Command &command)
 		}
 	}
 	user.setMode(new_mode);
-	response = 221;
 	args.push_back(new_mode);
-	return command.replyToInvoker(response, args);	
+	return command.replyToInvoker(221, args);	
+}
+
+void	MODE(Command &command)
+{
+	std::vector<std::string> args;
+	if (command.getParameters().size() < 2)
+	{
+		args.push_back(command.getCommand());
+		return command.replyToInvoker(461, args);
+	}
+
+	if (command.getParameters()[0][0] == '#') {
+		mode_channel(command);
+	} else {
+		mode_user(command);
+	}
 }
