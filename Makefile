@@ -48,13 +48,15 @@ IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))
 
 LOGGER				=	Logger.cpp Output.cpp
 LOGGER_SRCS			=	$(addprefix srcs/Logger/, $(LOGGER))
-LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,.,\
-							$(LOGGER:.cpp=.o)))
+LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,., $(LOGGER:.cpp=.o)))
+
+MODE				=	Mode.cpp ChannelMode.cpp
+MODE_SRCS			=	$(addprefix srcs/Mode/, $(MODE))
+MODE_OBJS			=	$(addprefix objs/Mode., $(subst /,., $(MODE:.cpp=.o)))
 
 SERVER				=	ChannelInteraction.cpp run.cpp Server.cpp socketIO.cpp UserInteractions.cpp
 SERVER_SRCS			=	$(addprefix srcs/Server/, $(SERVER))
-SERVER_OBJS			=	$(addprefix objs/Server., $(subst /,.,\
-							$(SERVER:.cpp=.o)))
+SERVER_OBJS			=	$(addprefix objs/Server., $(subst /,., $(SERVER:.cpp=.o)))
 
 TYPES				=	Nullptr_t.cpp 
 TYPES_SRCS			=   $(addprefix srcs/types/, $(TYPES))
@@ -69,11 +71,11 @@ MAIN_SRCS			=   $(addprefix srcs/, $(MAIN))
 MAIN_OBJS			=   $(addprefix objs/, $(subst /,., $(MAIN:.cpp=.o)))
 
 SRCS				= 	$(CHANNEL_SRCS) $(COMMANDS_SRCS) $(IRC_SRCS) \
-							$(LOGGER_SRCS) $(SERVER_SRCS) $(TYPES_SRCS) \
-							$(USER_SRCS) $(MAIN_SRCS)
+							$(LOGGER_SRCS) $(MODE_SRCS) $(SERVER_SRCS) \
+							$(TYPES_SRCS) $(USER_SRCS) $(MAIN_SRCS) 
 OBJS				= 	$(CHANNEL_OBJS) $(COMMANDS_OBJS) $(IRC_OBJS) \
-							$(LOGGER_OBJS) $(SERVER_OBJS) $(TYPES_OBJS) \
-							$(USER_OBJS) $(MAIN_OBJS)
+							$(LOGGER_OBJS) $(MODE_OBJS) $(SERVER_OBJS) \
+							$(TYPES_OBJS) $(USER_OBJS) $(MAIN_OBJS)
 
 ###############################################################################
 ##							Color output char								 ##

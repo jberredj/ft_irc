@@ -6,3 +6,4 @@ objs/*
 deps/*.d
 deps/
 .vscode/
+test*
