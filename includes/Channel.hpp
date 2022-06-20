@@ -13,6 +13,7 @@
 #ifndef CHANNEL_HPP
 # define CHANNEL_HPP
 # include "User.hpp"
+# include "ChannelMode.hpp"
 # include <map>
 # include <vector>
 # include <string>
@@ -32,7 +33,7 @@ public:
 
 	bool	setUserLimit(int limit);
 	bool	setUserMode(std::string mode, User* user);
-	void	setChannelMode(std::string mode);
+	// void	setChannelModes(std::string mode);
 	bool	addUser(User *user);
 	bool	removeUser(User *user);
 	void	broadcastMessage(std::string message, User *sender = ft::null_ptr);
@@ -45,15 +46,15 @@ public:
 	std::string	getName(void) const;
 	int			getUserLimit(void) const;
 	std::string	getUserMode(User* user);
-	std::string	getChannelMode(void) const;
-	
 	std::vector<User*>	getMembers(void) const;
+	ChannelMode	getChannelMode(void) const;
+
 private:
 	bool							_isAlive;
 	std::string						_name;
 	int								_userLimit;
 	int								_nbrMember;
-	std::string						_mode;
+	ChannelMode						_modes;
 	std::vector<User*>				_members;
 	bool							_inviteOnly;
 	std::vector<User*>				_inviteList;

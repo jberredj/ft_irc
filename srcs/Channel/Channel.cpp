@@ -15,20 +15,20 @@
 #include <algorithm>
 
 Channel::Channel(void):
-_isAlive(true), _name("DEFAULT"), _userLimit(-1), _nbrMember(0), _mode(""), _members(), _inviteOnly(false),
+_isAlive(true), _name("DEFAULT"), _userLimit(-1), _nbrMember(0), _modes(), _members(), _inviteOnly(false),
 _inviteList(), _banList(), _userModes()
 {
 }
 
 Channel::Channel(const Channel &src):
-_isAlive(src._isAlive), _name(src._name), _userLimit(src._userLimit), _nbrMember(src._nbrMember), _mode(src._mode),
+_isAlive(src._isAlive), _name(src._name), _userLimit(src._userLimit), _nbrMember(src._nbrMember), _modes(src._modes),
 _members(src._members), _inviteOnly(src._inviteOnly), _inviteList(src._inviteList), _banList(src._banList),
 _userModes(src._userModes)
 {
 }
 
 Channel::Channel(std::string name):
-_isAlive(true), _name(name), _userLimit(-1), _nbrMember(0), _mode(""), _members(), _inviteOnly(false), _inviteList(),
+_isAlive(true), _name(name), _userLimit(-1), _nbrMember(0), _modes(), _members(), _inviteOnly(false), _inviteList(),
 _banList(), _userModes()
 {
 }
@@ -45,7 +45,7 @@ Channel	&Channel::operator=(const Channel &rhs)
 		_name = rhs._name;
 		_userLimit = rhs._userLimit;
 		_nbrMember = rhs._nbrMember;
-		_mode = rhs._mode;
+		_modes = rhs._modes;
 		_members = rhs._members;
 		_inviteOnly = rhs._inviteOnly;
 		_inviteList = rhs._inviteList;
@@ -78,7 +78,9 @@ bool	Channel::setUserMode(std::string mode, User* user)
 
 }
 
-void	Channel::setChannelMode(std::string mode) {_mode=mode;}
+// void	Channel::setChannelModes(std::string modes) {
+// 	_modes = modes;
+// }
 
 bool	Channel::addUser(User *user)
 {
@@ -136,7 +138,7 @@ std::string	Channel::getUserMode(User* user)
 		return "";
 	return _userModes[user];
 }
-std::string	Channel::getChannelMode(void) const {return _mode;}
+ChannelMode	Channel::getChannelMode(void) const {return _modes;}
 
 bool	Channel::isBanned(User *user)
 {
