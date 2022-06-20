@@ -38,7 +38,7 @@ void    OPER(Command& command)
     response = 381;
     command.replyToInvoker(response, args); 
     std::string modeO = user.getMode();
-    if (modeO.find("o") == std::string::npos)
+    if (modeO.find("o") == std::string::npos) // todo: update this when updating UserMode
     modeO = modeO + "o";
     user.setMode(modeO);
     response = 221;
