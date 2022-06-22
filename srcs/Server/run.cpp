@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:06 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/22 18:55:28 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 00:13:15 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <poll.h>
 #include <sys/fcntl.h>
 #include "Server.hpp"
+#include "typedefs.hpp"
 #include "User.hpp"
 #include "Logger.hpp"
 
@@ -55,13 +56,13 @@ void	Server::run(void)
 
 void	Server::_treatUserMessages(void)
 {
-	for(std::map<int, User*>::iterator ctx_it = _usersMap.begin();
-		ctx_it != _usersMap.end(); ctx_it++)
+	for(userVec::iterator ctx_it = _users.begin();
+		ctx_it != _users.end(); ctx_it++)
 	{
 		// User::Status	state = (*ctx_it).second->getStatus();
 		try 
 		{
-			(*ctx_it).second->execCommandQueue();
+			(*ctx_it)->execCommandQueue();
 		}
 		catch (const std::exception& e)
 		{

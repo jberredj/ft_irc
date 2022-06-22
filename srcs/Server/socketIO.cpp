@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:37:21 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/17 15:08:37 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 00:08:04 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	Server::_socketReadInput(std::vector<struct pollfd>::iterator it)
 
 void	Server::_socketWrite(std::vector<struct pollfd>::iterator it)
 {
-	if (_usersMap[(*it).fd]->repliesAvalaible())
+	if (_usersMap[(*it).fd] && _usersMap[(*it).fd]->repliesAvalaible())
 	{
 		std::string	payload = _usersMap[(*it).fd]->getReplies();
 		const char	*rawBuf = payload.c_str();

@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:56:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/22 19:01:59 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 00:20:33 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,15 @@ void	Server::_pruneUser(void) {
 	for (pollfdsIterator connector = _pollfds.begin() + 1; connector != _pollfds.end(); connector++) {
 		int		socket = (*connector).fd;
 		User*	user = _usersMap[socket];
-		
+		if (!user)
+			continue;
+
 		switch (user->getStatus()) {
 		case User::DELETE:
 			_closeClient(user, socket);
 			closedConnector.push_back(connector);
 		case User::OFFLINE:
+			(*connector).events = POLLOUT;
 			_tryUnregisterUser(user, socket);
 			break;
 		default:
