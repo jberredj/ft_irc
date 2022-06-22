@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/16 01:33:17 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 23:24:36 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ public:
 	void						addChannel(Channel *channel);
 
 	// Replies functions
-	void						replyAll(int code,
-									std::vector<std::string> args
-									= std::vector<std::string>());
+	void						replyAllReachable(std::string message);
+	void						replyAllReachable(int code, std::vector<std::string> args);
 	void						replyToInvoker(int code,
 									std::vector<std::string> args
 									= std::vector<std::string>());
@@ -74,7 +73,8 @@ private:
 	Server*						_server;
 
 	// Replies functions
-	void						_reply(User* sender, User* receiver, int code,
+	
+	std::string					_reply(User* sender, User* receiver, int code,
 									std::vector<std::string> args
 									= std::vector<std::string>());
 };

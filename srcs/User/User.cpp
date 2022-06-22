@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 19:00:55 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 23:30:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sstream>
 #include <algorithm>
 #include "User.hpp"
-#include "types/Nullptr_t.hpp"
+#include "typedefs.hpp"
 #include "IrcMessages.hpp"
 
 /* ************************************************************************** */
@@ -40,7 +40,9 @@ User::User(const User& src)
 	*this = src;
 }
 
-User::~User() {Logger(Output::TRACE) << "User destructor called";}
+User::~User() {
+	Logger(Output::TRACE) << "User destructor called";
+}
 
 //operators
 User &User::operator=(User const & rhs)
@@ -162,9 +164,8 @@ void	User::addChannelToUser(Channel *channel) {
 }
 
 void	User::removeChannelFromUser(Channel *channel) {
-	typedef std::vector<Channel*>::iterator channel_iterator;
 
-	channel_iterator it = std::find(_channels.begin(), _channels.end(), channel);
+	channelIterator it = std::find(_channels.begin(), _channels.end(), channel);
 	_channels.erase(it);
 }
 

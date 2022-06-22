@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:19:33 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/22 18:49:21 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 19:38:14 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ public:
 	void	setInvite(bool invite);
 	bool	getInvite(void) const;
 	bool	isInvited(User* user);
-
 	bool	isAlive(void) const;
+
 	std::string	getName(void) const;
 	int			getUserLimit(void) const;
 	std::string	getUserMode(User* user);
 	std::string	getChannelMode(void) const;
+	
+	std::vector<User*>	getMembers(void) const;
 private:
 	bool							_isAlive;
 	std::string						_name;

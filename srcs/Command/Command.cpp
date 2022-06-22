@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 10:45:04 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 23:24:09 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,21 +134,41 @@ void	Command::addChannel(Channel *channel) {_server->addChannel(channel);}
 
 
 // Replies functions
-void	Command::replyAll(int code, std::vector<std::string> args)
+
+void	Command::replyAllReachable(std::string message)
 {
-	(void)code;
-	(void)args;
-	Logger(Output::WARN) << "replyAll() not implemented yet";
+	std::vector<Channel*> channels(_invoker->getChannels());
+	userVec	uniqueUser;
+
+	for (channelIterator it = channels.begin(); it != channels.end(); it++)
+	{
+		userVec channelUser = (*it)->getMembers();
+		userVec merged;
+		std::sort(channelUser.begin(), channelUser.end());
+		std::merge(uniqueUser.begin(), uniqueUser.end(), channelUser.begin(), channelUser.end(),
+			std::back_inserter(merged));
+		userVec::iterator dupesIt = std::unique(merged.begin(), merged.end());
+		merged.erase(dupesIt, merged.end());
+		uniqueUser = merged;
+	}
+	for (userVec::iterator it = uniqueUser.begin(); it != uniqueUser.end(); it++)
+		if (*it != _invoker)
+			(*it)->addReply(message);
+}
+
+void	Command::replyAllReachable(int code, std::vector<std::string> args)
+{
+	replyAllReachable(_reply(_invoker, ft::null_ptr, code, args));
 }
 
 void	Command::replyToInvoker(int code, std::vector<std::string> args)
 {
-	_reply(ft::null_ptr, _invoker, code, args);
+	_invoker->addReply(_reply(ft::null_ptr, _invoker, code, args));
 }
 
 void	Command::invokerSendTo(User* receiver, int code, std::vector<std::string> args)
 {
-	_reply(_invoker, receiver, code, args);
+	receiver->addReply(_reply(_invoker, receiver, code, args));
 }
 
 /* ************************************************************************** */
@@ -156,7 +176,7 @@ void	Command::invokerSendTo(User* receiver, int code, std::vector<std::string> a
 /* ************************************************************************** */
 
 // Replies functions
-void	Command::_reply(User* sender, User* receiver, int code,
+std::string	Command::_reply(User* sender, User* receiver, int code,
 					std::vector<std::string> args)
 {
 	std::string	reply;
@@ -174,7 +194,7 @@ void	Command::_reply(User* sender, User* receiver, int code,
 		reply += receiver->getNickname() + " ";
 	}
 	reply += Reply().getReply(code, args);
-	receiver->addReply(reply);
+	return reply;
 }
 
 /* ************************************************************************** */

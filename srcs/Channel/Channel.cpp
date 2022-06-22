@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/22 18:50:55 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 19:38:54 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ bool	Channel::isInvited(User* user)
 		return true;
 	return false;
 }
+
+std::vector<User*>	Channel::getMembers(void) const {return _members;}
 
 bool	Channel::_banUser(User* user)
 {
