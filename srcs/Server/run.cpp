@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:34:06 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 01:27:09 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:05:29 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	Server::run(void)
 	while (_running)
 	{
 		int	pollResult = poll(static_cast<struct pollfd*>(&(*_pollfds.begin())),
-							_pollfds.size(), 5000);
+							_pollfds.size(), 0);
 		if (pollResult > 0)
 		{
 			if (_pollfds[0].revents & POLLIN)

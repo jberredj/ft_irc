@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:56:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/13 19:54:59 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:11:24 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <poll.h>
 #include <vector>
 #include <algorithm>
-#include "types/Nullptr_t.hpp"
+#include "typedefs.hpp"
 #include "User.hpp"
 #include "Logger.hpp"
 #include "Server.hpp"
@@ -24,8 +24,7 @@
 /*                                 Public                                     */
 /* ************************************************************************** */
 
-User*	Server::getUser(std::string nickname)
-{
+User*	Server::getUser(std::string nickname) {
 	std::vector<User *>::iterator user = _users.begin();
 
 	while (user != _users.end()) {
@@ -38,8 +37,7 @@ User*	Server::getUser(std::string nickname)
 
 std::vector<User*>*	Server::getUsers(void) {return &_users;}
 
-User*	Server::getOldUser(std::string nickname)
-{
+User*	Server::getOldUser(std::string nickname) {
 	std::vector<User *>::iterator user = _oldUsers.begin();
 
 	while (user != _oldUsers.end()) {
@@ -56,8 +54,7 @@ std::vector<User*>*	Server::getOldUsers(void) {return &_oldUsers;}
 /*                                 Private                                    */
 /* ************************************************************************** */
 
-void	Server::_addNewUser(int socketToBind, struct sockaddr_in cliAddr)
-{
+void	Server::_addNewUser(int socketToBind, struct sockaddr_in cliAddr) {
 	
 	User*	new_user = new User();
 	new_user->setHostname(inet_ntoa(cliAddr.sin_addr));	
@@ -66,30 +63,42 @@ void	Server::_addNewUser(int socketToBind, struct sockaddr_in cliAddr)
 	_users.push_back(new_user);
 }
 
-void	Server::_pruneUser(void)
+void	Server::_tryUnregisterUser(User *user, int socket) {
+	if (!user->repliesAvalaible()) {
+		_usersMap.erase(_usersMap.find(socket));
+		_users.erase(std::find(_users.begin(), _users.end(), user));
+		_oldUsers.push_back(user);
+	}
+}
+
+void	Server::_closeClient(User *user, int socket)
 {
-	std::vector<std::vector<struct pollfd>::iterator>	toErase;
+	close(socket);
+	user->clearReplies();
+	user->clearCommandQueue();
+	user->clearCommandBuff();
+	Logger(Output::DEBUG) << "Close connection on socket: " << socket;
+}
+
+void	Server::_pruneUser(void) {
+	std::vector<pollfdsIterator>	closedConnector;
 	
-	for (std::vector<struct pollfd>::iterator it = _pollfds.begin() + 1;
-		it != _pollfds.end(); it++)
-	{
-		User*	ctx = _usersMap[(*it).fd];
-		switch (ctx->getStatus())
-		{
+	for (pollfdsIterator connector = _pollfds.begin() + 1; connector != _pollfds.end(); connector++) {
+		int		socket = (*connector).fd;
+		User*	user = _usersMap[socket];
+		
+		switch (user->getStatus()) {
 		case User::DELETE:
-			close((*it).fd);
-			Logger(Output::DEBUG) << "Close connection on socket: " << (*it).fd;
+			_closeClient(user, socket);
+			closedConnector.push_back(connector);
+			Logger(Output::DEBUG) << "Close connection on socket: " << socket;
 		case User::OFFLINE:
-			_usersMap.erase(_usersMap.find((*it).fd));
-			_users.erase(std::find(_users.begin(), _users.end(), ctx));
-			toErase.push_back(it);
-			_oldUsers.push_back(ctx);
+			_tryUnregisterUser(user, socket);
 			break;
 		default:
 			break;
 		}
 	}
-	for (std::vector<std::vector<struct pollfd>::iterator>::iterator 
-		it = toErase.begin(); it != toErase.end(); it++)
+	for (std::vector<pollfdsIterator>::iterator it = closedConnector.begin(); it != closedConnector.end(); it++)
 			_pollfds.erase(*it);
 }

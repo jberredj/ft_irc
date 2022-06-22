@@ -92,6 +92,8 @@ private:
 	// User interactions methods and functions
 	void 		_addNewUser(int socketToBind, struct sockaddr_in cliAddr);
 	void		_pruneUser(void);
+	void		_tryUnregisterUser(User *user, int socket);
+	void		_closeClient(User *user, int socket);
 };
 
 #endif

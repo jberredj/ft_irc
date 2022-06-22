@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 10:53:30 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:04:11 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,12 @@ void 	User::addCommand(Command const & command) {
 	_commandQueue.push(command);
 }
 
+void	User::clearCommandQueue(void)
+{
+	while(_commandQueue.empty())
+		_commandQueue.pop();
+}
+
 void    User::execCommandQueue()
 {
 	if (!_cmdMap.size())
@@ -217,6 +223,14 @@ std::string	User::getReplies(void)
 		reply.erase(0, 509);
 	}
 	return payload;
+}
+
+void	User::clearReplies(void) 
+{
+	while (!_responseQueue.empty())
+	{
+		_responseQueue.pop();
+	}
 }
 
 /* ************************************************************************** */

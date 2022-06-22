@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:45:54 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 21:11:57 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:11:29 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <vector>
 # include "types/Nullptr_t.hpp"
 # define INSPIRCD_MAX_LEN 64
+# include <poll.h>
+typedef std::vector<pollfd> pollfds;
+typedef pollfds::iterator pollfdsIterator;
 typedef std::vector<std::string> strVec;
+
 
 #endif

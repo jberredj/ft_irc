@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 10:51:12 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:03:32 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ public:
 
 	// IO User methods
 	void			addCommand(const Command& command);
+	void			clearCommandQueue(void);
 	void			execCommandQueue(void);
 	void			addReply(std::string reply);
 	std::string		getReplies(void);
+	void			clearReplies(void);
 	void			tryAuthentificate(Command &cmd);
 	bool			isAway(void);
 
