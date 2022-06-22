@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   USER.cpp                                           :+:      :+:    :+:   */
+/*   AWAY.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/14 12:36:58 by esommier          #+#    #+#             */
-/*   Updated: 2022/06/22 10:45:14 by jberredj         ###   ########.fr       */
+/*   Created: 2022/06/19 15:44:24 by ddiakova          #+#    #+#             */
+/*   Updated: 2022/06/22 10:51:44 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "typedefs.hpp"
 #include "Logger.hpp"
 #include "User.hpp"
 #include "Command.hpp"
 #include "IrcMessages.hpp"
 
-void	USER(Command &command)
+void	AWAY(Command& command)
 {
-	int	response = 0;
 	std::vector<std::string> args;
 
-	if (command.getParameters().size() < 4)
+	Logger(Output::DEBUG) << "ENTERED IN AWAY";
+	if (command.getParameters().size() == 0)
 	{
-		response = 461;
-		args.push_back(command.getCommand());
-		return command.replyToInvoker(response, args);
+		command.replyToInvoker(305, args);
+		command.getInvoker().getAwaymsg().clear();
 	}
-	if (command.getInvoker().getStatus() != User::PASSWORD)
+	else
 	{
-		response = 462;
-		return command.replyToInvoker(response, args);
+		command.getInvoker().setAwayMsg(command.getTrailer());
+		command.replyToInvoker(306, args);
 	}
-	command.getInvoker().setUsername(command.getParameters()[0]);
-	command.getInvoker().setTruename(command.getTrailer());
-	command.getInvoker().tryAuthentificate(command);	
 }

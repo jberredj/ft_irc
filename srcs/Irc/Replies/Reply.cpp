@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/15 18:39:23 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:31:08 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(001, RPL_WELCOME));
 		_replies.insert(std::make_pair(221, RPL_UMODEIS));
 		_replies.insert(std::make_pair(301, RPL_AWAY));
+		_replies.insert(std::make_pair(305, RPL_UNAWAY));
+		_replies.insert(std::make_pair(306, RPL_NOWAWAY));
 		_replies.insert(std::make_pair(311, RPL_WHOISUSER));
 		_replies.insert(std::make_pair(312, RPL_WHOISSERVER));
 		_replies.insert(std::make_pair(313, RPL_WHOISOPERATOR));

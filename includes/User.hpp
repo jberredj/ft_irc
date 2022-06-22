@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/16 22:09:18 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:51:12 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ public:
 	std::string		getRawSignon(void) const;
 	std::string		getIdle(void) const;
 	std::string		getMode(void) const;
+	std::string		getAwaymsg(void) const; 
 	bool			repliesAvalaible(void) const;
 	
 	//setters
@@ -58,6 +59,7 @@ public:
 	void			clearCommandBuff(void);
 	void			appendCommandBuf(std::string commandBuf);
 	void			setMode(std::string mode);
+	void			setAwayMsg(std::string msg);
 
 	std::vector<Channel*>	getChannels(void);
 	void			addChannelToUser(Channel *channel);
@@ -69,6 +71,7 @@ public:
 	void			addReply(std::string reply);
 	std::string		getReplies(void);
 	void			tryAuthentificate(Command &cmd);
+	bool			isAway(void);
 
 private:
 	std::string 										_commandBuf;
@@ -83,6 +86,7 @@ private:
 	std::string 										_truename;
 	std::string 										_hostname;
 	std::string 										_mode;
+	std::string											_awayMsg;
 	time_t												_signon;
 	std::vector<Channel*>								_channels;
 

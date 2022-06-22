@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcMessages.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 22:13:30 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/19 17:38:11 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void    WHOWAS(Command& command);
 void    OPER(Command& command);
 void    KILL(Command& command);
 void    JOIN(Command& command);
+void    AWAY(Command& command);
 
 // Replies not in RFC
 std::string	RPL_PONG(std::vector<std::string> args);
@@ -42,6 +43,8 @@ std::string RPL_KILL(std::vector<std::string> args);
 std::string	RPL_WELCOME(std::vector<std::string> args);
 std::string	RPL_UMODEIS(std::vector<std::string> args);
 std::string	RPL_AWAY(std::vector<std::string> args);
+std::string	RPL_UNAWAY(std::vector<std::string> args);
+std::string	RPL_NOWAWAY(std::vector<std::string> args);
 std::string	RPL_WHOISUSER(std::vector<std::string> args);
 std::string	RPL_WHOISSERVER(std::vector<std::string> args);
 std::string	RPL_WHOISOPERATOR(std::vector<std::string> args);

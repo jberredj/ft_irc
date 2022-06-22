@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPL.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 20:48:53 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:51:12 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@ std::string	RPL_UMODEIS(std::vector<std::string> args)
 std::string	RPL_AWAY(std::vector<std::string> args)
 {
 	return args[0] + " :" + args[1];
+}
+
+std::string	RPL_UNAWAY(std::vector<std::string> args)
+{
+	(void)args;
+	return ":You are no longer marked as being away";
+}
+
+std::string	RPL_NOWAWAY(std::vector<std::string> args)
+{
+	(void)args;
+	return ":You have been marked as being away";
 }
 
 std::string	RPL_WHOISUSER(std::vector<std::string> args)
