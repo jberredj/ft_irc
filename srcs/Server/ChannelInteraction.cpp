@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 01:09:10 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 21:27:28 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 00:41:46 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,13 @@ void	Server::_pruneChannel()
 	std::map<std::string, Channel*>::iterator it;
 	std::vector<std::map<std::string, Channel*>::iterator> channelToRemove;
 	for (it = _channels.begin(); it != _channels.end(); it++)
+	{
 		if (!(*it).second->isAlive())
+		{
 			channelToRemove.push_back(it);
+			delete (*it).second;
+		}
+	}
 	std::vector<std::map<std::string, Channel*>::iterator>::iterator ohGodThatSyntax;
 	for (ohGodThatSyntax = channelToRemove.begin(); ohGodThatSyntax != channelToRemove.end(); ohGodThatSyntax++)
 		_channels.erase((*ohGodThatSyntax));

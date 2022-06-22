@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 23:30:59 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 00:36:03 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ User::User(const User& src)
 
 User::~User() {
 	Logger(Output::TRACE) << "User destructor called";
+	for (channelIterator it = _channels.begin(); it != _channels.end(); it++)
+		(*it)->removeUser(this);
+	_channels.clear();
 }
 
 //operators
@@ -169,6 +172,7 @@ void	User::removeChannelFromUser(Channel *channel) {
 	_channels.erase(it);
 }
 
+void	User::clearChannels(void) {_channels.clear();}
 
 // IO User methods
 void 	User::addCommand(Command const & command) {

@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 18:58:42 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 00:35:16 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ public:
 	std::vector<Channel*>	getChannels(void);
 	void			addChannelToUser(Channel *channel);
 	void			removeChannelFromUser(Channel *channel);
+	void			clearChannels(void);
 
 	// IO User methods
 	void			addCommand(const Command& command);

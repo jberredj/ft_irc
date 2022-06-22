@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:56:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 00:20:33 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 00:37:41 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ void	Server::_addNewUser(int socketToBind, struct sockaddr_in cliAddr) {
 
 void	Server::_tryUnregisterUser(User *user, int socket) {
 	if (!user->repliesAvalaible()) {
+		std::vector<Channel*> userChannels = user->getChannels();
+		for (channelIterator it = userChannels.begin(); it != userChannels.end(); it++)
+			(*it)->removeUser(user);
+		user->clearChannels();
 		_usersMap.erase(_usersMap.find(socket));
 		_users.erase(std::find(_users.begin(), _users.end(), user));
 		_oldUsers.push_back(user);

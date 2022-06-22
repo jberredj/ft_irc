@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/13 19:45:57 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 00:27:08 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-
+#include "typedefs.hpp"
 #include "Logger.hpp"
 #include <poll.h>
 #include <sys/fcntl.h>
@@ -64,7 +64,10 @@ Server::~Server(void)
 		delete (*it);
 	for(std::vector<struct pollfd>::iterator it = _pollfds.begin();
 		it != _pollfds.end(); it++)
-			close((*it).fd);	
+			close((*it).fd);
+	for(std::map<std::string, Channel*>::iterator it = _channels.begin(); it != _channels.end(); it++)
+		if ((*it).second)
+			delete (*it).second;
 	close(_serverSocket);
 	close(_portInstanceLock);
 }
