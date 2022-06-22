@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PRIVMSG.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:35:49 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/18 15:50:25 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/22 18:54:56 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	msgChannel(Command& command, std::string str_receiver)
 	}
 	channel = command.getChannel(str_receiver);
 	channel->broadcastMessage(":" + command.getInvoker().getPrefix() +" PRIVMSG " + str_receiver + " :" 
-		+ command.getTrailer());
+		+ command.getTrailer(), &command.getInvoker());
 }
 
 

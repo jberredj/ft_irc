@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 14:44:49 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 18:50:55 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,11 @@ bool	Channel::removeUser(User *user)
 		_isAlive = false;
 	return true;
 }
-void	Channel::broadcastMessage(std::string message)
+void	Channel::broadcastMessage(std::string message, User *sender)
 {
 	for (std::vector<User*>::iterator it = _members.begin(); it != _members.end(); it++)
-		(*it)->addReply(message);
+		if ((*it) != sender)
+			(*it)->addReply(message);
 }
 
 bool	Channel::isAlive(void) const {return _isAlive;}

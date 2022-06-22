@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:56:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/22 16:11:24 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 19:01:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	Server::_pruneUser(void) {
 		case User::DELETE:
 			_closeClient(user, socket);
 			closedConnector.push_back(connector);
-			Logger(Output::DEBUG) << "Close connection on socket: " << socket;
 		case User::OFFLINE:
 			_tryUnregisterUser(user, socket);
 			break;

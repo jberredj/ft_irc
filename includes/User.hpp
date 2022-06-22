@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 16:03:32 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 18:58:42 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ public:
 	// Constructors and destructor
 					User(void);
 					User(const User& src);
-					User(std::string* serverPassWd);
 					~User(void);
 
 	//operators

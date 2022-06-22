@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:19:33 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 01:08:43 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 18:49:21 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <map>
 # include <vector>
 # include <string>
+# include "types/Nullptr_t.hpp"
 
 class Server;
 
@@ -34,7 +35,7 @@ public:
 	void	setChannelMode(std::string mode);
 	bool	addUser(User *user);
 	bool	removeUser(User *user);
-	void	broadcastMessage(std::string message);
+	void	broadcastMessage(std::string message, User *sender = ft::null_ptr);
 	bool	isBanned(User *user);
 	void	setInvite(bool invite);
 	bool	getInvite(void) const;

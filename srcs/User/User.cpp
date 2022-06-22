@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 16:04:11 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/22 19:00:55 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void 	User::addCommand(Command const & command) {
 
 void	User::clearCommandQueue(void)
 {
-	while(_commandQueue.empty())
+	while(!_commandQueue.empty())
 		_commandQueue.pop();
 }
 
