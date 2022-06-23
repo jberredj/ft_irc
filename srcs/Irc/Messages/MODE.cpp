@@ -26,10 +26,6 @@ static void mode_channel(Command &command) {
 	return;
 }
 
-static bool _command_refers_to_user(Command &command) {
-	return (command.getParameters().front() == command.getInvoker().getNickname());
-}
-
 static void mode_user(Command &command) { // TODO : Seems to have some bug (Try to remove one or several flag at once)
 	std::vector<std::string> args;
 	User &user = command.getInvoker();
@@ -38,10 +34,8 @@ static void mode_user(Command &command) { // TODO : Seems to have some bug (Try 
     std::string new_mode;
 	std::string u_flags = "-+iwso";
 
-	if (!user.isOperator() || !_command_refers_to_user(command))
-	{
+	if (!user.isOperator() || !command.targetsInvoker())
 		return command.replyToInvoker(502, args);
-	}
 	requested_mode = command.getParameters()[1];
     new_mode = user.getModesList();
 	for (size_t i = 0; i < requested_mode.size(); i++)

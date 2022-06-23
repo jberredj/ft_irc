@@ -53,6 +53,7 @@ public:
 	Channel*					getChannel(std::string name);
 	std::map<std::string, Channel*>*	getChannels(void);
 	void						addChannel(Channel *channel);
+	bool						targetsInvoker(void) const;
 
 	// Replies functions
 	void						replyAllReachable(std::string message);

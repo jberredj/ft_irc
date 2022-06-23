@@ -132,6 +132,9 @@ Channel*	Command::getChannel(std::string name) {return _server->getChannel(name)
 std::map<std::string, Channel*>*	Command::getChannels(void) {return _server->getChannels();}
 void	Command::addChannel(Channel *channel) {_server->addChannel(channel);}
 
+bool	Command::targetsInvoker(void) const {
+	return (getParameters().front() == getInvoker().getNickname());
+}
 
 // Replies functions
 
