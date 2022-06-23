@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/23 10:47:01 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 11:07:12 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_password(""), _username(""), _nickname("*"), _truename(""),
-	_hostname("127.0.0.1"), _mode(""), _awayMsg(""), _signon(std::time(ft::null_ptr))
+	_hostname("127.0.0.1"), _mode(""), _awayMsg(""), _signon(std::time(ft::null_ptr)), _channels()
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -42,8 +42,12 @@ User::User(const User& src)
 
 User::~User() {
 	Logger(Output::TRACE) << "User destructor called";
-	for (channelIterator it = _channels.begin(); it != _channels.end(); it++)
+	channelIterator it = _channels.begin(); 
+	while (it != _channels.end())
+	{
 		(*it)->removeUser(this);
+		channelIterator it = _channels.begin();
+	}
 	_channels.clear();
 }
 
