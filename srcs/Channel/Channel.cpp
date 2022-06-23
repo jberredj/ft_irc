@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 10:36:52 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:42:38 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,14 @@ bool	Channel::isInvited(User* user)
 {
 	std::vector<User*>::iterator it = find(_inviteList.begin(), _inviteList.end(), user);
 	if (it != _inviteList.end())
+		return true;
+	return false;
+}
+
+bool	Channel::isOperator(User *user)
+{
+	std::string	userMode = getUserMode(user);
+	if (userMode.find('o') != userMode.npos)
 		return true;
 	return false;
 }

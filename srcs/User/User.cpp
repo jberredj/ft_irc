@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/23 11:07:12 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:14:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ User::~User() {
 	{
 		(*it)->removeUser(this);
 		channelIterator it = _channels.begin();
-		(void) it;
+		(void)it; // TODO: Find a way to remove the need of this
 	}
 	_channels.clear();
 }

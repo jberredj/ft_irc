@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:19:33 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/22 19:38:14 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:34:43 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ public:
 	bool	getInvite(void) const;
 	bool	isInvited(User* user);
 	bool	isAlive(void) const;
+	bool	isOperator(User *user);
 
 	std::string	getName(void) const;
 	int			getUserLimit(void) const;
