@@ -36,7 +36,7 @@ void    KILL(Command& command)
 		args.push_back(command.getParameters()[1]);
 		return command.replyToInvoker(response, args);
 	}
-    if (user->isOperator())
+    if (!user->isOperator())
     {
         response = 481;
         return command.replyToInvoker(response, args);
