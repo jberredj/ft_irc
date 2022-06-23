@@ -26,10 +26,6 @@ static void mode_channel(Command &command) {
 	return;
 }
 
-static bool _user_is_operator(User &user) {
-	return (user.getMode().find("o") != std::string::npos);
-}
-
 static bool _command_refers_to_user(Command &command) {
 	return (command.getParameters().front() == command.getInvoker().getNickname());
 }
@@ -42,12 +38,12 @@ static void mode_user(Command &command) { // TODO : Seems to have some bug (Try 
     std::string new_mode;
 	std::string u_flags = "-+iwso";
 
-	if (!_user_is_operator(user) || !_command_refers_to_user(command))
+	if (!user.isOperator() || !_command_refers_to_user(command))
 	{
 		return command.replyToInvoker(502, args);
 	}
 	requested_mode = command.getParameters()[1];
-    new_mode = user.getMode();
+    new_mode = user.getModesList();
 	for (size_t i = 0; i < requested_mode.size(); i++)
 	{
 		if (requested_mode[i] == '-')
@@ -69,7 +65,7 @@ static void mode_user(Command &command) { // TODO : Seems to have some bug (Try 
 				new_mode = new_mode + requested_mode[i];
 		}
 	}
-	user.setMode(new_mode);
+	// user.setMode(new_mode);
 	args.push_back(new_mode);
 	return command.replyToInvoker(221, args);	
 }
