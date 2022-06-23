@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/23 00:36:03 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 10:47:01 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,7 @@ void			User::tryAuthentificate(Command &cmd)
 	if (_password == cmd.getServerPassword())
 	{
 		response = 1;
-		args.push_back(_nickname);
-		args.push_back(_username);
-		args.push_back(_hostname);
+		args.push_back(getPrefix());
 		setStatus(ONLINE);
 		return cmd.replyToInvoker(response, args);
 	}	
