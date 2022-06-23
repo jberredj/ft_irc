@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 10:46:46 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:16:45 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ std::string	RPL_INVITING(strVec args)
 std::string	RPL_NAMREPLY(strVec args)
 {
 	std::string	channel = args[0];
-	std::string	reply = channel + " :";
+	std::string	reply = "= " + channel + " :";
 	for (strVec::iterator nicknameIt = args.begin() +1;
 		nicknameIt != args.end(); nicknameIt++)
 		reply += *nicknameIt + " ";
