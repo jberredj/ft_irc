@@ -28,7 +28,7 @@
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_password(""), _username(""), _nickname("*"), _truename(""),
-	_hostname("127.0.0.1"), _mode(""), _awayMsg(""), _signon(std::time(ft::null_ptr)), _channels()
+	_hostname("127.0.0.1"), _modes(), _awayMsg(""), _signon(std::time(ft::null_ptr)), _channels()
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -62,7 +62,7 @@ User &User::operator=(User const & rhs)
 		this->_nickname = rhs._nickname;
 		this->_hostname = rhs._hostname;
 		this->_truename = rhs._truename;
-		this->_mode = rhs._mode;
+		this->_modes = rhs._modes;
 		this->_awayMsg = rhs._awayMsg;
 		this->_signon = rhs._signon;
 	}
@@ -76,7 +76,7 @@ std::string 	User::getNickname(void) const {return this->_nickname;}
 std::string		User::getHostname(void) const {return this->_hostname;}
 std::string 	User::getTruename(void) const {return this->_truename;}
 std::string 	User::getCommandBuf(void) const {return this->_commandBuf;}
-std::string 	User::getMode(void) const {return this->_mode;}
+std::string		User::getModesList(void) const {return _modes.getStrModes();}
 std::string		User::getAwaymsg(void) const {return this->_awayMsg;}
 bool			User::repliesAvalaible(void) const {return !_responseQueue.empty();}
 std::vector<Channel*>	User::getChannels(void) {return _channels;}
@@ -151,7 +151,7 @@ void	User::setUsername(std::string username) {this->_username = username;}
 void	User::setNickname(std::string nickname) {this->_nickname = nickname;}
 void	User::setHostname(std::string hostname) {this->_hostname = hostname;}
 void	User::setTruename(std::string truename) {this->_truename = truename;}
-void	User::setMode(std::string mode) {this->_mode = mode;}
+void	User::addMode(uint8_t mode) {_modes.addMode(mode);}
 void	User::setAwayMsg(std::string msg) {this->_awayMsg = msg;}
 
 void	User::setCommandBuf(std::string commandBuf) {
@@ -249,7 +249,7 @@ std::ostream & operator<<(std::ostream & o, User const & rhs)
 {
     o << "Username: " << rhs.getUsername() << std::endl;
 	o << "Nickname: " << rhs.getNickname() << std::endl;
-	o << "Mode: " << rhs.getMode() << std::endl;
+	o << "Mode: " << rhs.getModesList() << std::endl;
 	o << "User status: " << rhs.getStatus() << std::endl;
 	o << "Connected since: " << rhs.getSignon() << std::endl;
     return o;

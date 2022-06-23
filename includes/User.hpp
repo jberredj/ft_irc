@@ -15,6 +15,7 @@
 # include <string>
 # include <queue>
 # include <map>
+# include "UserMode.hpp"
 
 class Command;
 class Channel;
@@ -43,8 +44,8 @@ public:
 	std::string		getSignon(void) const;
 	std::string		getRawSignon(void) const;
 	std::string		getIdle(void) const;
-	std::string		getMode(void) const;
-	std::string		getAwaymsg(void) const; 
+	std::string		getModesList(void) const;
+	std::string		getAwaymsg(void) const;
 	bool			repliesAvalaible(void) const;
 	
 	//setters
@@ -57,8 +58,8 @@ public:
 	void			setCommandBuf(std::string commandBuf);
 	void			clearCommandBuff(void);
 	void			appendCommandBuf(std::string commandBuf);
-	void			setMode(std::string mode);
 	void			setAwayMsg(std::string msg);
+	void			addMode(uint8_t mode);
 
 	std::vector<Channel*>	getChannels(void);
 	void			addChannelToUser(Channel *channel);
@@ -87,7 +88,7 @@ private:
 	std::string 										_nickname;
 	std::string 										_truename;
 	std::string 										_hostname;
-	std::string 										_mode;
+	UserMode 											_modes;
 	std::string											_awayMsg;
 	time_t												_signon;
 	std::vector<Channel*>								_channels;
