@@ -47,7 +47,8 @@ public:
 	std::string		getModesList(void) const;
 	std::string		getAwaymsg(void) const;
 	bool			repliesAvalaible(void) const;
-	
+	bool			isOperator(void) const;
+
 	//setters
 	void			setStatus(Status status);
 	void			setPassword(std::string password);

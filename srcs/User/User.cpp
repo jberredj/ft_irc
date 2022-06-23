@@ -144,6 +144,10 @@ bool			User::isAway(void)
 	return !_awayMsg.empty();
 }
 
+bool	User::isOperator(void) const {
+	return (_modes.hasMode(UserMode::UMODE_O));
+}
+
 //Setters
 void	User::setStatus(Status status) {this->_status = status;}
 void	User::setPassword(std::string password) {this->_password = password;}
