@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcMessages.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/19 17:38:11 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/23 10:46:17 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void    OPER(Command& command);
 void    KILL(Command& command);
 void    JOIN(Command& command);
 void    AWAY(Command& command);
+void	PART(Command &command);
 
 // Replies not in RFC
 std::string	RPL_PONG(std::vector<std::string> args);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/19 17:37:42 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/23 08:38:11 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 void USERS(Command &command){(void)command;}
 void TOPIC(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
-void PART(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}
 void KICK(Command &command){(void)command;}

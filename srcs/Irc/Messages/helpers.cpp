@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:07 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/16 22:42:37 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/23 09:58:03 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector>
 #include "Command.hpp"
 #include "typedefs.hpp"
+#include "helpers.hpp"
 
 bool	needMoreParams(Command &command, size_t minRequired)
 {
@@ -34,6 +35,35 @@ std::string	getNameFromList(std::string& nameList)
 	std::string	channelName = nameList.substr(0, commaLoc);
 	nameList.erase(0, commaLoc);
 	return channelName;
+}
+
+Channel*	getNextChannel(std::string& channelList, Command& command, bool createIfNotExist)
+{
+	std::string	channelName = getNameFromList(channelList);
+	while (!validChannelName(channelName))
+	{
+		strVec	args;
+		args.push_back(channelName);
+		command.replyToInvoker(403, args);
+		std::string	channelName = getNameFromList(channelList);
+	}
+	if (channelName.empty())
+		return ft::null_ptr;
+	
+	Channel*	channel = command.getChannel(channelName);
+	if (!channel && createIfNotExist)
+	{
+		Logger(Output::DEBUG) << "Create a new channel: " << channelName;
+		channel = new Channel(channelName);
+		command.addChannel(channel);
+	}
+	else if (!channel)
+	{
+		strVec	args;
+		args.push_back(channelName);
+		command.replyToInvoker(403, args);
+	}
+	return channel;
 }
 
 bool		validChannelName(std::string name)
