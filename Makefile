@@ -50,7 +50,7 @@ LOGGER				=	Logger.cpp Output.cpp
 LOGGER_SRCS			=	$(addprefix srcs/Logger/, $(LOGGER))
 LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,., $(LOGGER:.cpp=.o)))
 
-MODE				=	Mode.cpp ChannelMode.cpp
+MODE				=	Mode.cpp ChannelMode.cpp UserMode.cpp
 MODE_SRCS			=	$(addprefix srcs/Mode/, $(MODE))
 MODE_OBJS			=	$(addprefix objs/Mode., $(subst /,., $(MODE:.cpp=.o)))
 
