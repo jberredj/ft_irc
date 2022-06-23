@@ -34,7 +34,7 @@ static void _rpl_whoismodes(Command &command, User *user) {
 	std::vector<std::string> args;
 
 	args.push_back(user->getNickname());
-	args.push_back(user->getMode());
+	args.push_back(user->getModesList());
 	command.replyToInvoker(379, args);
 }
 

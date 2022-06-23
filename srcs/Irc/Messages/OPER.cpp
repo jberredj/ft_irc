@@ -36,12 +36,9 @@ void    OPER(Command& command)
 		return command.replyToInvoker(response, args);
     }
     response = 381;
-    command.replyToInvoker(response, args); 
-    std::string modeO = user.getMode();
-    if (modeO.find("o") == std::string::npos) // todo: update this when updating UserMode
-    modeO = modeO + "o";
-    user.setMode(modeO);
+    command.replyToInvoker(response, args);
+    user.addMode(UserMode::UMODE_O);
     response = 221;
-	args.push_back(modeO);
+	args.push_back(user.getModesList());
     return command.replyToInvoker(response, args);      
 }

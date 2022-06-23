@@ -36,7 +36,7 @@ void    KILL(Command& command)
 		args.push_back(command.getParameters()[1]);
 		return command.replyToInvoker(response, args);
 	}
-    if (user->getMode().find("o") == std::string::npos)
+    if (user->isOperator())
     {
         response = 481;
         return command.replyToInvoker(response, args);
