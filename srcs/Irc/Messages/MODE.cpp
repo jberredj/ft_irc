@@ -13,15 +13,25 @@
 #include "Logger.hpp"
 #include "User.hpp"
 #include "Command.hpp"
+#include "helpers.hpp"
 #include "IrcMessages.hpp"
 
 static void mode_channel(Command &command) {
 	std::cout << "Mode channel spotted" << std::endl;
 	std::cout << command.getParameters()[0] << std::endl;
 	std::cout << command.getParameters()[1] << std::endl;
-
+	std::string flags = "opsitnbv";
+	
 	
 	return;
+}
+
+static bool _user_is_operator(User &user) {
+	return (user.getMode().find("o") != std::string::npos);
+}
+
+static bool _command_refers_to_user(Command &command) {
+	return (command.getParameters().front() == command.getInvoker().getNickname());
 }
 
 static void mode_user(Command &command) { // TODO : Seems to have some bug (Try to remove one or several flag at once)
@@ -32,7 +42,7 @@ static void mode_user(Command &command) { // TODO : Seems to have some bug (Try 
     std::string new_mode;
 	std::string u_flags = "-+iwso";
 
-	if (command.getParameters()[0] != user.getNickname() && user.getMode().find("o") == std::string::npos)
+	if (!_user_is_operator(user) || !_command_refers_to_user(command))
 	{
 		return command.replyToInvoker(502, args);
 	}
@@ -67,15 +77,14 @@ static void mode_user(Command &command) { // TODO : Seems to have some bug (Try 
 void	MODE(Command &command)
 {
 	std::vector<std::string> args;
-	if (command.getParameters().size() < 2)
+	if (command.getParameters().size() < 2) // TODO : Not true, you can call /mode nick to get the current modes without giving another parameter
 	{
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(461, args);
 	}
 
-	if (command.getParameters()[0][0] == '#') {
+	if (validChannelName(command.getParameters().front())) 
 		mode_channel(command);
-	} else {
+	else 
 		mode_user(command);
-	}
 }
