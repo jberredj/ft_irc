@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 08:38:11 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/23 10:49:37 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	User::_initUserClass(void)
 		_cmdMap["PING"] = PING;
 		_cmdMap["PASS"] = PASS;
 		_cmdMap["PART"] = PART;
-		Logger(Output::WARN) << "PART message is not implemented yet";
 		_cmdMap["OPER"] = OPER;
 		// Logger(Output::WARN) << "OPER message is not implemented yet";
 		_cmdMap["NICK"] = NICK;
