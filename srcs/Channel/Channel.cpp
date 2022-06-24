@@ -6,30 +6,31 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 16:42:38 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/24 17:04:52 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Channel.hpp"
 #include "typedefs.hpp"
 #include <algorithm>
+#include <ctime>
 
 Channel::Channel(void):
 _isAlive(true), _name("DEFAULT"), _userLimit(-1), _nbrMember(0), _modes(), _members(), _inviteOnly(false),
-_inviteList(), _banList(), _userModes()
+_inviteList(), _banList(), _userModes(), _topicSetAt(0), _topic()
 {
 }
 
 Channel::Channel(const Channel &src):
 _isAlive(src._isAlive), _name(src._name), _userLimit(src._userLimit), _nbrMember(src._nbrMember), _modes(src._modes),
 _members(src._members), _inviteOnly(src._inviteOnly), _inviteList(src._inviteList), _banList(src._banList),
-_userModes(src._userModes)
+_userModes(src._userModes), _topicSetAt(src._topicSetAt), _topic(src._topic)
 {
 }
 
 Channel::Channel(std::string name):
 _isAlive(true), _name(name), _userLimit(-1), _nbrMember(0), _modes(), _members(), _inviteOnly(false), _inviteList(),
-_banList(), _userModes()
+_banList(), _userModes(), _topicSetAt(0), _topic()
 {
 }
 
@@ -51,6 +52,8 @@ Channel	&Channel::operator=(const Channel &rhs)
 		_inviteList = rhs._inviteList;
 		_banList = rhs._banList;
 		_userModes = rhs._userModes;
+		_topicSetAt = rhs._topicSetAt;
+		_topic = rhs._topic;
 	}
 	return *this;
 }
@@ -81,6 +84,15 @@ bool	Channel::setUserMode(std::string mode, User* user)
 // void	Channel::setChannelModes(std::string modes) {
 // 	_modes = modes;
 // }
+
+bool	Channel::setTopic(std::string topic) {
+	if (topic.empty())
+		_topicSetAt = 0;
+	else
+		_topicSetAt = std::time(ft::null_ptr);
+	_topic = topic;
+	return _topicSetAt;
+}
 
 bool	Channel::addUser(User *user)
 {
@@ -148,6 +160,8 @@ bool	Channel::isBanned(User *user)
 	return false;
 }
 
+std::string	Channel::getTopic(void) const {return _topic;}
+
 void	Channel::setInvite(bool invite) {_inviteOnly = invite;}
 bool	Channel::getInvite(void) const {return _inviteOnly;}
 
@@ -159,13 +173,20 @@ bool	Channel::isInvited(User* user)
 	return false;
 }
 
-bool	Channel::isOperator(User *user)
+bool	Channel::isOperator(User* user)
 {
+	if (!isMember(user))
+		return false;
 	std::string	userMode = getUserMode(user);
 	if (userMode.find('o') != userMode.npos)
 		return true;
 	return false;
 }
+
+bool	Channel::isMember(User*	user) {return std::find(_members.begin(), _members.end(), user) != _members.end();}
+
+bool	Channel::hasTopic(void) {return _topicSetAt;}
+
 
 std::vector<User*>	Channel::getMembers(void) const {return _members;}
 

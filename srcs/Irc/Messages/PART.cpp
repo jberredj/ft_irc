@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 08:37:27 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 10:43:39 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/24 16:49:23 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,13 @@
 void	_partUser(Command& command, Channel *channel, std::string leaveMsg)
 {
 	User& invoker = command.getInvoker();
-	if (channel)
-	{
-		if (channel->removeUser(&invoker))
-		{
-			std::string	message = ":" + invoker.getPrefix() + " PART " + channel->getName() + 
-				(leaveMsg.empty() ? "" : " " + leaveMsg);
-			channel->broadcastMessage(message);
-			invoker.addReply(message);
-		}
-		else
-		{
-			strVec	args;
-			args.push_back(channel->getName());
-			command.replyToInvoker(442, args);
-		}
-	}
+	if (!channel || !isUserOnChannel(command, &invoker, channel))
+		return;
+	channel->removeUser(&invoker);
+	std::string	message = ":" + invoker.getPrefix() + " PART " + channel->getName() + 
+		(leaveMsg.empty() ? "" : " " + leaveMsg);
+	channel->broadcastMessage(message);
+	invoker.addReply(message);
 }
 
 void	PART(Command& command)

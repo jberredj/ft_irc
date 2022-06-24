@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 10:46:17 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/24 17:06:40 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void    KILL(Command& command);
 void    JOIN(Command& command);
 void    AWAY(Command& command);
 void	PART(Command &command);
+void	TOPIC(Command &command);
 
 // Replies not in RFC
 std::string	RPL_PONG(strVec args);

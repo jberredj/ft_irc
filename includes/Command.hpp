@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 23:24:36 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/24 17:08:58 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ public:
 	User*						getOldUser(std::string nickname);
 	std::vector<User *>*		getOldUsers(void);
 	std::string					getServerName(void) const;
-	Channel*					getChannel(std::string name);
+	Channel*					getChannel(std::string name, bool errorOut = true);
 	std::map<std::string, Channel*>*	getChannels(void);
 	void						addChannel(Channel *channel);
 	bool						targetsInvoker(void) const;

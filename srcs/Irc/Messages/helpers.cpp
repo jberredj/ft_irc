@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:07 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 09:58:03 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/24 17:09:13 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,13 @@ Channel*	getNextChannel(std::string& channelList, Command& command, bool createI
 	}
 	if (channelName.empty())
 		return ft::null_ptr;
-	
-	Channel*	channel = command.getChannel(channelName);
+	Channel*	channel = command.getChannel(channelName, false);
+
 	if (!channel && createIfNotExist)
 	{
 		Logger(Output::DEBUG) << "Create a new channel: " << channelName;
 		channel = new Channel(channelName);
 		command.addChannel(channel);
-	}
-	else if (!channel)
-	{
-		strVec	args;
-		args.push_back(channelName);
-		command.replyToInvoker(403, args);
 	}
 	return channel;
 }
@@ -73,4 +67,14 @@ bool		validChannelName(std::string name)
 		 && name.find(' ') == name.npos
 		 && name.find(',') == name.npos
 		 && name.find(7) == name.npos);
+}
+
+bool	isUserOnChannel(Command &command, User* user, Channel* channel)
+{
+	if (channel->isMember(user))
+		return true;
+	strVec	args;
+	args.push_back(channel->getName());
+	command.replyToInvoker(442, args);
+	return false;
 }

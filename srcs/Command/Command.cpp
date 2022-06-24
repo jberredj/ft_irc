@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 23:24:09 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/24 17:08:18 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,16 @@ std::string	Command::getServerName(void) const
 	return _server->getServerName();
 }
 
-Channel*	Command::getChannel(std::string name) {return _server->getChannel(name);}
+Channel*	Command::getChannel(std::string name, bool errorOut) {
+	Channel *channel = _server->getChannel(name);
+	if (!channel && errorOut)
+	{
+		strVec	args;
+		args.push_back(name);
+		replyToInvoker(403, args);
+	}
+	return channel;
+}
 std::map<std::string, Channel*>*	Command::getChannels(void) {return _server->getChannels();}
 void	Command::addChannel(Channel *channel) {_server->addChannel(channel);}
 

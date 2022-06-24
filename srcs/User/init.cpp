@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 10:49:37 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:13:19 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "IrcMessages.hpp"
 
 void USERS(Command &command){(void)command;}
-void TOPIC(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}
