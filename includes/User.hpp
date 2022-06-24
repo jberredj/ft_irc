@@ -61,6 +61,8 @@ public:
 	void			appendCommandBuf(std::string commandBuf);
 	void			setAwayMsg(std::string msg);
 	void			addMode(uint8_t mode);
+	void			removeMode(uint8_t mode);
+	bool			hasMode(uint8_t mode);
 
 	std::vector<Channel*>	getChannels(void);
 	void			addChannelToUser(Channel *channel);

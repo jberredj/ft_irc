@@ -157,6 +157,8 @@ void	User::setNickname(std::string nickname) {this->_nickname = nickname;}
 void	User::setHostname(std::string hostname) {this->_hostname = hostname;}
 void	User::setTruename(std::string truename) {this->_truename = truename;}
 void	User::addMode(uint8_t mode) {_modes.addMode(mode);}
+void	User::removeMode(uint8_t mode) {_modes.removeMode(mode);}
+bool	User::hasMode(uint8_t mode) {return _modes.hasMode(mode);}
 void	User::setAwayMsg(std::string msg) {this->_awayMsg = msg;}
 
 void	User::setCommandBuf(std::string commandBuf) {
