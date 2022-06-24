@@ -16,7 +16,7 @@
 #include "helpers.hpp"
 #include "IrcMessages.hpp"
 
-static void mode_channel(Command &command) {
+static void _mode_channel(Command &command) {
 	std::cout << "Mode channel spotted" << std::endl;
 	std::cout << command.getParameters()[0] << std::endl;
 	std::cout << command.getParameters()[1] << std::endl;
@@ -26,42 +26,48 @@ static void mode_channel(Command &command) {
 	return;
 }
 
-static void mode_user(Command &command) { // TODO : Seems to have some bug (Try to remove one or several flag at once)
+static void _mode_user(Command &command) {
 	std::vector<std::string> args;
 	User &user = command.getInvoker();
-	bool minus_flag = false;
-	std::string requested_mode;
-    std::string new_mode;
-	std::string u_flags = "-+iwso";
+	std::string uflags = "iwso";
+	std::string flagChanges = "";
+	std::map<char, uint8_t> modesMap;
+	modesMap.insert(std::make_pair('i', UserMode::UMODE_I));
+	modesMap.insert(std::make_pair('w', UserMode::UMODE_W));
+	modesMap.insert(std::make_pair('s', UserMode::UMODE_S));
+	modesMap.insert(std::make_pair('o', UserMode::UMODE_O));
 
-	if (!user.isOperator() || !command.targetsInvoker())
+	if (!command.targetsInvoker())
 		return command.replyToInvoker(502, args);
-	requested_mode = command.getParameters()[1];
-    new_mode = user.getModesList();
-	for (size_t i = 0; i < requested_mode.size(); i++)
+	std::string requestedMode = command.getParameters()[1];
+	bool addFlag = true;
+
+	for (size_t i = 0; i < requestedMode.size(); i++)
 	{
-		if (requested_mode[i] == '-')
-			minus_flag = true;
-		else if (requested_mode[i] == '+')
-			minus_flag = false;
-		else if (u_flags.find(requested_mode[i]) == std::string::npos)
-		{
-			return command.replyToInvoker(501, args);
-		}
-		else if (requested_mode[i] == 'o' && !minus_flag && new_mode.find("o") == std::string::npos)
+		if (requestedMode[i] == '-')
+			addFlag = false;
+		else if (requestedMode[i] == '+')
+			addFlag = true;
+		else if (uflags.find(requestedMode[i]) == std::string::npos)
+			command.replyToInvoker(501, args);
+		else if (addFlag && requestedMode[i] == 'o')
 			continue;
-		else
-		{
-			size_t	modeSet = new_mode.find(requested_mode[i]);
-			if (minus_flag && modeSet != std::string::npos)
-				new_mode.erase(modeSet);
-			else if(!minus_flag && modeSet == std::string::npos)
-				new_mode = new_mode + requested_mode[i];
+		else if (addFlag && !user.hasMode(modesMap[requestedMode[i]])) {
+			user.addMode(modesMap[requestedMode[i]]);
+			flagChanges += "+";
+			flagChanges += requestedMode[i];
+		}
+		else if (!addFlag && user.hasMode(modesMap[requestedMode[i]])) {
+			user.removeMode(modesMap[requestedMode[i]]);
+			flagChanges += "-";
+			flagChanges += requestedMode[i];
 		}
 	}
-	// user.setMode(new_mode);
-	args.push_back(new_mode);
-	return command.replyToInvoker(221, args);	
+	if (!flagChanges.empty()) {
+		args.push_back(user.getNickname());
+		args.push_back(flagChanges);
+		command.invokerSendTo(&user, -5, args);
+	}
 }
 
 void	MODE(Command &command)
@@ -74,7 +80,7 @@ void	MODE(Command &command)
 	}
 
 	if (validChannelName(command.getParameters().front())) 
-		mode_channel(command);
+		_mode_channel(command);
 	else 
-		mode_user(command);
+		_mode_user(command);
 }
