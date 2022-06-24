@@ -47,6 +47,7 @@ User::~User() {
 	{
 		(*it)->removeUser(this);
 		channelIterator it = _channels.begin();
+		(void) it;
 	}
 	_channels.clear();
 }
