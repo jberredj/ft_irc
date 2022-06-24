@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "typedefs.hpp"
-#include "Command.hpp"
+#include "IrcMessages.hpp"
 
 std::string	RPL_PONG(strVec args)
 {
@@ -40,6 +39,13 @@ std::string RPL_KILL(strVec args)
 	std::string	nickname = args[0];
 	std::string	reason = args[1];
 	return nickname + " has quit [" + reason + "]";
+}
+
+std::string RPL_SETUSERMODE(strVec args)
+{
+	std::string nickname = args[0];
+	std::string changes = args[1];
+	return "MODE " + nickname + " :" + changes;
 }
 
 std::string	RPL_WELCOME(strVec args)

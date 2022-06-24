@@ -99,6 +99,7 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(-2, RPL_PRIVMSG));
 		_replies.insert(std::make_pair(-3, RPL_QUIT));
 		_replies.insert(std::make_pair(-4, RPL_KILL));
+		_replies.insert(std::make_pair(-5, RPL_SETUSERMODE));
 
 		// Replies
 		_replies.insert(std::make_pair(001, RPL_WELCOME));
