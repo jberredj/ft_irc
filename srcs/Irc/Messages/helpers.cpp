@@ -68,9 +68,9 @@ Channel*	getNextChannel(std::string& channelList, Command& command, bool createI
 
 bool		validChannelName(std::string name)
 {
-	if (name[0] != '#' && name.size() > INSPIRCD_MAX_LEN)
-		return false;
-	if (name.find(' ') != name.npos || name.find(0x7) != name.npos)
-		return false;
-	return true;
+	return (name[0] == '#'
+		 &&	name.size() < INSPIRCD_MAX_LEN
+		 && name.find(' ') == name.npos
+		 && name.find(',') == name.npos
+		 && name.find(7) == name.npos);
 }
