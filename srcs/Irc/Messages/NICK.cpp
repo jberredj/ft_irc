@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 15:27:14 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/24 19:29:10 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/25 15:42:04 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ void    NICK(Command &command)
 		}
 	}
 	command.getInvoker().setNickname(nick);
-	command.getInvoker().tryAuthentificate(command);
+	// command.getInvoker().tryAuthentificate(command);
 }

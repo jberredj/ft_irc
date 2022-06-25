@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:59:32 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/24 19:30:33 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/25 15:42:18 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	PASS(Command& command)
 		return command.replyToInvoker(462);
 	}
 	command.getInvoker().setPassword(command.getParameters()[0]);
-	command.getInvoker().tryAuthentificate(command);
+	// command.getInvoker().tryAuthentificate(command);
 }
