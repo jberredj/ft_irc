@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcMessages.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/24 17:06:40 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/25 14:46:49 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ std::string RPL_PRIVMSG(strVec args);
 std::string RPL_QUIT(strVec args);
 std::string RPL_KILL(strVec args);
 std::string RPL_SETUSERMODE(strVec args);
+std::string RPL_ACCESSDENIED(strVec args);
 
 // Replies
 std::string	RPL_WELCOME(strVec args);

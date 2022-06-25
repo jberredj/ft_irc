@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PASS.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:59:32 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 10:45:11 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/24 19:30:33 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@
 
 void	PASS(Command& command)
 {
-	int	response = 0;
 	std::vector<std::string> args;
 
 	if (command.getParameters().size() < 1)
 	{
-		response = 461;
 		args.push_back(command.getCommand());
-		return command.replyToInvoker(response, args);
+		return command.replyToInvoker(461, args);
 	}
 	if (command.getInvoker().getStatus() != User::PASSWORD)
 	{

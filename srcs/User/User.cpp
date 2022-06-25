@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/23 16:14:59 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/25 14:48:52 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ std::string		User::getPrefix(void) const
 
 void			User::tryAuthentificate(Command &cmd)
 {
-	int response = 0;
 	std::vector<std::string> args;
 	
 	if (!_password.length()) return;
@@ -128,15 +127,16 @@ void			User::tryAuthentificate(Command &cmd)
 
 	if (_password == cmd.getServerPassword())
 	{
-		response = 1;
 		args.push_back(getPrefix());
 		setStatus(ONLINE);
-		return cmd.replyToInvoker(response, args);
+		return cmd.replyToInvoker(1, args);
 	}	
 	else
 	{
-		Logger(Output::INFO) << "Authentification failed";
 		setStatus(OFFLINE);
+		args.push_back(cmd.getInvoker().getUsername());
+    	args.push_back(cmd.getInvoker().getHostname());
+		return cmd.replyToInvoker(-6, args);
 	}
 }
 

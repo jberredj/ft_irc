@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPL.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 16:16:45 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/25 14:48:40 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ std::string	RPL_WELCOME(strVec args)
 	return "Welcome to the Internet Relay Network " + prefix;
 }
 
+std::string RPL_ACCESSDENIED(strVec args)
+{
+	std::string	username = args[0];
+	std::string host = args[1];
+	return "ERROR :Closing link: (" + username + "@" + host + ") [Access denied by configuration]";
+}
 std::string	RPL_UMODEIS(strVec args)
 {
 	std::string	modeString = args[0];
