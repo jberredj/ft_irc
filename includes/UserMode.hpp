@@ -17,6 +17,8 @@ public:
     UserMode(void);
     virtual ~UserMode(void);
 	virtual std::string	getStrModes(void) const;
+
+	static std::map<char, uint8_t> modesMap;
 };
 
 #endif
