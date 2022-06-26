@@ -16,7 +16,8 @@ private:
 	std::string _modeChanges;
 	std::string	_request;
 	bool	_addSign;
-	bool	_usedSign;
+	bool	_oldSign;
+	bool	_firstSign;
 	uint8_t	_mode;
 	char	_chrMode;
 

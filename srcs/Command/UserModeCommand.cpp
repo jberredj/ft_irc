@@ -2,7 +2,8 @@
 
 UserModeCommand::UserModeCommand(Command &command)
 : _command(command), _invoker(command.getInvoker()), _modeChanges(""),
-_request(""), _addSign(true), _usedSign(false), _mode(0), _chrMode('\0') {
+_request(""), _addSign(true), _oldSign(_addSign), _firstSign(true),
+_mode(0), _chrMode('\0') {
 }
 
 void UserModeCommand::updateModes(void) {
@@ -52,20 +53,22 @@ void UserModeCommand::_retrieveTargetModes(void) {
 
 void UserModeCommand::_addMode(void) {
 	_invoker.addMode(_mode);
-	if (!_usedSign) {
+	if (_oldSign != _addSign || _firstSign) {
 		_modeChanges += "+";
-		_usedSign = true;
+		_firstSign = false;
 	}
 	_modeChanges += _chrMode;
+	_oldSign = _addSign;
 }
 
 void UserModeCommand::_removeMode(void) {
 	_invoker.removeMode(_mode);
-	if (!_usedSign) {
+	if (_oldSign != _addSign || _firstSign) {
 		_modeChanges += "-";
-		_usedSign = true;
+		_firstSign = false;
 	}
 	_modeChanges += _chrMode;
+	_oldSign = _addSign;
 }
 
 void UserModeCommand::_updateSign(void) {
@@ -73,8 +76,6 @@ void UserModeCommand::_updateSign(void) {
 		_addSign = false;
 	else if (_chrMode == '+')
 		_addSign = true;
-	
-	_usedSign = false;
 }
 
 void UserModeCommand::_sendReply(void) {
