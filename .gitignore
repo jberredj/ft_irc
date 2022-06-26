@@ -8,3 +8,6 @@ deps/
 .vscode/
 test*
 .nfs*
+pipe
+in.log
+out.log

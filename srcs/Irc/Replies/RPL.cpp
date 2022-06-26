@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/25 14:48:40 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:00:50 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,4 +260,11 @@ std::string	RPL_NOUSERS(strVec args)
 {
 	(void)args;
 	return ":Nobody logged in";
+}
+
+std::string	RPL_SETNEWNICK(strVec args)
+{
+	std::string &nick = args[0];
+
+	return "NICK :" + nick;
 }

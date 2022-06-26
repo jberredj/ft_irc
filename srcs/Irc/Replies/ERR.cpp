@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ERR.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:38:25 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/12 20:57:12 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:03:50 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,14 @@ std::string	ERR_ERRONEUSNICKNAME(std::vector<std::string> args)
 {
 	std::string&	nickname = args[0];
 
-	return nickname + " :Erroneous nickname";
+	return nickname + " :Erroneous Nickname";
 }
 
 std::string	ERR_NICKNAMEINUSE(std::vector<std::string> args)
 {
 	std::string&	nickname = args[0];
 
-	return nickname + " :Nickname is already in use";
+	return nickname + " :Nickname is already in use.";
 }
 
 std::string	ERR_NICKCOLLISION(std::vector<std::string> args)

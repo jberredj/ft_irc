@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 15:27:14 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/25 15:42:04 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:23:29 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "IrcMessages.hpp"
 #include <cctype> 
 
-int isspchar(char c)
+static	int isspchar(char c)
 {
 	if ((c >= '[' && c <= '`') || (c >= '{' && c <= '}'))
 		return 1;
@@ -25,6 +25,7 @@ int isspchar(char c)
 
 void    NICK(Command &command)
 { 
+	User &user = command.getInvoker();
 	std::vector<std::string> args;
 	std::string nick;
 	
@@ -37,11 +38,8 @@ void    NICK(Command &command)
 		args.push_back(nick);
 		return command.replyToInvoker(433, args);
 	}
-	if (nick.size() > 9)
-	{
-		args.push_back(nick.substr(0,9));
+	if (nick.size() > 30)
 		return command.replyToInvoker(432, args);
-	}
 	if (isdigit(nick[0]) || nick[0] == '*')
 	{
 		args.push_back(nick);
@@ -55,6 +53,9 @@ void    NICK(Command &command)
 			return command.replyToInvoker(432, args);
 		}
 	}
-	command.getInvoker().setNickname(nick);
-	// command.getInvoker().tryAuthentificate(command);
+	if (!user.getNickname().length()) 
+		return ;
+	args.push_back(nick);
+	command.invokerSendTo(&user, -7, args);
+	user.setNickname(nick);
 }

@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/25 14:46:43 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 15:47:45 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(-4, RPL_KILL));
 		_replies.insert(std::make_pair(-5, RPL_SETUSERMODE));
 		_replies.insert(std::make_pair(-6, RPL_ACCESSDENIED));
+		_replies.insert(std::make_pair(-7, RPL_SETNEWNICK));
 
 		// Replies
 		_replies.insert(std::make_pair(001, RPL_WELCOME));

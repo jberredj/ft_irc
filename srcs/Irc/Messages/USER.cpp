@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 12:36:58 by esommier          #+#    #+#             */
-/*   Updated: 2022/06/25 15:50:40 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:23:53 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	USER(Command &command)
 		return command.replyToInvoker(461, args);
 	}
 	if (command.getInvoker().getStatus() != User::PASSWORD)
-	{
 		return command.replyToInvoker(462, args);
-	}
 	command.getInvoker().setUsername(command.getParameters()[0]);
 	command.getInvoker().setTruename(command.getTrailer());
 	command.getInvoker().tryAuthentificate(command);
