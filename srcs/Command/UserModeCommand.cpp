@@ -10,6 +10,10 @@ void UserModeCommand::updateModes(void) {
 
 	if (_command.getParameters().size() == 1)
 		return _retrieveTargetModes();
+	if (!_command.targetsInvoker()) {
+		args.push_back("Can't change mode");
+		return _command.replyToInvoker(502, args);
+	}
 
 	_request = _command.getParameters()[1];
 
@@ -38,9 +42,10 @@ void UserModeCommand::_retrieveTargetModes(void) {
 		return _command.replyToInvoker(221, args);
 	}
 	
-	if (_command.existingTarget()) //  Existing target And I dont have right
+	if (_command.existingTarget()) {//  Existing target And I dont have right
+		args.push_back("Can't view modes");
 		return _command.replyToInvoker(502, args); // TODO - Add the case when I have the rights to see other user modes
-	
+	}
 	args.push_back(_command.getParameters()[0]);
 	_command.replyToInvoker(401, args);
 }
