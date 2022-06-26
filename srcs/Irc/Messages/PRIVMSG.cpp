@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:35:49 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/26 16:25:15 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:33:59 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "IrcMessages.hpp"
 #include "helpers.hpp"
 
-void	msgUser(Command& command, std::string str_receiver)
+static void	msgUser(Command& command, std::string str_receiver)
 {
 	std::vector<std::string> args;
 	User *user = ft::null_ptr;
@@ -41,7 +41,7 @@ void	msgUser(Command& command, std::string str_receiver)
 	args.clear();		
 }
 
-void	msgChannel(Command& command, std::string str_receiver)
+static void	msgChannel(Command& command, std::string str_receiver)
 {
 	std::vector<std::string> args;
 	Channel *channel = ft::null_ptr;

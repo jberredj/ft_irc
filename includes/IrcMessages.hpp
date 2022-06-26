@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/26 15:46:58 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 18:20:35 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ std::string RPL_KILL(strVec args);
 std::string RPL_SETUSERMODE(strVec args);
 std::string RPL_ACCESSDENIED(strVec args);
 std::string RPL_SETNEWNICK(strVec args);
+std::string RPL_NOTICE(strVec args);
 
 // Replies
 std::string	RPL_WELCOME(strVec args);

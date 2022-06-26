@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/26 16:00:50 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 18:31:59 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ std::string RPL_PRIVMSG(strVec args)
 	std::string	target = args[0];
 	std::string	message = args[1];
 	return "PRIVMSG " + target + " :" + message;
+}
+
+std::string RPL_NOTICE(strVec args)
+{
+	std::string	target = args[0];
+	std::string	message = args[1];
+	return "NOTICE " + target + " :" + message;
 }
 
 std::string RPL_QUIT(strVec args)
