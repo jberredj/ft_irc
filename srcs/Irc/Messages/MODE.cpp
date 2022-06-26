@@ -31,11 +31,6 @@ static void _mode_user(Command &command) {
 	User &user = command.getInvoker();
 	std::string uflags = "iwso";
 	std::string flagChanges = "";
-	std::map<char, uint8_t> modesMap;
-	modesMap.insert(std::make_pair('i', UserMode::UMODE_I));
-	modesMap.insert(std::make_pair('w', UserMode::UMODE_W));
-	modesMap.insert(std::make_pair('s', UserMode::UMODE_S));
-	modesMap.insert(std::make_pair('o', UserMode::UMODE_O));
 
 	if (!command.targetsInvoker())
 		return command.replyToInvoker(502, args);
@@ -52,13 +47,13 @@ static void _mode_user(Command &command) {
 			command.replyToInvoker(501, args);
 		else if (addFlag && requestedMode[i] == 'o')
 			continue;
-		else if (addFlag && !user.hasMode(modesMap[requestedMode[i]])) {
-			user.addMode(modesMap[requestedMode[i]]);
+		else if (addFlag && !user.hasMode(UserMode::modesMap[requestedMode[i]])) {
+			user.addMode(UserMode::modesMap[requestedMode[i]]);
 			flagChanges += "+";
 			flagChanges += requestedMode[i];
 		}
-		else if (!addFlag && user.hasMode(modesMap[requestedMode[i]])) {
-			user.removeMode(modesMap[requestedMode[i]]);
+		else if (!addFlag && user.hasMode(UserMode::modesMap[requestedMode[i]])) {
+			user.removeMode(UserMode::modesMap[requestedMode[i]]);
 			flagChanges += "-";
 			flagChanges += requestedMode[i];
 		}
