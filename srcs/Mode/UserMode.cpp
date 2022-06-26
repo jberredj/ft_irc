@@ -14,9 +14,9 @@ UserMode::~UserMode(void) {}
 
 std::string	UserMode::getStrModes(void) const { // TODO : refactor this to use modesmap
 	std::string result = "";
-	if (hasMode(UMODE_I)) result += "i";
-	if (hasMode(UMODE_W)) result += "w";
-	if (hasMode(UMODE_S)) result += "s";
-	if (hasMode(UMODE_O)) result += "o";
+	for (std::map<char, uint8_t>::iterator mode = modesMap.begin(); mode != modesMap.end(); mode++) {
+		if (hasMode(mode->second))
+			result += mode->first;
+	}
 	return result;
 }
