@@ -18,6 +18,7 @@
 # include <vector>
 # include <map>
 # include "Channel.hpp"
+# include "typedefs.hpp"
 
 class Server;
 
@@ -28,8 +29,7 @@ class Command
 public:
 	// Constructors and destructor
 								Command(void);
-								Command(User* user, std::string command_line,
-									Server* server);
+								Command(User* user, std::string command_line, Server* server);
 								Command(const Command& src);
 								~Command(void);
 
@@ -40,10 +40,10 @@ public:
 	std::string					getLine(void) const;
 	std::string 				getPrefix(void) const;
 	std::string 				getCommand(void) const;
-	const std::vector<std::string>	&getParameters(void) const;
+	const strVec				&getParameters(void) const;
 	std::string 				getTrailer(void) const;
 	User&						getInvoker(void) const;
-	User*						getUser(std::string nickname);
+	User*						getUser(std::string nickname) const;
 	std::vector<User *>*		getUsers(void);
 	// Server*						getServer(void) const;
 	std::string					getServerPassword(void) const;
@@ -54,30 +54,25 @@ public:
 	std::map<std::string, Channel*>*	getChannels(void);
 	void						addChannel(Channel *channel);
 	bool						targetsInvoker(void) const;
+	bool						existingTarget(void) const;
 
 	// Replies functions
-	void						replyAllReachable(std::string message);
-	void						replyAllReachable(int code, std::vector<std::string> args);
-	void						replyToInvoker(int code,
-									std::vector<std::string> args
-									= std::vector<std::string>());
-	void						invokerSendTo(User* receiver, int code,
-									std::vector<std::string> args
-									= std::vector<std::string>());
+	void		replyAllReachable(std::string message);
+	void		replyAllReachable(int code, strVec args);
+	void		replyToInvoker(int code, strVec args = strVec());
+	void		invokerSendTo(User* receiver, int code, strVec args = strVec());
+
 private:
-	std::string 				_prefix;
-	std::string 				_command;
-	std::vector<std::string>	_parameters;
-	std::string 				_trailer;
-	std::string 				_command_line;
-	User*						_invoker;
-	Server*						_server;
+	std::string _prefix;
+	std::string	_command;
+	strVec		_parameters;
+	std::string _trailer;
+	std::string _command_line;
+	User*		_invoker;
+	Server*		_server;
 
 	// Replies functions
-	
-	std::string					_reply(User* sender, User* receiver, int code,
-									std::vector<std::string> args
-									= std::vector<std::string>());
+	std::string	_reply(User* sender, User* receiver, int code, strVec args = strVec());
 };
 
 std::ostream &  operator<<(std::ostream & o, Command const & rhs);

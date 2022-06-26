@@ -15,60 +15,28 @@
 #include "Command.hpp"
 #include "helpers.hpp"
 #include "IrcMessages.hpp"
+#include "UserModeCommand.hpp"
 
 static void _mode_channel(Command &command) {
 	std::cout << "Mode channel spotted" << std::endl;
-	std::cout << command.getParameters()[0] << std::endl;
-	std::cout << command.getParameters()[1] << std::endl;
-	std::string flags = "opsitnbv";
+	(void) command;
+	// std::cout << command.getParameters()[0] << std::endl;
+	// std::cout << command.getParameters()[1] << std::endl;
+	// std::string flags = "opsitnbv";
 	
 	
 	return;
 }
 
 static void _mode_user(Command &command) {
-	std::vector<std::string> args;
-	User &user = command.getInvoker();
-	std::string uflags = "iwso";
-	std::string flagChanges = "";
-
-	if (!command.targetsInvoker())
-		return command.replyToInvoker(502, args);
-	std::string requestedMode = command.getParameters()[1];
-	bool addFlag = true;
-
-	for (size_t i = 0; i < requestedMode.size(); i++)
-	{
-		if (requestedMode[i] == '-')
-			addFlag = false;
-		else if (requestedMode[i] == '+')
-			addFlag = true;
-		else if (uflags.find(requestedMode[i]) == std::string::npos)
-			command.replyToInvoker(501, args);
-		else if (addFlag && requestedMode[i] == 'o')
-			continue;
-		else if (addFlag && !user.hasMode(UserMode::modesMap[requestedMode[i]])) {
-			user.addMode(UserMode::modesMap[requestedMode[i]]);
-			flagChanges += "+";
-			flagChanges += requestedMode[i];
-		}
-		else if (!addFlag && user.hasMode(UserMode::modesMap[requestedMode[i]])) {
-			user.removeMode(UserMode::modesMap[requestedMode[i]]);
-			flagChanges += "-";
-			flagChanges += requestedMode[i];
-		}
-	}
-	if (!flagChanges.empty()) {
-		args.push_back(user.getNickname());
-		args.push_back(flagChanges);
-		command.invokerSendTo(&user, -5, args);
-	}
+	UserModeCommand foo = UserModeCommand(command);
+	foo.updateModes();
 }
 
 void	MODE(Command &command)
 {
 	std::vector<std::string> args;
-	if (command.getParameters().size() < 2) // TODO : Not true, you can call /mode nick to get the current modes without giving another parameter
+	if (command.getParameters().size() < 1)
 	{
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(461, args);
