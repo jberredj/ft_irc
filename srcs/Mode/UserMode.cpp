@@ -13,11 +13,11 @@ UserMode::UserMode(void): Mode() {
 
 UserMode::~UserMode(void) {}
 
-std::string	UserMode::getStrModes(void) const { // TODO : refactor this to use modesmap
+std::string	UserMode::getStrModes(void) const {
 	std::string result = "";
-	for (std::map<char, uint8_t>::iterator mode = modesMap.begin(); mode != modesMap.end(); mode++) {
-		if (hasMode(mode->second))
-			result += mode->first;
+	for (std::map<char, uint8_t>::iterator pair = modesMap.begin(); pair != modesMap.end(); pair++) {
+		if (hasMode(pair->second))
+			result += pair->first;
 	}
 	return result;
 }
