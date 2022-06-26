@@ -145,6 +145,10 @@ bool	Command::targetsInvoker(void) const {
 	return (getParameters().front() == getInvoker().getNickname());
 }
 
+bool	Command::existingTarget(void) const {
+	return (getUser(_parameters.front()));
+}
+
 // Replies functions
 
 void	Command::replyAllReachable(std::string message)
