@@ -35,7 +35,7 @@ static void _mode_user(Command &command) {
 void	MODE(Command &command)
 {
 	std::vector<std::string> args;
-	if (command.getParameters().size() < 2) // TODO : Not true, you can call /mode nick to get the current modes without giving another parameter
+	if (command.getParameters().size() < 1)
 	{
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(461, args);

@@ -6,21 +6,26 @@
 #include "Command.hpp"
 
 class UserModeCommand {
-private:
-	std::string _modeChanges;
-	std::string	_request;
-	Command	&_command;
-	User	&_invoker;
-	bool	_addSign;
-	uint8_t	_mode;
-	char	_chrMode;
-
-	void	_addMode(void);
-	void	_removeMode(void);
-
 public:
 	UserModeCommand(Command &command);
 	void    updateModes(void);
+
+private:
+	Command	&_command;
+	User	&_invoker;
+	std::string _modeChanges;
+	std::string	_request;
+	bool	_addSign;
+	bool	_usedSign;
+	uint8_t	_mode;
+	char	_chrMode;
+
+	void	_retrieveTargetModes(void);
+	void	_addMode(void);
+	void	_removeMode(void);
+	void	_updateSign(void);
+	void	_sendReply(void);
+
 };
 
 #endif
