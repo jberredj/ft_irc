@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:35:49 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/26 17:33:59 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 18:51:42 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,8 @@ void	PRIVMSG(Command& command)
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(412, args);
 	}
-
 	std::string recepients = command.getParameters()[0];
 	std::string receiver;
-
 	while (recepients.length())
 	{
 		std::size_t	comma = recepients.find(',');

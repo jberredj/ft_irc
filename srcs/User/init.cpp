@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/24 15:13:19 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:13:11 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void PONG(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}
 void KICK(Command &command){(void)command;}
-void INVITE(Command &command){(void)command;}
+// void INVITE(Command &command){(void)command;}
 void BAN(Command &command){(void)command;}
 
 /* ************************************************************************** */
@@ -64,12 +64,11 @@ void	User::_initUserClass(void)
 		_cmdMap["JOIN"] = JOIN;
 		Logger(Output::WARN) << "JOIN message is not implemented yet";
 		_cmdMap["INVITE"] = INVITE;
-		Logger(Output::WARN) << "INVITE message is not implemented yet";
+		// Logger(Output::WARN) << "INVITE message is not implemented yet";
 		_cmdMap["BAN"] = BAN;
 		Logger(Output::WARN) << "BAN NOT IN RFC 1459. USE MODE <channe> +b <target> INSTEAD. BAN message is not implemented yet";
 		Logger(Output::TRACE) << "User command map initiated";
 		_cmdMap["AWAY"] = AWAY;
-		// Logger(Output::WARN) << "INVITE message is not implemented yet";
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 12:12:11 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/26 18:21:21 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/26 18:51:20 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ void	NOTICE(Command& command)
         return ;
 	if (command.getTrailer().size() == 0)
 		return ;
-
 	std::string receiver = command.getParameters()[0];
-
 	if (receiver[0] == '#')
 		noticeChannel(command, receiver);
 	else
