@@ -63,7 +63,7 @@ std::string RPL_ACCESSDENIED(strVec args)
 std::string	RPL_UMODEIS(strVec args)
 {
 	std::string	modeString = args[0];
-	return modeString;
+	return ":+" + modeString;
 }
 
 std::string	RPL_AWAY(strVec args)

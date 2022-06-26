@@ -258,7 +258,7 @@ std::string	ERR_UMODEUNKNOWNFLAG(std::vector<std::string> args)
 std::string	ERR_USERSDONTMATCH(std::vector<std::string> args)
 {
 	(void)args;
-	return ":Cannot change mode for other users";
+	return ":Can't view modes for other users";
 }
 
 std::string	ERR_NOPRIVILEGES(std::vector<std::string> args)
