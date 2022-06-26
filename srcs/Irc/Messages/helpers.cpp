@@ -40,7 +40,7 @@ std::string	getNameFromList(std::string& nameList)
 Channel*	getNextChannel(std::string& channelList, Command& command, bool createIfNotExist)
 {
 	std::string	channelName = getNameFromList(channelList);
-	while (!validChannelName(channelName))
+	while (!channelName.empty() && !validChannelName(channelName))
 	{
 		strVec	args;
 		args.push_back(channelName);
