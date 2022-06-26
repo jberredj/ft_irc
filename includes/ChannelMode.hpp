@@ -21,6 +21,8 @@ public:
     ChannelMode(void);
     virtual ~ChannelMode(void);
 	virtual std::string	getStrModes(void) const;
+    
+	static std::map<char, uint8_t> modesMap;
 };
 
 #endif

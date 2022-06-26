@@ -1,17 +1,25 @@
 #include "ChannelMode.hpp"
 
-ChannelMode::ChannelMode(void): Mode() {}
+ChannelMode::ChannelMode(void): Mode() {
+	if (modesMap.empty()) {
+		modesMap.insert(std::make_pair('o', CMODE_O));
+		modesMap.insert(std::make_pair('p', CMODE_P));
+		modesMap.insert(std::make_pair('s', CMODE_S));
+		modesMap.insert(std::make_pair('i', CMODE_I));
+		modesMap.insert(std::make_pair('t', CMODE_T));
+		modesMap.insert(std::make_pair('n', CMODE_N));
+		modesMap.insert(std::make_pair('b', CMODE_B));
+		modesMap.insert(std::make_pair('v', CMODE_V));
+	}
+}
+
 ChannelMode::~ChannelMode(void) {}
 
 std::string	ChannelMode::getStrModes(void) const {
-    std::string result = "";
-    if (hasMode(CMODE_O)) result += "o";
-    if (hasMode(CMODE_P)) result += "p";
-    if (hasMode(CMODE_S)) result += "s";
-    if (hasMode(CMODE_I)) result += "i";
-    if (hasMode(CMODE_T)) result += "t";
-    if (hasMode(CMODE_N)) result += "n";
-    if (hasMode(CMODE_B)) result += "b";
-    if (hasMode(CMODE_V)) result += "v";
-    return result;
+	std::string result = "";
+	for (std::map<char, uint8_t>::iterator pair = modesMap.begin(); pair != modesMap.end(); pair++) {
+		if (hasMode(pair->second))
+			result += pair->first;
+	}
+	return result;
 }
