@@ -16,17 +16,7 @@
 #include "helpers.hpp"
 #include "IrcMessages.hpp"
 #include "UserModeCommand.hpp"
-
-static void _mode_channel(Command &command) {
-	std::cout << "Mode channel spotted" << std::endl;
-	(void) command;
-	// std::cout << command.getParameters()[0] << std::endl;
-	// std::cout << command.getParameters()[1] << std::endl;
-	// std::string flags = "opsitnbv";
-	
-	
-	return;
-}
+#include "ChannelModeCommand.hpp"
 
 void	MODE(Command &command)
 {
@@ -38,7 +28,7 @@ void	MODE(Command &command)
 	}
 
 	if (validChannelName(command.getParameters().front())) 
-		_mode_channel(command);
+		ChannelModeCommand(command).updateModes();
 	else 
 		UserModeCommand(command).updateModes();
 }

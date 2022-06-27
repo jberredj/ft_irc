@@ -81,10 +81,6 @@ bool	Channel::setUserMode(std::string mode, User* user)
 
 }
 
-// void	Channel::setChannelModes(std::string modes) {
-// 	_modes = modes;
-// }
-
 bool	Channel::setTopic(std::string topic) {
 	if (topic.empty())
 		_topicSetAt = 0;
@@ -150,7 +146,6 @@ std::string	Channel::getUserMode(User* user)
 		return "";
 	return _userModes[user];
 }
-ChannelMode	Channel::getChannelMode(void) const {return _modes;}
 
 bool	Channel::isBanned(User *user)
 {
@@ -187,6 +182,10 @@ bool	Channel::isMember(User*	user) {return std::find(_members.begin(), _members.
 
 bool	Channel::hasTopic(void) {return _topicSetAt;}
 
+std::string	Channel::getModesList(void) const {return _modes.getStrModes();}
+void		Channel::addMode(uint8_t mode) {_modes.addMode(mode);}
+void		Channel::removeMode(uint8_t mode) {_modes.removeMode(mode);}
+bool		Channel::hasMode(uint8_t mode) {return _modes.hasMode(mode);}
 
 std::vector<User*>	Channel::getMembers(void) const {return _members;}
 
@@ -205,6 +204,7 @@ bool	Channel::_unbanUser(User* user)
 	_banList.erase(find(_banList.begin(), _banList.end(), user));
 	return true;
 }
+
 bool	Channel::_inviteUser(User* user)
 {
 	if (isInvited(user))
@@ -212,6 +212,7 @@ bool	Channel::_inviteUser(User* user)
 	_inviteList.push_back(user);
 	return true;
 }
+
 bool	Channel::_revokeInviteUser(User* user)
 {
 	if (!isInvited(user))
