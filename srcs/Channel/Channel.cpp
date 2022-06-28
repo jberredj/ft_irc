@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/24 17:04:52 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/28 23:04:15 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ bool	Channel::_unbanUser(User* user)
 	_banList.erase(find(_banList.begin(), _banList.end(), user));
 	return true;
 }
-bool	Channel::_inviteUser(User* user)
+bool	Channel::inviteUser(User* user)
 {
 	if (isInvited(user))
 		return false;

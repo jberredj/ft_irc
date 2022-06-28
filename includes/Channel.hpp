@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:19:33 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/24 17:03:39 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/06/28 23:04:15 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ public:
 	bool	isOperator(User *user);
 	bool	isMember(User *user);
 	bool	hasTopic(void);
+	bool	inviteUser(User* user);
 
 
 	std::string	getName(void) const;
@@ -72,7 +73,6 @@ private:
 
 	bool	_banUser(User* user);
 	bool	_unbanUser(User* user);
-	bool	_inviteUser(User* user);
 	bool	_revokeInviteUser(User* user);
 };
 
