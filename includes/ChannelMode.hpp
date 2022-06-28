@@ -2,6 +2,7 @@
 #define CHANNEL_MODE_HPP
 
 #include "Mode.hpp"
+#include <map>
 
 //    Parameters: <channel> {[+|-]|o|p|s|i|t|n|b|v} [<limit>] [<user>]
 

@@ -33,7 +33,7 @@ CHANNEL_SRCS		=	$(addprefix srcs/Channel/, $(CHANNEL))
 CHANNEL_OBJS		=	$(addprefix objs/Channel., $(subst /,.,\
 							$(CHANNEL:.cpp=.o)))
 
-COMMANDS			=	Command.cpp UserModeCommand.cpp
+COMMANDS			=	Command.cpp UserModeCommand.cpp ChannelModeCommand.cpp
 COMMANDS_SRCS		=	$(addprefix srcs/Command/, $(COMMANDS))
 COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
 							$(COMMANDS:.cpp=.o)))

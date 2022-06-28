@@ -112,7 +112,6 @@ void WHOIS(Command &command) // TODO : add 313 RPL_WHOISOPERATOR
 	std::vector<std::string> list = _get_target_list(command);
 	for(std::vector<std::string>::iterator it = list.begin(); it != list.end(); it++) {
 		User *user = command.getUser(*it);
-		
 		if (user == NULL) {
 			_err_nosuchnick(command, *it); // 401
 		} else {

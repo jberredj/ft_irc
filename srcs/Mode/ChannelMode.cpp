@@ -1,5 +1,7 @@
 #include "ChannelMode.hpp"
 
+std::map<char, uint8_t> ChannelMode::modesMap;
+
 ChannelMode::ChannelMode(void): Mode() {
 	if (modesMap.empty()) {
 		modesMap.insert(std::make_pair('o', CMODE_O));

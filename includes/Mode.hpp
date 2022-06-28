@@ -3,7 +3,6 @@
 
 #include "stdint.h"
 #include <string>
-#include <map>
 
 class Mode {
 public:

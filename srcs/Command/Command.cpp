@@ -128,16 +128,21 @@ std::string	Command::getServerName(void) const
 	return _server->getServerName();
 }
 
-Channel*	Command::getChannel(std::string name, bool errorOut) {
-	Channel *channel = _server->getChannel(name);
-	if (!channel && errorOut)
-	{
-		strVec	args;
-		args.push_back(name);
-		replyToInvoker(403, args);
-	}
-	return channel;
+// Channel*	Command::getChannel(std::string name, bool errorOut) {
+// 	Channel *channel = _server->getChannel(name);
+// 	if (!channel && errorOut)
+// 	{
+// 		strVec	args;
+// 		args.push_back(name);
+// 		replyToInvoker(403, args);
+// 	}
+// 	return channel;
+// }
+
+Channel*	Command::getChannel(std::string name) {
+	return _server->getChannel(name);
 }
+
 std::map<std::string, Channel*>*	Command::getChannels(void) {return _server->getChannels();}
 void	Command::addChannel(Channel *channel) {_server->addChannel(channel);}
 

@@ -22,7 +22,11 @@ void TOPIC(Command &command) {
 	User&		invoker = command.getInvoker();
 	Channel*	channel = command.getChannel(command.getParameters()[0]);
 	if (!channel)
-		return ;
+	{
+		strVec	args;
+		args.push_back(name);
+		replyToInvoker(403, args);
+	}
 	if (!isUserOnChannel(command, &invoker, channel))
 		return;
 	if (/*!channel->hasMode(ChannelMode::CMODE_T)*/ false || channel->isOperator(&invoker))
