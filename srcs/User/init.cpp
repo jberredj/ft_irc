@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/28 23:43:30 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/06 21:30:42 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void USERS(Command &command){(void)command;}
 void PONG(Command &command){(void)command;}
 void NAMES(Command &command){(void)command;}
 void LIST(Command &command){(void)command;}
-void KICK(Command &command){(void)command;}
 
 /* ************************************************************************** */
 /*                                 Private                                    */
@@ -54,7 +53,7 @@ void	User::_initUserClass(void)
 		Logger(Output::WARN) << "LIST message is not implemented yet";
 		_cmdMap["KILL"] = KILL;
 		_cmdMap["KICK"] = KICK;
-		Logger(Output::WARN) << "KICK message is not implemented yet";
+		Logger(Output::WARN) << "KICK message is incomplete";
 		_cmdMap["JOIN"] = JOIN;
 		Logger(Output::WARN) << "JOIN message is incomplete";
 		_cmdMap["INVITE"] = INVITE;

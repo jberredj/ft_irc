@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:33 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/24 17:08:58 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/06 21:05:58 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ public:
 	std::string 				getTrailer(void) const;
 	User&						getInvoker(void) const;
 	User*						getUser(std::string nickname) const;
+	User*						getUserFromName(std::string username) const;
 	std::vector<User *>*		getUsers(void);
 	// Server*						getServer(void) const;
 	std::string					getServerPassword(void) const;

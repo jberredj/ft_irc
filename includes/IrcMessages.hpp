@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/26 20:13:37 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/06 21:29:48 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void    AWAY(Command& command);
 void	PART(Command &command);
 void	TOPIC(Command &command);
 void    INVITE(Command &command);
+void    KICK(Command &command);
 
 // Replies not in RFC
 std::string	RPL_PONG(strVec args);
