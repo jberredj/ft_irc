@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/18 22:53:25 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/18 23:21:52 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "Command.hpp"
 #include "IrcMessages.hpp"
 
-void USERS(Command &command){(void)command;}
-void PONG(Command &command){(void)command;}
-void NAMES(Command &command){(void)command;}
-void LIST(Command &command){(void)command;}
+void USERS(Command &command){(void)command;} //jorys ou tony
+void PONG(Command &command){(void)command;} //jorys
+void NAMES(Command &command){(void)command;} //daria
+void LIST(Command &command){(void)command;} //jorys
 
 /* ************************************************************************** */
 /*                                 Private                                    */

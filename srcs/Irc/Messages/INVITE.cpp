@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 19:03:18 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/28 23:31:08 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/18 23:47:47 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void    INVITE(Command& command)
         command.replyToInvoker(482, args);
     }
     channel->inviteUser(user);
-    args.push_back(channel->getName());
     args.push_back(user->getNickname());
-    command.replyToInvoker(341, args);
+    args.push_back(channel->getName());
+    command.invokerSendTo(user, 341, args);
 }
