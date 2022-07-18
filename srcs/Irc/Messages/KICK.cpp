@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   KICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:16:53 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/07/06 21:36:08 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:51:55 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,14 @@ void    KICK(Command& command)
     if (needMoreParams(command, 2))
 		return;
     std::string curChannel = command.getParameters()[0];
-    std::string username = command.getParameters()[1];
-    if (command.getParameters().size() > 2)
-        comment = ":" + command.getParameters()[2];
+    std::string nick = command.getParameters()[1];
+    if (command.getTrailer().size())
+        comment = ":" + command.getTrailer();
     if (!(channel = command.getChannel(curChannel)))
-    {
-        args.push_back(curChannel);
-        command.replyToInvoker(403, args);
         return ;
-    }
     if (!isUserOnChannel(command, &command.getInvoker(), channel))
         return ;
-    if (!(user = command.getUserFromName(username)))
+    if (!(user = command.getUser(nick)))
         return ;
     if (!channel->isOperator(&command.getInvoker()))
     {
@@ -44,21 +40,7 @@ void    KICK(Command& command)
         command.replyToInvoker(482, args);
         return ;
     }
-    channel->removeUser(user);
-    std::string	message = ":" + user->getPrefix() + " KICK " + curChannel + (comment.empty() ? "" : " " + comment);
+    std::string	message = ":" + command.getInvoker().getPrefix() + " KICK " + curChannel + " " + user->getNickname() + (comment.empty() ? "" : " " + comment);
 	channel->broadcastMessage(message);
+    channel->removeUser(user);
 }
-
-
-//442     ERR_NOTONCHANNEL
-                //         "<channel> :You're not on that channel"
-
-                // - Returned by the server whenever a client tries to
-                //   perform a channel effecting command for which the
-                //   client isn't a member.
-
-//403     ERR_NOSUCHCHANNEL
-                       // "<channel name> :No such channel"
-
-//482     ERR_CHANOPRIVSNEEDED
-                        //"<channel> :You're not channel operator"
