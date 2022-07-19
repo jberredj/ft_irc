@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:13:22 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/24 17:17:12 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/19 14:44:45 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void TOPIC(Command &command) {
 	Channel*	channel = command.getChannel(command.getParameters()[0]);
 	if (!channel)
 		return ;
-	if (!isUserOnChannel(command, &invoker, channel))
+	if (!isUserOnChannelErr(command, &invoker, channel))
 		return;
 	if (/*!channel->hasMode(ChannelMode::CMODE_T)*/ false || channel->isOperator(&invoker))
 	{

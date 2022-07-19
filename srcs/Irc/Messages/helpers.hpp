@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:48 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/24 16:38:02 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/19 14:44:08 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ std::string	getNameFromList(std::string& nameList);
 Channel*	getNextChannel(std::string& channelList, Command& command, bool createIfNotExist = true);
 bool		validChannelName(std::string name);
 bool		isUserOnChannel(Command &command, User* user, Channel* channel);
+bool		isUserOnChannelErr(Command &command, User* user, Channel* channel);
 #endif

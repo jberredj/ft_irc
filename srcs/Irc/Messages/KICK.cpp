@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   KICK.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:16:53 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/07/18 22:51:55 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/19 14:44:30 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    KICK(Command& command)
         comment = ":" + command.getTrailer();
     if (!(channel = command.getChannel(curChannel)))
         return ;
-    if (!isUserOnChannel(command, &command.getInvoker(), channel))
+    if (!isUserOnChannelErr(command, &command.getInvoker(), channel))
         return ;
     if (!(user = command.getUser(nick)))
         return ;
