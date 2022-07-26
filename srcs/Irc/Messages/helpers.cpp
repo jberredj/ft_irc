@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:07 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/19 14:44:14 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:35:00 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool		validChannelName(std::string name)
 		 && name.find(7) == name.npos);
 }
 
-bool	isUserOnChannel(Command &command, User* user, Channel* channel)
+bool	isUserOnChannel(User* user, Channel* channel)
 {
 	if (channel->isMember(user))
 		return true;
