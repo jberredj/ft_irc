@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:07:05 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/28 23:04:15 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:32:58 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ bool	Channel::isBanned(User *user)
 }
 
 std::string	Channel::getTopic(void) const {return _topic;}
+int			Channel::getNbrMember(void) const {return _nbrMember;}
 
 void	Channel::setInvite(bool invite) {_inviteOnly = invite;}
 bool	Channel::getInvite(void) const {return _inviteOnly;}

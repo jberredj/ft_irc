@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:19:33 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/28 23:04:15 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:32:12 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ public:
 	int			getUserLimit(void) const;
 	std::string	getUserMode(User* user);
 	std::string	getTopic(void) const;
+	int			getNbrMember(void) const;
 	
 	std::vector<User*>	getMembers(void) const;
 	ChannelMode	getChannelMode(void) const;
