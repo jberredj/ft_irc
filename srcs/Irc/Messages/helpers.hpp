@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:48 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/26 22:35:08 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/26 23:45:06 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@ Channel*	getNextChannel(std::string& channelList, Command& command, bool createI
 bool		validChannelName(std::string name);
 bool		isUserOnChannel(User* user, Channel* channel);
 bool		isUserOnChannelErr(Command &command, User* user, Channel* channel);
+void		listChannelMembers(Command &command, Channel *channel);
 #endif

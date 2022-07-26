@@ -6,10 +6,11 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:07 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/26 22:35:00 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/26 23:44:47 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "IrcMessages.hpp"
 #include <vector>
 #include "Command.hpp"
 #include "typedefs.hpp"
@@ -84,4 +85,34 @@ bool	isUserOnChannelErr(Command &command, User* user, Channel* channel)
 	args.push_back(channel->getName());
 	command.replyToInvoker(442, args);
 	return false;
+}
+
+void	listChannelMembers(Command &command, Channel *channel)
+{
+	userVec		members = channel->getMembers();
+	strVec		args;
+	//:<server name> 353 <nickname> = <channel name> :[nickname [...]]\r\n
+	std::size_t	minMessageLen = 1 + command.getServerName().length() + 5
+		+ command.getInvoker().getNickname().length() + 3 + channel->getName().length() + 2;
+	std::size_t	messageLen = minMessageLen;
+	
+	args.push_back(channel->getName());
+	for(userVec::iterator it = members.begin(); it != members.end(); it++)
+	{
+		std::string	nickname;
+		if (channel->isOperator(*it))
+			nickname = "@";
+		nickname += (*it)->getNickname();
+		if (messageLen + nickname.length() + 1 > IRC_MESSAGE_LEN - 2)
+		{
+			command.replyToInvoker(353, args);
+			args.erase(args.begin() + 1, args.end());
+			messageLen = minMessageLen;
+		}
+		messageLen += nickname.length() + 1;
+		args.push_back(nickname);
+	}
+	command.replyToInvoker(353, args);
+	args.erase(args.begin() + 1, args.end());
+	command.replyToInvoker(366, args);
 }
