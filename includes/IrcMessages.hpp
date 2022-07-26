@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/26 22:36:13 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 00:18:04 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	TOPIC(Command &command);
 void    INVITE(Command &command);
 void    KICK(Command &command);
 void    LIST(Command &command);
+void    NAMES(Command &command);
 
 // Replies not in RFC
 std::string	RPL_PONG(strVec args);

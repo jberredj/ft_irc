@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/26 23:55:15 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 00:17:50 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 void USERS(Command &command){(void)command;} //jorys ou tony
 void PONG(Command &command){(void)command;} //jorys
-void NAMES(Command &command){(void)command;} //daria
 
 /* ************************************************************************** */
 /*                                 Private                                    */
@@ -45,7 +44,7 @@ void	User::_initUserClass(void)
 		_cmdMap["OPER"] = OPER;
 		_cmdMap["NICK"] = NICK;
 		_cmdMap["NAMES"] = NAMES;
-		Logger(Output::WARN) << "NAMES message is not implemented yet";
+		Logger(Output::WARN) << "NAMES: Check correct error Cases";
 		_cmdMap["MODE"] = MODE;
 		Logger(Output::WARN) << "MODE message is incomplete";
 		_cmdMap["LIST"] = LIST;
