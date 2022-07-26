@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/26 22:47:59 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/26 23:55:15 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	User::_initUserClass(void)
 		_cmdMap["KILL"] = KILL;
 		_cmdMap["KICK"] = KICK;
 		_cmdMap["JOIN"] = JOIN;
-		Logger(Output::WARN) << "JOIN message is incomplete";
+		Logger(Output::WARN) << "JOIN: Implement Channel Mode Check";
 		_cmdMap["INVITE"] = INVITE;
 		_cmdMap["AWAY"] = AWAY;
 	}
