@@ -6,7 +6,7 @@
 /*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:58:31 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/13 21:15:12 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/06/24 19:30:16 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,19 @@
 void    OPER(Command& command)
 {
     User &user = command.getInvoker();
-	int response = 0;
 	std::vector<std::string> args;
     std::string operPwd = "operPwd";
 
     Logger(Output::DEBUG) << "ENTERED IN OPER";
     if (command.getParameters().size() < 2)
 	{
-		response = 461;
 		args.push_back(command.getCommand());
-		return command.replyToInvoker(response, args);
+		return command.replyToInvoker(461, args);
 	}
     if (command.getParameters()[1] != operPwd)
-    {
-        response = 464;
-		return command.replyToInvoker(response, args);
-    }
-    response = 381;
-    command.replyToInvoker(response, args); 
-    std::string modeO = user.getMode();
-    if (modeO.find("o") == std::string::npos)
-    modeO = modeO + "o";
-    user.setMode(modeO);
-    response = 221;
-	args.push_back(modeO);
-    return command.replyToInvoker(response, args);      
+		return command.replyToInvoker(464, args);
+    command.replyToInvoker(381, args);
+    user.addMode(UserMode::UMODE_O);
+	args.push_back(user.getModesList());
+    return command.replyToInvoker(221, args);      
 }

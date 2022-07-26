@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/06/23 10:01:17 by jberredj         ###   ########.fr        #
+#    Updated: 2022/07/26 22:33:45 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ CHANNEL_SRCS		=	$(addprefix srcs/Channel/, $(CHANNEL))
 CHANNEL_OBJS		=	$(addprefix objs/Channel., $(subst /,.,\
 							$(CHANNEL:.cpp=.o)))
 
-COMMANDS			=	Command.cpp
+COMMANDS			=	Command.cpp UserModeCommand.cpp
 COMMANDS_SRCS		=	$(addprefix srcs/Command/, $(COMMANDS))
 COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
 							$(COMMANDS:.cpp=.o)))
@@ -41,20 +41,23 @@ COMMANDS_OBJS		=	$(addprefix objs/Command., $(subst /,.,\
 IRC					=	$(addprefix Messages/, $(MESSAGES))\
 							$(addprefix Replies/, $(REPLIES))
 MESSAGES			=	PASS.cpp USER.cpp NICK.cpp MODE.cpp PING.cpp PRIVMSG.cpp NOTICE.cpp QUIT.cpp WHOIS.cpp\
-						WHOWAS.cpp JOIN.cpp helpers.cpp KILL.cpp OPER.cpp AWAY.cpp PART.cpp
+						WHOWAS.cpp JOIN.cpp helpers.cpp KILL.cpp OPER.cpp AWAY.cpp PART.cpp TOPIC.cpp INVITE.cpp KICK.cpp \
+						LIST.cpp
 REPLIES				=	Reply.cpp ERR.cpp RPL.cpp
 IRC_SRCS			=	$(addprefix srcs/Irc/, $(IRC))
 IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))
 
 LOGGER				=	Logger.cpp Output.cpp
 LOGGER_SRCS			=	$(addprefix srcs/Logger/, $(LOGGER))
-LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,.,\
-							$(LOGGER:.cpp=.o)))
+LOGGER_OBJS			=	$(addprefix objs/Logger., $(subst /,., $(LOGGER:.cpp=.o)))
+
+MODE				=	Mode.cpp ChannelMode.cpp UserMode.cpp
+MODE_SRCS			=	$(addprefix srcs/Mode/, $(MODE))
+MODE_OBJS			=	$(addprefix objs/Mode., $(subst /,., $(MODE:.cpp=.o)))
 
 SERVER				=	ChannelInteraction.cpp run.cpp Server.cpp socketIO.cpp UserInteractions.cpp
 SERVER_SRCS			=	$(addprefix srcs/Server/, $(SERVER))
-SERVER_OBJS			=	$(addprefix objs/Server., $(subst /,.,\
-							$(SERVER:.cpp=.o)))
+SERVER_OBJS			=	$(addprefix objs/Server., $(subst /,., $(SERVER:.cpp=.o)))
 
 TYPES				=	Nullptr_t.cpp 
 TYPES_SRCS			=   $(addprefix srcs/types/, $(TYPES))
@@ -69,11 +72,11 @@ MAIN_SRCS			=   $(addprefix srcs/, $(MAIN))
 MAIN_OBJS			=   $(addprefix objs/, $(subst /,., $(MAIN:.cpp=.o)))
 
 SRCS				= 	$(CHANNEL_SRCS) $(COMMANDS_SRCS) $(IRC_SRCS) \
-							$(LOGGER_SRCS) $(SERVER_SRCS) $(TYPES_SRCS) \
-							$(USER_SRCS) $(MAIN_SRCS)
+							$(LOGGER_SRCS) $(MODE_SRCS) $(SERVER_SRCS) \
+							$(TYPES_SRCS) $(USER_SRCS) $(MAIN_SRCS) 
 OBJS				= 	$(CHANNEL_OBJS) $(COMMANDS_OBJS) $(IRC_OBJS) \
-							$(LOGGER_OBJS) $(SERVER_OBJS) $(TYPES_OBJS) \
-							$(USER_OBJS) $(MAIN_OBJS)
+							$(LOGGER_OBJS) $(MODE_OBJS) $(SERVER_OBJS) \
+							$(TYPES_OBJS) $(USER_OBJS) $(MAIN_OBJS)
 
 ###############################################################################
 ##							Color output char								 ##

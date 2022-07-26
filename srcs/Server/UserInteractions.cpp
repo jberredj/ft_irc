@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   UserInteractions.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:56:23 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 00:37:41 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/18 19:50:27 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@ User*	Server::getUser(std::string nickname) {
 
 	while (user != _users.end()) {
 		if ((*user)->getNickname() == nickname)
+			return *user;
+		user++;
+	}
+	return ft::null_ptr;
+}
+
+User*	Server::getUserFromName(std::string username) {
+	std::vector<User *>::iterator user = _users.begin();
+
+	while (user != _users.end()) {
+		if ((*user)->getUsername() == username)
 			return *user;
 		user++;
 	}
@@ -62,6 +73,8 @@ void	Server::_addNewUser(int socketToBind, struct sockaddr_in cliAddr) {
 	_usersMap.insert(std::make_pair(socketToBind, new_user));
 	_users.push_back(new_user);
 }
+
+
 
 void	Server::_tryUnregisterUser(User *user, int socket) {
 	if (!user->repliesAvalaible()) {

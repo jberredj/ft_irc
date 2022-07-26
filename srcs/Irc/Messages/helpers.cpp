@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:07 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 09:58:03 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:35:00 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ std::string	getNameFromList(std::string& nameList)
 Channel*	getNextChannel(std::string& channelList, Command& command, bool createIfNotExist)
 {
 	std::string	channelName = getNameFromList(channelList);
-	while (!validChannelName(channelName))
+	while (!channelName.empty() && !validChannelName(channelName))
 	{
 		strVec	args;
 		args.push_back(channelName);
@@ -49,29 +49,39 @@ Channel*	getNextChannel(std::string& channelList, Command& command, bool createI
 	}
 	if (channelName.empty())
 		return ft::null_ptr;
-	
-	Channel*	channel = command.getChannel(channelName);
+	Channel*	channel = command.getChannel(channelName, false);
+
 	if (!channel && createIfNotExist)
 	{
 		Logger(Output::DEBUG) << "Create a new channel: " << channelName;
 		channel = new Channel(channelName);
 		command.addChannel(channel);
 	}
-	else if (!channel)
-	{
-		strVec	args;
-		args.push_back(channelName);
-		command.replyToInvoker(403, args);
-	}
 	return channel;
 }
 
 bool		validChannelName(std::string name)
 {
-	if (name[0] != '#'
-		&& name.size() > INSPIRCD_MAX_LEN)
-		return false;
-	if (name.find(' ') != name.npos || name.find(0x7) != name.npos)
-		return false;
-	return true;
+	return (name[0] == '#'
+		 &&	name.size() < INSPIRCD_MAX_LEN
+		 && name.find(' ') == name.npos
+		 && name.find(',') == name.npos
+		 && name.find(7) == name.npos);
+}
+
+bool	isUserOnChannel(User* user, Channel* channel)
+{
+	if (channel->isMember(user))
+		return true;
+	return false;
+}
+
+bool	isUserOnChannelErr(Command &command, User* user, Channel* channel)
+{
+	if (channel->isMember(user))
+		return true;
+	strVec	args;
+	args.push_back(channel->getName());
+	command.replyToInvoker(442, args);
+	return false;
 }

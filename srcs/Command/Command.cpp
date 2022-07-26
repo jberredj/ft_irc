@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/22 23:24:09 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/06 21:07:11 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,18 @@ Command&	Command::operator=(const Command& rhs)
 }
 
 // Getters
-std::string	Command::getLine(void) const {return _command_line;}
-std::string	Command::getPrefix(void) const {return _prefix;}
-std::string	Command::getCommand(void) const {return _command;}
-const std::vector<std::string>	&Command::getParameters(void) const {return _parameters;}
-std::string	Command::getTrailer(void) const {return _trailer;}
-User&	Command::getInvoker(void) const {return *_invoker;}
-User*	Command::getUser(std::string nickname) {
+std::string		Command::getLine(void) const {return _command_line;}
+std::string		Command::getPrefix(void) const {return _prefix;}
+std::string		Command::getCommand(void) const {return _command;}
+const strVec	&Command::getParameters(void) const {return _parameters;}
+std::string		Command::getTrailer(void) const {return _trailer;}
+User&			Command::getInvoker(void) const {return *_invoker;}
+User*			Command::getUser(std::string nickname) const {
 	return _server->getUser(nickname);
 }
-
+User*			Command::getUserFromName(std::string username) const {
+	return _server->getUserFromName(username);
+}
 std::vector<User *>*	Command::getUsers(void) {return _server->getUsers();}
 
 // Server*	Command::getServer(void) const {
@@ -128,10 +130,26 @@ std::string	Command::getServerName(void) const
 	return _server->getServerName();
 }
 
-Channel*	Command::getChannel(std::string name) {return _server->getChannel(name);}
+Channel*	Command::getChannel(std::string name, bool errorOut) {
+	Channel *channel = _server->getChannel(name);
+	if (!channel && errorOut)
+	{
+		strVec	args;
+		args.push_back(name);
+		replyToInvoker(403, args);
+	}
+	return channel;
+}
 std::map<std::string, Channel*>*	Command::getChannels(void) {return _server->getChannels();}
 void	Command::addChannel(Channel *channel) {_server->addChannel(channel);}
 
+bool	Command::targetsInvoker(void) const {
+	return (getParameters().front() == getInvoker().getNickname());
+}
+
+bool	Command::existingTarget(void) const {
+	return (getUser(_parameters.front()));
+}
 
 // Replies functions
 
@@ -145,8 +163,8 @@ void	Command::replyAllReachable(std::string message)
 		userVec channelUser = (*it)->getMembers();
 		userVec merged;
 		std::sort(channelUser.begin(), channelUser.end());
-		std::merge(uniqueUser.begin(), uniqueUser.end(), channelUser.begin(), channelUser.end(),
-			std::back_inserter(merged));
+		std::merge(uniqueUser.begin(), uniqueUser.end(), 
+			channelUser.begin(), channelUser.end(), std::back_inserter(merged));
 		userVec::iterator dupesIt = std::unique(merged.begin(), merged.end());
 		merged.erase(dupesIt, merged.end());
 		uniqueUser = merged;
@@ -156,17 +174,17 @@ void	Command::replyAllReachable(std::string message)
 			(*it)->addReply(message);
 }
 
-void	Command::replyAllReachable(int code, std::vector<std::string> args)
+void	Command::replyAllReachable(int code, strVec args)
 {
 	replyAllReachable(_reply(_invoker, ft::null_ptr, code, args));
 }
 
-void	Command::replyToInvoker(int code, std::vector<std::string> args)
+void	Command::replyToInvoker(int code, strVec args)
 {
 	_invoker->addReply(_reply(ft::null_ptr, _invoker, code, args));
 }
 
-void	Command::invokerSendTo(User* receiver, int code, std::vector<std::string> args)
+void	Command::invokerSendTo(User* receiver, int code, strVec args)
 {
 	receiver->addReply(_reply(_invoker, receiver, code, args));
 }
@@ -176,8 +194,7 @@ void	Command::invokerSendTo(User* receiver, int code, std::vector<std::string> a
 /* ************************************************************************** */
 
 // Replies functions
-std::string	Command::_reply(User* sender, User* receiver, int code,
-					std::vector<std::string> args)
+std::string	Command::_reply(User* sender, User* receiver, int code, strVec args)
 {
 	std::string	reply;
 	std::stringstream	codeString;
@@ -208,8 +225,8 @@ std::ostream&	operator<<(std::ostream& o, const Command& rhs)
 	o << "Prefix : "  << rhs.getPrefix() << std::endl;
 	o << "Command : " << rhs.getCommand() << std::endl;
 	o << "Parameters : " << std::endl;
-	std::vector<std::string>	tmp = rhs.getParameters();
-	for (std::vector<std::string>::iterator it = tmp.begin(); 
+	strVec	tmp = rhs.getParameters();
+	for (strVec::iterator it = tmp.begin(); 
 		it != tmp.end(); ++it)
 		o << "\t" << *it << std::endl;
 	o << "Trailer : " << rhs.getTrailer() << std::endl;

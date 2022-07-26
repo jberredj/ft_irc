@@ -6,12 +6,11 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 16:16:45 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/26 23:23:03 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "typedefs.hpp"
-#include "Command.hpp"
+#include "IrcMessages.hpp"
 
 std::string	RPL_PONG(strVec args)
 {
@@ -25,6 +24,13 @@ std::string RPL_PRIVMSG(strVec args)
 	std::string	target = args[0];
 	std::string	message = args[1];
 	return "PRIVMSG " + target + " :" + message;
+}
+
+std::string RPL_NOTICE(strVec args)
+{
+	std::string	target = args[0];
+	std::string	message = args[1];
+	return "NOTICE " + target + " :" + message;
 }
 
 std::string RPL_QUIT(strVec args)
@@ -42,16 +48,29 @@ std::string RPL_KILL(strVec args)
 	return nickname + " has quit [" + reason + "]";
 }
 
+std::string RPL_SETUSERMODE(strVec args)
+{
+	std::string nickname = args[0];
+	std::string changes = args[1];
+	return "MODE " + nickname + " :" + changes;
+}
+
 std::string	RPL_WELCOME(strVec args)
 {
 	std::string	prefix = args[0];
 	return "Welcome to the Internet Relay Network " + prefix;
 }
 
+std::string RPL_ACCESSDENIED(strVec args)
+{
+	std::string	username = args[0];
+	std::string host = args[1];
+	return "ERROR :Closing link: (" + username + "@" + host + ") [Access denied by configuration]";
+}
 std::string	RPL_UMODEIS(strVec args)
 {
 	std::string	modeString = args[0];
-	return modeString;
+	return ":+" + modeString;
 }
 
 std::string	RPL_AWAY(strVec args)
@@ -167,8 +186,10 @@ std::string	RPL_LIST(strVec args)
 	// "<channel> <NbrChannelMembers> :<topic>"
 	std::string	channel = args[0];
 	std::string	nbrMember = args[1];
-	std::string	topic = args[2];
-	return channel + " " + nbrMember + " :" + topic; // TODO Check if topic is passed if no topic is set
+	std::string	topic;
+	if (args.size() > 2) 
+		topic = args[2];
+	return channel + " " + nbrMember + (topic.empty() ? "" : " :" + topic);
 }
 
 std::string	RPL_LISTEND(strVec args)
@@ -248,4 +269,11 @@ std::string	RPL_NOUSERS(strVec args)
 {
 	(void)args;
 	return ":Nobody logged in";
+}
+
+std::string	RPL_SETNEWNICK(strVec args)
+{
+	std::string &nick = args[0];
+
+	return "NICK :" + nick;
 }

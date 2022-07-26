@@ -47,6 +47,7 @@ public:
 
 	// User interactions methods and function
 	User*				getUser(std::string nickname);
+	User*				getUserFromName(std::string username);
 	std::vector<User*>*	getUsers(void);
 	User*				getOldUser(std::string nickname);
 	std::vector<User*>*	getOldUsers(void);

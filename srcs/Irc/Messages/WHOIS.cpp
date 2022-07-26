@@ -34,7 +34,7 @@ static void _rpl_whoismodes(Command &command, User *user) {
 	std::vector<std::string> args;
 
 	args.push_back(user->getNickname());
-	args.push_back(user->getMode());
+	args.push_back(user->getModesList());
 	command.replyToInvoker(379, args);
 }
 
@@ -47,7 +47,7 @@ static void _rpl_whoischannels(Command &command, User *user) {
 	typedef std::vector<Channel*>::iterator channel_it;
 	args.push_back(user->getNickname());
 	for(channel_it channel = channels.begin(); channel != channels.end(); channel++) {
-		args.push_back((*channel)->getName()); //TODO: add to arg @ if user is operator
+		args.push_back((*channel)->getName()); //TODO: add to arg @ if user is channel operator
 	}
 
 	command.replyToInvoker(319, args);
@@ -104,7 +104,7 @@ static std::vector<std::string>	_get_target_list(Command &command) {
 	return target_list;
 }
 
-void WHOIS(Command &command) // TODO : Channel update, add 319 WHOISCHANNELS and 313 RPL_WHOISOPERATOR
+void WHOIS(Command &command) // TODO : add 313 RPL_WHOISOPERATOR
 {
 	if (command.getParameters().size() == 0)
 		return _err_nonicknamegiven(command); // 431

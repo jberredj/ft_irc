@@ -13,55 +13,37 @@
 #include "Logger.hpp"
 #include "User.hpp"
 #include "Command.hpp"
+#include "helpers.hpp"
 #include "IrcMessages.hpp"
+#include "UserModeCommand.hpp"
+
+static void _mode_channel(Command &command) {
+	std::cout << "Mode channel spotted" << std::endl;
+	(void) command;
+	// std::cout << command.getParameters()[0] << std::endl;
+	// std::cout << command.getParameters()[1] << std::endl;
+	// std::string flags = "opsitnbv";
+	
+	
+	return;
+}
+
+static void _mode_user(Command &command) {
+	UserModeCommand foo = UserModeCommand(command);
+	foo.updateModes();
+}
 
 void	MODE(Command &command)
 {
-    User &user = command.getInvoker();
-	int response = 0;
 	std::vector<std::string> args;
-	bool minus_flag = false;
-	std::string requested_mode;
-    std::string new_mode;
-	std::string u_flags = "-+iwso";
-
-	if (command.getParameters().size() < 2)
+	if (command.getParameters().size() < 1)
 	{
-		response = 461;
 		args.push_back(command.getCommand());
-		return command.replyToInvoker(response, args);
+		return command.replyToInvoker(461, args);
 	}
-	if (command.getParameters()[0] != user.getNickname() && user.getMode().find("o") == std::string::npos)
-	{
-		response = 502;
-		return command.replyToInvoker(response, args);
-	}
-	requested_mode = command.getParameters()[1];
-    new_mode = user.getMode();
-	for (size_t i = 0; i < requested_mode.size(); i++)
-	{
-		if (requested_mode[i] == '-')
-			minus_flag = true;
-		else if (requested_mode[i] == '+')
-			minus_flag = false;
-		else if (u_flags.find(requested_mode[i]) == std::string::npos)
-		{
-			response = 501;
-			return command.replyToInvoker(response, args);
-		}
-		else if (requested_mode[i] == 'o' && !minus_flag && new_mode.find("o") == std::string::npos)
-			continue;
-		else
-		{
-			size_t	modeSet = new_mode.find(requested_mode[i]);
-			if (minus_flag && modeSet != std::string::npos)
-				new_mode.erase(modeSet);
-			else if(!minus_flag && modeSet == std::string::npos)
-				new_mode = new_mode + requested_mode[i];
-		}
-	}
-	user.setMode(new_mode);
-	response = 221;
-	args.push_back(new_mode);
-	return command.replyToInvoker(response, args);	
+
+	if (validChannelName(command.getParameters().front())) 
+		_mode_channel(command);
+	else 
+		_mode_user(command);
 }

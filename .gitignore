@@ -6,3 +6,8 @@ objs/*
 deps/*.d
 deps/
 .vscode/
+test*
+.nfs*
+pipe
+in.log
+out.log
