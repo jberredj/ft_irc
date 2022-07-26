@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPL.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/26 18:31:59 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:39:13 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,10 @@ std::string	RPL_LIST(strVec args)
 	// "<channel> <NbrChannelMembers> :<topic>"
 	std::string	channel = args[0];
 	std::string	nbrMember = args[1];
-	std::string	topic = args[2];
-	return channel + " " + nbrMember + " :" + topic; // TODO Check if topic is passed if no topic is set
+	std::string	topic;
+	if (args.size() > 2) 
+		topic = args[2];
+	return channel + " " + nbrMember + (topic.empty() ? "" : " :" + topic);
 }
 
 std::string	RPL_LISTEND(strVec args)
