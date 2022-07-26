@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/18 23:21:52 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:47:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 void USERS(Command &command){(void)command;} //jorys ou tony
 void PONG(Command &command){(void)command;} //jorys
 void NAMES(Command &command){(void)command;} //daria
-void LIST(Command &command){(void)command;} //jorys
 
 /* ************************************************************************** */
 /*                                 Private                                    */
@@ -50,7 +49,7 @@ void	User::_initUserClass(void)
 		_cmdMap["MODE"] = MODE;
 		Logger(Output::WARN) << "MODE message is incomplete";
 		_cmdMap["LIST"] = LIST;
-		Logger(Output::WARN) << "LIST message is not implemented yet";
+		Logger(Output::WARN) << "LIST: Implement Channel Mode Check";
 		_cmdMap["KILL"] = KILL;
 		_cmdMap["KICK"] = KICK;
 		_cmdMap["JOIN"] = JOIN;
