@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   INVITE.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@42.student.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 19:03:18 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/07/18 23:47:47 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:35:38 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    INVITE(Command& command)
     std::string channel_str = command.getParameters()[1];
     if (!(channel = command.getChannel(channel_str)))
         return ;
-    if (!isUserOnChannel(command, &command.getInvoker(), channel))
+    if (!isUserOnChannel(&command.getInvoker(), channel))
         return ;
     user = command.getUser(nick);
 	if (!user)
@@ -35,7 +35,7 @@ void    INVITE(Command& command)
 		args.push_back(nick);
 		return command.replyToInvoker(401, args);
 	}
-    if (isUserOnChannel(command, user, channel))
+    if (isUserOnChannel(user, channel))
     {
         args.push_back(user->getUsername());
         args.push_back(channel->getName());
