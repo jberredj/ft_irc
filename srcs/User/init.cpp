@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/27 02:31:47 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:32:16 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	User::_initUserClass(void)
 	{
 		_cmdMap["WHOIS"] = WHOIS;
 		_cmdMap["WHOWAS"] = WHOWAS;
-		_cmdMap["USERS"] = USERS;
+		_cmdMap["USER"] = USER;
 		_cmdMap["TOPIC"] = TOPIC;
 		_cmdMap["PRIVMSG"] = PRIVMSG;
 		Logger(Output::INFO) << "PRIVMSG message is incomplete";
