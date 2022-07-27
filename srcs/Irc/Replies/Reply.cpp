@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Reply.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:16:30 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/26 18:21:15 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:12:34 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(442, ERR_NOTONCHANNEL));
 		_replies.insert(std::make_pair(443, ERR_USERONCHANNEL));
 		_replies.insert(std::make_pair(446, ERR_USERSDISABLED));
+		_replies.insert(std::make_pair(451, ERR_NOTREGISTERED));
 		_replies.insert(std::make_pair(461, ERR_NEEDMOREPARAMS));
 		_replies.insert(std::make_pair(462, ERR_ALREADYREGISTRED));
 		_replies.insert(std::make_pair(464, ERR_PASSWDMISMATCH));

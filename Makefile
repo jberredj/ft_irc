@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/07/27 00:18:15 by jberredj         ###   ########.fr        #
+#    Updated: 2022/07/27 01:34:20 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ IRC					=	$(addprefix Messages/, $(MESSAGES))\
 							$(addprefix Replies/, $(REPLIES))
 MESSAGES			=	PASS.cpp USER.cpp NICK.cpp MODE.cpp PING.cpp PRIVMSG.cpp NOTICE.cpp QUIT.cpp WHOIS.cpp\
 						WHOWAS.cpp JOIN.cpp helpers.cpp KILL.cpp OPER.cpp AWAY.cpp PART.cpp TOPIC.cpp INVITE.cpp KICK.cpp \
-						LIST.cpp NAMES.cpp
+						LIST.cpp NAMES.cpp PONG.cpp
 REPLIES				=	Reply.cpp ERR.cpp RPL.cpp
 IRC_SRCS			=	$(addprefix srcs/Irc/, $(IRC))
 IRC_OBJS			=	$(addprefix objs/Irc., $(subst /,., $(IRC:.cpp=.o)))

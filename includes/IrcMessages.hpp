@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/27 00:18:04 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:12:14 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void    INVITE(Command &command);
 void    KICK(Command &command);
 void    LIST(Command &command);
 void    NAMES(Command &command);
+void 	PONG(Command &command);;
 
 // Replies not in RFC
 std::string	RPL_PONG(strVec args);
@@ -103,6 +104,7 @@ std::string	ERR_USERNOTINCHANNEL(strVec args);
 std::string	ERR_NOTONCHANNEL(strVec args);
 std::string	ERR_USERONCHANNEL(strVec args);
 std::string	ERR_USERSDISABLED(strVec args);
+std::string ERR_NOTREGISTERED(strVec args);
 std::string	ERR_NEEDMOREPARAMS(strVec args);
 std::string	ERR_ALREADYREGISTRED(strVec args);
 std::string	ERR_PASSWDMISMATCH(strVec args);

@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/27 00:17:50 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 01:34:28 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "IrcMessages.hpp"
 
 void USERS(Command &command){(void)command;} //jorys ou tony
-void PONG(Command &command){(void)command;} //jorys
 
 /* ************************************************************************** */
 /*                                 Private                                    */

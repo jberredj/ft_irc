@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:56:10 by esommier          #+#    #+#             */
-/*   Updated: 2022/06/08 15:12:44 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:08:05 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,31 @@
 
 void	PONG(Command &command)
 {
-	int	response = 0;
-	std::vector<std::string> args;
-
-	Logger(Output::DEBUG) << "REPLY TO PING MESSAGE";
-	// if (command.***)  // no such server
-	// {
-	// 	response = 402;
-	// 	args.push_back(command.getCommand());
-	// 	return command.reply(response, args);
-	// }
-
-	if (command.getParameters().size() == 0)
-	{
-		response = 409;
-		args.push_back(command.getCommand());
-		return command.replyToInvoker(response, args);
+	User &invoker = command.getInvoker();
+	bool			success = false;
+	if (command.getParameters().empty())
+		return ;
+	if (invoker.getExpectedPONG().empty())
+		return ;
+	if (invoker.getExpectedPONG() == command.getTrailer())
+		success = true;
+	if (success) {
+		invoker.updateSeenTime();
+		invoker.setExpectedPONG("");
+		if (invoker.getStatus() <= User::REGISTER) {
+			strVec	args;
+			args.push_back(invoker.getPrefix());
+			invoker.setStatus(User::ONLINE);
+			invoker.setTimeout(120);
+			command.replyToInvoker(1, args);
+		}
 	}
-
-	
+	else if (invoker.getStatus() <= User::REGISTER) {
+		strVec args;
+		invoker.setStatus(User::OFFLINE);
+		args.push_back(invoker.getUsername());
+    	args.push_back(invoker.getHostname());
+		command.replyToInvoker(-6, args);
+	}
 }
 

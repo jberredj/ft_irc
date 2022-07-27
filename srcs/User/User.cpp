@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/07/26 23:23:01 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:18:40 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 User::User(void):
 	_commandBuf(""), _commandQueue(), _responseQueue(), _status(PASSWORD),
 	_password(""), _username(""), _nickname("*"), _truename(""),
-	_hostname("127.0.0.1"), _modes(), _awayMsg(""), _signon(std::time(ft::null_ptr)), _channels()
+	_hostname("127.0.0.1"), _modes(), _awayMsg(""), _signon(std::time(ft::null_ptr)), _channels(),
+	_timeoutSecs(20), _lastSeen(_signon), _expectedPONG("")
 {
 	_initUserClass();
 	Logger(Output::TRACE) << "User constructor called";
@@ -66,6 +67,9 @@ User &User::operator=(User const & rhs)
 		this->_modes = rhs._modes;
 		this->_awayMsg = rhs._awayMsg;
 		this->_signon = rhs._signon;
+		this->_timeoutSecs = rhs._timeoutSecs;
+		this->_lastSeen = rhs._lastSeen;
+		this->_expectedPONG = rhs._expectedPONG;
 	}
 	return *this;
 }
@@ -117,6 +121,17 @@ std::string		User::getPrefix(void) const
 	return prefix;
 }
 
+std::string		User::generateAuthKey(void) {
+	std::string	authKey = "0000000000000000";
+	std::string charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-@?&$%!";
+	for (size_t i = 0; i < authKey.length(); i++)
+	{
+		int character = std::rand() % charset.length();
+		authKey[i] = charset[character];
+	}
+	return authKey;
+}
+
 void			User::tryAuthentificate(Command &cmd)
 {
 	std::vector<std::string> args;
@@ -127,9 +142,10 @@ void			User::tryAuthentificate(Command &cmd)
 
 	if (_password == cmd.getServerPassword())
 	{
-		args.push_back(getPrefix());
-		setStatus(ONLINE);
-		return cmd.replyToInvoker(1, args);
+		this->updateSeenTime();
+		std::string	authKey = generateAuthKey();
+		this->addReply("PING :" + authKey);
+		this->_expectedPONG = authKey;
 	}	
 	else
 	{
@@ -160,6 +176,27 @@ void	User::addMode(uint8_t mode) {_modes.addMode(mode);}
 void	User::removeMode(uint8_t mode) {_modes.removeMode(mode);}
 bool	User::hasMode(uint8_t mode) {return _modes.hasMode(mode);}
 void	User::setAwayMsg(std::string msg) {this->_awayMsg = msg;}
+
+void	User::updateSeenTime(void) {this->_lastSeen = std::time(ft::null_ptr);}
+void	User::setTimeout(size_t seconds) {this->_timeoutSecs = seconds;}
+int		User::checkTimeOut(void) {
+	time_t	now =  std::time(ft::null_ptr);;
+	int		offset = 0;
+	if (static_cast<unsigned long>(now - _lastSeen) < _timeoutSecs)
+		return 0;
+	if (this->_status <= REGISTER)
+		offset = 1;
+	if ((static_cast<unsigned long>(now - _lastSeen) < 2 * _timeoutSecs) && _expectedPONG.empty())
+		return 1 + offset;
+	else if (static_cast<unsigned long>(now - _lastSeen) > 2 * _timeoutSecs)
+		return 2;
+	return 0;
+}
+
+void			User::setExpectedPONG(std::string expPONG) {this->_expectedPONG = expPONG;}
+std::string		User::getExpectedPONG(void) const {return this->_expectedPONG;}
+time_t			User::getLastSeen(void) const {return  this->_lastSeen;}
+
 
 void	User::setCommandBuf(std::string commandBuf) {
 	this->_commandBuf = commandBuf;
@@ -194,17 +231,28 @@ void	User::clearCommandQueue(void)
 		_commandQueue.pop();
 }
 
+bool	User::canExecuteCommand(Command& command) {
+	if (_status > REGISTER)
+		return true;
+	std::string message = command.getCommand();
+	if (message == "PONG" || message == "NICK" || message == "PASS" || message == "USER")
+		return true;
+	command.replyToInvoker(451);
+	return false;
+}
+
 void    User::execCommandQueue()
 {
 	if (!_cmdMap.size())
 		throw (std::logic_error("Try to use User Object without initializing it")); 
 	while (!_commandQueue.empty())
-	{	
+	{
 		Command &cmd = _commandQueue.front();
 		if (_cmdMap.count(cmd.getCommand()) > 0)
 		{
 			Logger(Output::TRACE) << cmd;
-			_cmdMap[cmd.getCommand()](cmd);
+			if (canExecuteCommand(cmd))
+				_cmdMap[cmd.getCommand()](cmd);
 		}
 		else
 			Logger(Output::INFO) << "Unknown command: " << cmd.getCommand(); 

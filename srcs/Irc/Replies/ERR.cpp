@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ERR.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:38:25 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/26 16:03:50 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:19:10 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,12 @@ std::string	ERR_USERSDISABLED(std::vector<std::string> args)
 {
 	(void)args;
 	return ":USERS has been disabled";
+}
+
+std::string ERR_NOTREGISTERED(std::vector<std::string> args)
+{
+	(void)args;
+	return ":You have not registered";
 }
 
 std::string	ERR_NEEDMOREPARAMS(std::vector<std::string> args)

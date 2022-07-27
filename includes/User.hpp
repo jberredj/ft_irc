@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:15:25 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/06/23 00:35:16 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:15:23 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,21 @@ public:
 	// IO User methods
 	void			addCommand(const Command& command);
 	void			clearCommandQueue(void);
+	bool			canExecuteCommand(Command& command);
 	void			execCommandQueue(void);
 	void			addReply(std::string reply);
 	std::string		getReplies(void);
 	void			clearReplies(void);
+	std::string		generateAuthKey(void);
 	void			tryAuthentificate(Command &cmd);
 	bool			isAway(void);
+	void			setTimeout(size_t seconds);
+	void			updateSeenTime(void);
+	int				checkTimeOut(void);
+	time_t			getLastSeen(void) const;
+
+	void			setExpectedPONG(std::string expPONG);
+	std::string		getExpectedPONG(void) const;
 
 private:
 	std::string 										_commandBuf;
@@ -95,6 +104,10 @@ private:
 	std::string											_awayMsg;
 	time_t												_signon;
 	std::vector<Channel*>								_channels;
+
+	size_t												_timeoutSecs;
+	time_t												_lastSeen;
+	std::string											_expectedPONG;
 
 	// Init user Class
 	static void											_initUserClass(void);

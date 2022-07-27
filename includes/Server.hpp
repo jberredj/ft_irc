@@ -74,6 +74,7 @@ private:
 	void		_pruneChannel(void);
 
 	// Run loop methods and functions
+	void		_checkUserTimedOut(User* user);
 	void		_treatUserMessages(void);
 
 	// General methods and functions
