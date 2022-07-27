@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/27 01:34:28 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:28:06 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	User::_initUserClass(void)
 		_cmdMap["NOTICE"] = NOTICE;
 		_cmdMap["QUIT"] = QUIT;
 		_cmdMap["PONG"] = PONG;
-		Logger(Output::WARN) << "PONG message is not implemented yet";
 		_cmdMap["PING"] = PING;
 		_cmdMap["PASS"] = PASS;
 		_cmdMap["PART"] = PART;
