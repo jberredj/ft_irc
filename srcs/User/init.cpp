@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:09:13 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/27 02:28:06 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:31:47 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "Command.hpp"
 #include "IrcMessages.hpp"
 
-void USERS(Command &command){(void)command;} //jorys ou tony
 
 /* ************************************************************************** */
 /*                                 Private                                    */
@@ -28,8 +27,6 @@ void	User::_initUserClass(void)
 		_cmdMap["WHOIS"] = WHOIS;
 		_cmdMap["WHOWAS"] = WHOWAS;
 		_cmdMap["USERS"] = USERS;
-		Logger(Output::WARN) << "USERS message is not implemented yet";
-		_cmdMap["USER"] = USER;
 		_cmdMap["TOPIC"] = TOPIC;
 		_cmdMap["PRIVMSG"] = PRIVMSG;
 		Logger(Output::INFO) << "PRIVMSG message is incomplete";
