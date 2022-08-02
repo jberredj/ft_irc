@@ -28,11 +28,6 @@ static void _mode_channel(Command &command) {
 	return;
 }
 
-static void _mode_user(Command &command) {
-	UserModeCommand foo = UserModeCommand(command);
-	foo.updateModes();
-}
-
 void	MODE(Command &command)
 {
 	std::vector<std::string> args;
@@ -45,5 +40,5 @@ void	MODE(Command &command)
 	if (validChannelName(command.getParameters().front())) 
 		_mode_channel(command);
 	else 
-		_mode_user(command);
+		UserModeCommand(command).updateModes();
 }
