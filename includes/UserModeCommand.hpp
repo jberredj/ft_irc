@@ -8,7 +8,7 @@
 class UserModeCommand {
 public:
 	UserModeCommand(Command &command);
-	void    updateModes(void);
+	void	updateModes(void);
 
 private:
 	Command	&_command;

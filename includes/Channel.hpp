@@ -33,7 +33,6 @@ public:
 
 	bool	setUserLimit(int limit);
 	bool	setUserMode(std::string mode, User* user);
-	// void	setChannelModes(std::string mode);
 	bool	setTopic(std::string topic);
 	bool	addUser(User *user);
 	bool	removeUser(User *user);
@@ -48,16 +47,18 @@ public:
 	bool	hasTopic(void);
 	bool	inviteUser(User* user);
 
-
 	std::string	getName(void) const;
 	int			getUserLimit(void) const;
 	std::string	getUserMode(User* user);
 	std::string	getTopic(void) const;
 	int			getNbrMember(void) const;
-	
 	std::vector<User*>	getMembers(void) const;
-	ChannelMode	getChannelMode(void) const;
 
+	std::string	getModesList(void) const;
+	void		addMode(uint8_t mode);
+	void		removeMode(uint8_t mode);
+	bool		hasMode(uint8_t mode);
+	
 private:
 	bool							_isAlive;
 	std::string						_name;
