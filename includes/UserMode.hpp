@@ -2,7 +2,7 @@
 #define USER_MODE_HPP
 
 #include "Mode.hpp"
-
+#include <map>
 // Parameters: <nickname> {[+|-]|i|w|s|o}
 
 class UserMode: public Mode {
