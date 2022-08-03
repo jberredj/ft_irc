@@ -13,11 +13,24 @@ public:
 
 private:
 	Command	&_command;
-	User	&_invoker;
+	Channel	*_channel;
+	std::string _modeChanges;
+	std::string	_request;
+	bool	_addSign;
+	bool	_oldSign;
+	bool	_firstSign;
+	uint8_t	_mode;
+	char	_chrMode;
+	int		_currentParamIdx;
+	std::string _currentParam;
 
-	void _retrieveChannelModes(void);
-	void _rplChannelmodeis();
-	void _rplCreationTime(Channel *channel);
+
+	void	_retrieveChannelModes(void);
+	void	_addMode(void);
+	void	_removeMode(void);
+	void	_updateSign(void);
+	void	_rplChannelmodeis();
+	void	_rplCreationTime(Channel *channel);
 };
 
 #endif

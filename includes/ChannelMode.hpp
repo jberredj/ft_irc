@@ -18,6 +18,7 @@ public:
 		CMODE_V = 128
 		// L . 
 		// K .
+		// M
 	};
 
 	ChannelMode(void);

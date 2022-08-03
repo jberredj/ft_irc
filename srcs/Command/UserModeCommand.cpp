@@ -27,7 +27,7 @@ void UserModeCommand::updateModes(void) {
 		else if (UserMode::modesMap.count(_chrMode) == 0)
 			_command.replyToInvoker(501, args);
 		else if (_addSign && _chrMode == 'o')
-			continue; // TODO - should push a message here
+			continue; // TODO - should push a message here ?
 		else if (_addSign && !_invoker.hasMode(_mode))
 			_addMode();
 		else if (!_addSign && _invoker.hasMode(_mode))
