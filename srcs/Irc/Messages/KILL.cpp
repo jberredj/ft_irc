@@ -19,27 +19,27 @@
 void    KILL(Command& command)
 {
 	std::vector<std::string> args;
-    User *user = ft::null_ptr;
+	User *user = ft::null_ptr;
  
 	Logger(Output::DEBUG) << "ENTERED IN KILL";
-    if (command.getParameters().size() < 2)
+	if (command.getParameters().size() < 2)
 	{
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(461, args);
 	}
-    user = &command.getInvoker();
-    if (user == ft::null_ptr)
+	user = &command.getInvoker();
+	if (user == ft::null_ptr)
 	{
 		args.push_back(command.getParameters()[1]);
 		return command.replyToInvoker(401, args);
 	}
-    if (!user->isOperator())
+	if (!user->isOperator())
 	{
-        return command.replyToInvoker(481, args);
+		return command.replyToInvoker(481, args);
 	}
 	args.push_back(command.getParameters()[0]);
 	args.push_back(command.getTrailer());
 	command.replyToInvoker(-4, args);
-    command.getInvoker().setStatus(User::OFFLINE);    
+	command.getInvoker().setStatus(User::OFFLINE);    
 }
 

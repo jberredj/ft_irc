@@ -18,20 +18,20 @@
 
 void    OPER(Command& command)
 {
-    User &user = command.getInvoker();
+	User &user = command.getInvoker();
 	std::vector<std::string> args;
-    std::string operPwd = "operPwd";
+	std::string operPwd = "operPwd";
 
-    Logger(Output::DEBUG) << "ENTERED IN OPER";
-    if (command.getParameters().size() < 2)
+	Logger(Output::DEBUG) << "ENTERED IN OPER";
+	if (command.getParameters().size() < 2)
 	{
 		args.push_back(command.getCommand());
 		return command.replyToInvoker(461, args);
 	}
-    if (command.getParameters()[1] != operPwd)
+	if (command.getParameters()[1] != operPwd)
 		return command.replyToInvoker(464, args);
-    command.replyToInvoker(381, args);
-    user.addMode(UserMode::UMODE_O);
+	command.replyToInvoker(381, args);
+	user.addMode(UserMode::UMODE_O);
 	args.push_back(user.getModesList());
-    return command.replyToInvoker(221, args);      
+	return command.replyToInvoker(221, args);      
 }

@@ -18,18 +18,18 @@
 
 void	QUIT(Command& command)
 {
-    std::vector<std::string> args;
+	std::vector<std::string> args;
  
 	Logger(Output::DEBUG) << "ENTERED IN QUIT";
 	
-    args.push_back(command.getInvoker().getUsername());
-    args.push_back(command.getInvoker().getHostname());
-    
-    if (command.getTrailer().size() != 0)
-        args.push_back(command.getTrailer());
-    else
-        args.push_back("leaving");
-    command.replyToInvoker(-3, args);
-    command.replyAllReachable(":" + command.getInvoker().getPrefix() + " QUIT :" + *(args.end() - 1));
-    command.getInvoker().setStatus(User::OFFLINE);
+	args.push_back(command.getInvoker().getUsername());
+	args.push_back(command.getInvoker().getHostname());
+	
+	if (command.getTrailer().size() != 0)
+		args.push_back(command.getTrailer());
+	else
+		args.push_back("leaving");
+	command.replyToInvoker(-3, args);
+	command.replyAllReachable(":" + command.getInvoker().getPrefix() + " QUIT :" + *(args.end() - 1));
+	command.getInvoker().setStatus(User::OFFLINE);
 }

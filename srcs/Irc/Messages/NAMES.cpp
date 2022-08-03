@@ -20,27 +20,27 @@
 
 std::vector<Channel *>  _getChannelVec(Command& command, std::string channelList)
 {
-    Channel* channel;
-    std::vector<Channel *>  channelVec;
-    while (!channelList.empty() && (channel = getNextChannel(channelList, command, false)))
-        if (channel)
-            channelVec.push_back(channel);
-    return channelVec;
+	Channel* channel;
+	std::vector<Channel *>  channelVec;
+	while (!channelList.empty() && (channel = getNextChannel(channelList, command, false)))
+		if (channel)
+			channelVec.push_back(channel);
+	return channelVec;
 }
 
 void    NAMES(Command& command)
 {
-    if (command.getParameters().size())
-    {
-        std::vector<Channel *>  channels = _getChannelVec(command, command.getParameters()[0]);
-        channelIterator         channelIt;
-        for (channelIt = channels.begin(); channelIt != channels.end(); channelIt++)
-            listChannelMembers(command, (*channelIt));
-    }
-    else
-    {
-        strVec  args;
-        args.push_back("*");
-        command.replyToInvoker(366, args);
-    }
+	if (command.getParameters().size())
+	{
+		std::vector<Channel *>  channels = _getChannelVec(command, command.getParameters()[0]);
+		channelIterator         channelIt;
+		for (channelIt = channels.begin(); channelIt != channels.end(); channelIt++)
+			listChannelMembers(command, (*channelIt));
+	}
+	else
+	{
+		strVec  args;
+		args.push_back("*");
+		command.replyToInvoker(366, args);
+	}
 }

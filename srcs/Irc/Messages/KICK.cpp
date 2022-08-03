@@ -17,30 +17,30 @@
 
 void    KICK(Command& command)
 {
-    std::vector<std::string> args;
+	std::vector<std::string> args;
 	User	*user = ft::null_ptr;
-    Channel	*channel = ft::null_ptr;
-    std::string comment = "";
-    
-    if (needMoreParams(command, 2))
+	Channel	*channel = ft::null_ptr;
+	std::string comment = "";
+	
+	if (needMoreParams(command, 2))
 		return;
-    std::string curChannel = command.getParameters()[0];
-    std::string nick = command.getParameters()[1];
-    if (command.getTrailer().size())
-        comment = ":" + command.getTrailer();
-    if (!(channel = command.getChannel(curChannel)))
+	std::string curChannel = command.getParameters()[0];
+	std::string nick = command.getParameters()[1];
+	if (command.getTrailer().size())
+		comment = ":" + command.getTrailer();
+	if (!(channel = command.getChannel(curChannel)))
 		return reply_403(command);
-    if (!isUserOnChannelErr(command, &command.getInvoker(), channel))
-        return ; // TODO - Return something ?
-    if (!(user = command.getUser(nick)))
-        return ;
-    if (!channel->isOperator(&command.getInvoker()))
-    {
-        args.push_back(channel->getName());
-        command.replyToInvoker(482, args);
-        return ;
-    }
-    std::string	message = ":" + command.getInvoker().getPrefix() + " KICK " + curChannel + " " + user->getNickname() + (comment.empty() ? "" : " " + comment);
+	if (!isUserOnChannelErr(command, &command.getInvoker(), channel))
+		return ; // TODO - Return something ?
+	if (!(user = command.getUser(nick)))
+		return ;
+	if (!channel->isOperator(&command.getInvoker()))
+	{
+		args.push_back(channel->getName());
+		command.replyToInvoker(482, args);
+		return ;
+	}
+	std::string	message = ":" + command.getInvoker().getPrefix() + " KICK " + curChannel + " " + user->getNickname() + (comment.empty() ? "" : " " + comment);
 	channel->broadcastMessage(message);
-    channel->removeUser(user);
+	channel->removeUser(user);
 }
