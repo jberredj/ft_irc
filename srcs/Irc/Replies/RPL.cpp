@@ -198,6 +198,18 @@ std::string	RPL_LISTEND(strVec args)
 	return ":End of /LIST";
 }
 
+std::string	RPL_CHANNELMODEIS(strVec args)
+{
+	std::string	modeString = args[0];
+	return ":+" + modeString;
+}
+
+std::string	RPL_CREATIONTIME(strVec args)
+{
+	std::string creationTime = args[0];
+	return ":" + creationTime;
+}
+
 std::string	RPL_NOTOPIC(strVec args)
 {
 	std::string channel	= args[0];

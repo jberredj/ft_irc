@@ -16,7 +16,8 @@ private:
 	User	&_invoker;
 
 	void _retrieveChannelModes(void);
-
+	void _rplChannelmodeis();
+	void _rplCreationTime(Channel *channel);
 };
 
 #endif

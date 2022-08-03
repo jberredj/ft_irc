@@ -8,14 +8,16 @@
 class ChannelMode: public Mode {
 public:
 	enum ModeList {
-		CMODE_O = 1, // TODO
-		CMODE_P = 2,
+		CMODE_O = 1, // TODO .
+		// CMODE_P = 2, // TO REMOVE
 		CMODE_S = 4,
-		CMODE_I = 8, // TODO
+		CMODE_I = 8, // TODO .
 		CMODE_T = 16, // TODO
-		CMODE_N = 32,
-		CMODE_B = 64,
+		CMODE_N = 32, // 
+		CMODE_B = 64, // not to do
 		CMODE_V = 128
+		// L . 
+		// K .
 	};
 
 	ChannelMode(void);

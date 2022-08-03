@@ -120,6 +120,8 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(321, RPL_LISTSTART));
 		_replies.insert(std::make_pair(322, RPL_LIST));
 		_replies.insert(std::make_pair(323, RPL_LISTEND));
+		_replies.insert(std::make_pair(324, RPL_CHANNELMODEIS));
+		_replies.insert(std::make_pair(329, RPL_CREATIONTIME));
 		_replies.insert(std::make_pair(331, RPL_NOTOPIC));
 		_replies.insert(std::make_pair(332, RPL_TOPIC));
 		_replies.insert(std::make_pair(341, RPL_INVITING));

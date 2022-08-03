@@ -29,9 +29,23 @@ void ChannelModeCommand::_retrieveChannelModes(void) {
 	Channel*	channel = _command.getChannel(_command.getParameters()[0]);
 	if (!channel)
 		return reply_403(_command);
-    if (!channel->isMember(&_invoker) && (channel->hasMode(ChannelMode::CMODE_P) || channel->hasMode(ChannelMode::CMODE_S)))
+    if (!channel->isMember(&_invoker) && (channel->hasMode(ChannelMode::CMODE_S)))
 		return reply_403(_command);
 
-	// 324
-	// 329
+	_rplChannelmodeis();
+	_rplCreationTime(channel);
+}
+
+void ChannelModeCommand::_rplChannelmodeis() {
+	std::vector<std::string> args;
+
+	args.push_back(_invoker.getModesList());
+	_command.replyToInvoker(324, args);
+}
+
+void ChannelModeCommand::_rplCreationTime(Channel *channel) {
+	std::vector<std::string> args;
+
+	args.push_back(channel->getRawCreatedAt());
+	_command.replyToInvoker(329, args);
 }

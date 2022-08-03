@@ -67,6 +67,8 @@ std::string	RPL_WHOISCHANNELS(strVec args);
 std::string	RPL_LISTSTART(strVec args);
 std::string	RPL_LIST(strVec args);
 std::string	RPL_LISTEND(strVec args);
+std::string	RPL_CREATIONTIME(strVec args);
+std::string	RPL_CHANNELMODEIS(strVec args);
 std::string	RPL_NOTOPIC(strVec args);
 std::string	RPL_TOPIC(strVec args);
 std::string	RPL_INVITING(strVec args);
