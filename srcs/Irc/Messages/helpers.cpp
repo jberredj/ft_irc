@@ -72,9 +72,7 @@ bool		validChannelName(std::string name)
 
 bool	isUserOnChannel(User* user, Channel* channel)
 {
-	if (channel->isMember(user))
-		return true;
-	return false;
+	return (channel->isMember(user));
 }
 
 bool	isUserOnChannelErr(Command &command, User* user, Channel* channel)
