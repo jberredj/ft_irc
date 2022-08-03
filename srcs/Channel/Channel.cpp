@@ -14,23 +14,24 @@
 #include "typedefs.hpp"
 #include <algorithm>
 #include <ctime>
+#include <sstream>
 
 Channel::Channel(void):
 _isAlive(true), _name("DEFAULT"), _userLimit(-1), _nbrMember(0), _modes(), _members(), _inviteOnly(false),
-_inviteList(), _banList(), _userModes(), _topicSetAt(0), _topic()
+_inviteList(), _banList(), _userModes(), _createdAt(std::time(ft::null_ptr)), _topic(), _topicSetAt(0)  
 {
 }
 
 Channel::Channel(const Channel &src):
 _isAlive(src._isAlive), _name(src._name), _userLimit(src._userLimit), _nbrMember(src._nbrMember), _modes(src._modes),
 _members(src._members), _inviteOnly(src._inviteOnly), _inviteList(src._inviteList), _banList(src._banList),
-_userModes(src._userModes), _topicSetAt(src._topicSetAt), _topic(src._topic)
+_userModes(src._userModes), _createdAt(src._createdAt), _topic(src._topic), _topicSetAt(src._topicSetAt)
 {
 }
 
 Channel::Channel(std::string name):
 _isAlive(true), _name(name), _userLimit(-1), _nbrMember(0), _modes(), _members(), _inviteOnly(false), _inviteList(),
-_banList(), _userModes(), _topicSetAt(0), _topic()
+_banList(), _userModes(), _createdAt(std::time(ft::null_ptr)), _topic(), _topicSetAt(0)
 {
 }
 
@@ -54,6 +55,7 @@ Channel	&Channel::operator=(const Channel &rhs)
 		_userModes = rhs._userModes;
 		_topicSetAt = rhs._topicSetAt;
 		_topic = rhs._topic;
+		_createdAt = rhs._createdAt;
 	}
 	return *this;
 }
@@ -77,7 +79,7 @@ bool	Channel::setUserMode(std::string mode, User* user)
 	if (it == _userModes.end())
 		return false;
 	(*it).second = mode;
-	//Need to check the mode that is added to ban/unban invite/uninvite user
+	// TODO - Need to check the mode that is added to ban/unban invite/uninvite user
 	return true;
 
 }
@@ -146,6 +148,12 @@ std::string	Channel::getUserMode(User* user)
 	if (it == _userModes.end())
 		return "";
 	return _userModes[user];
+}
+
+std::string	 	Channel::getRawCreatedAt(void) const {
+	std::stringstream ss;
+	ss << static_cast<long>(_createdAt);
+	return ss.str();
 }
 
 bool	Channel::isBanned(User *user)

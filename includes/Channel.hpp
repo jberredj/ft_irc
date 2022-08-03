@@ -53,6 +53,7 @@ public:
 	std::string	getTopic(void) const;
 	int			getNbrMember(void) const;
 	std::vector<User*>	getMembers(void) const;
+	std::string		getRawCreatedAt(void) const;
 
 	std::string	getModesList(void) const;
 	void		addMode(uint8_t mode);
@@ -70,8 +71,9 @@ private:
 	std::vector<User*>				_inviteList;
 	std::vector<User*>				_banList;
 	std::map<User*, std::string>	_userModes;
-	time_t							_topicSetAt;
+	time_t							_createdAt;
 	std::string						_topic;
+	time_t							_topicSetAt;
 
 	bool	_banUser(User* user);
 	bool	_unbanUser(User* user);
