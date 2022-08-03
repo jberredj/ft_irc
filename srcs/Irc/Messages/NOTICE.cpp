@@ -39,6 +39,8 @@ static void	noticeChannel(Command& command, std::string str_receiver)
 	if (!validChannelName(str_receiver))
 		return ;
 	channel = command.getChannel(str_receiver);
+	if (!channel)
+		return ; // TODO - return 403 
 	args.push_back(str_receiver);
 	channel->broadcastMessage(":" + command.getInvoker().getPrefix() +" NOTICE " + str_receiver + " :" 
 		+ command.getTrailer(), &command.getInvoker());

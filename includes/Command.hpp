@@ -51,7 +51,7 @@ public:
 	User*						getOldUser(std::string nickname);
 	std::vector<User *>*		getOldUsers(void);
 	std::string					getServerName(void) const;
-	Channel*					getChannel(std::string name, bool errorOut = true);
+	Channel*					getChannel(std::string name);
 	std::map<std::string, Channel*>*	getChannels(void);
 	void						addChannel(Channel *channel);
 	bool						targetsInvoker(void) const;

@@ -29,9 +29,9 @@ void    KICK(Command& command)
     if (command.getTrailer().size())
         comment = ":" + command.getTrailer();
     if (!(channel = command.getChannel(curChannel)))
-        return ;
+        return ; // TODO - Return 403
     if (!isUserOnChannelErr(command, &command.getInvoker(), channel))
-        return ;
+        return ; // TODO - Return something ?
     if (!(user = command.getUser(nick)))
         return ;
     if (!channel->isOperator(&command.getInvoker()))

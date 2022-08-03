@@ -26,7 +26,7 @@ void ChannelModeCommand::_retrieveChannelModes(void) {
 		// :f10c4f1ecd09.example.com 324 foo #tardis :+inpt
 		// :f10c4f1ecd09.example.com 329 foo #tardis :1656335996
 
-	Channel*	channel = _command.getChannel(_command.getParameters()[0], false); // TODO - remove false when Jorys update method
+	Channel*	channel = _command.getChannel(_command.getParameters()[0]);
 	if (!channel)
 		return ;// TODO - Add 403
     if (!channel->isMember(&_invoker) && (channel->hasMode(ChannelMode::CMODE_P) || channel->hasMode(ChannelMode::CMODE_S)))

@@ -50,7 +50,7 @@ Channel*	getNextChannel(std::string& channelList, Command& command, bool createI
 	}
 	if (channelName.empty())
 		return ft::null_ptr;
-	Channel*	channel = command.getChannel(channelName, false);
+	Channel*	channel = command.getChannel(channelName);
 
 	if (!channel && createIfNotExist)
 	{

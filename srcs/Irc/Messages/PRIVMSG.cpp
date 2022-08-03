@@ -46,12 +46,9 @@ static void	msgChannel(Command& command, std::string str_receiver)
 	std::vector<std::string> args;
 	Channel *channel = ft::null_ptr;
 
-	if (!validChannelName(str_receiver))
-	{
-		args.push_back(str_receiver);
-		return command.replyToInvoker(401, args);
-	}
 	channel = command.getChannel(str_receiver);
+	if (!channel)
+		return ; // TODO - return 403
 	//check n
 	// check if (user in channel)
 	// 		if not error and return
@@ -87,7 +84,7 @@ void	PRIVMSG(Command& command)
 		if (comma == recepients.npos)
 			comma = recepients.length();
 		receiver = recepients.substr(0, comma);
-		if (receiver[0] == '#')
+		if (validChannelName(receiver))
 			msgChannel(command, receiver);
 		else
 			msgUser(command,receiver);
