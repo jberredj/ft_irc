@@ -117,3 +117,10 @@ void	listChannelMembers(Command &command, Channel *channel)
 	}
 	command.replyToInvoker(366, args);
 }
+
+void	reply_403(Command & command) {
+	strVec	args;
+	
+	args.push_back(command.getParameters()[0]);
+	command.replyToInvoker(403, args);
+}

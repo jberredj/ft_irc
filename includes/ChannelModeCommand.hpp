@@ -4,6 +4,7 @@
 #include <string>
 #include "User.hpp"
 #include "Command.hpp"
+#include "helpers.hpp"
 
 class ChannelModeCommand {
 public:

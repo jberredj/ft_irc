@@ -22,7 +22,7 @@ void TOPIC(Command &command) {
 	User&		invoker = command.getInvoker();
 	Channel*	channel = command.getChannel(command.getParameters()[0]);
 	if (!channel)
-		return ; // TODO - Return 403 ? 
+		return reply_403(command);
 	if (!isUserOnChannelErr(command, &invoker, channel))
 		return; // TODO - Return something ?
 	if (/*!channel->hasMode(ChannelMode::CMODE_T)*/ false || channel->isOperator(&invoker))

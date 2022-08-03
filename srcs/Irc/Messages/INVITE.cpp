@@ -26,7 +26,7 @@ void    INVITE(Command& command)
 	std::string nick = command.getParameters()[0];
 	std::string channel_str = command.getParameters()[1];
 	if (!(channel = command.getChannel(channel_str)))
-		return ; // TODO - return 403
+		return reply_403(command);
 	if (!isUserOnChannel(&command.getInvoker(), channel))
 		return ; // TODO - return something ?
 	user = command.getUser(nick);

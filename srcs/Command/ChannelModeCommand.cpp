@@ -28,9 +28,9 @@ void ChannelModeCommand::_retrieveChannelModes(void) {
 
 	Channel*	channel = _command.getChannel(_command.getParameters()[0]);
 	if (!channel)
-		return ;// TODO - Add 403
+		return reply_403(_command);
     if (!channel->isMember(&_invoker) && (channel->hasMode(ChannelMode::CMODE_P) || channel->hasMode(ChannelMode::CMODE_S)))
-        return ;// TODO - Add 403
+		return reply_403(_command);
 
 	// 324
 	// 329

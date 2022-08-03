@@ -48,7 +48,8 @@ static void	msgChannel(Command& command, std::string str_receiver)
 
 	channel = command.getChannel(str_receiver);
 	if (!channel)
-		return ; // TODO - return 403
+		return reply_403(command);
+
 	//check n
 	// check if (user in channel)
 	// 		if not error and return
