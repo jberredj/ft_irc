@@ -238,9 +238,14 @@ std::string	ERR_NOCHANMODES(std::vector<std::string> args)
 
 std::string	ERR_CHANOPRIVSNEEDED(std::vector<std::string> args)
 {
-	std::string&	channel = args[0];
+	// #tardis :You must be a channel halfop or higher to set channel mode n (noextmsg).
+	std::string channelName = args[0];
+	std::string lvlop = args[1];
+	std::string mode = args[2];
+	std::string description = args[3];
 
-	return channel + " :You're not channel operator";
+	return channelName + " :You must be a channel " + lvlop + 
+			" or higher to set channel mode " + mode + " (" + description + ").";
 }
 
 std::string	ERR_RESTRICTED(std::vector<std::string> args)

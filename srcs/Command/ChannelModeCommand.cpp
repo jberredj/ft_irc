@@ -12,11 +12,8 @@ void ChannelModeCommand::updateModes(void) {
 		return reply_403(_command);
 	if (_command.getParameters().size() == 1)
 		return _retrieveChannelModes();
-	
-	// TODO - Is there some cases the user cant change channel modes ?
 
 	_request = _command.getParameters()[1];
-
 	for (size_t i = 0; i < _request.size(); i++)
 	{
 		_chrMode = _request[i];
@@ -72,6 +69,16 @@ void ChannelModeCommand::_errCModeMissingParameter(std::string shortMode, std::s
 	_command.replyToInvoker(696, args); 
 }
 
+void ChannelModeCommand::_errChanoPrivsNeeded(std::string lvlop, std::string mode, std::string description) {
+	strVec args;
+
+	args.push_back(_channel->getName());
+	args.push_back(lvlop);
+	args.push_back(mode);
+	args.push_back(description);
+	_command.replyToInvoker(482, args); 
+}
+
 void ChannelModeCommand::_updateSign(void) {
 	if (_chrMode == '-')
 		_addSign = false;
@@ -100,6 +107,17 @@ void ChannelModeCommand::_manageMode(void) {
 }
 
 void ChannelModeCommand::_manageSimpleFlags(void) {
+	if (!_channel->isOperator(&_command.getInvoker()))
+	{
+		if (_mode == ChannelMode::CMODE_S)
+			return _errChanoPrivsNeeded("halfop", "s", "secret");
+		else if (_mode == ChannelMode::CMODE_I)
+			return _errChanoPrivsNeeded("halfop", "i", "inviteonly");
+		else if (_mode == ChannelMode::CMODE_T)
+			return _errChanoPrivsNeeded("halfop", "t", "topiclock");
+		else if (_mode == ChannelMode::CMODE_N)
+			return _errChanoPrivsNeeded("halfop", "n", "noextmsg");
+	}
 	if (_addSign && !_channel->hasMode(_mode))
 		_addMode();
 	else if (!_addSign && _channel->hasMode(_mode))
@@ -114,6 +132,9 @@ void ChannelModeCommand::_manageLimitFlag(void) {
 	if (strLimit.empty())
 		return _errCModeMissingParameter("l", "limit", "limit");
 
+	if (!_channel->isOperator(&_command.getInvoker()))
+		return _errChanoPrivsNeeded("halfop", "l", "limit");
+
 	_addMode();
 	int limit = std::atoi(strLimit.c_str());
 	_channel->setUserLimit(limit);
@@ -125,6 +146,9 @@ void ChannelModeCommand::_manageChanopFlag(void) {
 	if (target.empty())
 		return _errCModeMissingParameter("o", "op", "nick");
 	
+	if (!_channel->isOperator(&_command.getInvoker()))
+		return _errChanoPrivsNeeded("op", "o", "op");
+
 	User * user = _command.getUser(target);
 	if (!user) {
 		strVec args;
