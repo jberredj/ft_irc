@@ -164,6 +164,7 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(462, ERR_ALREADYREGISTRED));
 		_replies.insert(std::make_pair(464, ERR_PASSWDMISMATCH));
 		_replies.insert(std::make_pair(471, ERR_CHANNELISFULL));
+		_replies.insert(std::make_pair(472, ERR_UNKNOWNMODE));
 		_replies.insert(std::make_pair(473, ERR_INVITEONLYCHAN));
 		_replies.insert(std::make_pair(474, ERR_BANNEDFROMCHAN));
 		_replies.insert(std::make_pair(475, ERR_BADCHANNELKEY));

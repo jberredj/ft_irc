@@ -21,7 +21,7 @@ void ChannelModeCommand::updateModes(void) {
 		if (_chrMode == '-' || _chrMode == '+')
 			_updateSign();
 		else if (ChannelMode::modesMap.count(_chrMode) == 0) // mode not found
-			; // TODO - 472
+			_errUnknownMode();
 		else
 			_manageMode();
 	}
@@ -77,6 +77,15 @@ void ChannelModeCommand::_errChanoPrivsNeeded(std::string lvlop, std::string mod
 	args.push_back(mode);
 	args.push_back(description);
 	_command.replyToInvoker(482, args); 
+}
+
+void ChannelModeCommand::_errUnknownMode() {
+	strVec args;
+	std::string mode;
+
+	mode.push_back(_chrMode);
+	args.push_back(mode);
+	_command.replyToInvoker(472, args);
 }
 
 void ChannelModeCommand::_updateSign(void) {

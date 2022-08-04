@@ -111,6 +111,7 @@ std::string	ERR_NEEDMOREPARAMS(strVec args);
 std::string	ERR_ALREADYREGISTRED(strVec args);
 std::string	ERR_PASSWDMISMATCH(strVec args);
 std::string	ERR_CHANNELISFULL(strVec args);
+std::string	ERR_UNKNOWNMODE(strVec args);
 std::string	ERR_INVITEONLYCHAN(strVec args);
 std::string	ERR_BANNEDFROMCHAN(strVec args);
 std::string	ERR_BADCHANNELKEY(strVec args);

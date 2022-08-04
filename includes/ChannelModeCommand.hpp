@@ -38,6 +38,7 @@ private:
 	void	_rplCreationTime();
 	void	_errCModeMissingParameter(std::string shortMode, std::string longMode, std::string syntax);
 	void	_errChanoPrivsNeeded(std::string lvlop, std::string mode, std::string description);
+	void	_errUnknownMode();
 	std::string	_getNextParameter(void);
 };
 

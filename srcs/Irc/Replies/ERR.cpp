@@ -201,6 +201,12 @@ std::string	ERR_CHANNELISFULL(std::vector<std::string> args)
 	return channel + " :Cannot join channel (+l)";
 }
 
+std::string	ERR_UNKNOWNMODE(std::vector<std::string> args)
+{
+	std::string mode = args[0];
+	return mode + " :is not a recognised channel mode.";
+}
+
 std::string	ERR_INVITEONLYCHAN(std::vector<std::string> args)
 {
 	std::string&	channel = args[0];
