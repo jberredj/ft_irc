@@ -85,10 +85,12 @@ void ChannelModeCommand::_manageMode(void) {
 			break;
 		case ChannelMode::CMODE_L:
 			if (_addSign) {
+				std::string strLimit = _getNextParameter();
+				if (strLimit.empty()) {
+					return ; // TODO - :30dcca498ab0.example.com 696 foo #tardis l * :You must specify a parameter for the limit mode. Syntax: <limit>.
+				}
 				_addMode();
-				std::string strLimit = _command.getParameters()[_currentParamIdx];
 				int limit = std::atoi(strLimit.c_str());
-				_currentParamIdx++;
 				_channel->setUserLimit(limit);
 				_argsToBroadcast.push_back(strLimit);
 			} else {
@@ -99,8 +101,10 @@ void ChannelModeCommand::_manageMode(void) {
 }
 
 void ChannelModeCommand::_manageChanopFlag(void) {
-	std::string target = _command.getParameters()[_currentParamIdx]; // Seems we do not have to split on comma ?!
-	_currentParamIdx++;
+	std::string target = _getNextParameter(); // Seems we do not have to split on comma ?!
+	if (target.empty()) {
+		return ; // TODO - :30dcca498ab0.example.com 696 foo #tardis o * :You must specify a parameter for the op mode. Syntax: <nick>.
+	}
 
 	User * user = _command.getUser(target);
 	if (!user) {
@@ -145,4 +149,16 @@ void ChannelModeCommand::_removeMode(void) {
 	}
 	_modeChanges += _chrMode;
 	_oldSign = _addSign;
+}
+
+std::string ChannelModeCommand::_getNextParameter(void) {
+	std::string param;
+	if (_currentParamIdx < static_cast<int>(_command.getParameters().size())) {
+		param = _command.getParameters()[_currentParamIdx];
+		_currentParamIdx++;
+	} else {
+		param = "";
+	}
+	return param;
+
 }

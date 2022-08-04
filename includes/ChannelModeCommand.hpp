@@ -34,6 +34,7 @@ private:
 	void	_updateSign(void);
 	void	_rplChannelmodeis();
 	void	_rplCreationTime();
+	std::string	_getNextParameter(void);
 };
 
 #endif
