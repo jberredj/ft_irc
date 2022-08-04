@@ -200,14 +200,16 @@ std::string	RPL_LISTEND(strVec args)
 
 std::string	RPL_CHANNELMODEIS(strVec args)
 {
-	std::string	modeString = args[0];
-	return ":+" + modeString;
+	std::string channelName = args[0];
+	std::string	modeString = args[1];
+	return channelName + " :+" + modeString;
 }
 
 std::string	RPL_CREATIONTIME(strVec args)
 {
-	std::string creationTime = args[0];
-	return ":" + creationTime;
+	std::string channelName = args[0];
+	std::string creationTime = args[1];
+	return channelName + " :" + creationTime;
 }
 
 std::string	RPL_NOTOPIC(strVec args)

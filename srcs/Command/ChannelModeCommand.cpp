@@ -43,20 +43,22 @@ void ChannelModeCommand::_retrieveChannelModes(void) {
 		return reply_403(_command);
 
 	_rplChannelmodeis();
-	_rplCreationTime(_channel);
+	_rplCreationTime();
 }
 
 void ChannelModeCommand::_rplChannelmodeis() {
 	std::vector<std::string> args;
 
+	args.push_back(_channel->getName());
 	args.push_back(_channel->getModesList());
 	_command.replyToInvoker(324, args);
 }
 
-void ChannelModeCommand::_rplCreationTime(Channel *channel) {
+void ChannelModeCommand::_rplCreationTime() {
 	std::vector<std::string> args;
 
-	args.push_back(channel->getRawCreatedAt());
+	args.push_back(_channel->getName());
+	args.push_back(_channel->getRawCreatedAt());
 	_command.replyToInvoker(329, args);
 }
 

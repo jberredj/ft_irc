@@ -33,7 +33,7 @@ private:
 	void	_removeMode(void);
 	void	_updateSign(void);
 	void	_rplChannelmodeis();
-	void	_rplCreationTime(Channel *channel);
+	void	_rplCreationTime();
 };
 
 #endif
