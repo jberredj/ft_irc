@@ -94,19 +94,23 @@ void ChannelModeCommand::_manageMode(void) {
 			; // TODO - Add ban mask (simpler, add arg to ban list users)
 			break;
 		case ChannelMode::CMODE_L:
-			if (!_addSign)
-				return _removeMode();
-				
-			std::string strLimit = _getNextParameter();
-			if (strLimit.empty())
-				return _errCModeMissingParameter("l", "limit", "limit");
-
-			_addMode();
-			int limit = std::atoi(strLimit.c_str());
-			_channel->setUserLimit(limit);
-			_argsToBroadcast.push_back(strLimit);
+			_manageLimitFlag();
 			break;
 	}
+}
+
+void ChannelModeCommand::_manageLimitFlag(void) {
+	if (!_addSign)
+		return _removeMode();
+		
+	std::string strLimit = _getNextParameter();
+	if (strLimit.empty())
+		return _errCModeMissingParameter("l", "limit", "limit");
+
+	_addMode();
+	int limit = std::atoi(strLimit.c_str());
+	_channel->setUserLimit(limit);
+	_argsToBroadcast.push_back(strLimit);
 }
 
 void ChannelModeCommand::_manageChanopFlag(void) {
