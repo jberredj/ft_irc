@@ -28,6 +28,7 @@ private:
 
 	void	_retrieveChannelModes(void);
 	void	_manageMode(void);
+	void	_manageSimpleFlags(void);
 	void	_manageChanopFlag(void);
 	void	_manageLimitFlag(void);
 	void	_addMode(void);

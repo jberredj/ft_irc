@@ -85,7 +85,7 @@ void ChannelModeCommand::_manageMode(void) {
 		case ChannelMode::CMODE_I:
 		case ChannelMode::CMODE_T:
 		case ChannelMode::CMODE_N:
-			_addSign ? _addMode() : _removeMode();
+			_manageSimpleFlags();
 			break;
 		case ChannelMode::CMODE_O:
 			_manageChanopFlag();
@@ -99,10 +99,17 @@ void ChannelModeCommand::_manageMode(void) {
 	}
 }
 
+void ChannelModeCommand::_manageSimpleFlags(void) {
+	if (_addSign && !_channel->hasMode(_mode))
+		_addMode();
+	else if (!_addSign && _channel->hasMode(_mode))
+		_removeMode();
+}
+
 void ChannelModeCommand::_manageLimitFlag(void) {
 	if (!_addSign)
 		return _removeMode();
-		
+
 	std::string strLimit = _getNextParameter();
 	if (strLimit.empty())
 		return _errCModeMissingParameter("l", "limit", "limit");
