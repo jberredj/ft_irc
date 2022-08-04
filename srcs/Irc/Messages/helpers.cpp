@@ -124,3 +124,7 @@ void	reply_403(Command & command) {
 	args.push_back(command.getParameters()[0]);
 	command.replyToInvoker(403, args);
 }
+
+bool	isUserChanop(Channel *channel, User *user) {
+	return channel->getUserMode(user).find('o') != std::string::npos;
+}

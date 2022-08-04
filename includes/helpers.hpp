@@ -23,5 +23,6 @@ bool		isUserOnChannel(User* user, Channel* channel);
 bool		isUserOnChannelErr(Command &command, User* user, Channel* channel);
 void		listChannelMembers(Command &command, Channel *channel);
 void	    reply_403(Command & command);
+bool	    isUserChanop(Channel *channel, User *user);
 
 #endif

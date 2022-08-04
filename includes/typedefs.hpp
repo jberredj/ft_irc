@@ -24,6 +24,7 @@ typedef std::vector<pollfd> pollfds;
 typedef pollfds::iterator pollfdsIterator;
 typedef std::vector<User*>	userVec;
 typedef std::vector<std::string> strVec;
+typedef std::vector<std::string>::iterator strVecIterator;
 
 
 #endif

@@ -11,7 +11,7 @@ ChannelMode::ChannelMode(void): Mode() {
 		modesMap.insert(std::make_pair('t', CMODE_T));
 		modesMap.insert(std::make_pair('n', CMODE_N));
 		modesMap.insert(std::make_pair('b', CMODE_B));
-		modesMap.insert(std::make_pair('v', CMODE_V));
+		modesMap.insert(std::make_pair('l', CMODE_L));
 	}
 }
 

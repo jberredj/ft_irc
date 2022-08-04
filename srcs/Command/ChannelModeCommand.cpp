@@ -1,4 +1,5 @@
 #include "ChannelModeCommand.hpp"
+#include <algorithm>
 
 ChannelModeCommand::ChannelModeCommand(Command &command)
 : _command(command), _currentParamIdx(2) {
@@ -12,10 +13,9 @@ void ChannelModeCommand::updateModes(void) {
 	if (_command.getParameters().size() == 1)
 		return _retrieveChannelModes();
 	
-	// Is there some cases the user cant change channel modes ?
+	// TODO - Is there some cases the user cant change channel modes ?
 
 	_request = _command.getParameters()[1];
-	// _currentParam = _command.getParameters()[_currentParamIdx];
 
 	for (size_t i = 0; i < _request.size(); i++)
 	{
@@ -23,17 +23,19 @@ void ChannelModeCommand::updateModes(void) {
 		_mode = ChannelMode::modesMap[_chrMode];
 		if (_chrMode == '-' || _chrMode == '+')
 			_updateSign();
-		else if (ChannelMode::modesMap.count(_chrMode) == 0)
+		else if (ChannelMode::modesMap.count(_chrMode) == 0) // mode not found
 			; // TODO - 472
-		else if (_addSign && !_channel->hasMode(_mode)) // TODO -  Adapt condition to channel
-			_addMode();
-		else if (!_addSign && _channel->hasMode(_mode)) // TODO -  Adapt condition to channel
-			_removeMode();
+		else
+			_manageMode();
 	}
 
 	// Mode changes are broadcast to all members
-		// :foo!tokino@172.17.0.1 MODE #tardis :+p
-		// Rename RPL_SETUSERMODE and use it !
+	if (!_modeChanges.empty()) {
+		std::string	message = ":" + _command.getInvoker().getPrefix() + " MODE " + _channel->getName() + " :" + _modeChanges;
+		for (strVecIterator it = _argsToBroadcast.begin(); it != _argsToBroadcast.end(); it++)
+			message += " " + *it;
+		_channel->broadcastMessage(message);
+	}
 }
 
 void ChannelModeCommand::_retrieveChannelModes(void) {
@@ -63,6 +65,64 @@ void ChannelModeCommand::_updateSign(void) {
 		_addSign = false;
 	else if (_chrMode == '+')
 		_addSign = true;
+}
+
+void ChannelModeCommand::_manageMode(void) {
+	switch (_mode) {
+		case ChannelMode::CMODE_S:
+		case ChannelMode::CMODE_I:
+		case ChannelMode::CMODE_T:
+		case ChannelMode::CMODE_N:
+			_addSign ? _addMode() : _removeMode();
+			break;
+		case ChannelMode::CMODE_O:
+			_manageChanopFlag();
+			break;
+		case ChannelMode::CMODE_B:
+			; // TODO - Add ban mask (simpler, add arg to ban list users)
+			break;
+		case ChannelMode::CMODE_L:
+			if (_addSign) {
+				_addMode();
+				std::string strLimit = _command.getParameters()[_currentParamIdx];
+				int limit = std::atoi(strLimit.c_str());
+				_currentParamIdx++;
+				_channel->setUserLimit(limit);
+				_argsToBroadcast.push_back(strLimit);
+			} else {
+				_removeMode();
+			}
+			break;
+	}
+}
+
+void ChannelModeCommand::_manageChanopFlag(void) {
+	std::string target = _command.getParameters()[_currentParamIdx]; // Seems we do not have to split on comma ?!
+	_currentParamIdx++;
+
+	User * user = _command.getUser(target);
+	if (!user) {
+		strVec args;
+		args.push_back(target);
+		return _command.replyToInvoker(401, args);
+	}
+	else if (!_channel->isMember(user)) // if target is not member of channel (no matter -o or +o)
+		; // do nothing
+	else if (_addSign && !isUserChanop(_channel, user)) {
+		_addMode();
+		std::string curModes = _channel->getUserMode(user);
+		_channel->setUserMode(curModes.append("o"), user);
+		_argsToBroadcast.push_back(user->getNickname());
+	}
+	else if (!_addSign && isUserChanop(_channel, user)) {
+		_removeMode();
+		std::string curModes = _channel->getUserMode(user);
+		curModes.erase(std::remove(curModes.begin(), curModes.end(), 'o'), curModes.end());
+		_channel->setUserMode(curModes, user);
+		_argsToBroadcast.push_back(user->getNickname());
+	}
+	// else target is not chanop and flag is -o  OR  if target is already chanop, and flag is +o
+		// do nothing
 }
 
 void ChannelModeCommand::_addMode(void) {

@@ -33,7 +33,7 @@ void    KICK(Command& command)
 	if (!isUserOnChannelErr(command, &command.getInvoker(), channel))
 		return ; // TODO - Return something ?
 	if (!(user = command.getUser(nick)))
-		return ;
+		return ; // TODO - Return something ?
 	if (!channel->isOperator(&command.getInvoker()))
 	{
 		args.push_back(channel->getName());
