@@ -34,6 +34,7 @@ private:
 	void	_updateSign(void);
 	void	_rplChannelmodeis();
 	void	_rplCreationTime();
+	void	_errCModeMissingParameter(std::string shortMode, std::string longMode, std::string syntax);
 	std::string	_getNextParameter(void);
 };
 

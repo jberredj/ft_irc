@@ -123,5 +123,6 @@ std::string	ERR_UMODEUNKNOWNFLAG(strVec args);
 std::string	ERR_USERSDONTMATCH(strVec args);
 std::string	ERR_NOPRIVILEGES(strVec args);
 std::string	ERR_CANTKILLSERVER(strVec args);
+std::string	ERR_CMODEMISSINGPARAMETER(strVec args);
 
 #endif

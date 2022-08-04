@@ -278,3 +278,16 @@ std::string	ERR_CANTKILLSERVER(std::vector<std::string> args)
 	(void)args;
 	return ":You cant kill a server!";
 }
+
+std::string	ERR_CMODEMISSINGPARAMETER(std::vector<std::string> args)
+{
+	// #tardis l * :You must specify a parameter for the limit mode. Syntax: <limit>.
+	// #tardis o * :You must specify a parameter for the op mode. Syntax: <nick>.
+	std::string channelName = args[0];
+	std::string shortMode = args[1];
+	std::string longMode = args[2];
+	std::string syntax = args[3];
+
+	return channelName + " " + shortMode + " * :You must specify a parameter for the "
+			+ longMode + " mode. Syntax: <" + syntax + ">.";
+}

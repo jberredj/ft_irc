@@ -176,5 +176,7 @@ void	Reply::_initRepliesMap(void)
 		_replies.insert(std::make_pair(491, ERR_NOOPERHOST));
 		_replies.insert(std::make_pair(501, ERR_UMODEUNKNOWNFLAG));
 		_replies.insert(std::make_pair(502, ERR_USERSDONTMATCH));
+
+		_replies.insert(std::make_pair(696, ERR_CMODEMISSINGPARAMETER));
 	}
 }

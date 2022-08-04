@@ -47,7 +47,7 @@ void ChannelModeCommand::_retrieveChannelModes(void) {
 }
 
 void ChannelModeCommand::_rplChannelmodeis() {
-	std::vector<std::string> args;
+	strVec args;
 
 	args.push_back(_channel->getName());
 	args.push_back(_channel->getModesList());
@@ -55,11 +55,21 @@ void ChannelModeCommand::_rplChannelmodeis() {
 }
 
 void ChannelModeCommand::_rplCreationTime() {
-	std::vector<std::string> args;
+	strVec args;
 
 	args.push_back(_channel->getName());
 	args.push_back(_channel->getRawCreatedAt());
 	_command.replyToInvoker(329, args);
+}
+
+void ChannelModeCommand::_errCModeMissingParameter(std::string shortMode, std::string longMode, std::string syntax) {
+	strVec args;
+
+	args.push_back(_channel->getName());
+	args.push_back(shortMode);
+	args.push_back(longMode);
+	args.push_back(syntax);
+	_command.replyToInvoker(696, args); 
 }
 
 void ChannelModeCommand::_updateSign(void) {
@@ -84,28 +94,26 @@ void ChannelModeCommand::_manageMode(void) {
 			; // TODO - Add ban mask (simpler, add arg to ban list users)
 			break;
 		case ChannelMode::CMODE_L:
-			if (_addSign) {
-				std::string strLimit = _getNextParameter();
-				if (strLimit.empty()) {
-					return ; // TODO - :30dcca498ab0.example.com 696 foo #tardis l * :You must specify a parameter for the limit mode. Syntax: <limit>.
-				}
-				_addMode();
-				int limit = std::atoi(strLimit.c_str());
-				_channel->setUserLimit(limit);
-				_argsToBroadcast.push_back(strLimit);
-			} else {
-				_removeMode();
-			}
+			if (!_addSign)
+				return _removeMode();
+				
+			std::string strLimit = _getNextParameter();
+			if (strLimit.empty())
+				return _errCModeMissingParameter("l", "limit", "limit");
+
+			_addMode();
+			int limit = std::atoi(strLimit.c_str());
+			_channel->setUserLimit(limit);
+			_argsToBroadcast.push_back(strLimit);
 			break;
 	}
 }
 
 void ChannelModeCommand::_manageChanopFlag(void) {
-	std::string target = _getNextParameter(); // Seems we do not have to split on comma ?!
-	if (target.empty()) {
-		return ; // TODO - :30dcca498ab0.example.com 696 foo #tardis o * :You must specify a parameter for the op mode. Syntax: <nick>.
-	}
-
+	std::string target = _getNextParameter();
+	if (target.empty())
+		return _errCModeMissingParameter("o", "op", "nick");
+	
 	User * user = _command.getUser(target);
 	if (!user) {
 		strVec args;
