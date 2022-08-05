@@ -17,10 +17,9 @@ void ChannelModeCommand::updateModes(void) {
 	for (size_t i = 0; i < _request.size(); i++)
 	{
 		_chrMode = _request[i];
-		_mode = ChannelMode::modesMap[_chrMode];
 		if (_chrMode == '-' || _chrMode == '+')
 			_updateSign();
-		else if (ChannelMode::modesMap.count(_chrMode) == 0) // mode not found
+		else if (!ChannelMode::modesMap.count(_chrMode))
 			_errUnknownMode();
 		else
 			_manageMode();
@@ -96,6 +95,7 @@ void ChannelModeCommand::_updateSign(void) {
 }
 
 void ChannelModeCommand::_manageMode(void) {
+	_mode = ChannelMode::modesMap[_chrMode];
 	switch (_mode) {
 		case ChannelMode::CMODE_S:
 		case ChannelMode::CMODE_I:

@@ -21,10 +21,12 @@ void UserModeCommand::updateModes(void) {
 	for (size_t i = 0; i < _request.size(); i++)
 	{
 		_chrMode = _request[i];
-		_mode = UserMode::modesMap[_chrMode];
+		if (UserMode::modesMap.count(_chrMode))
+			_mode = UserMode::modesMap[_chrMode];
+
 		if (_chrMode == '-' || _chrMode == '+')
 			_updateSign();
-		else if (UserMode::modesMap.count(_chrMode) == 0)
+		else if (!UserMode::modesMap.count(_chrMode))
 			_command.replyToInvoker(501, args);
 		else if (_addSign && _chrMode == 'o')
 			continue; // TODO - should push a message here ?
