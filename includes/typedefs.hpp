@@ -23,6 +23,7 @@ typedef std::vector<Channel*>::iterator channelIterator;
 typedef std::vector<pollfd> pollfds;
 typedef pollfds::iterator pollfdsIterator;
 typedef std::vector<User*>	userVec;
+typedef std::vector<User*>::iterator	userVecIt;
 typedef std::vector<std::string> strVec;
 typedef std::vector<std::string>::iterator strVecIterator;
 

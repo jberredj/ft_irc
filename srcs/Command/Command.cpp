@@ -159,6 +159,22 @@ void	Command::replyAllReachable(int code, strVec args)
 	replyAllReachable(_reply(_invoker, ft::null_ptr, code, args));
 }
 
+void	Command::replyAll(std::string message)
+{
+	userVec* users = _server->getUsers();
+	userVecIt it = users->begin();
+	while (it != users->end())
+	{
+		(*it)->addReply(message);
+		it++;	
+	}
+}
+
+void	Command::replyAll(int code, strVec args)
+{
+	replyAll(_reply(_invoker, ft::null_ptr, code, args));
+}
+
 void	Command::replyToInvoker(int code, strVec args)
 {
 	_invoker->addReply(_reply(ft::null_ptr, _invoker, code, args));

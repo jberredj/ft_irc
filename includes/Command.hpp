@@ -60,6 +60,8 @@ public:
 	// Replies functions
 	void		replyAllReachable(std::string message);
 	void		replyAllReachable(int code, strVec args);
+	void		replyAll(std::string message);
+	void		replyAll(int code, strVec args);
 	void		replyToInvoker(int code, strVec args = strVec());
 	void		invokerSendTo(User* receiver, int code, strVec args = strVec());
 
