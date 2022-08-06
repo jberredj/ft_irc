@@ -74,6 +74,8 @@ private:
 	void		_treatUserMessages(void);
 
 	// General methods and functions
+	bool _isNumber(std::string s);
+	void _checkIllegalPassword(std::string password);
 	static void	_SigIntHandler(int signum);
 	void		_logRawMessage(char* buf, User& user, std::string prefix);
 

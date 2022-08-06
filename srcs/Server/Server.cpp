@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/08/06 16:38:59 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:45:40 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 /*                                 Public                                     */
 /* ************************************************************************** */
 
-static bool _isNumber(std::string s)
+bool Server::_isNumber(std::string s)
 {
     std::string::iterator it = s.begin();
     while (it != s.end() && std::isdigit(*it))
@@ -38,15 +38,15 @@ static bool _isNumber(std::string s)
    	return !s.empty() && it == s.end();
 }
 
-static void _checkIllegalPassword(std::string password)
+void Server::_checkIllegalPassword(std::string password)
 {
 	if (password.empty())
-		throw("Password can' t be an empty string");
+		throw(std::runtime_error("Password can't be an empty string"));
 	std::string::iterator it = password.begin();
 	while (it != password.end() && std::isprint(*it)) 
 		++it;
 	if (it != password.end())
-		throw("Password must be printable.");
+		throw(std::runtime_error("Password must be printable."));
 }
 
 // Constructors and destructor
