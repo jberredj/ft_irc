@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/07/06 21:07:11 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:04:23 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ Command::Command(User* invoker, std::string command_line, Server* server):
 
 	while ((position = tmp.find(delimiter)) != std::string::npos)
 	{
-		Logger(Output::TRACE) << tmp.substr(0, position);
 		_parameters.push_back(tmp.substr(0, position));
 		tmp.erase(0, position + delimiter.length());
 	}
@@ -76,7 +75,6 @@ Command::Command(const Command& src):
 	_trailer(src._trailer), _command_line(src._command_line), _invoker(src._invoker),
 	_server(src._server)
 {
-	Logger(Output::TRACE) << "Command copy constructor called ";
 }
 
 Command::~Command(void) {}
@@ -84,7 +82,6 @@ Command::~Command(void) {}
 // Operators
 Command&	Command::operator=(const Command& rhs)
 {
-	Logger(Output::TRACE) << "Command assignement operator called ";
 	_command_line = rhs._command_line;
 	_prefix = rhs._prefix;
 	_command = rhs._command;
