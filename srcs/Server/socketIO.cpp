@@ -33,12 +33,11 @@ int	Server::_createServerSocket(char* port)
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(raw_port);
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	int 				bindResult = bind(server_socket,
-										(struct sockaddr*)&addr, sizeof(addr));
+	int bindResult = bind(server_socket, (struct sockaddr*)&addr, sizeof(addr));
 
 	if (bindResult == -1)
 		throw(std::runtime_error("bind() failed"));
-	int 				listenResult = listen(server_socket, 10);
+	int listenResult = listen(server_socket, 10);
 
 	if (listenResult == -1)
 		throw(std::runtime_error("listen() failed"));
@@ -68,14 +67,8 @@ int	Server::_acceptConnection(int socketfd)
 		Logger(Output::ERROR) << "Fail accepting connection";
 		return -1;
 	}
-	int 				flags = fcntl(client_socket, F_GETFL);
-	
-	if (flags == -1)
-	{
-		Logger(Output::ERROR) << "Could not get socket flags";
-		return -1;
-	}
-	if (fcntl(client_socket, F_SETFL, flags | O_NONBLOCK) == -1)
+
+	if (fcntl(client_socket, F_SETFL, O_NONBLOCK) == -1)
 	{
 		Logger(Output::ERROR) <<  "Could not set socket flags";
 		return -1;
