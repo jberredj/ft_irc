@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:37:21 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/27 01:26:12 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:48:15 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	Server::_createServerSocket(char* port)
 
 	if (bindResult == -1)
 		throw(std::runtime_error("bind() failed"));
-	int 				listenResult = listen(server_socket, 5);
+	int 				listenResult = listen(server_socket, 10);
 
 	if (listenResult == -1)
 		throw(std::runtime_error("listen() failed"));
