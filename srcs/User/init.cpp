@@ -29,7 +29,6 @@ void	User::_initUserClass(void)
 		_cmdMap["USER"] = USER;
 		_cmdMap["TOPIC"] = TOPIC;
 		_cmdMap["PRIVMSG"] = PRIVMSG;
-		Logger(Output::INFO) << "PRIVMSG message is incomplete";
 		_cmdMap["NOTICE"] = NOTICE;
 		_cmdMap["QUIT"] = QUIT;
 		_cmdMap["PONG"] = PONG;
@@ -42,7 +41,6 @@ void	User::_initUserClass(void)
 		Logger(Output::WARN) << "NAMES: Check correct error Cases";
 		_cmdMap["MODE"] = MODE;
 		_cmdMap["LIST"] = LIST;
-		Logger(Output::WARN) << "LIST: Implement Channel Mode Check";
 		_cmdMap["KILL"] = KILL;
 		_cmdMap["KICK"] = KICK;
 		_cmdMap["JOIN"] = JOIN;

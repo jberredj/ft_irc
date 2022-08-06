@@ -61,7 +61,7 @@ Channel*	getNextChannel(std::string& channelList, Command& command, bool createI
 	return channel;
 }
 
-bool		validChannelName(std::string name)
+bool	validChannelName(std::string name)
 {
 	return (name[0] == '#'
 		 &&	name.size() < INSPIRCD_MAX_LEN

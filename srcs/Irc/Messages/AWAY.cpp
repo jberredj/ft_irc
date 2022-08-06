@@ -20,7 +20,6 @@ void	AWAY(Command& command)
 {
 	std::vector<std::string> args;
 
-	Logger(Output::DEBUG) << "ENTERED IN AWAY";
 	if (command.getParameters().size() == 0)
 	{
 		command.replyToInvoker(305, args);
