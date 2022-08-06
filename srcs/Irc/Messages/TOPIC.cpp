@@ -44,6 +44,10 @@ void TOPIC(Command &command) {
 	{
 		strVec	args;
 		args.push_back(channel->getName());
+		args.push_back("halfop");
+		args.push_back("t");
+		args.push_back("topiclock");
+
 		command.replyToInvoker(482, args);
 	}
 }

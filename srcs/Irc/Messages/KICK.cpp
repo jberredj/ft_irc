@@ -37,6 +37,10 @@ void    KICK(Command& command)
 	if (!channel->isOperator(&command.getInvoker()))
 	{
 		args.push_back(channel->getName());
+		args.push_back("halfop");
+		args.push_back("o");
+		args.push_back("op");
+
 		command.replyToInvoker(482, args);
 		return ;
 	}

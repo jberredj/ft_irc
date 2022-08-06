@@ -44,6 +44,10 @@ void    INVITE(Command& command)
 	if (!channel->isOperator(&command.getInvoker()))
 	{
 		args.push_back(channel->getName());
+		args.push_back("halfop");
+		args.push_back("i");
+		args.push_back("inviteonly");
+
 		command.replyToInvoker(482, args);
 	}
 	channel->inviteUser(user);
