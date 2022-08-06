@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IrcMessages.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:52:17 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/27 02:12:14 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:34:04 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ std::string	RPL_UNAWAY(strVec args);
 std::string	RPL_NOWAWAY(strVec args);
 std::string	RPL_WHOISUSER(strVec args);
 std::string	RPL_WHOISSERVER(strVec args);
-std::string	RPL_WHOISOPERATOR(strVec args);
 std::string	RPL_WHOWASUSER(strVec args);
 std::string	RPL_WHOISIDLE(strVec args);
 std::string	RPL_ENDOFWHOIS(strVec args);
@@ -78,34 +77,20 @@ std::string	RPL_ENDOFWHOWAS(strVec args);
 std::string RPL_WHOISHOST(strVec args);
 std::string RPL_WHOISMODES(strVec args);
 std::string	RPL_YOUREOPER(strVec args);
-std::string	RPL_USERSSTART(strVec args);
-std::string	RPL_USERS(strVec args);
-std::string	RPL_ENDOFUSERS(strVec args);
-std::string	RPL_NOUSERS(strVec args);
 
 // Errors
 std::string	ERR_NOSUCHNICK(strVec args);
-std::string	ERR_NOSUCHSERVER(strVec args);
 std::string	ERR_NOSUCHCHANNEL(strVec args);
 std::string	ERR_CANNOTSENDTOCHAN(strVec args);
-std::string	ERR_TOOMANYCHANNELS(strVec args);
 std::string	ERR_WASNOSUCHNICK(strVec args);
-std::string	ERR_TOOMANYTARGETS(strVec args);
 std::string	ERR_NOORIGIN(strVec args);
 std::string	ERR_NORECIPIENT(strVec args);
 std::string	ERR_NOTEXTTOSEND(strVec args);
-std::string	ERR_NOTOPLEVEL(strVec args);
-std::string	ERR_WILDTOPLEVEL(strVec args);
-std::string	ERR_FILEERROR(strVec args);
 std::string	ERR_NONICKNAMEGIVEN(strVec args);
 std::string	ERR_ERRONEUSNICKNAME(strVec args);
 std::string	ERR_NICKNAMEINUSE(strVec args);
-std::string	ERR_NICKCOLLISION(strVec args);
-std::string	ERR_UNAVAILRESOURCE(strVec args);
-std::string	ERR_USERNOTINCHANNEL(strVec args);
 std::string	ERR_NOTONCHANNEL(strVec args);
 std::string	ERR_USERONCHANNEL(strVec args);
-std::string	ERR_USERSDISABLED(strVec args);
 std::string ERR_NOTREGISTERED(strVec args);
 std::string	ERR_NEEDMOREPARAMS(strVec args);
 std::string	ERR_ALREADYREGISTRED(strVec args);
@@ -113,17 +98,10 @@ std::string	ERR_PASSWDMISMATCH(strVec args);
 std::string	ERR_CHANNELISFULL(strVec args);
 std::string	ERR_UNKNOWNMODE(strVec args);
 std::string	ERR_INVITEONLYCHAN(strVec args);
-std::string	ERR_BANNEDFROMCHAN(strVec args);
-std::string	ERR_BADCHANNELKEY(strVec args);
-std::string	ERR_BADCHANMASK(strVec args);
-std::string	ERR_NOCHANMODES(strVec args);
 std::string	ERR_CHANOPRIVSNEEDED(strVec args);
-std::string	ERR_RESTRICTED(strVec args);
-std::string	ERR_NOOPERHOST(strVec args);
 std::string	ERR_UMODEUNKNOWNFLAG(strVec args);
 std::string	ERR_USERSDONTMATCH(strVec args);
 std::string	ERR_NOPRIVILEGES(strVec args);
-std::string	ERR_CANTKILLSERVER(strVec args);
 std::string	ERR_CMODEMISSINGPARAMETER(strVec args);
 
 #endif

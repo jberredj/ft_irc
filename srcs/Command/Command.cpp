@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 15:08:38 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/08/06 16:04:23 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:10:49 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ Command::Command(User* invoker, std::string command_line, Server* server):
 	size_t  	position = 0;
 	size_t  	i = 0;
 
-	// 1. Look for prefix
 	if (command_line[0] == ':')
 	{
 		position = command_line.find(delimiter);
@@ -43,10 +42,8 @@ Command::Command(User* invoker, std::string command_line, Server* server):
 		i += position + 1;
 	}
 
-	// get command line without prefix
 	std::string tmp = command_line.substr(i);
 
-	// get command line without trailer & 4. save trailer if any
 	if ((position = command_line.substr(i).find(":")) != std::string::npos)
 	{
 		tmp = tmp.substr(0, position);
@@ -59,13 +56,9 @@ Command::Command(User* invoker, std::string command_line, Server* server):
 		tmp.erase(0, position + delimiter.length());
 	}
 	_parameters.push_back(tmp);
-	// 2. get command word
 	_command = *(_parameters.begin());
-	// put any command character upper case
 	for (size_t j = 0; j < _command.length(); ++j)
 		_command[j] = toupper(_command[j]);
-
-	// 3. get parameters if any
 	_parameters.erase(_parameters.begin());
 	
 }
@@ -106,10 +99,6 @@ User*			Command::getUserFromName(std::string username) const {
 	return _server->getUserFromName(username);
 }
 std::vector<User *>*	Command::getUsers(void) {return _server->getUsers();}
-
-// Server*	Command::getServer(void) const {
-// 	return _server;
-// }
 
 std::string	Command::getServerPassword(void) const {
 	return _server->getPassword();

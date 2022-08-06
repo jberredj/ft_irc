@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPL.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:08:26 by jberredj          #+#    #+#             */
-/*   Updated: 2022/07/26 23:23:03 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:19:53 by ddiakova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,6 @@ std::string	RPL_WHOISSERVER(strVec args)
 	return nick + " " + server + " :" + server_info;
 }
 
-std::string	RPL_WHOISOPERATOR(strVec args)
-{
-	std::string &nick = args[0];
-
-	return nick + " :is an IRC operator";
-}
 
 std::string	RPL_WHOWASUSER(strVec args)
 {
@@ -256,29 +250,6 @@ std::string	RPL_YOUREOPER(strVec args)
 {
 	(void)args;
 	return ":You are now an IRC operator";
-}
-
-std::string	RPL_USERSSTART(strVec args)
-{
-	(void)args;
-	return ":UserID   Terminal  Host";
-}
-
-std::string	RPL_USERS(strVec args)
-{
-	return ":" + args[0] + " " + args[1] + " " + args[2];
-}
-
-std::string	RPL_ENDOFUSERS(strVec args)
-{
-	(void)args;
-	return ":End of users"; 
-}
-
-std::string	RPL_NOUSERS(strVec args)
-{
-	(void)args;
-	return ":Nobody logged in";
 }
 
 std::string	RPL_SETNEWNICK(strVec args)
