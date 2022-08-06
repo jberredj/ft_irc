@@ -66,7 +66,6 @@ void	PRIVMSG(Command& command)
 {
 	std::vector<std::string> args;
  
-	Logger(Output::DEBUG) << "ENTERED IN PRIVMSG";
 	if (command.getParameters().size() < 1)
 	{
 		args.push_back(command.getCommand());
