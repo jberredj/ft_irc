@@ -45,10 +45,11 @@ void UserModeCommand::_retrieveTargetModes(void) {
 		return _command.replyToInvoker(221, args);
 	}
 	
-	if (_command.existingTarget()) {//  Existing target And I dont have right
+	if (_command.existingTarget()) {
 		args.push_back("Can't view modes");
-		return _command.replyToInvoker(502, args); // TODO - Add the case when I have the rights to see other user modes
+		return _command.replyToInvoker(502, args);
 	}
+
 	args.push_back(_command.getParameters()[0]);
 	_command.replyToInvoker(401, args);
 }

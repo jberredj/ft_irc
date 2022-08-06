@@ -25,6 +25,15 @@ void TOPIC(Command &command) {
 		return reply_403(command);
 	if (!isUserOnChannelErr(command, &invoker, channel))
 		return ;
+	if (command.getParameters().size() < 2)
+	{
+		strVec	args;
+		args.push_back(channel->getName());
+		args.push_back(channel->getTopic());
+		if (channel->hasTopic())
+			return command.replyToInvoker(332, args);
+		return command.replyToInvoker(331, args);
+	}
 	if (!channel->hasMode(ChannelMode::CMODE_T) || channel->isOperator(&invoker))
 	{
 		channel->setTopic(command.getTrailer());
