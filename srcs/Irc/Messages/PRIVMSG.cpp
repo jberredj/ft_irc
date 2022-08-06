@@ -50,13 +50,13 @@ static void	msgChannel(Command& command, std::string str_receiver)
 	if (!channel)
 		return reply_403(command);
 
-	//check n
-	// check if (user in channel)
-	// 		if not error and return
-	
-	//check modere ou pas - m
-	// check if (o || v)
-	//		if not error and return
+	User &invoker = command.getInvoker();
+	if (channel->hasMode(ChannelMode::CMODE_N) && !channel->isMember(&invoker)){
+		strVec args;
+		args.push_back(channel->getName());
+		command.replyToInvoker(404, args);
+	}
+
 	channel->broadcastMessage(":" + command.getInvoker().getPrefix() +" PRIVMSG " + str_receiver + " :" 
 		+ command.getTrailer(), &command.getInvoker());
 }

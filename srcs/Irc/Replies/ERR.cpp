@@ -38,7 +38,7 @@ std::string	ERR_CANNOTSENDTOCHAN(std::vector<std::string> args)
 {
 	std::string&	channelName = args[0];
 
-	return channelName + " :Cannot send to channel";
+	return channelName + " :You cannot send external messages to this channel whilst the +n (noextmsg) mode is set.";
 }
 
 std::string	ERR_TOOMANYCHANNELS(std::vector<std::string> args)
