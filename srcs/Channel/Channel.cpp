@@ -100,6 +100,7 @@ bool	Channel::addUser(User *user)
 	if (_inviteOnly && !isInvited(user))
 		return false;
 	_members.push_back(user);
+	_revokeInviteUser(user);
 	user->addChannelToUser(this);
 	_userModes.insert(std::make_pair(user, ""));
 	if (!_nbrMember)
