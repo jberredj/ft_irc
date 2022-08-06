@@ -6,7 +6,7 @@
 #    By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 17:39:23 by jberredj          #+#    #+#              #
-#    Updated: 2022/07/27 01:34:20 by jberredj         ###   ########.fr        #
+#    Updated: 2022/08/06 15:37:00 by jberredj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,7 +111,8 @@ fclean: clean
 	rm -rf $(NAME)
 	rm -rf $(LIBS)
 
-re: fclean all
+re: fclean
+	make all
 
 ###############################################################################
 ## 								Extra recipes								 ##
@@ -119,23 +120,10 @@ re: fclean all
 
 define COMPILE
 	$(foreach source,$(filter-out %.hpp,$^), \
-	printf "$(YELLOW)[..]   $(NC) $(LIGHT_PURPLE)$(subst srcs/,,$(source))\
+	printf "$(LIGHT_PURPLE)$(subst srcs/,,$(source))\
 $(NC)\n"; \
 	$(CXX) -I $(INC_DIR) $(CXXFLAGS) -c $(source) -o \
-$(addprefix $(OBJ_DIR)/, $(subst /,.,$(subst srcs/,,$(source:.cpp=.o)))) ; \
-	if [ $$? -ne "0" ];\
-	then \
-		exit 1;\
-	fi; \
-	norminette $(source) > /dev/null ;\
-	if [ $$? -ne "0" ];\
-	then \
-		printf "\033[F$(RED)[NORM]$(NC) $(LIGHT_PURPLE)\
-$(subst srcs/,,$(source))$(NC)\n";\
-	else \
-		printf "\033[F$(GREEN)[OK]  $(NC) $(LIGHT_PURPLE)\
-$(subst srcs/,,$(source))$(NC)\n";\
-	fi;)
+$(addprefix $(OBJ_DIR)/, $(subst /,.,$(subst srcs/,,$(source:.cpp=.o)))) ;)
 endef
 
 ffclean: fclean
