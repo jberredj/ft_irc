@@ -2,7 +2,8 @@
 #include <algorithm>
 
 ChannelModeCommand::ChannelModeCommand(Command &command)
-: _command(command), _currentParamIdx(2) {
+: _command(command), _modeChanges(""), _request(""), _addSign(true), 
+_oldSign(_addSign), _firstSign(true), _mode(0), _chrMode('\0'), _currentParamIdx(2) {
 }
 
 void ChannelModeCommand::updateModes(void) {
