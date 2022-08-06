@@ -18,20 +18,20 @@
 
 Channel::Channel(void):
 _isAlive(true), _name("DEFAULT"), _userLimit(-1), _nbrMember(0), _modes(), _members(), _inviteOnly(false),
-_inviteList(), _banList(), _userModes(), _createdAt(std::time(ft::null_ptr)), _topic(), _topicSetAt(0)  
+_inviteList(), _userModes(), _createdAt(std::time(ft::null_ptr)), _topic(), _topicSetAt(0)  
 {
 }
 
 Channel::Channel(const Channel &src):
 _isAlive(src._isAlive), _name(src._name), _userLimit(src._userLimit), _nbrMember(src._nbrMember), _modes(src._modes),
-_members(src._members), _inviteOnly(src._inviteOnly), _inviteList(src._inviteList), _banList(src._banList),
+_members(src._members), _inviteOnly(src._inviteOnly), _inviteList(src._inviteList),
 _userModes(src._userModes), _createdAt(src._createdAt), _topic(src._topic), _topicSetAt(src._topicSetAt)
 {
 }
 
 Channel::Channel(std::string name):
 _isAlive(true), _name(name), _userLimit(-1), _nbrMember(0), _modes(), _members(), _inviteOnly(false), _inviteList(),
-_banList(), _userModes(), _createdAt(std::time(ft::null_ptr)), _topic(), _topicSetAt(0)
+_userModes(), _createdAt(std::time(ft::null_ptr)), _topic(), _topicSetAt(0)
 {
 }
 
@@ -51,7 +51,6 @@ Channel	&Channel::operator=(const Channel &rhs)
 		_members = rhs._members;
 		_inviteOnly = rhs._inviteOnly;
 		_inviteList = rhs._inviteList;
-		_banList = rhs._banList;
 		_userModes = rhs._userModes;
 		_topicSetAt = rhs._topicSetAt;
 		_topic = rhs._topic;
@@ -79,7 +78,6 @@ bool	Channel::setUserMode(std::string mode, User* user)
 	if (it == _userModes.end())
 		return false;
 	(*it).second = mode;
-	// TODO - Need to check the mode that is added to ban/unban invite/uninvite user
 	return true;
 
 }
@@ -98,8 +96,6 @@ bool	Channel::addUser(User *user)
 	if (!user)
 		return false;
 	if (_nbrMember == _userLimit)
-		return false;
-	if (isBanned(user))
 		return false;
 	if (_inviteOnly && !isInvited(user))
 		return false;
@@ -156,14 +152,6 @@ std::string	 	Channel::getRawCreatedAt(void) const {
 	return ss.str();
 }
 
-bool	Channel::isBanned(User *user)
-{
-	std::vector<User*>::iterator it = find(_banList.begin(), _banList.end(), user);
-	if (it != _banList.end())
-		return true;
-	return false;
-}
-
 std::string	Channel::getTopic(void) const {return _topic;}
 int			Channel::getNbrMember(void) const {return _nbrMember;}
 
@@ -194,22 +182,6 @@ void		Channel::removeMode(uint8_t mode) {_modes.removeMode(mode);}
 bool		Channel::hasMode(uint8_t mode) {return _modes.hasMode(mode);}
 
 std::vector<User*>	Channel::getMembers(void) const {return _members;}
-
-bool	Channel::_banUser(User* user)
-{
-	if (isBanned(user))
-		return false;
-	_banList.push_back(user);
-	return true;
-}
-
-bool	Channel::_unbanUser(User* user)
-{
-	if (!isBanned(user))
-		return false;
-	_banList.erase(find(_banList.begin(), _banList.end(), user));
-	return true;
-}
 
 bool	Channel::inviteUser(User* user)
 {

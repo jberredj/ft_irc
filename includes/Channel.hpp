@@ -37,7 +37,6 @@ public:
 	bool	addUser(User *user);
 	bool	removeUser(User *user);
 	void	broadcastMessage(std::string message, User *sender = ft::null_ptr);
-	bool	isBanned(User *user);
 	void	setInvite(bool invite);
 	bool	getInvite(void) const;
 	bool	isInvited(User* user);
@@ -69,14 +68,11 @@ private:
 	std::vector<User*>				_members;
 	bool							_inviteOnly;
 	std::vector<User*>				_inviteList;
-	std::vector<User*>				_banList;
 	std::map<User*, std::string>	_userModes;
 	time_t							_createdAt;
 	std::string						_topic;
 	time_t							_topicSetAt;
 
-	bool	_banUser(User* user);
-	bool	_unbanUser(User* user);
 	bool	_revokeInviteUser(User* user);
 };
 

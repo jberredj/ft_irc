@@ -106,9 +106,6 @@ void ChannelModeCommand::_manageMode(void) {
 		case ChannelMode::CMODE_O:
 			_manageChanopFlag();
 			break;
-		case ChannelMode::CMODE_B:
-			; // TODO - Add ban mask (simpler, add arg to ban list users)
-			break;
 		case ChannelMode::CMODE_L:
 			_manageLimitFlag();
 			break;
