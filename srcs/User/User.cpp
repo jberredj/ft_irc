@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/08/06 15:27:42 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:30:03 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ void    User::execCommandQueue()
 				_cmdMap[cmd.getCommand()](cmd);
 		}
 		else
-			Logger(Output::INFO) << "Unknown command: " << cmd.getCommand(); 
+			Logger(Output::DEBUG) << "Unknown command: " << cmd.getCommand(); 
 		_commandQueue.pop();
 	}	
 }	
