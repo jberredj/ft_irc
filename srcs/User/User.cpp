@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:16:27 by ddiakova          #+#    #+#             */
-/*   Updated: 2022/07/27 02:18:40 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:27:42 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,14 @@ User::User(void):
 	_timeoutSecs(20), _lastSeen(_signon), _expectedPONG("")
 {
 	_initUserClass();
-	Logger(Output::TRACE) << "User constructor called";
 }
 
 User::User(const User& src)
 {
-	Logger(Output::TRACE) << "User copy contructor called";
 	*this = src;
 }
 
 User::~User() {
-	Logger(Output::TRACE) << "User destructor called";
 	channelIterator it = _channels.begin(); 
 	while (it != _channels.end())
 	{
@@ -56,7 +53,6 @@ User::~User() {
 //operators
 User &User::operator=(User const & rhs)
 {
-	Logger(Output::TRACE) << "User assignement operator called";
 	if (this != &rhs)
 	{
 		this->_status = rhs._status;
@@ -250,7 +246,6 @@ void    User::execCommandQueue()
 		Command &cmd = _commandQueue.front();
 		if (_cmdMap.count(cmd.getCommand()) > 0)
 		{
-			Logger(Output::TRACE) << cmd;
 			if (canExecuteCommand(cmd))
 				_cmdMap[cmd.getCommand()](cmd);
 		}
