@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/06/23 00:27:08 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:12:44 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ Server::Server(int ac, char** av):
 			" <port> <password>"));
 	}
 	Logger(Output::INFO) << "Requested port: " << av[1];
-	_uniqueInstanceOnPort((char*)av[1]);
 	signal(SIGINT, Server::_SigIntHandler);
 	_preparePollfds();
 	_serverSocket = _createServerSocket((char*)av[1]);
@@ -133,21 +132,3 @@ void	Server::_logRawMessage(char *buf, User &user, std::string prefix)
 		Logger(Output::DEBUG) << prefix << user.getNickname() << ": " << messageToPrint;
 	}
 }
-
-void	Server::_uniqueInstanceOnPort(char *port)
-{
-	struct flock fl;
-	std::string	filename("/tmp/ft_ircserv_" + std::string(port));
-	_portInstanceLock = open(filename.c_str(), O_WRONLY | O_CREAT, 0600);
-	if (_portInstanceLock == -1)
-		throw(std::runtime_error("Can't open lock file"));
-	fl.l_start = 0;
-	fl.l_len = 0;
-	fl.l_type = F_WRLCK;
-	fl.l_whence = SEEK_SET;
-	if (fcntl(_portInstanceLock, F_SETLK, &fl) < 0)
-		throw(std::runtime_error("Another instance of ircserv "
-			"is running on port " +  std::string(port)));
-}
-
-

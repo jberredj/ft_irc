@@ -80,7 +80,6 @@ private:
 	// General methods and functions
 	static void	_SigIntHandler(int signum);
 	void		_logRawMessage(char* buf, User& user, std::string prefix);
-	void		_uniqueInstanceOnPort(char* port);
 
 	// SocketIO methods and functions
 	int			_createServerSocket(char* port);
