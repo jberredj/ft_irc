@@ -57,7 +57,6 @@ private:
 	int							_serverSocket;
 	std::vector<struct pollfd>	_pollfds;
 	std::map<int, User*>		_usersMap;
-	int							_portInstanceLock;
 	std::vector<User *>			_users;
 	std::vector<User *>			_oldUsers;
 	std::string					_serverName;

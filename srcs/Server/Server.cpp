@@ -70,7 +70,6 @@ Server::~Server(void)
 		if ((*it).second)
 			delete (*it).second;
 	close(_serverSocket);
-	close(_portInstanceLock);
 }
 
 // Getters
