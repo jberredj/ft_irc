@@ -173,9 +173,7 @@ bool	Channel::getInvite(void) const {return _inviteOnly;}
 bool	Channel::isInvited(User* user)
 {
 	std::vector<User*>::iterator it = find(_inviteList.begin(), _inviteList.end(), user);
-	if (it != _inviteList.end())
-		return true;
-	return false;
+	return (it != _inviteList.end());
 }
 
 bool	Channel::isOperator(User* user)
@@ -183,9 +181,7 @@ bool	Channel::isOperator(User* user)
 	if (!isMember(user))
 		return false;
 	std::string	userMode = getUserMode(user);
-	if (userMode.find('o') != userMode.npos)
-		return true;
-	return false;
+	return (userMode.find('o') != userMode.npos);
 }
 
 bool	Channel::isMember(User*	user) {return std::find(_members.begin(), _members.end(), user) != _members.end();}

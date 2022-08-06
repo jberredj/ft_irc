@@ -211,7 +211,7 @@ std::string	ERR_INVITEONLYCHAN(std::vector<std::string> args)
 {
 	std::string&	channel = args[0];
 
-	return channel + " :Cannot join channel (+i)";
+	return channel + " :Cannot join channel (invite only)";
 }
 
 std::string	ERR_BANNEDFROMCHAN(std::vector<std::string> args)

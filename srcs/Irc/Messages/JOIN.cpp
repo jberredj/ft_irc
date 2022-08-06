@@ -21,21 +21,27 @@ void	JOIN(Command &command)
 		return;
 	std::string	channelList = command.getParameters()[0];
 	Channel*	channel = ft::null_ptr;
-	while ((channel = getNextChannel(channelList, command))) // TODO - Infinite loop ?
+	while ((channel = getNextChannel(channelList, command)))
 	{
-		Logger(Output::WARN) << "NO CHECK ARE IMPLEMENTED TO CHECK IF USER IS AUTHORIZED TO JOIN";
-		// TODO: ADD Check if User can join
-		if (channel->addUser(&command.getInvoker()))
-		{
-			channel->broadcastMessage(":" + command.getInvoker().getPrefix() + " JOIN :" + channel->getName());
-			if (channel->hasTopic())
-			{
-				strVec	args;
-				args.push_back(channel->getName());
-				args.push_back(channel->getTopic());
-				command.replyToInvoker(332, args);
-			}
-			listChannelMembers(command, channel);
+		User &user = command.getInvoker();
+		if (channel->hasMode(ChannelMode::CMODE_I) && !channel->isInvited(&user)) {
+			strVec args;
+			args.push_back(channel->getName());
+			command.replyToInvoker(473, args);
+			continue;
 		}
+
+		if (!channel->addUser(&command.getInvoker()))
+			continue;
+
+		channel->broadcastMessage(":" + command.getInvoker().getPrefix() + " JOIN :" + channel->getName());
+		if (channel->hasTopic())
+		{
+			strVec	args;
+			args.push_back(channel->getName());
+			args.push_back(channel->getTopic());
+			command.replyToInvoker(332, args);
+		}
+		listChannelMembers(command, channel);
 	}
 }

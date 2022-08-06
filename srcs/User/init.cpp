@@ -41,13 +41,11 @@ void	User::_initUserClass(void)
 		_cmdMap["NAMES"] = NAMES;
 		Logger(Output::WARN) << "NAMES: Check correct error Cases";
 		_cmdMap["MODE"] = MODE;
-		Logger(Output::WARN) << "MODE message is incomplete";
 		_cmdMap["LIST"] = LIST;
 		Logger(Output::WARN) << "LIST: Implement Channel Mode Check";
 		_cmdMap["KILL"] = KILL;
 		_cmdMap["KICK"] = KICK;
 		_cmdMap["JOIN"] = JOIN;
-		Logger(Output::WARN) << "JOIN: Implement Channel Mode Check";
 		_cmdMap["INVITE"] = INVITE;
 		_cmdMap["AWAY"] = AWAY;
 	}
