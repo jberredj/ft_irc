@@ -152,9 +152,6 @@ std::string	RPL_WHOISMODES(strVec args)
 	std::string &nick = args[0];
 	std::string &mode = args[1];
 
-	// TODO ? seems to be another parameter called snomaskmode->GetUserParameter(dest) 
-	// if mode is set to `snomaskmode` ? https://github.com/inspircd/inspircd/blob/insp3/src/coremods/core_whois.cpp l.244
-
 	return  nick + " :is using modes +" + mode;
 }
 
@@ -267,7 +264,6 @@ std::string	RPL_USERSSTART(strVec args)
 	return ":UserID   Terminal  Host";
 }
 
-// TODO: Are those required ??? Maybe check this 
 std::string	RPL_USERS(strVec args)
 {
 	return ":" + args[0] + " " + args[1] + " " + args[2];

@@ -31,9 +31,9 @@ void    KICK(Command& command)
 	if (!(channel = command.getChannel(curChannel)))
 		return reply_403(command);
 	if (!isUserOnChannelErr(command, &command.getInvoker(), channel))
-		return ; // TODO - Return something ?
+		return ;
 	if (!(user = command.getUser(nick)))
-		return ; // TODO - Return something ?
+		return ;
 	if (!channel->isOperator(&command.getInvoker()))
 	{
 		args.push_back(channel->getName());

@@ -28,7 +28,7 @@ void    INVITE(Command& command)
 	if (!(channel = command.getChannel(channel_str)))
 		return reply_403(command);
 	if (!isUserOnChannel(&command.getInvoker(), channel))
-		return ; // TODO - return something ?
+		return ;
 	user = command.getUser(nick);
 	if (!user)
 	{
