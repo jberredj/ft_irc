@@ -21,7 +21,7 @@ void	JOIN(Command &command)
 		return;
 	std::string	channelList = command.getParameters()[0];
 	Channel*	channel = ft::null_ptr;
-	while ((channel = getNextChannel(channelList, command)))
+	while ((channel = getNextChannel(channelList, command))) // TODO - Infinite loop ?
 	{
 		Logger(Output::WARN) << "NO CHECK ARE IMPLEMENTED TO CHECK IF USER IS AUTHORIZED TO JOIN";
 		// TODO: ADD Check if User can join
