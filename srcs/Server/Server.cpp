@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/08/06 16:09:30 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:38:59 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,26 @@
 /*                                 Public                                     */
 /* ************************************************************************** */
 
-// Constructors and destructor
-bool is_number(const std::string& s)
+static bool _isNumber(std::string s)
 {
-    std::string::const_iterator it = s.begin();
-    while (it != s.end() && std::isdigit(*it)) ++it;
-    return !s.empty() && it == s.end();
+    std::string::iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it))
+		++it;
+   	return !s.empty() && it == s.end();
 }
+
+static void _checkIllegalPassword(std::string password)
+{
+	if (password.empty())
+		throw("Password can' t be an empty string");
+	std::string::iterator it = password.begin();
+	while (it != password.end() && std::isprint(*it)) 
+		++it;
+	if (it != password.end())
+		throw("Password must be printable.");
+}
+
+// Constructors and destructor
 
 Server::Server(int ac, char** av):
 	_exitCode(0), _serverName("irc.CTPT.fr")
@@ -46,8 +59,9 @@ Server::Server(int ac, char** av):
 		throw(std::runtime_error("usage: " + std::string(av[0]) +
 			" <port> <password>"));
 	}
-	if  (!is_number((char*)av[1]))
+	if (!_isNumber((char*)av[1]))
 		throw(std::runtime_error("Port must be a number."));
+	_checkIllegalPassword(av[2]);
 	Logger(Output::INFO) << "Requested port: " << av[1];
 	signal(SIGINT, Server::_SigIntHandler);
 	_preparePollfds();
