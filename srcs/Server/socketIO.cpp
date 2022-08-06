@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:37:21 by jberredj          #+#    #+#             */
-/*   Updated: 2022/08/06 15:48:15 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:10:45 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ int	Server::_createServerSocket(char* port)
 {
 	int					server_socket = socket(AF_INET, SOCK_STREAM, 0);
 	struct sockaddr_in	addr;
+	int					raw_port = atoi(port);
 
+	if (raw_port < 0 || raw_port > 65365)
+		throw(std::runtime_error("Port must be a value between 0 and 65365"));
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(atoi(port));
+	addr.sin_port = htons(raw_port);
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	int 				bindResult = bind(server_socket,
 										(struct sockaddr*)&addr, sizeof(addr));

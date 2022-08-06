@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/08/06 15:22:10 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:09:30 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@
 /* ************************************************************************** */
 
 // Constructors and destructor
+bool is_number(const std::string& s)
+{
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
+
 Server::Server(int ac, char** av):
 	_exitCode(0), _serverName("irc.CTPT.fr")
 {
@@ -39,6 +46,8 @@ Server::Server(int ac, char** av):
 		throw(std::runtime_error("usage: " + std::string(av[0]) +
 			" <port> <password>"));
 	}
+	if  (!is_number((char*)av[1]))
+		throw(std::runtime_error("Port must be a number."));
 	Logger(Output::INFO) << "Requested port: " << av[1];
 	signal(SIGINT, Server::_SigIntHandler);
 	_preparePollfds();
