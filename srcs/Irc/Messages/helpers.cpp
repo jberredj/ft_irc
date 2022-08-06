@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiakova <ddiakova@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:35:07 by jberredj          #+#    #+#             */
-/*   Updated: 2022/08/06 16:32:32 by ddiakova         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:53:58 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	listChannelMembers(Command &command, Channel *channel)
 	std::size_t	messageLen = minMessageLen;
 	
 	args.push_back(channel->getName());
-	if (isUserOnChannel(&command.getInvoker(), channel) || !channel->hasMode(ChannelMode::CMODE_S))
+	if (isUserOnChannel(&command.getInvoker(), channel))
 	{
 		for(userVec::iterator it = members.begin(); it != members.end(); it++)
 		{
