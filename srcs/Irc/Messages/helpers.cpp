@@ -46,7 +46,7 @@ Channel*	getNextChannel(std::string& channelList, Command& command, bool createI
 		strVec	args;
 		args.push_back(channelName);
 		command.replyToInvoker(403, args);
-		std::string	channelName = getNameFromList(channelList);
+		channelName = getNameFromList(channelList);
 	}
 	if (channelName.empty())
 		return ft::null_ptr;
