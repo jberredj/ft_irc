@@ -32,9 +32,9 @@ void    LIST(Command& command)
 		Channel*			channel = (*channelIt).second;
 		std::string			channelName = "*";
 
-		if (isUserOnChannel(&invoker, channel) || true/* !channel->hasMode(ChannelMode::CMODE_S))*/) // TODO IMPLEMENT MODE CHECKING
+		if (isUserOnChannel(&invoker, channel) || !channel->hasMode(ChannelMode::CMODE_S))
 			channelName = channel->getName();
-		else if (false /*channel->hasMode(ChannelMode::CMODE_S))*/) // If channel is Secret and user is not a member of it, we should not display the channel
+		else
 			continue;
 		args.push_back(channelName);
 		nbrMember << channel->getNbrMember();
