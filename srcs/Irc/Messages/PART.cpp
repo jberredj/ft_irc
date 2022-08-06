@@ -34,7 +34,7 @@ void	PART(Command& command)
 	std::string	channelList = command.getParameters()[0];
 	std::string	leaveMsg("");
 	if (command.getParameters().size() > 1)
-		leaveMsg = ":" + command.getParameters()[1];
+		leaveMsg = ":" + command.getTrailer();
 	while (channelList.size())
 	{
 		Channel* channel = getNextChannel(channelList, command, false);
