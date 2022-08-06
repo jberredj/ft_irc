@@ -24,11 +24,8 @@ class Server
 public:
 	// Constructors and destructor
 					Server(int ac, char** av);
-					Server(const Server& src);
 					~Server(void);
 
-	// Operators
-	Server&			operator=(const Server& rhs);
 
 	// Getters
 	short			getExitCode(void) const;

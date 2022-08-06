@@ -6,7 +6,7 @@
 /*   By: jberredj <jberredj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:28:19 by jberredj          #+#    #+#             */
-/*   Updated: 2022/08/06 15:12:44 by jberredj         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:22:10 by jberredj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,8 @@ Server::Server(int ac, char** av):
 	_running = true;
 }
 
-Server::Server(const Server &src)
-{
-	Logger(Output::WARN) << "Incomplete copy constructor for Server";
-	*this = src;
-}
-
 Server::~Server(void)
 {
-	Logger(Output::WARN) << "IMPLEMENT CHANNEL AND HANDLE FREE CHANNEL";
 	for(std::vector<User *>::iterator it = _users.begin(); it < _users.end(); it++)
 		delete (*it);
 	for(std::vector<User *>::iterator it = _oldUsers.begin(); it < _oldUsers.end(); it++)
@@ -83,16 +76,6 @@ void	Server::setServerName(std::string serverName)
 }
 
 std::string	Server::getPassword(void) const {return _password;}
-
-
-// Operators
-Server&	Server::operator=(const Server& rhs)
-{
-	Logger(Output::WARN) << "Incomplete assignement operator for Server";
-	// *this = rhs;
-	(void)rhs;
-	return *this;
-}
 
 /* ************************************************************************** */
 /*                                 Private                                    */
