@@ -61,7 +61,7 @@ Channel	&Channel::operator=(const Channel &rhs)
 
 bool	Channel::setUserLimit(int limit)
 {
-	if (limit < 0)
+	if (limit < -1)
 		return false;
 	_userLimit = limit;
 	return true;
@@ -157,6 +157,10 @@ int			Channel::getNbrMember(void) const {return _nbrMember;}
 
 void	Channel::setInvite(bool invite) {_inviteOnly = invite;}
 bool	Channel::getInvite(void) const {return _inviteOnly;}
+
+bool	Channel::isFull(void) const {
+	return (_userLimit != -1 && _userLimit == _nbrMember);
+}
 
 bool	Channel::isInvited(User* user)
 {

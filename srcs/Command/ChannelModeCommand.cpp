@@ -132,8 +132,10 @@ void ChannelModeCommand::_manageSimpleFlags(void) {
 }
 
 void ChannelModeCommand::_manageLimitFlag(void) {
-	if (!_addSign)
+	if (!_addSign) {
+		_channel->setUserLimit(-1);
 		return _removeMode();
+	}
 
 	std::string strLimit = _getNextParameter();
 	if (strLimit.empty())

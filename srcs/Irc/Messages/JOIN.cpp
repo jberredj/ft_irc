@@ -30,7 +30,12 @@ void	JOIN(Command &command)
 			command.replyToInvoker(473, args);
 			continue;
 		}
-
+		if (channel->hasMode(ChannelMode::CMODE_L) && channel->isFull()) {
+			strVec args;
+			args.push_back(channel->getName());
+			command.replyToInvoker(471, args);
+			continue;
+		}
 		if (!channel->addUser(&command.getInvoker()))
 			continue;
 

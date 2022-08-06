@@ -39,6 +39,7 @@ public:
 	void	broadcastMessage(std::string message, User *sender = ft::null_ptr);
 	void	setInvite(bool invite);
 	bool	getInvite(void) const;
+	bool	isFull(void) const;
 	bool	isInvited(User* user);
 	bool	isAlive(void) const;
 	bool	isOperator(User *user);
